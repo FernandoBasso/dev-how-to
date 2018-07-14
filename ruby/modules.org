@@ -1,0 +1,218 @@
+#+TITLE: Modules
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6
+#+PROPERTY: header-args :results output :exports both
+
+* Intro
+
+Modules are bundles of methods and constants. You add a module to a class to endow the class with extra functionality.
+
+Modules are similar to classes (but we can't create instances of modules), so much that the ~Class~ class is a subclass of the ~Module~ class, and that means that every class object is also a module object.
+
+~Kernel~ is a module that contains many of the methods that are common to all objects, including ~load~ and ~require~.
+
+#+BEGIN_SRC ruby :results silent
+module Greeter
+  def hi
+    'Hi there.'
+  end
+end
+
+class Message
+  include Greeter
+end
+
+msg = Message.new
+p msg.hi
+# → "Hi there."
+#+END_SRC
+
+We defined the method ~hi~ in the ~Greeter~ module like if it were an instance method of a class, and by including the module in the ~Message~ class, we can use that method in instances of that class as if they were defined as instance methods of the class itself.
+
+In Ruby, we can inherit from a single parent class at a time, but we can include (mix in) multiple modules at once.
+
+
+#+BEGIN_SRC ruby :results output
+module StackIt
+  def stack
+    @stack ||= []
+  end
+
+  def stack_add(obj)
+    stack.push(obj)
+  end
+
+  def stack_pop
+    stack.pop
+  end
+end
+
+class OurStack
+  include StackIt
+end
+
+stk = OurStack.new
+stk.stack_add('PHP')
+stk.stack_add('JavaScript')
+p stk.stack
+# → ["PHP", "JavaScript"]
+
+p stk.stack_pop
+# → "JavaScript
+
+stk.stack_add('Haskell')
+stk.stack_add('Ruby')
+p stk.stack
+# → ["PHP", "Haskell", "Ruby"]
+#+END_SRC
+
+#+RESULTS:
+: ["PHP", "JavaScript"]
+: "JavaScript"
+: ["PHP", "Haskell", "Ruby"]
+
+~@stack~ in ~StackIt~ module behaves like if it were defined in ~OutStack~ class. Now we could use it in any class, not just in ~OutStack~.
+
+
+Class names should generally be a noun, and module names should generally be an adjective. There must be good reasons to not follow this convention on any given situation.
+
+
+* module instance method
+
+This module has an instance method:
+
+#+BEGIN_SRC ruby :results none
+module Pluralable
+  def pluralize(word, count, plural = nil)
+    return word if 1 == count
+    return plural if plural
+    return "#{count} #{word}s"
+  end
+end
+
+class Message
+  include Pluralable
+end
+
+msg = Message.new
+p msg.pluralize('apple', 0)
+# → "0 apples"
+
+p msg.pluralize(1, 'apple')
+# → "1 apple"
+
+p msg.pluralize('apple', 2)
+# → "2 apples"
+
+p msg.pluralize('foot', 0, 'feet')
+# → "0 feet"
+
+p msg.pluralize('foot', 1)
+# → "1 foot"
+
+p msg.pluralize('foot', 2, 'feet')
+# → "0 feet"
+#+END_SRC
+
+The method ~pluralize~ in the ~Pluralable~ module is an instance method of that module, and when it gets /mixed into/ (included) into the class ~Message~ that class can use the module as if it were and instance method of the class itself. What happens is that there is a module lookup going on. When something like a method or variable can't be found on a class, the lookup mechanism looks in parent classes and included modules to try to find the variable or method.
+
+Even if a super super super class includes a module that contains a certain method, the current object will be able to invoke that method.
+
+If a method is not found, the result is an error condition that triggers the call of the method ~method_missing~ (and we can override it to customize what happens when this method is invoked).
+
+~BasicObject~ is the first class in the hierarchy, then we have the ~Object~ class, and ~Kernel~ is a module that ~Object~ mixes in.
+
+All classes that inherit from ~Object~ automatically inherit stuff provided by ~Kernel~.
+
+TODO: Draw some diagram about this hierarchy of modules and classes to insert at this point.
+
+** Method Overriding
+
+When a module (or a class) define the same method name more than once, the last one wins.
+
+
+* Inheritance
+
+When we create our classes, we don't need to explicitly inherit from ~Object~. That is done automatically.
+
+#+BEGIN_SRC ruby
+class Person
+  # This class has access to all stuff defined in
+  # Object and Kernl.
+  #
+end
+
+p Person.superclass
+# → Object
+
+p Person.class
+# → Class
+#+END_SRC
+
+
+Remember that doing ~class Foo ... end~ is the same as ~Foo = Class.new do ... end~, and that the former notation is syntax sugar the latter. So, ~Person~ is an /instance/ of ~Class~ (so ~Person~ is indeed also an object on its own right), and it inherits from ~Object~. And ~Object~ mixes in the module ~Kernel~ Read more at [[https://ruby-doc.org/core-2.5.1/Object.html][the Ruby docs for the ~Object~ class]].
+
+Okay, so, if Ruby can only inherit from a single class at a time, that means if we now instantiate a ~Teacher~ class and make it inherit from ~Person~, then ~Teacher~ does not inherit from ~Object~?
+
+Because ~Person~ inherits from ~Object~, and ~Teacher~ inherits from ~Person~, that means ~Teacher~ also have access to stuff defined in the ~Object~ class, which also means it has access to things defined in ~Kernel~. In short, a descendant has access to all the stuff from any of its ancestors
+
+#+BEGIN_SRC ruby
+class Person
+  # Inherits from Object (which inherits from BasicObject) and
+  # includes the module Kernel.
+
+  def initialize(name)
+    @name = name
+  end
+
+  def tell_name
+    "My name is #{@name}"
+  end
+end
+
+class Teacher < Person
+  def tell_profession
+    'I am a teacher.'
+  end
+end
+
+person = Person.new('Lara Croft')
+teacher = Teacher.new('Verner Von Coy')
+
+# Instances of ~Person~ have access to `respond_to?' (from `Kernel').
+if person.respond_to?(:tell_profession)
+  # This won't execute becase `Person` doesn't
+  # have the method `tell_profession'.
+  p person.tell_profession
+else
+  # This will be executed.
+  p 'Person cannot tell the profession.'
+end
+
+if teacher.respond_to?(:tell_profession)
+  # This will be executed.
+  p teacher.tell_profession
+else
+  # This else block won't run because Teacher has the
+  # method `tell_profession`
+  p 'Teacher cannot tell profession.'
+end
+#+END_SRC
+
+#+RESULTS:
+: "Person cannot tell the profession."
+: "I am a teacher."
+
+
+
+
+

@@ -1,0 +1,30 @@
+#+TITLE: NodeLists
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6
+#+PROPERTY: header-args :exports both
+
+* Convert NodeList to Array
+
+#+BEGIN_SRC js
+const divsList = document.querySelectorAll('div');
+const divsArr = [...document.querySelectorAll('div')];
+
+console.log(Object.prototype.toString.call(divList));
+// → "[object NodeList]"
+
+console.log(Object.prototype.toString.call(divArr));
+// → "[object Array]"
+
+
+
+#+END_SRC
+
