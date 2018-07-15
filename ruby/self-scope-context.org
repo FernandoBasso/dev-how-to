@@ -13,7 +13,27 @@
 #+OPTIONS: TOC:6 ^:nil
 #+PROPERTY: header-args :results output :exports both
 
+Most identifiers in Ruby mean different things depending on where they appear or how they are used.
 
+* self and scope
+
+~self~ is the default, current object. The current execution context. The scope on which the code is currently executing.
+
+#+BEGIN_SRC ruby
+class AnExample
+  def a_method
+    @my_ivar = 'IVAR from inside the method body'
+    @my_ivar
+  end
+
+  @my_ivar = 'IVAR in the class body'
+end
+
+p AnExample.new.a_method
+#+END_SRC
+
+#+RESULTS:
+: "IVAR from inside the method body"
 
 
 

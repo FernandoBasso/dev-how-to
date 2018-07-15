@@ -3,7 +3,7 @@
 # Place where I manipulate files when I an studying my Anki cards
 # and need to run quick snippets of code to assert my knowledge of
 # the things I am committing to the long-term memory.
-dir="${HOME}/Dropbox/ruby/the-well-grounded-rubyist/src"
+dir="${HOME}/Projects/programming-how-to/ruby"
 ses='ruby-studies'
 
 if [ ! -d "$dir" ] ; then
