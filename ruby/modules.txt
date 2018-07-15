@@ -1,8 +1,8 @@
-                         ━━━━━━━━━━━━━━━━━━━━━━
+                            ━━━━━━━━━━━━━━━━
                                 MODULES
 
-                          Fernando Basso (dev)
-                         ━━━━━━━━━━━━━━━━━━━━━━
+                             Fernando Basso
+                            ━━━━━━━━━━━━━━━━
 
 
 Table of Contents
@@ -10,7 +10,10 @@ Table of Contents
 
 1 Intro
 2 module instance method
-3 Inheriting from Object
+.. 2.1 Method Overriding
+3 Inheritance
+4 Method Lookup
+5 include vs prepend
 
 
 
@@ -167,8 +170,15 @@ Table of Contents
   insert at this point.
 
 
-3 Inheriting from Object
-════════════════════════
+2.1 Method Overriding
+─────────────────────
+
+  When a module (or a class) define the same method name more than once,
+  the last one wins.
+
+
+3 Inheritance
+═════════════
 
   When we create our classes, we don't need to explicitly inherit from
   `Object'. That is done automatically.
@@ -195,11 +205,214 @@ Table of Contents
 
   Remember that doing `class Foo ... end' is the same as `Foo =
   Class.new do ... end', and that the former notation is syntax sugar
-  the latter. So, `Person' is an instance of `Class' (so `Person' is
+  the latter. So, `Person' is an /instance/ of `Class' (so `Person' is
   indeed also an object on its own right), and it inherits from
-  `Object'. And `Object' mixes in the module `Kernel' Read more at [Ruby
-  docs about the `Object' class].
+  `Object'. And `Object' mixes in the module `Kernel' Read more at [the
+  Ruby docs for the `Object' class].
+
+  Okay, so, if Ruby can only inherit from a single class at a time, that
+  means if we now instantiate a `Teacher' class and make it inherit from
+  `Person', then `Teacher' does not inherit from `Object'?
+
+  Because `Person' inherits from `Object', and `Teacher' inherits from
+  `Person', that means `Teacher' also have access to stuff defined in
+  the `Object' class, which also means it has access to things defined
+  in `Kernel' (because `Object' mixes `Kernel' in). In short, a
+  descendant has access to all the stuff from any of its ancestors.
+
+  ┌────
+  │ class Person
+  │   # Inherits from Object (which inherits from BasicObject) and
+  │   # includes the module Kernel.
+  │
+  │   def initialize(name)
+  │     @name = name
+  │   end
+  │
+  │   def tell_name
+  │     "My name is #{@name}"
+  │   end
+  │ end
+  │
+  │ class Teacher < Person
+  │   def tell_profession
+  │     'I am a teacher.'
+  │   end
+  │ end
+  │
+  │ person = Person.new('Lara Croft')
+  │ teacher = Teacher.new('Verner Von Coy')
+  │
+  │ # Instances of ~Person~ have access to `respond_to?' (from `Kernel').
+  │ if person.respond_to?(:tell_profession)
+  │   # This won't execute becase `Person` doesn't
+  │   # have the method `tell_profession'.
+  │   p person.tell_profession
+  │ else
+  │   # This will be executed.
+  │   p 'Person cannot tell the profession.'
+  │ end
+  │
+  │ if teacher.respond_to?(:tell_profession)
+  │   # This will be executed.
+  │   p teacher.tell_profession
+  │ else
+  │   # This else block won't run because Teacher has the
+  │   # method `tell_profession`
+  │   p 'Teacher cannot tell profession.'
+  │ end
+  └────
+
+  ┌────
+  │ "Person cannot tell the profession."
+  │ "I am a teacher."
+  └────
 
 
-[Ruby docs about the `Object' class]
+[the Ruby docs for the `Object' class]
 https://ruby-doc.org/core-2.5.1/Object.html
+
+
+4 Method Lookup
+═══════════════
+
+  An object can only “see” one method with a given name at a time. The
+  object’s lookup mechanism stops at the first name that matches. The
+  lookup mechanism walks from the inner to the outer definitions, which
+  means inner definitions win.
+
+  ┌────
+  │ module Greetable
+  │   def say_hello
+  │     "Hello from module `Greetable'."
+  │   end
+  │ end
+  │
+  │ class Message
+  │   include Greetable
+  │
+  │   def say_hello
+  │     "Hello from class `Message'."
+  │   end
+  │ end
+  │
+  │ msg = Message.new
+  │ p msg.say_hello
+  │ # → "Hello from module `Greetable'."
+  └────
+
+  ┌────
+  │ "Hello from class `Message'."
+  └────
+
+  The method `say_hello' in the class `Message' “wins”, because the
+  lookup mechanism will start with the class that gave birth to the
+  object `msg', and only if it doesn’t find the method there will it
+  look further in the lookup chain.
+
+  If two or more included modules define the same method, the most
+  recent included one (the last included) wins.
+
+  ┌────
+  │ module Mod1
+  │   def hello
+  │     'Hello from mod1.'
+  │   end
+  │ end
+  │
+  │ module Mod2
+  │   def hello
+  │     'Hello from mod2.'
+  │   end
+  │ end
+  │
+  │ class Foo
+  │   include Mod1
+  │   include Mod2 # included last, wins
+  │ end
+  │
+  │ class Bar
+  │   include Mod2
+  │   include Mod1 # included last, wins
+  │ end
+  │
+  │ foo = Foo.new
+  │ p foo.hello
+  │ # → "Hello from mod2."
+  │
+  │ bar = Bar.new
+  │ p bar.hello
+  │ # → "Hello from mod1."
+  └────
+
+  ┌────
+  │ "Hello from mod2."
+  │ "Hello from mod1."
+  └────
+
+
+  Also important to be aware that including the method more than once
+  doesn’t actually re-include it. Ruby detects that it was already in
+  the load path and simply ignores it.
+
+  ┌────
+  │ class Foo
+  │   include Mod1
+  │   include Mod2 # Considered the last included.
+  │   include Mod1 # Won’t be re-included.
+  │ end
+  └────
+
+
+5 include vs prepend
+════════════════════
+
+  When we `prepend' modules in a class (instead of using `include', the
+  lookup mechanism searches for methods in the modules first, and only
+  then in the class.
+
+  ┌────
+  │ module Greetable
+  │   def hello
+  │     "Hello from the module `Greeter'."
+  │   end
+  │ end
+  │
+  │ class Message
+  │   prepend Greetable
+  │   def hello
+  │     "Hello from the class `Message'."
+  │   end
+  │ end
+  │
+  │ msg = Message.new
+  │ p msg.hello
+  │ # → "Hello from the module `Greeter'."
+  └────
+
+  ┌────
+  │ "Hello from the module `Greeter'."
+  └────
+
+  Even though the class `Message' defines a method with the same name as
+  the method defined in the mixed in module, because we used `prepend'
+  rather than `include', the method defined in the module “wins”. With
+  `include', the version defined in the class would win.
+
+
+  `self.class.ancestors' will display the classes and modules that
+  compose the current object.
+
+  ┌────
+  │ [14:47:44] <FernandoBasso> Inside method defined inside a module, is there a self.<something> that would show the name of the module?
+  │ [14:48:31] <FernandoBasso> Like, in a class method, I can do self.class and it shows the name of the class in which the method is defined. Can I show the name of the module in which the module is defined in a similar fashion?
+  │ [14:48:40] <apeiros> self.class.ancestors will contain it
+  │ [14:49:05] <FernandoBasso> I see. Thanks.
+  │ [14:49:37] <apeiros> but since a method is always invoked in the context of the receiver, there's nothing which will tell you "this is the method defined in module X"
+  │ [14:50:22] <apeiros> well, to a degree you can use source_location and/or method(__method__).owner, both have their issues and limitations.
+  │ [14:50:26] <apeiros> what do you try to achieve?
+  │ [14:51:38] <FernandoBasso> Nothing in particular. Just trying to understand self better, and the relation between modules and classes.
+  │ [14:52:39] <apeiros> self is the object in which's (whose?) context the current code is executed.
+  │ [14:53:47] <FernandoBasso> So far, I figure it is, in some ways, similar to `this' in javascript. Its value depending on how the code is executed, and not set in stone upon definition.
+  │ [14:54:26] <apeiros> it's exactly as `this` in js. js just differs in when context of `this` changes.
+  └────
