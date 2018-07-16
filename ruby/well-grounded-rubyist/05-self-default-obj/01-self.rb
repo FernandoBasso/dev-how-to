@@ -1,5 +1,10 @@
+#
+# Instance variables are self-bound.
+#
+
 class AnExample
   def get_ivar
+    # Here,
     @my_ivar = 'IVAR inside method body'
   end
 
