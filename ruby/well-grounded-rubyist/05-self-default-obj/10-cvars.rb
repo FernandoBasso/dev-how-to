@@ -5,8 +5,7 @@
 #
 # DESPAIR: It is easy to get confused.
 #
-# The de-facto example for class variables is for one that counts the number
-# of instances created from the class in question.
+# HAVE FAITH IN THE FORCE: it is not so hard to understand them.
 #
 # Attr accessors don't work for class variables. We can't do
 #
@@ -23,12 +22,15 @@
 # @@foo. If you _really_ need accessors for cvars, define them explicitly,
 # verbosely, like showed below.
 #
+# The de-facto example for class variables is for one that counts the number
+# of instances created from the class in question.
+#
 
 class Example
   # This is a cvar (not a civar).
   @@count = 0
 
-  # The only wait to define a reader for @@count cvar is using
+  # The only way to define a reader accessor for @@count cvar is using
   # an explicit method like this.
   def self.get_count
     @@count
@@ -40,12 +42,15 @@ class Example
       @@count
     end
 
+    # a writter accessor for @@count
     def set_count=(num)
       @@count =  num
     end
   end
 
   def initialize
+    # Each time we create a new instance of Example, increment
+    # @@count by one.
     @@count += 1
   end
 end
@@ -59,3 +64,8 @@ p Example.read_count
 # →  3
 # →  1984
 
+#
+# A CIVAR is an IVAR, but a _special_ case of IVAR. While an IVAR belongs
+# is bound to an object created by instantiating a class, a CIVAR is bound
+# to the class object itself.
+#
