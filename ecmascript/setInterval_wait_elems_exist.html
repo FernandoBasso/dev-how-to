@@ -1,0 +1,40 @@
+<!doctype html>
+<head>
+  <meta charset='utf-8'>
+  <title>setInterval wait for N elements to exist.</title>
+</head>
+<body>
+
+  <section class='elems'>
+    <ul>
+      <li><a href="#one">one</a></li>
+      <li><a href="#two">two</a></li>
+    </ul>
+  </section>
+
+
+<script type='text/javascript'>
+var log = console.log.bind(console);
+
+(function(selector, num_items) {
+
+  var count = 0;
+  var intervalId;
+
+  intervalId = setInterval(function () {
+
+    if (document.querySelectorAll(selector).length >= num_items) {
+      console.info('js: stop counting elements...');
+      clearInterval(intervalId);
+    }
+
+    count += 1;
+  }, 300);
+
+}('.elems a', 5));
+
+</script>
+
+</body>
+</html>
+<!-- vim: set softtabstop=2 shiftwidth=2: -->
