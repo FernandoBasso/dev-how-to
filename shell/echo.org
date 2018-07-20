@@ -1,0 +1,12 @@
+
+How to print `-n'?
+
+~echo -- -n~ prints "-- -n".
+
+“Any fool can make something complicated. It takes a genius to make it simple.”
+
+Therefore:
+
+echo -n -; echo n;
+
+
