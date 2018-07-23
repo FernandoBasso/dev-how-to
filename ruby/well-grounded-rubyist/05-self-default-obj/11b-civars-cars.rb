@@ -1,12 +1,25 @@
+
+#
+# For this example, we want some state to be maintained at the class level,
+# but also make sure it can be accessed both from class methods and instance
+# methods.
+#
+
 class Car
   @@makes = []
   @@cars = {}
-  @@total_count = 0
+  #@@total_count = 0 # Not used with this version.
 
   attr_reader :make
 
   def self.total_count
-    @@total_count
+    #@total_count # from cvar version
+    @total_count ||= 0 # like this in this civar version.
+  end
+
+  # Added new method. The cvar version did not have it.
+  def self.total_count=(num)
+    @total_count = num
   end
 
   def self.add_make(make)
@@ -21,7 +34,8 @@ class Car
       puts "Creating a new “#{make}”."
       @make = make
       @@cars[make] += 1
-      @@total_count += 1
+      #@@total_count += 1 # from cvar version
+      self.class.total_count += 1
     else
       raise "No such make: “#{make}”."
     end
@@ -48,4 +62,12 @@ puts honda1.make_mates
 
 # And this will cause an exception:
 #nope = Car.new('Poop')
+
+class Hybrid < Car
+  # It will share the same @@total_count cvar as Car.
+end
+
+hybr = Hybrid.new('Honda')
+puts "We have #{Hybrid.total_count} hybrids."
+# → We have 1 hybrids.
 

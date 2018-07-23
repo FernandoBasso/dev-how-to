@@ -1,6 +1,9 @@
 #
 # Let's see how class variables behave when inheritance comes into play.
 #
+# Class variables are HIERARCHY-SCOPED. All classes in a given hierarchy
+# access the same class variable object in memory.
+#
 
 class Foo
   @@cvar = 'foo'
@@ -25,7 +28,7 @@ puts Foo.show_cvar
 # When we assign to `@@cvar' inside `Foo', we assign to the one and only
 # `@@cvar'. They are not just the same name in different clases. `@@cvar'
 # in both the superclase `Foo' and in the child class `Bar' is the
-# same thing in memeory.
+# same thing (object) in memeory.
 #
 # Class variables are shared accross the hierarchy of classes.
 #
