@@ -71,3 +71,9 @@ hybr = Hybrid.new('Honda')
 puts "We have #{Hybrid.total_count} hybrids."
 # → We have 1 hybrids.
 
+#
+# Instance variables always belong to `self' (both for ivars and civars).
+# Class variables do not belong to `self'; they belong to the whole class
+# hierarchy.
+#
+
