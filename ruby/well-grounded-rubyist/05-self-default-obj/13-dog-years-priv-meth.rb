@@ -18,11 +18,19 @@ class Dog
 end
 
 #
-# Ruby implements private methods by means of not allowing an explicit
-# receiver. Except that with writter/setter methods, not setting an
-# explicit receiver makes an assignment become an assignment to a local
-# variable. Thus, that rule of not allowing an explicit receiver doesn't
-# apply for writter methodos. And the receiver can and must only be the
-# keyword `self'. You can't even assign `self' to another variable and
-# use that variable. It has to be the keyword `self'.
+# The way Ruby implements private methodos is by not allowing an explicit
+# receiver. But then, it would be impossible to have a private setter
+# method, since doing
 #
+#   something = 'foo'
+#
+# and `something' is a setter method, would actually be understood
+# as a local variable.
+#
+# The way Ruby allows private writer methods is by allowing the receiver
+# `self' (and it has to be precisely the keyword `self', not a reference
+# to it) to be used.
+#
+#   self.something = 'foo'
+#
+
