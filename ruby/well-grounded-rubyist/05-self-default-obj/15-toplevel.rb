@@ -24,3 +24,10 @@ Object.new.talk
 # Fails because it tries to call the private (toplevel) method `talk'
 # with an explicit receiver.
 
+
+#
+# `puts' and and `print' are examples of built-in toplevel methods of
+# `Kernel' (not `Object', like the ones we write on the toplevel).
+#
+#    $ ruby -e 'puts Kernel.private_instance_methods'
+#
