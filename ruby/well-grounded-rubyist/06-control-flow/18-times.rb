@@ -38,3 +38,12 @@ end)
 # → leia
 # → leia
 # → 2 # From the outer `puts'.
+
+#
+# `times' can pass an argument to the block.
+#
+3.times { |n| puts "time #{n}" }
+# → time 0
+# → time 1
+# → time 2
+
