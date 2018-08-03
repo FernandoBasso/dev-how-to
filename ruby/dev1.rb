@@ -1,8 +1,10 @@
-class Person
-  def self.to_s
-    'I am the Person class'
+def a_method
+  foo = 'foo'
+  1.times do |i ;foo|
+    foo = 'bar'
+    puts "#{bar} #{i}"
   end
+  puts foo
 end
 
-p Person
-puts Person
+
