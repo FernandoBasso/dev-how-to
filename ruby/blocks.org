@@ -26,3 +26,8 @@ def a_method
 end
 #+END_SRC
 
+The ~;foo~ thing is to make sure ~foo~ inside the block is not the same as the outer ~foo~, therefore, not causing any /foo/ matters inside the block to affect the outer ~foo~.
+
+It '^ x   $' is a regex.
+
+

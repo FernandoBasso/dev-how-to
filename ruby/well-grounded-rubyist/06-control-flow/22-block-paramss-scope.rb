@@ -69,3 +69,4 @@ def method3
 end
 # →  'foo'
 # →  'bar'
+
