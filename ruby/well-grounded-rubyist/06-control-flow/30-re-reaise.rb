@@ -1,5 +1,5 @@
 #
-# Assume there is a `logfile' method.
+# ASSUME: there is a `logfile' method.
 #
 
 def a_method
