@@ -28,11 +28,15 @@ puts find_line('line 1')
 #         1: from 31-ensure.rb:21:in `<main>'
 # 31-ensure.rb:8:in `find_line': ArgumentError (ArgumentError)
 
-
-Pay attention scope. `line' is assigned inside the `begin' block, but it is acessible outside of it.
-
-It is important to note this, because for some other types of blocks, if you define a variable inside it, it cannot be accessed from outside. Yet, if you define it outside the block, change its value inside the block, then outside the block that change is visible.
-
+#
+# Pay attention scope. `line' is assigned inside the `begin' block, but it is
+# acessible outside of it.
+#
+# It is important to note this, because for some other types of blocks, if you
+# define a variable inside it, it cannot be accessed from outside. Yet, if you
+# define it outside the block, change its value inside the block, then outside
+# the block that change is visible.
+#
 
 
 1.times do

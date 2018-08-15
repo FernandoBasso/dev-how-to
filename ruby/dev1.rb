@@ -1,13 +1,33 @@
-def a_method
-  foo = :foo
-  bar = :bar
-  p foo, bar
-  1.times do |i ;foo ,bar|
-    foo = :inside_foo
-    puts "#{foo} #{i}"
+
+class Account
+  attr_accessor :balance
+
+  def initialize(amount = 0)
+    self.balance = amount
   end
-  puts foo
+
+  def +(value)
+    self.balance += value
+  end
+
+  def -(value)
+    self.balance -= value
+  end
+
+  def to_s
+    self.balance.to_s
+  end
 end
 
-a_method
+account = Account.new(100)
+puts account
+# → 100
+
+account += 5
+puts account
+# → 105
+
+account -= 2
+puts account
+# → 103
 
