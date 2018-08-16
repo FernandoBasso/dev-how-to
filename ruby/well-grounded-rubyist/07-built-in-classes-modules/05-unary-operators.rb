@@ -8,12 +8,12 @@ class Title
   end
 
   def +@
-    @text.to_s
+    @text.upcase
   end
 end
 
-title = 'May the force be with you!'
-p (+title)
+title = Title.new('May the force be with you!')
+puts (+title)
 
 
 #

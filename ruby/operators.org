@@ -50,7 +50,27 @@ These are the operators that can be redefined:
 
 Define ~+~ and ~-~ for string ~upcase~ and ~downcase~. We use methods like ~+@~ and ~!@~ to redefine /unary operators/.
 
+#+BEGIN_SRC ruby
+class Title
+  def initialize(text)
+    @text = text
+  end
 
+  def to_s
+    @text
+  end
+
+  def +@
+    @text.upcase
+  end
+end
+
+title = Title.new('May the force be with you!')
+puts (+title) # <1>
+# → MAY THE FORCE BE WITH YOU!
+#+END_SRC
+
+1. Without parenthesis around ~+title~, we get a warning about ambiguity.
 
 
 
