@@ -1,0 +1,32 @@
+#+TITLE: Methods
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6
+#+PROPERTY: header-args :results none :exports both
+
+
+/Bang methods/, that is, method names that end in ~!~ are the so-called /dangerous methods/. Generally, it means the method /change/ its receiver. But there are cases that it means other things, like ~exit!~ that does not run any finalizers, or ~sub!~, which unlike ~sub~, returns ~nil~ if no replacement occurs (instead of returning the unmodified string, as ~sub~ does).
+
+To exemplify, not that ~upcase~ just returns an uppercase version of the string, while ~upcase!~ also modifies the original string.
+
+#+BEGIN_SRC ruby
+foo = 'foo'
+bar = 'bar'
+
+puts foo.upcase
+# → FOO
+puts foo
+# → foo
+
+puts bar.upcase!
+# → BAR
+puts bar
+#+END_SRC
