@@ -29,8 +29,8 @@ puts find_line('line 1')
 # 31-ensure.rb:8:in `find_line': ArgumentError (ArgumentError)
 
 #
-# Pay attention scope. `line' is assigned inside the `begin' block, but it is
-# acessible outside of it.
+# Pay attention scope. `line' is assigned inside the `begin' block, but
+# it is acessible outside of it.
 #
 # It is important to note this, because for some other types of blocks, if you
 # define a variable inside it, it cannot be accessed from outside. Yet, if you
@@ -44,6 +44,14 @@ puts find_line('line 1')
   foo = 'foo'
 end
 # Cannot access it here.
-p foo
+p foo # Error.
 
-
+# Defined here.
+bar = nil
+1.times do
+  # Changed here.
+  bar = 'bar'
+end
+# CAN access it here.
+p bar
+# --> bar

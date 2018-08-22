@@ -17,7 +17,7 @@ Most identifiers in Ruby mean different things depending on where they appear or
 
 * self and scope
 
-~self~ is the default, current object. The current execution context. The scope on which the code is currently executing.
+~self~ is the default and current object, and the default receiver. The current execution context. The scope on which the code is currently executing.
 
 #+BEGIN_SRC ruby
 class AnExample

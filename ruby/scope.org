@@ -12,6 +12,7 @@
 #+OPTIONS: TOC:6
 #+PROPERTY: header-args :results output :exports both
 
+
 * begin, rescue, ensure and scope
 
 #+BEGIN_SRC ruby
@@ -73,3 +74,4 @@ end
 p jedi
 # → Master Yoda
 #+END_SRC
+
