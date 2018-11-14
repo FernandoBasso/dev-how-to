@@ -14,7 +14,7 @@ You want to loop over a list of stuff, and console.log that stuff. People often 
 forEach(value => log(value), ['x', 'y', 'z']);
 ```
 
-// When they could have simply done:
+When they could simply have done:
 
 ```js
 forEach(log, ['x', 'y', 'z']);
