@@ -1,5 +1,6 @@
 # Reduce
 
+- [intro](#intro)
 - [add](#add)
 - [subtract](#subtract)
 - [multiply](#multiply)
@@ -11,6 +12,10 @@ We always start with a shortcut for `console.log` and import some _rambda_ funct
 const { reduce, add, subtract, multiply, divide } = require('ramda');
 const log = console.log.bind(console);
 ```
+
+## intro
+
+`reduce` is a function that takes a function of two arguments, an accumulator, and a list of values. `reduce` passes the accumulator the first element of the list to the function, that function returns a new value for the accumulator, which is used again when `reduce` invokes the function again passing the new accumulator value with the second element of the list, and so on until all the values of the list have been used once and then the value of the accumulator is returned.
 
 ## add
 
