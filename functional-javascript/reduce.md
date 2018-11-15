@@ -1,22 +1,67 @@
 # Reduce
 
-```javascript
-const {
-  reduce,
-  subtract,
-} = require('ramda');
+We always start with a shortcut for `console.log` and import some _rambda_ functions.
+
+```js
+const { reduce, add, subtract, multiply, divide } = require('ramda');
+const log = console.log.bind(console);
 ```
 
-This really keeps subtracting from the previous subtraction value. Subtract 1, from 0, then 2 from -1, then 3 from -3, which is -6.
+## add
 
-```javascript
-log(reduce(subtract, 0, [1, 2, 3]));
-// → 6
+Ramda's `add` function takes exactly two arguments. If you pass more than two, they are simply ignored (that is how JS functions handle extra, unexpected arguments).
+
+```js
+log(add(1, 2, 3, 4));
+// ➔ 3 (not 10. Args 3 and 4 are ignored)
 ```
 
-This ends up doing 1 - 2, ignoring any remaining args.
+But we can use `reduce` to help us out.
 
-```javascript
-log(subtract(1, 2, 3));
-// → -1
+```js
+const addResult = reduce(add, 0, [1, 2, 3, 4 ])
+log(addResult);
+// → 10
 ```
+
+We pass `reduce` the `add` function, the initial value for the `sum`, and a list of numbers to add.
+
+## subtract
+The same with `subtract`. It takes precisely two arguments, ignoring any exceeding ones.
+
+```js
+log(subtract(1, 2, 3, 4));
+// → -1 (3 and 4 are ignored)
+
+`reduce` to the rescue.
+
+```js
+const subResult = reduce(subtract, 0, [1, 2, 3, 4]);
+log(subResult);
+// → -10 (as we expected)
+```
+
+## multiply
+Same with `multiply`. It takes precisely two arguments. To multiply a list of values, we lay hand on `reduce` to help out.
+
+```js
+const multResult = reduce(multiply, 1, [1, 2, 3, 4]);
+log(multResult);
+// → 24
+```
+
+Note that with the combo “reduce/multiply”, we _must_ use `1` as the initial value. Basic maths :)
+
+## divide
+
+This is trickier. If we do `reduce(divide, 1, [5, 2])`, it does `1 / 5`, which is 0.2, then `0.2 / 2`, which is 0.1. It is very different than when adding, subtracting and multiplying, which we really only accumulate on an initial value. In the `divide` case, 
+
+```js
+const divResult = reduce(divide, 1, [5, 2]);
+log(divResult);
+// → 0.1
+```
+
+So, yeah, `divide` and division in general do not play well with `reduce`. In other words, division does not go well with reducing/fold functions.
+
+
