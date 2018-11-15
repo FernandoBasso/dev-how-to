@@ -21,7 +21,7 @@ When they could simply have done:
 forEach(log, ['x', 'y', 'z']);
 ```
 
-In the first example, we are _unnecessarily creating a new function for each element in the list_. With the second approach, we make the most of the fact that ECMAScript has Higher Order Functions, and we can simply pass a function that already exists and already does something we need, in this case, printing to the console.
+In the first example, we are _unnecessarily creating a new function for each element in the list_. With the second approach, we make the most of the fact that ECMAScript has Higher Order Functions, and we can simply pass a function that already exists and already does something we need, in this case, printing to the console. `log` is automatically passed the argument.
 
 ## Case 2 - doubling
 
@@ -42,4 +42,4 @@ log(better);
 // → [2, 4, 6]
 ```
 
-Again, the last version _does not_ create an unnecessary function for each element. We simply use the existing function directly.
+Again, the last version _does not_ create an unnecessary function for each element. We simply use the existing function directly. And again, `map` is automatically passed the argument, just like in previous example.
