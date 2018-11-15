@@ -1,5 +1,10 @@
 # Reduce
 
+- [add](#add)
+- [subtract](#subtract)
+- [multiply](#multiply)
+- [divide](#divide)
+
 We always start with a shortcut for `console.log` and import some _rambda_ functions.
 
 ```js
