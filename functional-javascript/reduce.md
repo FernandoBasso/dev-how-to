@@ -32,6 +32,7 @@ The same with `subtract`. It takes precisely two arguments, ignoring any exceedi
 ```js
 log(subtract(1, 2, 3, 4));
 // → -1 (3 and 4 are ignored)
+```
 
 `reduce` to the rescue.
 
