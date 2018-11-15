@@ -25,8 +25,7 @@ In the first example, we are _unnecessarily creating a new function for each ele
 
 ## Case 2 - doubling
 
-
-_Don't_ create an anonymous function that takes an argument and calls `double` on that argument. This is _not_ optimal:
+You want to double (multiply by two) the elements of a list of numbers.
 
 ```js
 const notSoGod = map(num => double(num), [1, 2, 3]);
@@ -34,7 +33,8 @@ log(notSoGod);
 // → [2, 4, 6]
 ```
 
-Simply do this instead:
+
+_Don't_ create an anonymous function that takes an argument and calls `double` on that argument (as done above). It is _not_ optimal and not very idiomatic and elegant ECMAScript. Simply do this instead:
 
 ```js
 const better = map(double, [1, 2, 3]);
