@@ -15,7 +15,9 @@ const log = console.log.bind(console);
 
 ## intro
 
-`reduce` is a function that takes a function of two arguments, an accumulator, and a list of values. `reduce` passes the accumulator the first element of the list to the function, that function returns a new value for the accumulator, which is used again when `reduce` invokes the function again passing the new accumulator value with the second element of the list, and so on until all the values of the list have been used once and then the value of the accumulator is returned.
+`reduce` is a function that takes a function of two arguments, an accumulator, and a list of values. 
+
+When invoked`reduce` passes the accumulator and the first element of the list to the function. That function then returns a new value for the accumulator, which is used again when `reduce` invokes the function passing the new accumulator value with the second element of the list, and so on until all the values of the list have been used once, upon which fact the value of the accumulator is returned.
 
 ## add
 
