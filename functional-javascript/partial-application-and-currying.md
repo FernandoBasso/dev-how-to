@@ -1,9 +1,9 @@
 # Partial Application and Currying
 
-- [filtering book list by date](#filtering-book-list-by-date)
+- [filtering a book list by date](#filtering-a-book-list-by-date)
 
 
-## filtering book list by date
+## filtering a book list by date
 ```js
 const { filter, map, prop} = require('ramda');
 
@@ -12,8 +12,6 @@ const bookList = [
   { title: 'The Silence Of The Lambs', year: 1988 },
   { title: 'The Little Prince', year: 1943 },
 ];
-
-// const publishedInYear = ({ year }, targetYear ) => year === targetYear;
 
 /**
  * Produce `true` if the book `year` is the same as `targetYear`.
