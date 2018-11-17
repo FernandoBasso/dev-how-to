@@ -121,7 +121,7 @@ log(performOps2(5, 3));
 
 `add` takes two args. Since most (or all?) ramda functions are automatically curried, we pass `10` to `add`, and the `pipe` composition takes care of passing the other argument, result of `multiply`.
 
-Once more, there is one downside that it is not clear the args `performOps2` requires. For that, one needs to look into the most left function inside the pipe.
+Once more, there is one downside that it is not clear the args `performOps2` requires. For that, one needs to look into the leftmost function inside the pipe.
 
 Ever wondered why the [docs on ramda pipe](https://ramdajs.com/docs/#pipe) says:
 
