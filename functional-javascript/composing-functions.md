@@ -90,6 +90,8 @@ log(isEligibleToVote({ ...laraCroft, age: 17 }));
 We want to multiply a number by 2, then add 10, and then increment it. We can do:
 
 ```js
+const { inc, add, multiply } = require('ramda');
+
 const performOps1 = (num, mult) => {
   const product = multiply(num, mult);
   const sum = add(product, 10);
@@ -127,4 +129,5 @@ Ever wondered why the [docs on ramda pipe](https://ramdajs.com/docs/#pipe) says:
 
 The leftmost one takes any number of arguments, and produces _a single value_ which is then passed to the next function, which _again produces a single value_. Since functions produce a single value, there is not way to produce multiple values/arguments to the next functions in the chain. That is why only the leftmost function may have any arity, because we pass the initial values _manually_, whereas the rest of the passing arguments is done by feeding return value of one function into another.
 
+With the above explanation, it is also clear now that `add`, being passed only one argument (`10` in our example), returns a function that in turn takes _one_ argument. With that, _we satisfy `pipe`'s requirement that all functions except the leftmost one must have an arity of one_.
 
