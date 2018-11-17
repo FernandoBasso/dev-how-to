@@ -2,7 +2,9 @@
 
 - [example of non-composed functions](#example-of-non-composed-functions)
 - [using true composition](#using-true-composition)
-- [handling calculations with pipe](#handling-calculations-with-pipe)
+- [handling calculations with pipe and compose](#handling-calculations-with-pipe-and-compose)
+    + [pipe](#pipe)
+    + [compose](#compose)
 
 
 Look at this more traditional code style:
@@ -85,7 +87,7 @@ log(isEligibleToVote({ ...laraCroft, age: 17 }));
 // → false
 ```
 
-## handling calculations with pipe
+## handling calculations with pipe and compose
 
 We want to multiply a number by 2, then add 10, and then increment it. We can do:
 
@@ -110,6 +112,8 @@ log(inc(add(multiply(5, 3), 10)));
 // → 26
 ```
 
+### pipe
+
 And probably the most elegant version is this, which doesn't require a lot of saving results around (like in the first approach) and doesn't require an unwindly amount of nesting (like the second approach).
 
 ```js
@@ -131,3 +135,14 @@ The leftmost one takes any number of arguments, and produces _a single value_ wh
 
 With the above explanation, it is also clear now that `add`, being passed only one argument (`10` in our example), returns a function that in turn takes _one_ argument. With that, _we satisfy `pipe`'s requirement that all functions except the leftmost one must have an arity of one_.
 
+
+### compose
+
+`compose` works like `pipe`, except it starts evaluating from right to left, so, we have to invert the orders of the arguments.
+
+```js
+const { compose, inc, add, multiply } = require('ramda');
+const performOps = compose(inc, add(10), multiply);
+log(performOps(5, 3));
+// → 26
+```
