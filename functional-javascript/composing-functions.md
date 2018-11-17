@@ -2,7 +2,7 @@
 
 - [example of non-composed functions](#example-of-non-composed-functions)
 - [using true composition](#using-true-composition)
-- [handling calculations with pipe](#handling calculations with pipe)
+- [handling calculations with pipe](#handling-calculations-with-pipe)
 
 
 Look at this more traditional code style:
