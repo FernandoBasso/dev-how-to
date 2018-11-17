@@ -1,5 +1,9 @@
 # Partial Application and Currying
 
+- [filtering book list by date](#filtering-book-list-by-date)
+
+
+## filtering book list by date
 ```js
 const { filter, map, prop} = require('ramda');
 
