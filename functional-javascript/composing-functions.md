@@ -94,14 +94,14 @@ We want to multiply a number by 2, then add 10, and then increment it. We can do
 ```js
 const { inc, add, multiply } = require('ramda');
 
-const performOps1 = (num, mult) => {
+const performOps = (num, mult) => {
   const product = multiply(num, mult);
   const sum = add(product, 10);
   const incremented = inc(sum);
   return incremented;
 };
 
-log(performOps1(5, 3)); // (((5 * 3) + 10) + 1)
+log(performOps(5, 3)); // (((5 * 3) + 10) + 1)
 // → 26
 ```
 
@@ -118,8 +118,8 @@ And probably the most elegant version is this, which doesn't require a lot of sa
 
 ```js
 const { pipe, inc, add, multiply } = require('ramda');
-const performOps2 = pipe(multiply, add(10), inc);
-log(performOps2(5, 3));
+const performOps = pipe(multiply, add(10), inc);
+log(performOps(5, 3));
 // → 26
 ```
 
