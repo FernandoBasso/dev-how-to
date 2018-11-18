@@ -11,7 +11,7 @@
 
 Using a more traditional approach.
 
-```
+```js
 // add :: [Number] -> Number
 const add = nums => {
   let total = 0;
