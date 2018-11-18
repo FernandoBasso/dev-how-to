@@ -3,7 +3,7 @@
 - [add numbers from a list](#add-numbers-from-a-list)
   + [traditional approach](#traditional-approach)
   + [functional style](#functional-style)
-  + [functional style](#functional-style-v2)
+  + [functional style v2](#functional-style-v2)
 
 ## add numbers from a list
 
@@ -40,7 +40,7 @@ log(addNums([1, 2, 3, 4]));
 // → 10
 ```
 
-### function style v2
+### functional style v2
 
 In this case, instead of using our _on the fly add function_, we use the `add` function provided by rambda.
 
