@@ -70,12 +70,11 @@ const wasNaturalized = ({ naturalizationDate }) => Boolean(naturalizationDate);
 
 const isOver18 = ({ age }) => age >= 18;
 
-// For the next two functions, we use some ramda stuff to help us out wich makes
-// for very elegant code. One downside is that it is not clear that `isCitizen`
-// and `isEligibleToVote` take a `person` object.
-const isCitizen = either(wasBornInCountry, wasNaturalized);
+// Uses point-free style.
+const isCitizen = either(wasBornInCountry, wasNaturalized); // <1>
 
-const isEligibleToVote = both(isOver18, isCitizen);
+// Uses point-free style.
+const isEligibleToVote = both(isOver18, isCitizen); // <2>
 
 log(isCitizen(laraCroft));
 // → true
@@ -87,7 +86,18 @@ log(isEligibleToVote({ ...laraCroft, age: 17 }));
 // → false
 ```
 
-### 
+1. Using _point-free_ style makes it _not_ clear that `isCitizen` takes a `person`.
+2. Idem.
+
+Here are the two non-point-free versions of `isCitizen` and `isEligibleToVote`:
+
+```js
+// isCitizen :: Person -> Boolean
+const isCitizen = person => either(wasBornInCountry, wasNaturalized)(person);
+
+// isEligibleToVote :: Person -> Boolean
+const isEligibleToVote = person => both(isOver18, isCitizen)(person);
+```
 
 ## handling calculations with pipe and compose
 
