@@ -1,15 +1,15 @@
 # Composing Functions
 
-- [example of non-composed functions](#example-of-non-composed-functions)
-- [using true composition](#using-true-composition)
+- [eligible to vote - non-functional](#eligible-to-vote-non-functional)
+- [eligible to vote - functional style](#eligible-to-vote-functional-style)
 - [handling calculations with pipe and compose](#handling-calculations-with-pipe-and-compose)
     + [pipe](#pipe)
     + [compose](#compose)
 
 
-Look at this more traditional code style:
+## eligible to vote - non-functional
 
-## example of non-composed functions
+This example uses a more procedural, traditional code style.
 
 ```js
 const log = console.log.bind(console);
@@ -44,7 +44,7 @@ log(isEligibleToVote({ ...laraCroft, age: 17 }));
 // → false
 ```
 
-## using true composition
+## eligible to vote - functional style
 
 Using some ramda functions, it could be rewriten as this:
 
@@ -86,6 +86,8 @@ log(isEligibleToVote({ ...laraCroft, naturalizationDate: undefined }));
 log(isEligibleToVote({ ...laraCroft, age: 17 }));
 // → false
 ```
+
+### 
 
 ## handling calculations with pipe and compose
 
