@@ -30,7 +30,7 @@ log(add([1, 2, 3, 4]));
 
 And what about this really functional approach? We create our `add` function _on the fly_, with the `(acc num) => acc + num` thing.
 
-```
+```js
 const { reduce } = require('ramda');
 
 // add :: [Number] -> Number
