@@ -1,6 +1,7 @@
 # Functional Programming
 
 - [Intro](#intro)
+- [General Concepts and Ramda](#general-concepts-and-ramda)
 - [Resources Used](#resources-used)
 
 ## Intro
