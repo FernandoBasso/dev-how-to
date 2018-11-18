@@ -26,3 +26,17 @@ log(min50(51)); // → 50
 log(min50(78)); // → 77
 log(min50(49)); // → 50
 ```
+
+Instead of using the _constant function_ `() => 50`, we could use `always` instead:
+
+```js
+ /**
+ * min50 :: Number -> Number
+ */
+const min50 = num => ifElse(
+  gt(__, 50),
+  dec,
+  always(50),
+)(num);
+```
+
