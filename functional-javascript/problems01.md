@@ -3,6 +3,7 @@
 - [add numbers from a list](#add-numbers-from-a-list)
   + [traditional approach](#traditional-approach)
   + [functional style](#functional-style)
+  + [functional style](#functional-style-v2)
 
 ## add numbers from a list
 
@@ -27,7 +28,7 @@ log(add([1, 2, 3, 4]));
 
 ### functional style
 
-And what about this really functional approach?
+And what about this really functional approach? We create our `add` function _on the fly_, with the `(acc num) => acc + num` thing.
 
 ```
 const { reduce } = require('ramda');
@@ -38,3 +39,19 @@ const addNums = nums => reduce((acc, num) => acc + num, 0, nums);
 log(addNums([1, 2, 3, 4]));
 // → 10
 ```
+
+### function style v2
+
+In this case, instead of using our _on the fly add function_, we use the `add` function provided by rambda.
+
+```js
+const { reduce, add } = require('ramda');
+
+// add :: [Number] -> Number
+const addNums = nums => reduce(add, 0, nums);
+
+log(addNums([1, 2, 3, 4]));
+// → 10
+```
+
+
