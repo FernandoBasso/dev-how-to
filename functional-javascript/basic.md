@@ -2,8 +2,8 @@
 
 - [Useless Function Usage](#useless-function-usage)
 - [Another Useless Function Usage](#another-useless-function-usage)
-- [noLessThan10](#noLessThan10)
-- [noLessThan10 Point Free](#noLessThan10-point-free)
+- [noLessThan10](#nolessthan10)
+- [noLessThan10 Point Free](#nolessthan10-point-free)
 
 ## Useless Function Usage
 ```js
