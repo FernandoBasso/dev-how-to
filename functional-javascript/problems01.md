@@ -54,4 +54,25 @@ log(addNums([1, 2, 3, 4]));
 // → 10
 ```
 
+## filter todos
+
+```js
+const log = console.log.bind(console);
+
+const {
+  filter,
+  where,
+} = require('ramda');
+
+const todos = [
+  { id: 1, done: false, text: 'Watch the Alien Movies Again' },
+  { id: 2, done: true, text: 'Learn JavaScript' },
+  { id: 3, done: false, text: 'Learn They Hindley Milner Type System' },
+  { id: 4, done: false, text: 'Review Sed Exercises' },
+  { id: 5, done: true, text: 'Update Arch Linux' },
+];
+
+const doneTodos = filter(where({ done: equals() }))(todos);
+log(doneTodos);
+```
 
