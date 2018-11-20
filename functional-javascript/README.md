@@ -20,4 +20,5 @@ A lot of stuff here come from books, tutorials, videos, etc. What follows is a l
 - [Thinking in Ramda, by Randy Coulman](http://randycoulman.com/blog/categories/thinking-in-ramda/)
 - [Ramda JS Tutorial - Youtube Playlist by Christopher Okhravi](https://www.youtube.com/playlist?list=PLrhzvIcii6GMeyUfpn-o5xVCH3_UykrzI)
 - [Streaming Logs with Transducers and Ramda](http://simplectic.com/blog/2015/ramda-transducers-logs/)
+- [Why Ramda](https://fr.umio.us/why-ramda/)
 
