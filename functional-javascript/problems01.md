@@ -61,25 +61,44 @@ log(addNums([1, 2, 3, 4]));
 const {
   filter,
   where,
-  equals,
+  equals: eq,
+  complement,
 } = require('ramda');
 
 // task: { id: number, done: boolean, text: string, due: string yyyy-mm-dd }
 
 // tasks: [todo]
 const tasks = [
-  { id: 1, done: false, text: 'Watch the Alien Movies Again', due: '2000-01-01' },
-  { id: 2, done: true, text: 'Learn JavaScript', due: '2000-01-03' },
-  { id: 3, done: false, text: 'Learn They Hindley Milner Type System', due: '2000-01-01' },
-  { id: 4, done: false, text: 'Review Sed Exercises', due: '2000-01-02' },
-  { id: 5, done: true, text: 'Update Arch Linux', due: '2000-01-03' },
+  { id: 1, user: 'Yoda', done: false, text: 'Watch the Alien Movies Again', due: '2000-01-01' },
+  { id: 2, user: 'Luke', done: true, text: 'Learn JavaScript', due: '2000-01-03' },
+  { id: 3, user: 'Luke', done: false, text: 'Learn They Hindley Milner Type System', due: '2000-01-01' },
+  { id: 4, user: 'Yoda', done: false, text: 'Review Sed Exercises', due: '2000-01-02' },
+  { id: 5, user: 'Leia', done: true, text: 'Update Arch Linux', due: '2000-01-03' },
 ];
 
-const getDoneTasks = filter(where({ done: equals(true) })); // <1>
-log(getDoneTasks(tasks));
-// → [ { id: 2, done: true, text: 'Learn JavaScript', due: '2000-01-03' },
-// →   { id: 5, done: true, text: 'Update Arch Linux', due: '2000-01-03' } ]
+// isFinished :: Task -> Bool
+const isFinished = where({ done: eq(true)} ); // <1>
+
+// isUnfinished :: Task -> Bool
+const isUnfinished = complement(isFinished); // <2>
+
+// getFinishedTasks :: [Task] -> [Task]
+const getFinishedTasks = filter(isFinished); // <3>
+log(getFinishedTasks(tasks));
+// Prints all tasks with `done: true`.
+
+// getUnfinishedTasks :: [Task] -> [Task]
+const getUnfinishedTasks = filter(isUnfinished); // <4>
+log(getUnfinishedTasks(tasks));
+// → Prints all tasks with `done: false`.
 ```
 
-1. `filter` and `where` are curried. They way we used them is still lacking one argument: the data to work on. Therefore, intead of actually really filtering where `done` is `true`, we just return a function and store it in `getDoneTasks`. This function is expecting the data/tasks argument so actuall filtering can take place.
+1. When we supply a task to `isFinished`, it will check whether it is done or not.
+2. Same as for `isFinished`. But we use `complement` to invert the logic.
+3. Yes, we curry all things \o/ - `isFinished` needs a task, which `filter` takes care of passing. `filter` needs a list of tasks, which we pass when we invoke `getFinishedTasks`.
+4. Same idea as item 3.
+
+
+
+
 
