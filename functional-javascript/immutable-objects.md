@@ -16,7 +16,34 @@ const log = console.log.bind(console);
 
 ## copy object
 
-TODO
+If we do `obj2 = obj1`, then `obj2` is a reference to `obj1`, and changing one affects the other, because they are actually two references to the same object in memory. To really make a new copy of an object, we can use the _spread syntax_ to help us out!
+
+```js
+// Create an object.
+const yoda1 = { id: 1, name: 'Yoda' };
+
+// Make a copy of the original object.
+const yoda2 = { ...yoda1 };
+
+// Change the original object.
+yoda1.name = 'Master Yoda';
+
+// Change the copy.
+yoda2.id = 2;
+
+log(yoda1, yoda2);
+// [object Object] {
+//   id: 1,
+//   name: "Master Yoda"
+// }
+// [object Object] {
+//   id: 2,
+//   name: "Yoda"
+// }
+```
+
+Pay attention to the fact that changing `yoda1.name` does not cause `yoda2.name` to change, and changing `yoda2.id` does not affect `yoda1.name`. That means that `yoda2` is really a copy and not a reference.
+
 
 
 ## copy object and add new property to it
@@ -104,6 +131,5 @@ log(jediNoId);
 // }
 ```
 
-1. This time we use the _spread syntax_ *to the left of the assignment operator*. We also _destructure_ the id (but don't care about it afterwards), which leaves all the remaining properties to end up in `jediNoId`.
-
+1. This time we use the _spread syntax_ *to the left of the assignment operator*. We also _destructure_ the id (but don't care about it afterwards), which leaves all the remaining properties to end up in `jediNoId`. One downside is that now we have an `id` constant lying around in the scope where we defined it.
 
