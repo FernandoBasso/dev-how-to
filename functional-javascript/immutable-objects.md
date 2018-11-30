@@ -4,6 +4,7 @@
 [copy object](#copy-object)
 [copy object and overwrite property](#copy-object-and-overwrite-property)
 [copy object and add new property to it](#copy-object-and-add-new-property-to-it)
+[gotcha](#gotcha)
 
 
 ## intro
@@ -133,3 +134,36 @@ log(jediNoId);
 
 1. This time we use the _spread syntax_ *to the left of the assignment operator*. We also _destructure_ the id (but don't care about it afterwards), which leaves all the remaining properties to end up in `jediNoId`. One downside is that now we have an `id` constant lying around in the scope where we defined it.
 
+## gotcha
+
+BEWARE: `const` and literal values mean you cannot assign new values to a given constant. Also, you cannot assign a new array, or object, to an existing const object or array.
+
+```js
+const str = 'foo';
+str = 'bar' // Error.
+
+const arr = [10, 20];
+arr = [20, 30]; // Error.
+
+// But this is possible:
+const arr = [10, 20];
+arr[2] = 30; // OK.
+arr.push(40); // OK.
+// arr is now [10, 20, 30, 40]
+
+const obj = { id: 1 };
+obj = { foo: 'bar' }; // Error.
+
+// But this is possible.
+const obj = { id: 1 };
+obj.name = 'Yoda';
+obj['skill'] = 'Foresight';
+log(obj);
+// [object Object] {
+//   id: 1,
+//   name: "Yoda",
+//   skill: "Foresight"
+// }
+```
+
+So, what is *constant* is the reference. Once a _const name_ is pointing to some value in memory, not even Linus Torvalds can change it afterwards. But properties of that thing in memory can be freely changed (altought there is `Object.freeze` that could be used).
