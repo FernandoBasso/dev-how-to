@@ -1,6 +1,10 @@
 # Spread Syntax
 
 [intro](#intro)
+[copy object](#copy-object)
+[copy object and overwrite property](#copy-object-and-overwrite-property)
+[copy object and add new property to it](#copy-object-and-add-new-property-to-it)
+
 
 ## intro
 Spread syntax is useful for many things. One of them is to help us with immutable data.
@@ -9,7 +13,12 @@ Spread syntax is useful for many things. One of them is to help us with immutabl
 const log = console.log.bind(console);
 ```
 
-## add prop to object
+## copy object
+
+TODO
+
+
+## copy object and add new property to it
 
 Create an object with two properties.
 
@@ -44,4 +53,25 @@ log(yodav2);
 ```
 
 1. Note the use of the spread syntax *to the right* of the _assignment operator_. In that position, it “expands” the properties of the object, which are added to the new object being created.
+
+## copy object and overwrite property
+
+We can also copy an object, overwriting any of its original properties.
+
+```js
+const yoda3 = {
+  ...yoda2,
+  skill: 'Teach the ways of the force', // <1>
+};
+
+log(yoda3);
+// [object Object] {
+//   id: 1,
+//   name: "Master Yoda",
+//   skill: "Teach the ways of the force"
+// }
+```
+
+1. `yoda2` already has a `skill` property, but we have overwritten the old value with a new value.
+
 
