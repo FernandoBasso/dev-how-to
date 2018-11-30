@@ -7,6 +7,7 @@
 
 
 ## intro
+
 Spread syntax is useful for many things. One of them is to help us with immutable data.
 
 ```js
@@ -73,5 +74,36 @@ log(yoda3);
 ```
 
 1. `yoda2` already has a `skill` property, but we have overwritten the old value with a new value.
+
+## removing properties from objects
+
+Just to get started, let's retrieve individual properties from objects using _destructuring_ syntax.
+
+```js
+const jedi = {
+  id: 1,
+  name: 'Yoda',
+  skill: 'The Force',
+};
+
+const { name, skill } = jedi;
+log(name, skill);
+// 'Yoda'
+// 'The Force'
+```
+
+And we can also make an antire new object _without_ some properties of the original object by making use of *destructuring* and the *rest syntax*.
+
+```js
+const { id, ...jediNoId } = jedi; // <1>
+log(jediNoId);
+
+// [object Object] {
+//   name: "Yoda",
+//   skill: "The Force"
+// }
+```
+
+1. This time we use the _spread syntax_ *to the left of the assignment operator*. We also _destructure_ the id (but don't care about it afterwards), which leaves all the remaining properties to end up in `jediNoId`.
 
 
