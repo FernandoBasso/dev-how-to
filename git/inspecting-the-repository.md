@@ -25,6 +25,8 @@ List all branches containing a given commit:
 
 ## useful branch commands
 
+[ref1](https://stackoverflow.com/questions/1419623/how-to-list-branches-that-contain-a-given-commit)
+
 ```shell
 git branch --contains <commit>
 
