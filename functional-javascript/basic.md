@@ -14,7 +14,7 @@ const {
 const log = console.log.bind(console);
 ```
 
-You want to loop over a list of stuff, and console.log that stuff. People often do this:
+You want to loop over a list of stuff, and log that stuff. People often do this:
 
 ```js
 forEach(value => log(value), ['x', 'y', 'z']);
@@ -79,7 +79,7 @@ const { __, lt, when, always } = require('ramda');
 
 /**
  * Point free version.
- * 
+ *
  * noLessThan10 :: Number -> Number
  */
 const noLessThan10 = when(lt(__, 10), always(10)); // <1>
@@ -91,3 +91,4 @@ log(noLessThan10(11));
 ```
 
 1. We _do not_ use the `num` parameter, like in the previous example.
+
