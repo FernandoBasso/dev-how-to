@@ -16,6 +16,8 @@ y = true && false  # <2>
 
 2. `&&` has higher precedence than `=`, therefore, the value `false` (the result of `true && false`) is assigned to `y`.
 
+In irb or pry, `x = true and false` print `false` because it is the result of the entire expression, but `x` gets assigned the value `true`.
+
 
 ## falsy values
 
@@ -32,49 +34,71 @@ nil     ? 'yes' : 'nope' # 3
 []      ? 'yes' : 'nope' # 8
 ```
 
-Only expressions 2 adn 3 will produce 'yes'. In Ruby, only `false` and `nil` are /falsy/ values. Everything else, including `[]`, `{}`, 0 and `''` are truthy.
+Only expressions 2 adn 3 will produce 'yes'. In Ruby, only `false` and `nil` are _falsy_ values. Everything else, including `[]`, `{}`, 0 and `''` are truthy.
 
 
-## hash keys to array sorted by length
-
-Create an array with a hash's keys sorted by the length of the keys, as strings.
-
-https://stackoverflow.com/a/33326503/2855955
-
-Input hash:
+## method call and expressions
 
 ```ruby
-hash = {
-  skill: 'The Force',
-  foo: 'bar',
-  jedi: 'Yoda',
-  1 => 'one',
-}
+def identity(x)
+  x
+end
+
+def sum(x, y)
+  x + y
+end
+
+p identity 2    # <1>
+# → 2
+
+p identity(2)   # <2>
+# → 2
+
+p identity (2)  # <3>
+# → 2
+
+
+p sum 2, 2      # <4>
+# → 4
+
+p sum(2, 2)     # <5>
+# → 4
+
+p sum (2, 2)    # <6>
+# → syntax error, unexpected ',', expecting ')'
+# → p sum (2, 2)
 ```
 
-Sort by length, ascending.
+No surprises in lines 1, 2, 4, and 5.
+
+In line 3, because of the space between the name of the method and the opening parenthesis, Ruby treats `(2)` as an expression, and `(2)` is an expression which evaluates to 2. Therefore `identity (2)` is the same  as `identity 2`.
+
+However, in line 6, again, because of the space between `sum` and `(`, Ruby thinks `(2, 2)` is an expression, but it is not a valid Ruby expression. Thus the error!
+
+
+## namespaces classes and modules
 
 ```ruby
-p hash.keys.map(&:to_s).sort { |a, b| a.length <=> b.length }
+MYVAR = 'global'
 
-p hash.keys.map(&:to_s).sort_by { |e| e.length }
-```
+module Foo
+  MYVAR = 1
 
-All of the above produce this result:
-```
-["1", "foo", "jedi", "skill"]
-```
+  class Bar
+    def thing
+      MYVAR
+    end
+  end
+end
 
+class Foo::Bar
+  def thing2
+    MYVAR
+  end
+end
 
-```ruby
-p hash.keys.map(&:to_s).sort_by { |e| e.length * -1 }
-
-p hash.keys.map(&:to_s).sort_by { |e| -e.length }
-
-p hash.keys.map(&:to_s).sort { |a, b| b.length <=> a.length }
-```
-
-All of the above produce the following result:
-```
-["skill", "jedi", "foo", "1"]
+p Foo::Bar.new.thing
+# → "Foo Local"
+p Foo::bar.new.thing
+# → "Global"
 ```

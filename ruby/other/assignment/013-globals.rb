@@ -13,6 +13,7 @@ class Thing
   def show_it
     p %Q{in a method: #{$foo}}
 
+    # Increment the global `$foo`.
     $foo -= -1
 
     # Creates yet another global.
