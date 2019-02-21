@@ -1,25 +1,20 @@
 # Private, protected, public methods
 
-class Enemy
-  def name=(name)
-    p 'name='
-    p self
-    @name = name
+class Foo
+  @count = 0;
+
+  def initialize(num)
+    @count  = num
   end
 
-  def yell_name
-    p "yell_name: #{self}"
-    yell
+  def count
+    @count
   end
-
-  private
-
-    def yell
-      p "yell: #{self}"
-      @name.upcase
-    end
 end
 
-enemy1 = Enemy.new
-enemy1.name = 'Vader'
-p enemy1.yell_name
+foo = Foo.new(9);
+p foo.count
+# → 9, not 0.
+
+
+p Foo.count

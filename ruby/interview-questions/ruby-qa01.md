@@ -1,7 +1,7 @@
 # Ruby Questions
 
 - [&& vs and](#vs-and)
-- [falsy values](#-falsy-values)
+- [falsy values](#falsy-values)
 - [hash keys to array sorted by length](#hash-keys-to-array-sorted-by-length)
 
 
