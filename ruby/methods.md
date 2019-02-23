@@ -1,6 +1,4 @@
-# Methods
-
-- [private methods are not really private](#private-methods-are-not-really-private)
+# Ruby Methods
 
 ## private methods are not really private
 
@@ -67,37 +65,72 @@ p enemy1.public_send(:yell_threat)
 # Produces a NoMethodError exception.
 ```
 
-Q: In the code below, does <q1> print 9 or 0? Explain.
+## class instance variables accessors
 
-## ivar vs civar
+Create reader and writer accessors for the `@count` _civar_ on the following class.
 
 ```rb
-class Foo
-  @count = 0; # <e1>
+class Enemy
+  @count = 0
+end
+```
 
-  def initialize(num)
-    @count  = num # <e2>
+One way is this:
+
+```rb
+class Enemy
+  @count = 0;
+
+  def self.count=(num)
+    @count = num
   end
 
-  # <e3>
-  def count
+  def self.count
     @count
   end
 end
 
-foo = Foo.new(9);
-p foo.count # <q1>
-# → 9, not 0.
+p Enemy.instance_variables
+# → [:@count]
+#
+p Enemy.count
+# → 0
+
+Enemy.count = 5
+p Enemy.count
+# → 5
 ```
 
-ANSWER:
+Another approach would be using `class << self` notation and define the methods normally (similar to instance methods).
 
-It prints `0`.
+```rb
+class Enemy
+  @count = 0;
 
-A `@var` syntax used inside an instance method (`count` in this case) will _always_ refer to to an _instance variable_.
+  class << self
+    def count=(num)
+      @count = num
+    end
 
-<e1> declares and initializes _civar_. It is an instance variable of the `Foo` object. (TODO: remember that classes are objects, instances of the Class class.)
+    def count
+      @count
+    end
+  end
+end
+```
 
-Then, `initialize` creates the `@count` _ivar_. Now we have two variables with the same name. One is an _civar_, the other is an _ivar_.
+Or we can do this
 
-In <e3>, we define a (reader) instance method `count` that simply returns `@count`. When that method is invoked, ruby has to decide whether to return the _ivar_ or the _civar_. Inside instance methods, a `@some_var` syntax will _always_ refer to an _ivar_.
+And yet another approach using the method `attr_accessor` inside `class << self`.
+
+```rb
+class Enemy
+  @count = 0;
+  class << self
+    attr_accessor :count
+  end
+end
+```
+
+BEWARE: Although `Enemy.instance_variables` shows `:@count`, we say `:count` without the `@` as argument to the `attr_accessor` method.
+
