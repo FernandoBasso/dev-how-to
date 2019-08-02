@@ -2,6 +2,7 @@
 
 - [useful log commands](#useful-log-commands)
 - [useful branch commands](#useful-branch-commands)
+- [find commit containing a given pattern](#find-commits-containing-a-given-pattern)
 
 
 ## useful log commands
@@ -32,5 +33,19 @@ git branch --contains <commit>
 
 # also include remotes
 git branch --remotes --contains <commit>
+```
+
+## find commits containing a given pattern
+
+In the current branch:
+
+```shell
+git log -S 'pattern'
+```
+
+In all commits and all branches:
+
+```shell
+git grep pattern $(git rev-list --all)
 ```
 
