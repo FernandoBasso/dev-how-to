@@ -26,3 +26,13 @@ done
 # 2. Could also use `$(seq 99)` instead of the range. It would be using another
 #    process and an external program, but it would work.
 #
+# Also,
+#
+#   `seq 1 2 99`
+#
+# would start at 1, increment by 2, and stop on 99. With a range:
+#
+#   {1..99..2}`
+#
+# would do the same.
+#
