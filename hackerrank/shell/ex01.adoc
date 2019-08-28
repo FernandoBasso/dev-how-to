@@ -1,0 +1,16 @@
+== Ex 01
+
+[source,bash,lineos]
+----
+echo -e 'foo';
+----
+
+.Example 01
+[source,bash,lineos]
+----
+for num in {1..99} ; do
+  if (( num % 2 )) ; then
+    printf '%s\n' $num
+  fi
+done
+----
