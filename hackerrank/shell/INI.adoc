@@ -5,4 +5,6 @@ Hello.
 This is it!
 
 
-include::./ex01.adoc[]
+include::./ex01-lets-echo.adoc[]
+include::./ex02-loop-skip.adoc[]
+

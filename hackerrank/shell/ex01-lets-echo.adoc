@@ -1,0 +1,14 @@
+== 01 Let's Echo
+
+## Let's Echo
+
+```bash
+echo HELLO # <1>
+```
+
+1. Quotes are not necessary unless we want to do some special quoting.
+
+```bash
+printf '%s\n' HELLO
+```
+
