@@ -1,1 +1,4 @@
-*adoc.conv.html
+# Asciidoctor converted files.
+# Se Guardfile
+*.adoc.conv.html
+
