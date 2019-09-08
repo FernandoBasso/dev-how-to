@@ -2,6 +2,7 @@
 # Se Guardfile
 *.adoc.conv.html
 
+# Some org-mode stuff.
 \#*\.org\#
 \.#*\.org
 

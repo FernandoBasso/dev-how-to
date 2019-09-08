@@ -20,7 +20,7 @@
 Just copy it from the “*Messages*” buffer. Example:
 
 #+begin_src
-M-X org-version RET
+M-x org-version RET
 C-x b *Me TAB
 #+end_src
 
