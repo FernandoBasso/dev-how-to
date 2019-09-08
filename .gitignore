@@ -2,3 +2,6 @@
 # Se Guardfile
 *.adoc.conv.html
 
+\#*\.org\#
+\.#*\.org
+
