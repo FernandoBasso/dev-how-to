@@ -1,0 +1,25 @@
+#+Title: JavaScript Types, Conversions and Coercions
+#+PROPERTY: header-args :results none :exports both
+#+SETUPFILE: ~/Projects/proghowto/org-setup.org
+
+* Intro
+
+Programming languages can be one, or a combination of these when it comes to types:
+
+- strongly typed
+- weakly typed
+- statically typed
+- dynamically typed
+
+JavaScript is dynamically typed. That does not mean it is “untyped”. Whether it is weakly or strongly typed, though, is a matter of debate.
+
+https://en.wikipedia.org/wiki/Strong_and_weak_typing
+
+https://stackoverflow.com/questions/2351190/static-dynamic-vs-strong-weak
+
+https://stackoverflow.com/questions/2690544/what-is-the-difference-between-a-strongly-typed-language-and-a-statically-typed
+
+
+* The End
+
+
