@@ -13,11 +13,27 @@ Programming languages can be one or a combination of these when it comes to type
 
 JavaScript is dynamically typed. That does not mean it is “untyped”. It is also weakly typed since it relies heavily on coercions (implicit type conversions).
 
+
 https://en.wikipedia.org/wiki/Strong_and_weak_typing
 
 https://stackoverflow.com/questions/2351190/static-dynamic-vs-strong-weak
 
 https://stackoverflow.com/questions/2690544/what-is-the-difference-between-a-strongly-typed-language-and-a-statically-typed
+
+
+https://stackoverflow.com/questions/8857763/what-is-the-difference-between-casting-and-coercing
+
+https://wtfjs.com/
+
+https://github.com/brianleroux/wtfjs
+
+https://stackoverflow.com/questions/8857763/what-is-the-difference-between-casting-and-coercing
+
+https://www.destroyallsoftware.com/talks/wat
+
+https://2ality.com/2012/01/object-plus-object.html
+
+https://stackoverflow.com/questions/8857763/what-is-the-difference-between-casting-and-coercing
 
 
 
