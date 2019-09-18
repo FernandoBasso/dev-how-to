@@ -35,9 +35,18 @@
 ¼     bc        VULGAR FRACTION ONE QUARTER
 ½     bd        VULGAR FRACTION ONE HALF
 ¾     be        VULGAR FRACTION THREE QUARTERS
+
+⍽     237d      shouldered open box, indicates NBSP.
+·     b7        interpunct &middot;
+␠     2420      control
 ----
 
 ♯ ♩ ♪ E laiá! ♫ ♭ ♮
+
+
+== Whitespace Character
+
+https://en.wikipedia.org/wiki/Whitespace_character
 
 
 == Bash

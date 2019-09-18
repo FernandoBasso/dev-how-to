@@ -14,6 +14,32 @@ CAUTION: The “space” character is very important in Bash (and other shells).
 link:https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Quoting[Bash man page section on Quoting^]
 
 
+=== Basic Examples
+
+Here, `echo` is being given three arguments to print:
+
+[source,sh]
+----
+echo may the force
+----
+
+And here, `printf` is being given one _format specifier_ (`%s`) and _three arguments_. The format specifier is reused until all arguments all consumed.
+
+[source,sh]
+----
+printf '%s\n' be with you.
+----
+
+The above is the same as:
+
+[source,sh]
+----
+printf '%s\n' be
+printf '%s\n' with
+printf '%s\n' you.
+----
+
+
 == Escape Character
 
 === Example 1 - Printing
@@ -31,9 +57,9 @@ echo foo\
 foo bar
 ----
 
-It prints `foo bar` because the backslash after “foo” is not itself quoted. Therefore, it removes the meaning of the newline created when pressing Enter. Also, We see only one space between the output “foo” and “bar” because since nothing was quoted, all the spaces the between the tokens “foo” and “bar” are considered one one single word separator, and `echo` prints its arguments one by one, separated by a space between each.
+The unquoted escape removes the newline. We are left with `foo␠␠␠␠bar`. That is two arguments. `echo` prints those arguments separated by a single whitespace.
 
-.Excerpt from `help echo`
+.Excerpt from `help echo'
 ----
 $ help echo
 echo: echo [-neE] [arg ...]
@@ -60,12 +86,12 @@ $ bash dev.sh
 dev.sh: line 2: bar: command not found
 ----
 
-And link:https://lists.gnu.org/archive/html/help-bash/2019-09/msg00012.html[here's a great explanation on why that is^], by the most honorable Greg Wooledge The First.
+And the reason why link:https://lists.gnu.org/archive/html/help-bash/2019-09/msg00012.html[was explained^], by no one less than the most honorable Greg Wooledge The First.
 
 In short, it becomes this:
 
 .Example on how it is interpreted
-[source,bash]
+[source,sh]
 ----
 str=foo bar
 ----
@@ -85,46 +111,67 @@ We indeed create an environment variable `str` with the value “foo” for the 
 == Single vs Double Quotes
 
 
-
 === Quoting - Example 1
 
 Note we quote neither the string being assigned to `str` nor the variable passed to `printf`.
 
-```bash
+[source,sh]
+----
 str=The force is strong with this one.
-printf '%s\n' $str
-```
+----
 
-```
+[source,sh]
+----
 script.sh: line 1: force: command not found
-```
+----
 
 The problem is that the shell assigns 'The' to `str`, sees the space, assumes it is separating the token 'The' from the token 'force', and terminates the assignment. It then assumes the next token, “force” is a command, and thus the error.
 
-In short, it assumes we are setting the environment variable `str=The` for the command `force`, and the remaining words would become the arguments to the command. Since `force` is not a real command or program (on my system, at least), the error occurs.
+In short, we are setting the environment variable `str=The` for the command `force`, and the remaining words would become the arguments to the command. Since `force` is not a real command or program (on my system, at least), the error occurs.
+
+With the above, we can then understand why these two next examples produce they output observed.
+
+[source,plain]
+----
+$ str=The echo is strong with this one.
+is strong with this one.
+
+$ str=The printf '%s\n' is strong with this one.
+is
+strong
+with
+this
+one.
+----
+
+In both cases, we create an environment variable (which is not even used) `str=The`. Then there is the `echo` and `printf` commands. `echo` prints any arguments passed, and ``printf``'s format specifier is used as many times as needed to consume all arguments.
+
 
 === Quoting - Example 2
 
 We can “quote” values either by using single quotes, double quotes, or escaping the spaces. Each of the three strings below is assigned as a single value to the heir corresponding variable:
 
-```bash
+[source,sh]
+----
 s1=foo\ bar
 s2='foo bar'
 s3="foo bar'
-```
+----
 
 In all three cases, the space character is made literal and does not cause the shell to interpret it as a token separator.
 
 So, we try the next example proper:
 
-```bash
+[source,sh]
+----
 str=The force is strong with this one.
 printf '%s\n' $str # <1>
-```
+----
 
 And we see this output:
 
-```
+.output
+----
 $ bash script.sh
 The
 force
@@ -133,7 +180,7 @@ strong
 with
 this
 one.
-```
+----
 
 <1> Note we did not quote `$str`. Therefore, `printf` does _word-splitting_ and prints each word on a new line, as instructed by the format specifier `%s\n`.
 
@@ -141,3 +188,5 @@ one.
 == Links and Resources
 
 - http://oliviercontant.com/why-is-printf-better-than-echo-in-shell-scripting/
+
+
