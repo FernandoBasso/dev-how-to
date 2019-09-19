@@ -86,7 +86,7 @@ $ bash dev.sh
 dev.sh: line 2: bar: command not found
 ----
 
-And the reason why link:https://lists.gnu.org/archive/html/help-bash/2019-09/msg00012.html[was explained^], by no one less than the most honorable Greg Wooledge The First.
+And the reason why link:https://lists.gnu.org/archive/html/help-bash/2019-09/msg00012.html[was explained^] by no one less than the most honorable Greg Wooledge The First.
 
 In short, it becomes this:
 
@@ -149,7 +149,7 @@ In both cases, we create an environment variable (which is not even used) `str=T
 
 === Quoting - Example 2
 
-We can “quote” values either by using single quotes, double quotes, or escaping the spaces. Each of the three strings below is assigned as a single value to the heir corresponding variable:
+We can “quote” values either by using single quotes, double quotes, or escaping the spaces and other especial characters. Each of the three strings below is assigned as a single value to the heir corresponding variable:
 
 [source,sh]
 ----
@@ -164,7 +164,7 @@ So, we try the next example proper:
 
 [source,sh]
 ----
-str=The force is strong with this one.
+str='The force is strong with this one.'
 printf '%s\n' $str # <1>
 ----
 
@@ -182,7 +182,7 @@ this
 one.
 ----
 
-<1> Note we did not quote `$str`. Therefore, `printf` does _word-splitting_ and prints each word on a new line, as instructed by the format specifier `%s\n`.
+<1> Note we did not quote `$str`. Therefore, the shell does _word-splitting_ and `printf` receives several arguments, which it prints according to the format specifier `%s\n` thus, each word on its own line.
 
 
 == Links and Resources
