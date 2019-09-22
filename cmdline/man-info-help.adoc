@@ -1,0 +1,255 @@
+== Man, Info and Help
+
+Always read man pages, help pages, and info pages.
+
+TIP: If you are new to *nix, don't expect to understand very much of the manuals when reading and trying stuff in the very first few attempts. It will really depend a lot on your background and previous experience, skills and expertise. Just keep trying.
+
+=== man
+
+
+[source,shell-session]
+----
+$ man man
+$ man --help
+$ man foo
+----
+
+Bash has builtin commands, like `help`, `pwd`, `type`, and `cd`.
+
+[source,shell-session]
+----
+$ type cd
+cd is a shell builtin
+----
+
+
+=== help
+
+`help` is a builtin command that gives help on other builtin commands.
+
+TIP: To see the list of Bash's builtin commands, simply type `help` without any arguments.
+
+And to see the help for a builtin, you can either do man bash and search for that command or do:
+
+[source,shell-session]
+----
+$ help <some builtin command>
+
+$ help help
+$ help builtin
+$ help .
+$ help source
+$ help command
+$ help [
+$ help [[
+$ help echo
+$ help printf
+# etc...
+----
+
+=== info
+
+First:
+
+[source,shell-session]
+----
+$ man info
+$ info --help
+$ info info
+----
+
+Generally, info pages are more user-friendly and tutorial-like than man pages. To read info pages, do
+
+[source,shell-session]
+----
+$ info <program or command>
+
+$ info ed
+$ info sed
+$ info bash
+----
+
+NOTE: Not all programs and commands have info pages, and when an info page does not exist for a given command, `info` shows the man page instead. `vi`, `vim` and `rsync` are some such programs.
+
+You can also open info directly into a section of an info document (if you know the name of the section), something like:
+
+[source,shell-session]
+----
+$ info sed 'execution cycle'
+----
+
+And programs in the _coreutils_ group have an _invocation_ section:
+
+[source,shell-session]
+----
+$ info coreutils
+$ info '(coreutils) echo invocation'
+$ info '(coreutils) printf invocation'
+$ info '(coreutils) kill invocation'
+----
+
+TODO: How to discover the names of the info sections for a given program?
+
+From GNU Emacs, you can read the info pages with:
+
+[source,text]
+----
+C-h i m <command>
+
+# For example:
+C-h i m sed
+----
+
+
+Info has a lot of nomenclature, concepts and commands. `info info` explains about commands to find stuff inside info, navigate documents, etc. It is a somewhat complex system. Yet, a powerful one.
+
+
+=== `cp' Man Page
+
+`man cp` produces this:
+
+.Exerpt of `man cp' on Arch Linux as of 2019
+[source,text]
+----
+CP(1)                            User Commands                           CP(1)
+
+NAME
+       cp - copy files and directories
+
+SYNOPSIS
+       cp [OPTION]... [-T] SOURCE DEST
+       cp [OPTION]... SOURCE... DIRECTORY
+       cp [OPTION]... -t DIRECTORY SOURCE...
+
+DESCRIPTION
+       Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.
+
+       Mandatory  arguments  to  long  options are mandatory for short options
+       too.
+----
+
+Let's understand the man page syntax.
+
+“cp” is the name of the command or program. No mistery.
+
+Anything inside “[” and “]” means that thing is optional. In this case, `[OPTION]` means that command line options are optional, that is, you can do something like `cp -v foo.txt foo.txt.bpk`, where `-v` is an _option_, or simply `cp foo.txt foo.txt.bpk`, and not use `-v` or any other option at all. You can think as options as flags the enable, disable, or configure the way the program should behave.
+
+
+The three dots, `...`, like in `[OPTION]...` or `SOURCE...`,  means that thing may occur more than one time. If something is optional, it may occur zero or more times. If that thing is required, then it has to occur one or more times. So, in the case of:
+
+[source,text]
+----
+cp [OPTION]... SOURCE... DIRECTORY
+----
+
+it means we must use `cp`, followed by zero or more command line options. Then, `SOURCE...` is required, but it can occur more than once. Finally, `DIRECTORY` is required, and must occur only once.
+
+Recap:
+
+- `[THING]` optional and may occur at most once.
+- `[THING]\...` optional and may occur zero or more times.
+- `THING` required and must occur exactly once.
+- `THING\...` required and must occur one or more time.
+
+Since `cp` accepts multiple sources, we could copy more than one file at a time to a given destination directory. As an example, let's copy three files to a backup directory.
+
+[source,shell-session]
+----
+$ cp main.c lib.h lib.c ~/bkpdir/
+----
+
+Suppose we want to use the options `--verbose` and `--interactive` (or their short versions, `-v` and `-i`), we can do:
+
+[source,shell-session]
+----
+$ cp --verbose --interactive main.c lib.h lib.c ~/bpkdir/
+----
+
+And with the short option syntax, we can group options. All three commands below do the same thing:
+
+[source,shell-session]
+----
+$ cp --verbose --interactive foo.txt foo.txt.bpk
+$ cp -v -i foo.txt foo.txt.bpk
+$ cp -vi foo.txt foo.txt.bpk
+----
+
+Note the `-vi` instead of `-v -i` in the last one!
+
+
+=== `csi' -help
+
+One of the popular Scheme interpreters (repl) is “Chicken”, and its command line tools include `csi` (Chicken Scheme Interpreter, for the command line repl) and `csc` (Chicken Scheme Compiler).
+
+NOTE: On some distros, the names are now `chicken-csi` and `chicken-scs` because there were conflicts with Mono's C Sharp Compiler and Chicken Scheme Compiler. See this link:https://github.com/mono/mono/issues/9056[Mono issue^], this link:https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=509367[Debian bug report^], and this link:https://bugs.archlinux.org/task/54040[Arch Linux bug report^].
+
+NOTE: `csi -help` as of 2019 produces output different than showed here (as it was in 2017), but the examples and explanations are still very useful and enlightening.
+
+[source,shell-session]
+----
+$ csi -help
+
+usage: csi [FILENAME | OPTION ...]
+----
+
+Note that we have the square braces enclosing two things, and there is a “|” (the pipe character) between those two things. That character means 'OR', that is, either one thing, or the or the other. It doesn't mean “invoke csi followed by a filename followed by an option.” Nope, that is incorrect. What that means is either one of these:
+
+[source,shell-session]
+----
+$ csi program.scm
+
+# or
+$ sci <some option>
+
+# but this is INCORRECT:
+$ sci program.scm <some option>
+----
+
+On the other hand, if you look at the `csi` man page (or `sci -help`), you'll see that some options require a file name, like the `-s` (or `-script`) option.
+
+The moral is that the man page shows something that can be easily misunderstood:
+
+[source,text]
+----
+csi [FILENAME | OPTION ...]
+----
+
+Can lead one to think the syntax is:
+
+[source,shell-session]
+----
+$ sci program.scm -s
+----
+
+which is incorrect. The correct is either:
+
+[source,shell-session]
+----
+$ sci program.scm
+----
+
+or (because the option `-s` takes a filename)
+
+[source,shell-session]
+----
+$ sci -s program.scm
+----
+
+That is, `csi filename` or `csi <option>`, just that some options require a filename *after* the option itself.
+
+
+=== Command Options
+
+Most commands (or programs) accept both long versions and short versions of options. For example, `rsync` has `-a`, short for `--archive`, and `-r`, short for `--recursive`, among many others.
+
+Still, even for programs that support both short and long versions of options, some options my be available only in long form (either because there was no appropriate single letter left, or for some other, sometimes odd, reason). For example, `ls` has the long option `--group-directories-first`, and there is no short name for that option. However, some programs allow the abbreviation of a long option as long it does not clash with some other option. For instance `ls` has only one long option that starts with `--g` (which is `--group-directories-first`), and it allows one to abbreviate it to something like `--group-directories`, or `--group-d`, or even `--group` or `--g`.
+
+To give another example, the program `xclip` also allows unambiguous abbreviations; one can either write `xclip -selection clipboard` or abbreviate to `xclip -sel clip`. Many other commands allow this sort of abbreviation.
+
+Another thing to consider is the number of hyphens. For most commands, short options use one hyphen, and long versions use two. You write either `-r` (one hyphen) or `--recursive` (two hyphens). However, some commands have long options (and sometimes _only_ long options, and behold, they take only _one single hyphen_. `xclip`, `chicken-csi` and `chicken-csi` are examples of programs in which the long version uses only a single hyphen (and allow the unambiguous abbreviations).
+
+Yet others, like `tar`, do not require the hyphen for the short versions. That is, you can either do `tar -cf dir.tar dir/` or drop the hyphen and do `tar cf dir.tar dir/`.
+
+`java` and `javac`, has long options, and some use one single hyphen, like `-classpath`, while others use two hyphens, like `--class-path`.
+
+

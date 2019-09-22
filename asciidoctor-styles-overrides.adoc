@@ -1,0 +1,20 @@
+
+++++
+<style>
+body {
+  font-family: Ubuntu, 'Noto Sans', 'Open Sans', Helvetica, Arial;
+}
+
+.literalblock pre,
+.listingblock > .content > pre {
+  background-color: #dfdfdf;
+  border: 1px dashed #999;
+}
+
+p code {
+  background-color: #dfdfdf;
+  border: 1px dashed #999;
+}
+</style>
+++++
+

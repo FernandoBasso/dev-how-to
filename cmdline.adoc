@@ -1,9 +1,9 @@
-= Asciidoctor Template Document
+= Command Line
 :linkcss!:
 :webfonts!:
 :icons!: font
 :source-highlighter: pygments
-:source-linenums-option:
+:source-linenums-option!:
 :pygments-css: class
 :sectlinks:
 :sectnums:
@@ -11,6 +11,9 @@
 :toc: left
 :favicon: ./cmdline.png
 
+include::./cmdline/intro.adoc[]
+
+include::./cmdline/man-info-help.adoc[]
 
 
 include::asciidoctor-styles-overrides.adoc[]

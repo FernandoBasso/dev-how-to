@@ -1,4 +1,4 @@
-= Asciidoctor Template Document
+= Bash How To
 :linkcss!:
 :webfonts!:
 :icons!: font
@@ -11,7 +11,11 @@
 :toc: left
 :favicon: ./cmdline.png
 
+include::bash/basic-concepts.adoc[]
 
+include::bash/strings.adoc[]
+
+include::bash/echo-printf.adoc[]
 
 include::asciidoctor-styles-overrides.adoc[]
 
