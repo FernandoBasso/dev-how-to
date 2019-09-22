@@ -1,6 +1,7 @@
 # Asciidoctor converted files.
 # Se Guardfile
 *.adoc.conv.html
+*.html
 
 # Some org-mode stuff.
 \#*\.org\#

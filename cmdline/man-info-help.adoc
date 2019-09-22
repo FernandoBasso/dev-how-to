@@ -253,3 +253,162 @@ Yet others, like `tar`, do not require the hyphen for the short versions. That i
 `java` and `javac`, has long options, and some use one single hyphen, like `-classpath`, while others use two hyphens, like `--class-path`.
 
 
+=== POSIX and GNU
+
+POSIX is a standard (specification) defined by the link:https://pubs.opengroup.org/onlinepubs/9699919799/[Open Group^]. There are four main secions in the spec:
+
+- link:https://pubs.opengroup.org/onlinepubs/9699919799/idx/xbd.html[Base Definitions^]
+- link:https://pubs.opengroup.org/onlinepubs/9699919799/idx/xsh.html[System Interfaces^]
+- link:https://pubs.opengroup.org/onlinepubs/9699919799/idx/xcu.html[Shell & Utilities^] (this is the one most useful for command line users and practictioners)
+- link:https://pubs.opengroup.org/onlinepubs/9699919799/idx/xrat.html[Rationale^]
+
+GNU programs and commands attempt to follow POSIX, but adds several additional features and “extensions” to standard POSIX. So, when you use a command line program, it is very likely that you are not using plain, standard POSIX, but extra features not defined in POSIX as well.
+
+Bash itself can be started with environment variable `POSIXLY_CORRECT` set (or with the `--posix` option) so it will behave like a real, plain, bare POSIX shell as much as possible.
+
+In `sed`, we can read its info page with `info sed`. In the section “Sed Scripts > The "s" Command”, we can read this:
+
+.Excerpt from GNU Sed Info Page
+[source,text]
+----
+Finally, as a GNU 'sed' extension, you can include a special sequence
+made of a backslash and one of the letters 'L', 'l', 'U', 'u', or 'E'.
+The meaning is as follows:
+
+'\L'
+     Turn the replacement to lowercase until a '\U' or '\E' is found,
+
+'\l'
+     Turn the next character to lowercase,
+
+'\U'
+     Turn the replacement to uppercase until a '\L' or '\E' is found,
+
+'\u'
+     Turn the next character to uppercase,
+
+'\E'
+     Stop case conversion started by '\L' or '\U'.
+----
+
+Most (if not all) GNU command line programs docs explicitly state when something is not plain POSIX, but an additional GNU feature. We can assume that most man and info pages are explicit when an option or something else is not POSIX-compliant or POSIX-defined.
+
+=== Documentation Relationships
+
+Also worth noting is that some docs refer to some other docs. If a man, help or info page mentions some other docs, pay attention to it. It usually means it implements things mentioned in the other docs, and possibily _extends_ and overrides things from the mentioned docs. Let's discuss one such example.
+
+If you read the help for the builtin `printf` command, it says:
+
+.Excerpt of bash's `help printf'
+[source,text]
+----
+In addition to the standard format specifications described in printf(1),
+printf interprets:
+----
+
+And then you do `man 1 printf`, and see:
+
+.Excerpt of `man 1 printf':
+[source,text]
+----
+NOTE:  your shell may have its own version of printf, which usually su‐
+persedes the version described here.  Please refer to your shell's doc‐
+umentation for details about the options it supports.
+----
+
+So, Bash's printf uses the format especifications defined in printf(1), but nonetheless, printf(1) tells us that the Shell's printf “usually supersedes” _this printf_. Moreover, `man 1 printf` talks about C printf.
+
+If we read link:https://pubs.opengroup.org/onlinepubs/9699919799/utilities/printf.html[POSIX printf specs^], we see it mentions link:https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap05.html[XBD File Format Notation^], which says:
+
+[source,text]
+----
+If the format is exhausted while arguments remain, the excess arguments shall
+be ignored.
+----
+
+So, one would expect that `printf '%s\n' foo bar` would print "foo\n" and ignore "bar", still, take a look at what really happens:
+
+[source,shell-session]
+----
+$ printf '%s\n' foo bar
+foo
+bar
+----
+
+It is still printing “bar” even though the POSIX spec tells that it should be ignored. Except that link:https://pubs.opengroup.org/onlinepubs/9699919799/utilities/printf.html[XCU Command and Utilities^] extends and superseds link:https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap05.html[XBD File Format Notation^]. Look:
+
+[source,text]
+----
+The format operand shall be used as the format string described in XBD File
+Format Notation with the following exceptions:
+
+...
+
+9. The format operand shall be reused as often as necessary to satisfy the
+argument operands.
+
+...
+----
+
+So, even though XBD tells that “excess arguments shall be ignored”, XCU printf overrides that and tells that it _shall be reused to satisfy the operands_.
+
+==== End of Options echo Example
+
+Unix shells and programs interpret `--` to mean “end of options”. Guideline 10 on link:https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html[XBD Utility Syntax Guidelines 10^] says:
+
+.Excerpt of XBD Utility Syntax Guidelines
+[source,text]
+----
+The first -- argument that is not an option-argument should be accepted as a
+delimiter indicating the end of options. Any following arguments should be
+treated as operands, even if they begin with the '-' character.
+----
+
+
+
+Take a look:
+
+[source,shell-session]
+----
+$ printf -v
+-bash: printf: -v: option requires an argument
+printf: usage: printf [-v var] format [arguments]
+----
+
+But if we use `--`, then printf simply prints “-v”:
+
+[source,shell-session]
+----
+$ printf -- -v
+-v
+----
+
+Then we try it with echo:
+
+[source,shell-session]
+----
+$ echo -- -e
+-- -e
+----
+
+Oops! echo printed `-- -e`, not just `-e`. It seems echo does not take `--` to mean “end of options”. If we run `help echo`, it says nothing about `--`. Then we read link:https://pubs.opengroup.org/onlinepubs/9699919799/utilities/echo.html[XCU echo spec page^], and come accross this:
+
+.Excerpt of XCU echo spec page
+[source,text]
+----
+The echo utility shall not recognize the "--" argument in the manner
+specified by Guideline 10 of XBD Utility Syntax Guidelines; "--" shall be
+recognized as a string operand.
+----
+
+So that is it. Since GNU Bash echo does not override the way `--` should work according to the specs, it is not even documented in `help echo`. And we should assume, at least when it comes to `--`, that echo bash builtin follows the specs!
+
+
+
+
+
+
+
+
+
+
