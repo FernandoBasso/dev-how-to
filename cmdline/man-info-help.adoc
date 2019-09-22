@@ -6,12 +6,32 @@ TIP: If you are new to *nix, don't expect to understand very much of the manuals
 
 === man
 
-
 [source,shell-session]
 ----
 $ man man
 $ man --help
 $ man foo
+----
+
+When someone tells you “it is docummented in <some_command(3)>”, they mean it is in section 3 of the man pages. Then you would do:
+
+[source,shell-session]
+----
+$ man 3 some_command
+
+# or
+$ man some_command.3
+----
+
+A real example of that could be with the printf(1) (printf command) or printf(3) from C Standard Library:
+
+[source,shell-session]
+----
+$ man 1 printf
+$ man printf.1
+
+$ man 3 printf
+$ man printf.3
 ----
 
 Bash has builtin commands, like `help`, `pwd`, `type`, and `cd`.
