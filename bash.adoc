@@ -17,6 +17,8 @@ include::bash/strings.adoc[]
 
 include::bash/echo-printf.adoc[]
 
+include::bash/functions.adoc[]
+
 include::bash/parameter-expansion.adoc[]
 
 include::bash/links-resources.adoc[]
