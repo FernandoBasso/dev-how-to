@@ -95,4 +95,3 @@ $ echo "${str/%sixty-six./66.}"
 Execute order 66.
 ----
 
-

@@ -11,10 +11,11 @@
 :toc: left
 :favicon: ./cmdline.png
 
-include::./cmdline/intro.adoc[]
+include::cmdline/intro.adoc[]
 
-include::./cmdline/man-info-help.adoc[]
+include::cmdline/man-info-help.adoc[]
 
+include::cmdline/links-resources.adoc[]
 
 include::asciidoctor-styles-overrides.adoc[]
 

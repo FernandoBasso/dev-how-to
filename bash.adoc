@@ -3,7 +3,7 @@
 :webfonts!:
 :icons!: font
 :source-highlighter: pygments
-:source-linenums-option:
+:source-linenums-option!:
 :pygments-css: class
 :sectlinks:
 :sectnums:
@@ -16,6 +16,10 @@ include::bash/basic-concepts.adoc[]
 include::bash/strings.adoc[]
 
 include::bash/echo-printf.adoc[]
+
+include::bash/parameter-expansion.adoc[]
+
+include::bash/links-resources.adoc[]
 
 include::asciidoctor-styles-overrides.adoc[]
 

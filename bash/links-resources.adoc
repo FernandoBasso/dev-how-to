@@ -1,0 +1,5 @@
+
+== Links and Resources
+
+https://github.com/dylanaraps/pure-bash-bible
+

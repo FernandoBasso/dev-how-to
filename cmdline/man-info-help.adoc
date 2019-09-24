@@ -34,6 +34,41 @@ $ man 3 printf
 $ man printf.3
 ----
 
+If you don't know what a man page name would be, we can search the man page names and their sort descriptions by using `-k`, which accepts a regular expression:
+
+
+[source,shell-session]
+----
+$ man -k bc
+... produces to many results...
+----
+
+So, let's match commands that start with “bc”:
+
+[source,shell-session]
+$ man -k ^bc
+bc (1)               - An arbitrary precision calculator language
+bccmd (1)            - Utility for the CSR BCCMD interface
+bcmp (3)             - compare byte sequences
+bcopy (3)            - copy byte sequence
+----
+
+Or commands that end with “print” (but not “printf”, for example):
+
+[source,shell-session]
+----
+$ man -k print$
+FcFontSetPrint (3)   - Print a set of patterns to stdout
+FcPatternPrint (3)   - Print a pattern for debugging
+FcValuePrint (3)     - Print a value to stdout
+isprint (3)          - character classification functions
+iswprint (3)         - test for printing wide character
+print (1)            - execute programs via entries in the mailcap file
+----
+
+
+=== help
+
 Bash has builtin commands, like `help`, `pwd`, `type`, and `cd`.
 
 [source,shell-session]
@@ -41,9 +76,6 @@ Bash has builtin commands, like `help`, `pwd`, `type`, and `cd`.
 $ type cd
 cd is a shell builtin
 ----
-
-
-=== help
 
 `help` is a builtin command that gives help on other builtin commands.
 
@@ -124,7 +156,7 @@ C-h i m sed
 Info has a lot of nomenclature, concepts and commands. `info info` explains about commands to find stuff inside info, navigate documents, etc. It is a somewhat complex system. Yet, a powerful one.
 
 
-=== `cp' Man Page
+=== `cp' Man Page Example
 
 `man cp` produces this:
 
@@ -197,7 +229,7 @@ $ cp -vi foo.txt foo.txt.bpk
 Note the `-vi` instead of `-v -i` in the last one!
 
 
-=== `csi' -help
+=== `csi' -help Example
 
 One of the popular Scheme interpreters (repl) is “Chicken”, and its command line tools include `csi` (Chicken Scheme Interpreter, for the command line repl) and `csc` (Chicken Scheme Compiler).
 
@@ -425,6 +457,10 @@ So that is it. Since GNU Bash echo does not override the way `--` should work ac
 
 
 
+
+=== Other Links and Resources
+
+https://wiki.gentoo.org/wiki/Man_page/Navigate
 
 
 
