@@ -34,8 +34,9 @@ $ man 3 printf
 $ man printf.3
 ----
 
-If you don't know what a man page name would be, we can search the man page names and their sort descriptions by using `-k`, which accepts a regular expression:
+If you don't know what a man page name would be, we can search the man page names and their sort descriptions by using `-k`, which accepts a regular expression. `man -k pattern` is the same as `apropos pattern`.
 
+TIP: If `apropos` or `man -k` say “nothing appropriate”, read `man mandb` and then run `mandb` as root.
 
 [source,shell-session]
 ----
@@ -45,13 +46,32 @@ $ man -k bc
 
 So, let's match commands that start with “bc”:
 
+.man -k ^bc on Ubuntu 19.04
 [source,shell-session]
+----
 $ man -k ^bc
 bc (1)               - An arbitrary precision calculator language
 bccmd (1)            - Utility for the CSR BCCMD interface
 bcmp (3)             - compare byte sequences
 bcopy (3)            - copy byte sequence
 ----
+
+.man -k ^bc on Arch Linux as of September, 2019
+[source,shell-session]
+----
+$ man -k ^bc
+BC (3x)              - direct curses interface to the terminfo capability dat...
+bc (1)               - An arbitrary precision calculator language
+bc (1p)              - arbitrary-precision arithmetic language
+bcmp (3)             - compare byte sequences
+bcomps (1)           - biconnected components filter for graphs
+bcopy (3)            - copy byte sequence
+----
+
+NOTE: On Ubuntu, _bc (1p)_ wasn't available, but it was on Arch Linux.
+
+NOTE: A “p” right after a section number of a man page means the standard POSIX program/behavior. “bc (1p)” refers to the POSIX specs and behavior, while
+
 
 Or commands that end with “print” (but not “printf”, for example):
 
@@ -66,6 +86,24 @@ iswprint (3)         - test for printing wide character
 print (1)            - execute programs via entries in the mailcap file
 ----
 
+Bear in mind that all of these do the same thing:
+
+[source,bash]
+----
+man -k some_command
+man --apropos some_command
+apropos some_command
+----
+
+To search on the entire text of the man pages, use:
+
+[source,bash]
+----
+man --global-apropos some_command
+man -K some_command
+----
+
+Note that it is an uppercase “K” this time.
 
 === help
 
