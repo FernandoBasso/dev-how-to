@@ -5,13 +5,29 @@ body {
   font-family: Ubuntu, 'Noto Sans', 'Open Sans', Helvetica, Arial;
 }
 
+
+@media (min-width: 768px) {
+  body.toc2 {
+    padding-left: 26em;
+  }
+
+  #toc.toc2 {
+    width: 26em;
+  }
+
+  #toc a {
+    font-size: 1.0em;
+  }
+}
+
 .literalblock pre,
 .listingblock > .content > pre {
   background-color: #dfdfdf;
   border: 1px dashed #999;
 }
 
-p code {
+p code,
+td code {
   background-color: #dfdfdf;
   border: 1px dashed #999;
 }

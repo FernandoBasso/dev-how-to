@@ -13,17 +13,10 @@ $ man --help
 $ man foo
 ----
 
-When someone tells you “it is docummented in <some_command(3)>”, they mean it is in section 3 of the man pages. Then you would do:
+When someone tells you something like “it is docummented in some_command (3)”, they mean it is in section 3 of the man pages. Then you would do `man 1 some_command` or `man some_command.3`:
 
-[source,shell-session]
-----
-$ man 3 some_command
 
-# or
-$ man some_command.3
-----
-
-A real example of that could be with the printf(1) (printf command) or printf(3) from C Standard Library:
+A real example of that could be with the printf(1) command or printf(3) from the C Standard Library:
 
 [source,shell-session]
 ----
@@ -34,9 +27,9 @@ $ man 3 printf
 $ man printf.3
 ----
 
-If you don't know what a man page name would be, we can search the man page names and their sort descriptions by using `-k`, which accepts a regular expression. `man -k pattern` is the same as `apropos pattern`.
+If we don't know what a man page name would be, we can search the man page names and their sort descriptions by using `-k`, which accepts a regular expression. By the way, `man -k pattern` is the same as `apropos pattern`.
 
-TIP: If `apropos` or `man -k` say “nothing appropriate”, read `man mandb` and then run `mandb` as root.
+TIP: If `apropos` or `man -k` says “nothing appropriate”, read `man mandb` and then run `mandb` as root.
 
 [source,shell-session]
 ----
@@ -71,6 +64,11 @@ bcopy (3)            - copy byte sequence
 NOTE: On Ubuntu, _bc (1p)_ wasn't available, but it was on Arch Linux.
 
 NOTE: A “p” right after a section number of a man page means the standard POSIX program/behavior. “bc (1p)” refers to the POSIX specs and behavior, while
+
+
+Section numbers are more or less standard across Unix-like OSes, but the letters may vary.
+
+TODO: Find more info about the letters used in the section.
 
 
 Or commands that end with “print” (but not “printf”, for example):
@@ -143,9 +141,9 @@ First:
 
 [source,shell-session]
 ----
+$ info info
 $ man info
 $ info --help
-$ info info
 ----
 
 Generally, info pages are more user-friendly and tutorial-like than man pages. To read info pages, do
@@ -173,12 +171,19 @@ And programs in the _coreutils_ group have an _invocation_ section:
 [source,shell-session]
 ----
 $ info coreutils
+
 $ info '(coreutils) echo invocation'
+$ info coreutils 'echo invocation'
+
 $ info '(coreutils) printf invocation'
+$ info coreutils 'printf invocation'
+
 $ info '(coreutils) kill invocation'
+$ info coreutils 'kill invocation'
 ----
 
-TODO: How to discover the names of the info sections for a given program?
+
+TODO: How to discover the names of the info sections for a given program? For example “info sed, then sed scripts, then the s command”.
 
 From GNU Emacs, you can read the info pages with:
 
