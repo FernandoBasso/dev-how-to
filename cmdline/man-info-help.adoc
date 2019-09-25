@@ -212,7 +212,43 @@ info /usr/local/share/info/bash.info
 info ~/docs/doc.info
 
 info sed 'sed scripts' 'the "s" command'
+info emacs 'user input'
 ----
+
+Run `info info 'moving the cursor'`.
+
+NOTE: `META` (or `ALT`) can also be achieved by hitting `ESC`. Like `ESC-f` for `forward-word`. And `ESC` itself can be produced with `C-[`. `DEL` is `Backspace`.
+
+All the following commans accept the numeric (universal) argument.
+
+- `C-x`: hold `CTRL` and press `x`
+- `M-x`: hold `META` (a.k.a `ALT`) and press `x`
+- `C-n`: next line
+- `C-p`: prev line
+- `C-a`: beginning of line (“a” is the first letter of the alphabet)
+- `C-e`: end of line
+- `C-f`: forward char
+- `C-b`: backward char
+- `M-f`: forward word
+- `M-b`: backward word
+- `M-<` or `b`: beginning of node
+- `M\->` or `e`: end of node
+- `M-r` move to window line
+
+Run `info info 'scrolling commands'.
+
+- `SPC`
+- `C-v`
+- `M-x scroll-TAB-TAB`
+- `DEL`
+- `M-v`
+- `C-l`
+- `C-x w`
+
+
+Run `info info 'node commands'`.
+
+-
 
 === `cp' Man Page Example
 
