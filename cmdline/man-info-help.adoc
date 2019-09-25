@@ -146,6 +146,8 @@ $ man info
 $ info --help
 ----
 
+NOTE: Of course, on Arch Linux, we are fine, but on Ubuntu, we need to `apt install texinfo-doc-nonfree`.
+
 Generally, info pages are more user-friendly and tutorial-like than man pages. To read info pages, do
 
 [source,shell-session]
@@ -198,6 +200,19 @@ C-h i m sed
 
 Info has a lot of nomenclature, concepts and commands. `info info` explains about commands to find stuff inside info, navigate documents, etc. It is a somewhat complex system. Yet, a powerful one.
 
+
+==== info summary
+
+[source,text]
+----
+info emacs --node Files
+info '(emacs)Files'
+
+info /usr/local/share/info/bash.info
+info ~/docs/doc.info
+
+info sed 'sed scripts' 'the "s" command'
+----
 
 === `cp' Man Page Example
 
