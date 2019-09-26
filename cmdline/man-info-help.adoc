@@ -68,7 +68,39 @@ NOTE: A “p” right after a section number of a man page means the standard PO
 
 Section numbers are more or less standard across Unix-like OSes, but the letters may vary.
 
-TODO: Find more info about the letters used in the section.
+==== Finding Info Node Names
+
+[source,shell-session]
+----
+$ info sed --output - | grep '^\*\s.\+::'
+* Introduction::               Introduction
+* Invoking sed::               Invocation
+* sed scripts::                'sed' scripts
+* sed addresses::              Addresses: selecting lines
+* sed regular expressions::    Regular expressions: selecting text
+* advanced sed::               Advanced 'sed': cycles and buffers
+* Examples::                   Some sample scripts
+* Limitations::                Limitations and (non-)limitations of GNU 'sed'
+* Other Resources::            Other resources for learning about 'sed'
+* Reporting Bugs::             Reporting bugs
+* GNU Free Documentation License:: Copying and sharing this manual
+* Concept Index::              A menu with all the topics in this manual.
+* Command and Option Index::   A menu with all 'sed' commands and
+
+$ info sed 'sed scripts' --output - | grep '^\*\s.\+::'
+* sed script overview::      'sed' script overview
+* sed commands list::        'sed' commands summary
+* The "s" Command::          'sed''s Swiss Army Knife
+* Common Commands::          Often used commands
+* Other Commands::           Less frequently used commands
+* Programming Commands::     Commands for 'sed' gurus
+* Extended Commands::        Commands specific of GNU 'sed'
+* Multiple commands syntax:: Extension for easier scripting
+
+$ info sed 'sed scripts' 'the "s" command' --output - | vim -
+
+$ info sed 'sed scripts' 'the "s" command'
+----
 
 
 Or commands that end with “print” (but not “printf”, for example):
@@ -248,7 +280,26 @@ Run `info info 'scrolling commands'.
 
 Run `info info 'node commands'`.
 
--
+- `n`
+- `p`
+- `u`
+- `l`
+- `t`
+- `d`
+- `<`
+- `>`
+- `]`
+- `[`
+- `s`, `/`
+- `?`
+- `C-x n`, `}`
+- `C-x N`, `{`
+- `R`
+- `S`
+- `C-s`
+- `C-r`
+- `M-/`
+
 
 === `cp' Man Page Example
 

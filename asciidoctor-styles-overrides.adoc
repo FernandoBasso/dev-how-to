@@ -22,7 +22,7 @@ body {
 
 .literalblock pre,
 .listingblock > .content > pre {
-  background-color: #dfdfdf;
+  background-color: #fafafa;
   border: 1px dashed #999;
 }
 
