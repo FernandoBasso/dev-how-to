@@ -8,11 +8,13 @@ body {
 
 @media (min-width: 768px) {
   body.toc2 {
-    padding-left: 26em;
+    padding-left: 22em;
   }
 
   #toc.toc2 {
-    width: 26em;
+    width: 22em;
+    background-color: #e6dfde;
+    border-right: 1px dashed #aaa;
   }
 
   #toc a {
@@ -22,7 +24,7 @@ body {
 
 .literalblock pre,
 .listingblock > .content > pre {
-  background-color: #fafafa;
+  background-color: #e3e3e3;
   border: 1px dashed #999;
 }
 
