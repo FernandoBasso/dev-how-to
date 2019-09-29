@@ -1,5 +1,7 @@
 = Asciidoctor Template Document
 :linkcss!:
+:stylesheet: asciidoctor-original-with-overrides.css
+:stylesdir: {user-home}/Projects/proghowto
 :webfonts!:
 :icons!: font
 :source-highlighter: pygments
@@ -13,5 +15,5 @@
 
 
 
-include::asciidoctor-styles-overrides.adoc[]
+include::{user-home}/Projects/proghowto/asciidoctor-styles-overrides.adoc[]
 
