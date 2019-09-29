@@ -11,7 +11,7 @@
 :sectnums:
 :toclevels: 6
 :toc: left
-:favicon: ../../cmdline.png
+:favicon: https://fernandobasso.dev/cmdline.png
 
 
 == Ruby

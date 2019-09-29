@@ -11,9 +11,6 @@
 :sectnums:
 :toclevels: 6
 :toc: left
-:favicon: ./cmdline.png
+:favicon: https://fernandobasso.dev/cmdline.png
 
-
-
-include::{user-home}/Projects/proghowto/asciidoctor-styles-overrides.adoc[]
 

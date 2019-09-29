@@ -1,0 +1,33 @@
+= Asciidoctor Template Document
+:linkcss!:
+:stylesheet: asciidoctor-original-with-overrides.css
+:stylesdir: {user-home}/Projects/proghowto
+:webfonts!:
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+
+== Ruby
+
+- link:https://www.hackerrank.com/challenges/ruby-enumerable-reduce/problem[HackerRank Challenge^]
+- link:https://en.wikipedia.org/wiki/Arithmetico%E2%80%93geometric_sequence[Wikipedia Arithmetico-Geometric Sequence^]
+
+[source,ruby,lineos]
+----
+def sum_terms(n)
+  # This uses `map` and `inject`. It will "loop" twice.
+  # (1..n).map { |i| i ** 2 + 1}.inject(0, &:+)
+
+  # This uses only `inject`. It will loop only once.
+  (1..n).inject(0) { |acc, i| acc += i ** 2 + 1 }
+end
+----
+
+

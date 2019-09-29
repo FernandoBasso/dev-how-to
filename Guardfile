@@ -1,3 +1,5 @@
+# vim: set filetype=ruby:
+
 require 'asciidoctor'
 
 guard 'shell' do
@@ -5,3 +7,4 @@ guard 'shell' do
     Asciidoctor.convert_file(m[0], :safe => :unsafe, :to_file => "#{m[0]}.conv.html")
   }
 end
+
