@@ -19,13 +19,24 @@
 - link:https://www.hackerrank.com/challenges/ruby-enumerable-reduce/problem[HackerRank Challenge^]
 - link:https://en.wikipedia.org/wiki/Arithmetico%E2%80%93geometric_sequence[Wikipedia Arithmetico-Geometric Sequence^]
 
+=== Solution 1
+
+Uses `map` and `inject`. Does two passes over the numbers, one for multiplying `n`, and other to update the accumulator. It “loops” twice.
+
 [source,ruby,lineos]
 ----
 def sum_terms(n)
-  # This uses `map` and `inject`. It will "loop" twice.
-  # (1..n).map { |i| i ** 2 + 1}.inject(0, &:+)
+  (1..n).map { |i| i ** 2 + 1}.inject(0, &:+)
+end
+----
 
-  # This uses only `inject`. It will loop only once.
+=== Solution 2
+
+This uses only `inject` (`reduce`) and does the multiplication in the same step as it updates the accumulator, therefore, “loops” only once.
+
+[source,ruby,lineos]
+----
+def sum_terms(n)
   (1..n).inject(0) { |acc, i| acc += i ** 2 + 1 }
 end
 ----
