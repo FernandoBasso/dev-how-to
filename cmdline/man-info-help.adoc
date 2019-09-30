@@ -251,54 +251,7 @@ Run `info info 'moving the cursor'`.
 
 NOTE: `META` (or `ALT`) can also be achieved by hitting `ESC`. Like `ESC-f` for `forward-word`. And `ESC` itself can be produced with `C-[`. `DEL` is `Backspace`.
 
-All the following commans accept the numeric (universal) argument.
-
-- `C-x`: hold `CTRL` and press `x`
-- `M-x`: hold `META` (a.k.a `ALT`) and press `x`
-- `C-n`: next line
-- `C-p`: prev line
-- `C-a`: beginning of line (“a” is the first letter of the alphabet)
-- `C-e`: end of line
-- `C-f`: forward char
-- `C-b`: backward char
-- `M-f`: forward word
-- `M-b`: backward word
-- `M-<` or `b`: beginning of node
-- `M\->` or `e`: end of node
-- `M-r` move to window line
-
-Run `info info 'scrolling commands'.
-
-- `SPC`
-- `C-v`
-- `M-x scroll-TAB-TAB`
-- `DEL`
-- `M-v`
-- `C-l`
-- `C-x w`
-
-
-Run `info info 'node commands'`.
-
-- `n`
-- `p`
-- `u`
-- `l`
-- `t`
-- `d`
-- `<`
-- `>`
-- `]`
-- `[`
-- `s`, `/`
-- `?`
-- `C-x n`, `}`
-- `C-x N`, `{`
-- `R`
-- `S`
-- `C-s`
-- `C-r`
-- `M-/`
+For a quick glance at _all_ info commands and key bindings, open any info page, and press `C-h`.
 
 
 === `cp' Man Page Example
@@ -452,7 +405,7 @@ Yet others, like `tar`, do not require the hyphen for the short versions. That i
 
 === POSIX and GNU
 
-POSIX is a standard (specification) defined by the link:https://pubs.opengroup.org/onlinepubs/9699919799/[Open Group^]. There are four main secions in the spec:
+POSIX is a standard (specification) defined by the link:https://pubs.opengroup.org/onlinepubs/9699919799/[Open Group^]. There are four main sections in the spec:
 
 - link:https://pubs.opengroup.org/onlinepubs/9699919799/idx/xbd.html[Base Definitions^]
 - link:https://pubs.opengroup.org/onlinepubs/9699919799/idx/xsh.html[System Interfaces^]
