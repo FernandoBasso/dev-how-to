@@ -15,5 +15,7 @@
 
 include::ruby/intro.adoc[]
 
+include::blocks-props-lambdas.adoc[]
+
 include::ruby/methods.adoc[]
 

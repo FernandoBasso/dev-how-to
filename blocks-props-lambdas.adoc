@@ -1,0 +1,40 @@
+== Blocks, Procs, Lambdas
+
+
+
+=== Lambdas
+
+https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line
+
+It is possible to use the both `lambda` literal syntax or with the “stabby" `->` to create a lambda functions.
+
+.lambda literal syntax
+[source,ruby,lineos]
+----
+greet = lambda do |name|
+  "Hello, #{name}"
+end
+
+puts greet.('Yoda')
+# → Hello, Yoda!
+----
+
+
+.lambda stabby syntax
+[source,ruby,lineos]
+----
+
+greet = ->(name) do
+  "Hello, #{name}"
+end
+
+p greet.('Obi-wan')
+# → Hello, Obi-wan!
+----
+
+
+=== Lambdas and Currying
+
+Currying is a technique in which a function accepts n parameters and turns it into a sequence of n functions, each taking 1 parameter.
+
+

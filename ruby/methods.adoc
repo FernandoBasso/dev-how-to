@@ -12,7 +12,7 @@ main
 => main
 ----
 
-.simple script that just prints self at the top level
+.simply prints the value of self at the top level
 [source,shell-session]
 ----
 $ echo 'p self' > program.rb
@@ -21,7 +21,7 @@ $ ruby -w program.rb
 main
 ----
 
-So, you would think you can do something like this:
+So, one would think something like this is possible.
 
 [source,ruby,lineos]
 ----

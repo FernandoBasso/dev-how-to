@@ -447,7 +447,7 @@ body {
 
   #toc.toc2 {
     width: 22em;
-    background-color: #e6dfde;
+    background-color: #f5f5f5;
     border-right: 1px dashed #aaa;
   }
 
@@ -458,7 +458,7 @@ body {
 
 .literalblock pre,
 .listingblock > .content > pre {
-  background-color: #e3e3e3;
+  background-color: #fafafa;
   border: 1px dashed #999;
 }
 
@@ -466,5 +466,9 @@ p code,
 td code {
   background-color: #dfdfdf;
   border: 1px dashed #999;
+}
+
+pre.pygments.highlight .tok-c1 {
+  font-style: normal;
 }
 
