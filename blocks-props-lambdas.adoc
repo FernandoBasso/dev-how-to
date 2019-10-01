@@ -164,8 +164,35 @@ To create a lambda function, it is possible to use the both `lambda` literal, in
 
 [source,ruby,lineos]
 ----
+# No args.
+l1 = -> { 'lambda 1' }
+puts l1.call
+# → lambda 1
 
+# No args.
+l2 = ->() { 'lambda 2' }
+puts l2.call
+# → lambda 2
+
+# One arg.
+l3 = ->(arg) { "Argument is: #{arg}" }
+puts l3.call('Ahsoka Tano')
+# → Argument is: Ahsoka Tano
+
+
+# No args.
+puts -> { 'lambda 1' }.call
+# → lambda 1
+
+# No args.
+puts ->() { 'lambda 2' }.call
+# → lambda 2
+
+# One arg.
+puts ->(arg) { "Argument is: #{arg}" }.call('Aayla Secura')
+# → Argument is: Aayla Secura
 ----
+
 
 .lambda literal syntax
 [source,ruby,lineos]
