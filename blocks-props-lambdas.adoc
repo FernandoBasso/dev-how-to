@@ -17,14 +17,12 @@ end
 arr.each { |el| p el * el }
 ----
 
-`each` is an iterator method that accepts a code block as argument. For each element of the array, the block is run on that element.
-
 And we can make our own methods handle blocks passed as arguments.
 
 [source,ruby,lineos]
 ----
 def my_method
-  # yields control to the passed block.
+  # Yields control to the passed block.
   yield(10) if block_given?
 end
 
@@ -160,7 +158,14 @@ The `[]` and `===` versions are not recommended. `.()` is better, but avoid it. 
 
 https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line
 
-It is possible to use the both `lambda` literal or the “stabby" `->` to create a lambda functions.
+To create a lambda function, it is possible to use the both `lambda` literal, in which parameters to the block go inside `| |` as usual, or the “stabby" `->`, in which parameters to the block go inside `( )`.
+
+=== Lambda “Stabby” \-> Syntax
+
+[source,ruby,lineos]
+----
+
+----
 
 .lambda literal syntax
 [source,ruby,lineos]
