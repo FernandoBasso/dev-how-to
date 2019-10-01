@@ -1,12 +1,166 @@
 == Blocks, Procs, Lambdas
 
+- link:https://www.youtube.com/watch?v=VBC-G6hahWA[CooperPress, An Introduction to Procs, Lambdas and Closures in Ruby (this video is amazing. By all means, watch it!^]
+
+== Blocks
+
+Blocks are essentially “nameless functions” or “nameless portions of code.”
+
+[source,ruby,lineos]
+----
+[10, 20, 30, 40]
+
+arr.each do |el|
+    p el * 2
+end
+
+arr.each { |el| p el * el }
+----
+
+`each` is an iterator method that accepts a code block as argument. For each element of the array, the block is run on that element.
+
+And we can make our own methods handle blocks passed as arguments.
+
+[source,ruby,lineos]
+----
+def my_method
+  # yields control to the passed block.
+  yield(10) if block_given?
+end
+
+run_block
+
+my_method do |num|
+  p 'hey there'
+  p num
+end
+----
+
+NOTE: Methods do not declare explicit parameters for blocks. You just assume a block was passed and invoke `yield`, or test with `block_given?` instead of assuming a block was passed.
+
+TIP: We say that a method “yields control to the block”.
+
+=== Block To Proc
+
+A method can _yield_ to a block, and _call_ a proc. It is possible to convert a block to a proc so it can be called with `.call`.
+
+[source,ruby,lineos]
+----
+# <1>
+def meth1
+  yield(10) if block_given?
+end
+
+meth1 do |num|
+  p "meth1: #{num}"
+end
+# → "meth1: 10"
+
+# <2>
+def meth2(&block)
+  block.call(10)
+end
+
+meth2 do |num|
+  p "meth2: #{num}"
+end
+# → "meth2: 10"
+----
+
+1. Invoke the method passing the block, and internally, the method yields to the block giving it 10 as an argument. Note that `meth1` does not explicitly declare that a block is going to be passed when invoking the method.
+
+2. Invoke the method by passing it a block. The method explicitly expects a block, and converts it to a proc using the `&` operator. With this approach, it is very clear from the formal parameters that the method takes a block.
+
+Another way to implicitly take a block is to do `Proc.new` inside the method.
+
+[source,ruby,lineos]
+----
+# <1>
+def meth
+  unless block_given?
+    puts 'No block was passed. Bailing out...'
+    return
+  end
+
+  my_proc = Proc.new # <2>
+  my_proc.call(10)
+end
+
+# <3>
+meth do |num|
+  puts "Number: #{num}"
+end
+# → Number: 10
+
+# <4>
+meth
+# → No block was passed. Bailing out...
+----
+
+1. Define a method that implicitly takes a block. One has to read the method body and infer that a block is being expected. Clues are `block_given?` and `Proc.new`.
+
+2. We do `Proc.new` on “nothing”. It automagically accesses the block (assuming one was passed). It is important to test if a block was giving before attempting to invoke `Proc.new` otherwise to avoid runtime errors.
+
+3. Call the method passing it a block. The block then becomes a proc, and we `.call` it rather than `yield` to it. Again, procs are called, blocks are yielded to. Since the block was converted to a proc, we call it.
+
+4. Call the method without passing it a block, which causes the `unless` clause to execute its statements.
+
+== Procs
+
+=== Creating a Proc
+
+With `Proc.new`:
+
+[source,ruby,lineos]
+----
+my_proc = Proc.new do |arg|
+  puts "Arg is: #{arg}"
+end
+----
+
+Or with `proc` (since ruby 1.9?).
+
+[source,ruby,lineos]
+----
+my_proc = proc do |arg|
+  puts "Arg is: #{arg}"
+end
+----
+
+=== Invoking a Proc
+There are several (and strange) ways to call procs:
+
+[source,ruby,lineos]
+----
+# No args, two args.
+my_proc.call
+my_proc.call arg1, arg2
+my_proc.call(arg1, arg2)
+
+# No args, two args.
+my_proc.()
+my_proc.(arg1, arg2)
+
+# No args, two args.
+my_proc[]
+my_proc[arg1, arg2]
+
+# No args, one arg, two args.
+my_proc.===
+my_proc === arg1
+my_proc.=== arg1
+my_proc.===(arg1)
+my_proc.===(arg1, arg2)
+----
+
+The `[]` and `===` versions are not recommended. `.()` is better, but avoid it. Go with `.call` (preferred by rubocop).
 
 
-=== Lambdas
+== Lambdas
 
 https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line
 
-It is possible to use the both `lambda` literal syntax or with the “stabby" `->` to create a lambda functions.
+It is possible to use the both `lambda` literal or the “stabby" `->` to create a lambda functions.
 
 .lambda literal syntax
 [source,ruby,lineos]
