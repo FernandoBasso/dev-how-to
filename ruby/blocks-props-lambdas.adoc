@@ -1,6 +1,7 @@
 == Blocks, Procs, Lambdas
 
-- link:https://www.youtube.com/watch?v=VBC-G6hahWA[CooperPress, An Introduction to Procs, Lambdas and Closures in Ruby (this video is amazing. By all means, watch it!^]
+- link:https://www.youtube.com/watch?v=VBC-G6hahWA[CooperPress, An Introduction to Procs, Lambdas and Closures in Ruby^]
+- link:https://ruby-doc.org/core-2.6.4/Proc.html[Ruby Docs on Procs^]
 
 == Blocks
 
@@ -158,9 +159,27 @@ The `[]` and `===` versions are not recommended. `.()` is better, but avoid it. 
 
 https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line
 
-To create a lambda function, it is possible to use the both `lambda` literal, in which parameters to the block go inside `| |` as usual, or the “stabby" `->`, in which parameters to the block go inside `( )`.
+Lambdas are proc objects. When created with link:https://ruby-doc.org/core-2.6.4/Kernel.html#method-i-lambda[Kernel#lambda^], it creates a proc object with lambda semantics enforcing arity.
 
-=== Lambda “Stabby” \-> Syntax
+To create a lambda function, it is possible to use the both `lambda` literal, in which parameters to the block go inside `| |` as usual, or with the stab operator, `\->`, in which parameters to the block go inside `( )`.
+
+link:https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line[Rubocop^] has some guidelines for lambda syntax.
+
+=== lambda Method
+
+.lambda literal syntax
+[source,ruby,lineos]
+----
+greet = lambda do |name|
+  "Hello, #{name}"
+end
+
+puts greet.('Yoda')
+# → Hello, Yoda!
+----
+
+
+=== Lambda “Stabby” \-> Literal Syntax
 
 [source,ruby,lineos]
 ----
@@ -194,33 +213,31 @@ puts ->(arg) { "Argument is: #{arg}" }.call('Aayla Secura')
 ----
 
 
-.lambda literal syntax
-[source,ruby,lineos]
-----
-greet = lambda do |name|
-  "Hello, #{name}"
-end
-
-puts greet.('Yoda')
-# → Hello, Yoda!
-----
-
-
-.lambda stabby syntax
-[source,ruby,lineos]
-----
-
-greet = ->(name) do
-  "Hello, #{name}"
-end
-
-p greet.('Obi-wan')
-# → Hello, Obi-wan!
-----
-
-
-=== Lambdas and Currying
+=== Currying
 
 Currying is a technique in which a function accepts n parameters and turns it into a sequence of n functions, each taking 1 parameter.
 
+
+[source,irb]
+----
+$ pry --simple-prompt
+>> fn = lambda { |x, y| x + y }.curry
+=> #<Proc:0x000055dcc7e44270 (lambda)>
+>> fn.arity
+=> -1
+>> fn = lambda { |x, y| x + y }.curry(2)
+=> #<Proc:0x000055dcc81716c8 (lambda)>
+>> fn.arity
+=> -1
+
+----
+
+
+[source,ruby,lineos]
+----
+fn = lambda { |x, y| x + y }.curry(2)
+add10 = fn.call(10)
+p add10.call(5)
+# → 15
+----
 
