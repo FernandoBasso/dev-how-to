@@ -16,7 +16,7 @@
 - link:https://www.youtube.com/watch?v=VBC-G6hahWA[CooperPress, An Introduction to Procs, Lambdas and Closures in Ruby^]
 - link:https://ruby-doc.org/core-2.6.4/Proc.html[Ruby Docs on Procs^]
 
-== Blocks
+=== Blocks
 
 Blocks are essentially “nameless functions” or “nameless portions of code.”
 
@@ -61,6 +61,7 @@ p perform(10, 2) { |m, n| m - n }
 # → 12
 # → 8
 ----
+
 
 === Block To Proc
 
@@ -127,7 +128,7 @@ meth
 
 4. Call the method without passing it a block, which causes the `unless` clause to execute its statements.
 
-== Procs
+=== Procs
 
 Contrary to the “everything is an object in Ruby” rule, blocks are not objects. Moreover, they can't be store in variables. Procs, however, are indeed objects and can be stored in variables. A proc is like a “saved block”.
 
@@ -151,7 +152,7 @@ my_proc = proc do |arg|
 end
 ----
 
-=== Invoking a Proc
+==== Invoking a Proc
 There are several (and strange) ways to call procs:
 
 [source,ruby,lineos]
@@ -180,7 +181,7 @@ my_proc.===(arg1, arg2)
 The `[]` and `===` versions are not recommended. `.()` is better, but avoid it. Go with `.call` (preferred by rubocop).
 
 
-== Lambdas
+=== Lambdas
 
 https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line
 
@@ -190,7 +191,7 @@ To create a lambda function, it is possible to use the both `lambda` literal, in
 
 link:https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line[Rubocop^] has some guidelines for lambda syntax.
 
-=== lambda Method
+==== lambda Method
 
 .lambda literal syntax
 [source,ruby,lineos]
@@ -204,7 +205,7 @@ puts greet.('Yoda')
 ----
 
 
-=== Lambda “Stabby” \-> Literal Syntax
+==== Lambda “Stabby” \-> Literal Syntax
 
 [source,ruby,lineos]
 ----

@@ -50,6 +50,8 @@ self.send(:hello)
 # → 'hello world'
 ----
 
+We cannot do `receiver.hello`, but we can use `send` explicitly on the `self` receiver passing `:hello` or `'hello'` and the `hello` method is invoked.
+
 And we could assign `main` to a variable and use that too.
 
 [source,ruby,lineos]
