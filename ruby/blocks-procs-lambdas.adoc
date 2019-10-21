@@ -1,4 +1,17 @@
-== Blocks, Procs, Lambdas
+= Blocks, Procs, Lambdas
+:linkcss!:
+:stylesheet: asciidoctor-original-with-overrides.css
+:stylesdir: {user-home}/Projects/proghowto
+:webfonts!:
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
 
 - link:https://www.youtube.com/watch?v=VBC-G6hahWA[CooperPress, An Introduction to Procs, Lambdas and Closures in Ruby^]
 - link:https://ruby-doc.org/core-2.6.4/Proc.html[Ruby Docs on Procs^]
@@ -27,8 +40,6 @@ def my_method
   yield(10) if block_given?
 end
 
-run_block
-
 my_method do |num|
   p 'hey there'
   p num
@@ -38,6 +49,18 @@ end
 NOTE: Methods do not declare explicit parameters for blocks. You just assume a block was passed and invoke `yield`, or test with `block_given?` instead of assuming a block was passed.
 
 TIP: We say that a method “yields control to the block”.
+
+[source,ruby,lineos]
+----
+def perform(x, y)
+  yield(x, y) if block_given?
+end
+
+p perform(10, 2) { |a, b| a + b }
+p perform(10, 2) { |m, n| m - n }
+# → 12
+# → 8
+----
 
 === Block To Proc
 
