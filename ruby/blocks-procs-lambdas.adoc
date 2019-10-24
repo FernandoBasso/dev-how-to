@@ -263,6 +263,7 @@ p area_triangle
 
 
 
+
 === Currying
 
 Currying is a technique in which a function accepts n parameters and turns it into a sequence of n functions, each taking 1 parameter.
@@ -290,4 +291,26 @@ add10 = fn.call(10)
 p add10.call(5)
 # → 15
 ----
+
+
+== Closures
+
+[source,ruby,lineos]
+----
+def add1(f)
+  x = 100
+  puts "add1 x: #{x}"
+  f.call
+end
+
+x = 10 # <1>
+
+my_lambda = -> { x + 1 }
+
+p add1(my_lambda)
+# → add1 x: 100
+# → 11
+----
+
+1. The lambda remembes the `x` from this scope, not from the scope inside `add1`.
 
