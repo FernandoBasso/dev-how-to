@@ -129,6 +129,8 @@ meth
 
 == Procs
 
+Contrary to the “everything is an object in Ruby” rule, blocks are not objects. Moreover, they can't be store in variables. Procs, however, are indeed objects and can be stored in variables. A proc is like a “saved block”.
+
 === Creating a Proc
 
 With `Proc.new`:
@@ -182,7 +184,7 @@ The `[]` and `===` versions are not recommended. `.()` is better, but avoid it. 
 
 https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line
 
-Lambdas are proc objects. When created with link:https://ruby-doc.org/core-2.6.4/Kernel.html#method-i-lambda[Kernel#lambda^], it creates a proc object with lambda semantics enforcing arity.
+Lambdas are anonymous functions, objects of the class `Proc`. When created with link:https://ruby-doc.org/core-2.6.4/Kernel.html#method-i-lambda[Kernel#lambda^], it creates a proc object with lambda semantics enforcing arity.
 
 To create a lambda function, it is possible to use the both `lambda` literal, in which parameters to the block go inside `| |` as usual, or with the stab operator, `\->`, in which parameters to the block go inside `( )`.
 
@@ -234,6 +236,31 @@ puts ->() { 'lambda 2' }.call
 puts ->(arg) { "Argument is: #{arg}" }.call('Aayla Secura')
 # → Argument is: Aayla Secura
 ----
+
+A contrived example, but helps understanding too:
+
+[source,ruby,lineos]
+----
+def area(l, b)
+  # <1>
+  -> { l * b }
+end
+
+x = 10.0
+y = 20.0
+
+area_rectangle = area(x, y).()
+area_triangle = 0.5 * area(x, y).call
+
+p area_rectangle
+# → 200
+
+p area_triangle
+# → 100
+----
+
+1. Note that the sabby lambda can access `l` and `b` because of the closure that is created. `area` recives two arguments and returns a lambda. The lambda, when called, has full access to those arguments.
+
 
 
 === Currying
