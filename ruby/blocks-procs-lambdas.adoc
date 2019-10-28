@@ -1,9 +1,9 @@
 = Blocks, Procs, Lambdas
-:linkcss!:
+:linkcss:
 :stylesheet: asciidoctor-original-with-overrides.css
 :stylesdir: {user-home}/Projects/proghowto
-:webfonts!:
-:icons!: font
+:webfonts:
+:icons: font
 :source-highlighter: pygments
 :source-linenums-option:
 :pygments-css: class
@@ -16,7 +16,8 @@
 - link:https://www.youtube.com/watch?v=VBC-G6hahWA[CooperPress, An Introduction to Procs, Lambdas and Closures in Ruby^]
 - link:https://ruby-doc.org/core-2.6.4/Proc.html[Ruby Docs on Procs^]
 
-=== Blocks
+
+== Blocks
 
 Blocks are essentially “nameless functions” or “nameless portions of code.”
 
@@ -296,22 +297,130 @@ p add10.call(5)
 
 == Closures
 
+- https://en.wikipedia.org/wiki/Closure_(computer_programming)
+
+In simple terms, a closure is a scope that is created when a function is declared inside a scope and has access to that scope even after that scope “no longer exists.”
+
+By function we mean any piece of runnable code. In ruby, it could be blocks, procs or lambdas. Methods cannot access variables from the outer, parent scope, so they cannot be part of a closure.
+
+=== A Block Example
+
+A block has access to variables defined in its enclosing scope. In the next example, our blcks are used in the toplevel, so, the toplevel is the enclosing scope for the blocks, and therefore, they can access the variables and environtment of the toplevel.
+
 [source,ruby,lineos]
 ----
-def add1(f)
-  x = 100
-  puts "add1 x: #{x}"
-  f.call
+droid = 'R2D2'
+
+# <1>
+def run_block
+  yield if block_given?
 end
 
-x = 10 # <1>
-
-my_lambda = -> { x + 1 }
-
-p add1(my_lambda)
-# → add1 x: 100
-# → 11
+# <2>
+run_block do { puts droid }
+# → R2D2
 ----
 
-1. The lambda remembes the `x` from this scope, not from the scope inside `add1`.
+=== Blocks, Procs and Lambdas Closure Example
 
+[source,ruby,lineos]
+----
+val = 'outer'
+
+def run_block
+  yield
+end
+
+def run_proc(fn)
+  fn.call
+end
+
+def run_lambda(fn)
+  fn.call
+end
+
+run_block { puts val }
+# → outer
+
+run_proc(Proc.new { puts val })
+# → outer
+
+run_lambda(lambda { puts val })
+# → outer
+----
+
+We define three methods, each taking a different type of runnable code, then, they are invoked being passed their expected type of runnable code. The block, the proc and the lambda can _all_ access `val` from the outer scope.
+
+=== Incrementer Lambda Closure Example
+
+[source,ruby,lineos]
+----
+# <1>
+def a_method
+  num = 0
+  lambda do
+    # <2>
+    num += 1
+    # <3>
+    num
+  end
+end
+
+# <4>
+incrementer = a_method
+
+# <5>
+p incrementer.call
+p incrementer.call
+# → 1
+# → 2
+----
+
+1. Define a method with a local variable `num`, and return a lambda which increments and returns `num` from the enclosing scope.
+
+2. The lambda can _update_ the value of `num` from the outer scope.
+
+3. The lambda can read/return the `num` from the outer scope.
+
+4. Invoke the method and assign the lambda returned from it to the variable `incrementer`. The method has returned, and, in theory, its scope should have gone away, but because there is a lambda accessing the method's scope, a closure is created so that that lambda can still reference the method's scope.
+
+5. Calling the lambda helps us see that `num` from the enclosing scope can indeed be referenced from inside the lambda itself.
+
+
+=== Blocks, Procs and Lambdas With Parameters Example
+
+Pay attention to the way the blocks in the example use or don't use the argument passwed by `yield`.
+
+[source,ruby,lineos]
+----
+val = 'outer'
+msg = 'Stupendous'
+
+def run_block
+  val = 'inner'
+  puts "run_block method: #{val}"
+
+  # <1>
+  yield(val)
+end
+
+# `yield` passed `val` from the method, but we are _not_ using it here.
+run_block do
+  puts "run_block block: #{val}"
+end
+# → inner
+# → outer
+
+# <3>
+run_block do |val|
+  puts "run_block block: #{val}"
+end
+# → inner
+# → inner
+----
+
+1. We are passing the ‘inner val’ to yield, but the block may not make use of it.
+
+2. Accesses the outer, global `val`. Not retrieving `val` as the block argument. Note there is no `|arg|` thing.
+
+3. Uses `val` passed when invoking `yield` in #1.
