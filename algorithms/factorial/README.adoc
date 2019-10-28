@@ -31,11 +31,30 @@ p factorial(6)
 # → 720
 ----
 
+
+== Using Recursion
+
+[source,ruby,lineos]
+----
+def fact(x)
+  return 1 if x == 1
+  x * fact(x - 1)
+end
+
+fact(4)
+# → 24
+
+fact(5)
+# → 120
+----
+
+
 == Idiomatic Ruby Solution
 
 [source,ruby,lineos]
 ----
-n = gets.to_i
-puts (1..n).inject(&:*)
+n = 5
+p (1..n).inject(&:*)
+# → 120
 ----
 
