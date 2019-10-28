@@ -13,8 +13,6 @@
 :toc: left
 :favicon: https://fernandobasso.dev/cmdline.png
 
-- link:https://www.youtube.com/watch?v=VBC-G6hahWA[CooperPress, An Introduction to Procs, Lambdas and Closures in Ruby^]
-- link:https://ruby-doc.org/core-2.6.4/Proc.html[Ruby Docs on Procs^]
 
 
 == Blocks
@@ -129,7 +127,7 @@ meth
 
 4. Call the method without passing it a block, which causes the `unless` clause to execute its statements.
 
-=== Procs
+== Procs
 
 Contrary to the “everything is an object in Ruby” rule, blocks are not objects. Moreover, they can't be store in variables. Procs, however, are indeed objects and can be stored in variables. A proc is like a “saved block”.
 
@@ -153,7 +151,7 @@ my_proc = proc do |arg|
 end
 ----
 
-==== Invoking a Proc
+=== Invoking a Proc
 There are several (and strange) ways to call procs:
 
 [source,ruby,lineos]
@@ -182,7 +180,7 @@ my_proc.===(arg1, arg2)
 The `[]` and `===` versions are not recommended. `.()` is better, but avoid it. Go with `.call` (preferred by rubocop).
 
 
-=== Lambdas
+== Lambdas
 
 https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line
 
@@ -262,37 +260,6 @@ p area_triangle
 ----
 
 1. Note that the sabby lambda can access `l` and `b` because of the closure that is created. `area` recives two arguments and returns a lambda. The lambda, when called, has full access to those arguments.
-
-
-
-
-=== Currying
-
-Currying is a technique in which a function accepts n parameters and turns it into a sequence of n functions, each taking 1 parameter.
-
-
-[source,irb]
-----
-$ pry --simple-prompt
->> fn = lambda { |x, y| x + y }.curry
-=> #<Proc:0x000055dcc7e44270 (lambda)>
->> fn.arity
-=> -1
->> fn = lambda { |x, y| x + y }.curry(2)
-=> #<Proc:0x000055dcc81716c8 (lambda)>
->> fn.arity
-=> -1
-
-----
-
-
-[source,ruby,lineos]
-----
-fn = lambda { |x, y| x + y }.curry(2)
-add10 = fn.call(10)
-p add10.call(5)
-# → 15
-----
 
 
 == Closures
@@ -424,3 +391,38 @@ end
 2. Accesses the outer, global `val`. Not retrieving `val` as the block argument. Note there is no `|arg|` thing.
 
 3. Uses `val` passed when invoking `yield` in #1.
+
+
+== Currying and Partial Application
+
+Currying is a technique in which a function accepts n parameters and turns it into a sequence of n functions, each taking 1 parameter.
+
+
+[source,irb]
+----
+$ pry --simple-prompt
+>> fn = lambda { |x, y| x + y }.curry
+=> #<Proc:0x000055dcc7e44270 (lambda)>
+>> fn.arity
+=> -1
+>> fn = lambda { |x, y| x + y }.curry(2)
+=> #<Proc:0x000055dcc81716c8 (lambda)>
+>> fn.arity
+=> -1
+
+----
+
+
+[source,ruby,lineos]
+----
+fn = lambda { |x, y| x + y }.curry(2)
+add10 = fn.call(10)
+p add10.call(5)
+# → 15
+----
+
+
+== Links and Resources
+
+- link:https://www.youtube.com/watch?v=VBC-G6hahWA[CooperPress, An Introduction to Procs, Lambdas and Closures in Ruby^]
+- link:https://ruby-doc.org/core-2.6.4/Proc.html[Ruby Docs on Procs^]
