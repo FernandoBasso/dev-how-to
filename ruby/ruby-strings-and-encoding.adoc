@@ -146,3 +146,29 @@ Also try `puts Encoding.list` and `p Encoding.list`.
 ----
 
 
+== String Iteration
+
+Up to Ruby 1.8, there was a single `each` method on strings. But would it iterate over each byte or each character? In Ruby 1.9, `each` was _removed_ from `String`, and more specific and delcarative choices were implemented instead.The method names speak for themselves.
+
+- `each_byte`
+- `each_char`
+- `each_codepoint`
+- `each_line`
+
+For example, iterate over the chars, and count the bytes to ultimately count how many chars in the string are multibyte.
+
+[source,ruby,lineos]
+----
+def count_multibyte_chars(s)
+  count = 0
+
+  s.each_char do |c|
+    count += 1 if c.bytesize > 1
+  end
+
+  count
+end
+
+p count_multibyte_chars('Lambda λ Rocks ♥')
+----
+
