@@ -1,0 +1,84 @@
+= Sum Of Number Series | CodeWars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts: :icons: font
+:source-highlighter: pygments
+:source-linenums-option: :pygments-css: class
+:sectlinks: :sectnums: :toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+Challenge: link:https://www.codewars.com/kata/55f2b110f61eb01779000053[Beginner Series #3 Sum of Numbers^]
+
+== JavaScript
+
+=== Solution 1
+
+This one first creates an array with the numbers in the sequence and them reduces the array to its sum.
+
+[source,javascript,lineos]
+----
+/**
+ * Produce an ordered pair form its two input numbers.
+ *
+ * @param {number} x
+ * @param {number} y
+ * @return {array[number]}
+ */
+function toOrderedPair(x, y) {
+  if (x > y) return [y, x];
+  if (y > x) return [x, y];
+  return [x, y];
+}
+
+/**
+ * Create an array including all integers from `ini` to `end`, inclusive.
+ *
+ * @param {string} x
+ * @param {string} y
+ * @return {array[number]}
+ */
+function range(x, y) {
+  const [ini, end] = toOrderedPair(x, y);
+
+  const arr = [];
+
+  for (let i = ini; i <= end; ++i)
+    arr.push(i);
+
+  return arr;
+}
+
+function GetSum(x, y) {
+  if (x === y) return x;
+  return range(x, y).reduce((acc, num) => acc + num, 0);
+}
+----
+
+
+=== Solution 2
+
+[source,javascript,lineos]
+----
+function GetSum(x, y) {
+  const min = Math.min(x, y),
+        max = Math.max(x, y);
+
+  //
+  // Find the number of elements in the sequence. For
+  // instance, (-2, 4) = 6 elements.
+  //
+  const n = max - min + 1;
+
+  //
+  // Apply the formula:
+  //
+  // https://www.mathwords.com/a/arithmetic_series.htm
+  //
+  // Basically, we want to get the average of the first and
+  // last terms multiplied by the number of terms.
+  //
+  return n * (max + min) / 2;
+}
+----

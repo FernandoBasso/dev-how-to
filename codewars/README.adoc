@@ -1,0 +1,20 @@
+= CodeWars Challenges
+:linkcss:
+:stylesheet: asciidoctor-original-with-overrides.css
+:stylesdir: {user-home}/Projects/proghowto
+:webfonts:
+:icons: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+https://www.codewars.com
+
+
+https://www.codewars.com/kata/55f2b110f61eb01779000053/train/javascript
+

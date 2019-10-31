@@ -1,0 +1,32 @@
+= Remove First And Last Characters | CodeWars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts: :icons: font
+:source-highlighter: pygments
+:source-linenums-option: :pygments-css: class
+:sectlinks: :sectnums: :toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+Challenge: link:https://www.codewars.com/kata/56bc28ad5bdaeb48760009b0[Remove First and Last Character^]
+
+== JavaScript
+
+[source,javascript,lineos]
+----
+/**
+ * Removes the first and last chars of a string.
+ *
+ * @param {string} str
+ * @return {string}
+ */
+function removeChar(str) {
+  //
+  // Use String.prototype.slice to return a new string which does not
+  // include the first and last character of the original string.
+  //
+  return str.slice(1, -1);
+};
+----
+
