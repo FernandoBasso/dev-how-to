@@ -4,8 +4,10 @@
 // :stylesdir: {user-home}/Projects/proghowto
 :webfonts: :icons: font
 :source-highlighter: pygments
-:source-linenums-option: :pygments-css: class
-:sectlinks: :sectnums: :toclevels: 6
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
 :toc: left
 :favicon: https://fernandobasso.dev/cmdline.png
 

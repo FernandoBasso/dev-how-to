@@ -4,12 +4,14 @@
 // :stylesdir: {user-home}/Projects/proghowto
 :webfonts: :icons: font
 :source-highlighter: pygments
-:source-linenums-option: :pygments-css: class
-:sectlinks: :sectnums: :toclevels: 6
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
 :toc: left
 :favicon: https://fernandobasso.dev/cmdline.png
 
-Challenge: link:https://www.codewars.com/kata/53369039d7ab3ac506000467[https://www.codewars.com/kata/53369039d7ab3ac506000467^]
+Challenge: link:https://www.codewars.com/kata/53369039d7ab3ac506000467[Boolean to Yes No String]
 
 == JavaScript
 
