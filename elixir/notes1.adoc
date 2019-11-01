@@ -1,7 +1,7 @@
 = Elixir Notes
 :linkcss!:
-:stylesheet: asciidoctor-original-with-overrides.css
-:stylesdir: {user-home}/Projects/proghowto
+:stylesheet!: asciidoctor-original-with-overrides.css
+:stylesdir!: {user-home}/Projects/proghowto
 :webfonts!:
 :icons!: font
 :source-highlighter: pygments
@@ -22,6 +22,7 @@ Installing Elixir gives us a few command line tools:
 - `iex`, the elixir shell. `man iex` and `iex --help`.
 
 Elixir source code files end with the `.exs` extension.
+
 
 === REPL
 
