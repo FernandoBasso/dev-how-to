@@ -15,6 +15,38 @@
 
 https://www.codewars.com
 
+NOTE: The numbers on each directory does not imply the order of complexity. Codewars is messy about this. That numbering is mostly to help me have a history of the sequence of challenges that were presented to me.
 
-https://www.codewars.com/kata/55f2b110f61eb01779000053/train/javascript
+I have been programming since 2006, and have studied lots of stuff so far. Still, I wanted to start the challenges from the “beginner” level, mainly for two reasons:
 
+1. Doing web development (main main area as a developer) generally doesn't make one strong in algorithms.
+2. I am doing the solutions in at least three languages, and therefore I though it would be wiser to start with the basics.
+
+== Compiling and Running C Solutions
+
+Most C solutions commited here can be compiled and executed with this two commands:
+
+[source,shell-session]
+----
+$ gcc -std=C99 \
+    -Wall \
+    -Werror \
+    -pedantic-errors \
+    main.c -o main
+$ ./main
+----
+
+Exceptions will be mentioned with each solution.
+
+== Running Ruby Solutions
+
+ruby -w main.rb
+
+
+== Running TypeScript Solutions
+
+[source,shell-session]
+----
+$ tsc main.ts
+$ node main.js
+----

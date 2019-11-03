@@ -1,0 +1,14 @@
+# .gitignore file
+
+#
+# No C compiled stuff.
+#
+*.o
+main
+
+#
+# No JavaScript files, because we are using TypeScript. We compile TS to JS,
+# run and test the program, but _do not_ commit .js files.
+#
+*.js
+

@@ -12,16 +12,8 @@
 :toc: left
 :favicon: https://fernandobasso.dev/cmdline.png
 
+- https://www.codewars.com/kata/50654ddff44f800200000004
 
-== Bash
+Easy... Just multiply numbers. Not much to say about it.
 
-Challenge: link:https://www.codewars.com/kata/50654ddff44f800200000004[Multiply^]
-
-[source,bash,lineos]
-----
-#!/bin/bash -e
-a=$1
-b=$2
-echo $(($a * $b))
-----
 
