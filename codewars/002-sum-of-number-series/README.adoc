@@ -1,0 +1,37 @@
+= Beginner Series 3 Sum Of Numbers | Codewars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts: :icons: font
+:source-highlighter: pygments
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+https://www.codewars.com/kata/55f2b110f61eb01779000053
+
+
+Basically, we have to discover the number of elements in the sequence. For example, from -2 to 4 we have 6 elements. To achive that, we can use the formula
+
+[source,text]
+----
+greaterNumber - smallerNumber + 1
+4 - (-2) = 6
+----
+
+So, our algorithm should first detect which number is the greater, which is the smallest, and then apply the logic described above.
+
+Finally, after we have the number of elements in the sequence, we apply the formula to sum the sequence, which is:
+
+[source,text]
+----
+n * (max + min) / 2
+----
+
+https://www.mathwords.com/a/arithmetic_series.htm
+
+
+Basically, we want to get the average of the first and last terms multiplied by the number of terms.
