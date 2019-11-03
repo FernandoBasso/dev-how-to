@@ -12,5 +12,5 @@ insert_final_newline = true
 indent_size = 2
 
 [*.{c,cpp,pl}]
-indent_size = 4
+indent_size = 2
 
