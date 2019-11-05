@@ -11,7 +11,10 @@
 :toc: left
 :favicon: https://fernandobasso.dev/cmdline.png
 
-Challenge: link:https://www.codewars.com/kata/56747fd5cb988479af000028[Get the Middle Character^]
+https://www.codewars.com/kata/56747fd5cb988479af000028
+
+
+Two approaches come to mind. Slicing the string, or use recursion to keep removing the first and last chars until we have only two or one chars left.
 
 == JavaScript
 
