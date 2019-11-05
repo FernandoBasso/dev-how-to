@@ -5,7 +5,11 @@
 const l = console.log.bind(console);
 
 export function isSquare(n: number): boolean {
-  return Math.sqrt(n) % 1 === 0;
+  //
+  // Use native methods to check whether the square root
+  // of the number is an integer.
+  //
+  return Number.isInteger(Math.sqrt(n));
 };
 
 l(isSquare(11));
