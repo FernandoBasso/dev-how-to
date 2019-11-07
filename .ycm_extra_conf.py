@@ -5,12 +5,11 @@ def Settings( **kwargs ):
       'flags': [
         '-x',
         'c',
-        '-std',
-        'c99',
+        '-std=c99',
         '-Wall',
         '-Wextra',
         '-Werror',
-        '-pedantic',
+        '-pedantic-errors',
         ],
       }
 
