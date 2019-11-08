@@ -28,7 +28,7 @@ char *world = "World";
 
 1. `hello` is a constant pointer to char.
 
-2. This is a normal pointer.
+2. `world` is a normal pointer.
 
 === Constant Pointer
 
@@ -44,7 +44,7 @@ char hello[] = "Hello";
 ----
 
 
-But can change values in memory locations with constant pointer.
+But constant pointers allow changing values in memory locations:
 
 [source,c]
 ----
@@ -55,7 +55,6 @@ printf("%s\n", hello);
 // ⇒ XellZ
 ----
 
-The pointer cannot be operated with pointer arithmetic, but the value stored the memory can be changed.
 
 === Pointer
 
@@ -70,7 +69,7 @@ printf("%s\n", world);
 ----
 
 
-But can't change the value at a give memory position. This produces a segmentation fault:
+But can't change the value at a given memory location. This produces a segmentation fault:
 
 [source,c]
 ----
