@@ -28,7 +28,7 @@ I have been programming since 2006, and have studied lots of stuff so far. Still
 
 == About The Math Symbols
 
-Gitlab renders Asciidoctor link:[Stem Math Symbols^] properly. Github does not. For that reason, one may wish to link:https://gitlab.com/programming-studies/programming-how-to[read the examples on the Gitlab repo instead].
+Gitlab renders Asciidoctor link:https://asciidoctor.org/docs/user-manual/#enriching-your-content[Math Symbols^] properly. Github does not. For that reason, one may wish to link:https://gitlab.com/programming-studies/programming-how-to[read the examples on the Gitlab repo instead].
 
 [latexmath]
 ++++
