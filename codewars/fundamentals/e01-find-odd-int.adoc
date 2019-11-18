@@ -175,3 +175,11 @@ that's already IN previous  XOR operations .. like `[a] ^ b ^ c ^ [a]`` the reap
 Thats why XOR operation can resolve this kind of problem. but only with this particular set prerequisites.
 
 Even numbers will eventually be offset, leaving only an odd number int.
+
+++++
+<style>
+pre.pygments .tok-c1 {
+  font-style: normal !important;
+}
+</style>
+++++

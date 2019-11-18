@@ -23,7 +23,7 @@ NOTE: The numbers on each directory does not imply the order of complexity. Code
 
 I have been programming since 2006, and have studied lots of stuff so far. Still, I wanted to start the challenges from the “beginner” level, mainly for two reasons:
 
-1. Doing web development (main main area as a developer) generally doesn't make one strong in algorithms.
+1. Doing web development (my main area as a developer) generally doesn't make one strong in algorithms.
 2. I am doing the solutions in at least three languages, and therefore I though it would be wiser to start with the basics.
 
 == About The Math Symbols
