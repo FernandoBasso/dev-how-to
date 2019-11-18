@@ -1,17 +1,21 @@
-= CodeWars Challenges
-:linkcss:
-:stylesheet: asciidoctor-original-with-overrides.css
-:stylesdir: {user-home}/Projects/proghowto
+= CodeWars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
 :webfonts:
-:icons: font
+:stem: latexmath
+:icons!: font
 :source-highlighter: pygments
 :source-linenums-option:
 :pygments-css: class
 :sectlinks:
-:sectnums:
+:sectnums!:
 :toclevels: 6
 :toc: left
 :favicon: https://fernandobasso.dev/cmdline.png
+
+
+
 
 https://www.codewars.com
 
@@ -21,6 +25,15 @@ I have been programming since 2006, and have studied lots of stuff so far. Still
 
 1. Doing web development (main main area as a developer) generally doesn't make one strong in algorithms.
 2. I am doing the solutions in at least three languages, and therefore I though it would be wiser to start with the basics.
+
+== About The Math Symbols
+
+Gitlab renders Asciidoctor link:[Stem Math Symbols^] properly. Github does not. For that reason, one may wish to link:https://gitlab.com/programming-studies/programming-how-to[read the examples on the Gitlab repo instead].
+
+[latexmath]
+++++
+\sigma = \sqrt{ \frac{1}{N} \sum_{i=1}^N (x_i -\mu)^2}
+++++
 
 == Compiling and Running C Solutions
 
