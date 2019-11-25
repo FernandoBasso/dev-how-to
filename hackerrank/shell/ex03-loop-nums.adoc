@@ -1,9 +1,0 @@
-== Looping With Numbers
-
-[source,bash]
-----
-for num in {1..50} ; do
-  printf '%d\n' $num
-done
-----
-

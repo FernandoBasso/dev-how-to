@@ -1,46 +1,43 @@
-# --------------------------------------------------------------------------------
-# = The World Of Numbers
+#
+# World of Numbers
+# ================
 #
 # https://www.hackerrank.com/challenges/bash-tutorials---the-world-of-numbers/problem
 #
-# --------------------------------------------------------------------------------
 
-
-# From -100 to 100, y != 0.
 #
-# == Considerations and Initial Thoughts
+# From -100 to 100, y != 0.
 #
 # The input comes in _two lines_ (not two parameters in a single line). That is
 # important.
 #
 # That means we _cannot_ do something like this, because that two parameters in
 # _one single line_:
-
-read x y <<<'10 20'
-
+#
+#     read x y <<<'10 20'
+#
 # TIP: `read` is a shell built-in. Try `type read` and `help read`.
 #
 # Alas, `read` does not work in a "`multiline`" way:
 #
-# .help read excerpt 1
-# ----
-# Read a line from the standard input and split it into fields. \
-# ----
+#   “
+#   Read a line from the standard input and split it into fields.
+#   ”
 #
 # Or
 #
-# .help read excerpt 2
-# ----
-# Reads a single line from the standard input, or from file descriptor FD if
-# the -u option is supplied. The line is split into fields as with word
-# splitting, and the first word is assigned to the first NAME, the second word
-# to the second NAME, and so on, with any leftover words assigned to the last
-# NAME. Only the characters found in $IFS are recognized as word delimiters.
-# ----
+#   “
+#   Reads a single line from the standard input, or from file descriptor FD if
+#   the -u option is supplied. The line is split into fields as with word
+#   splitting, and the first word is assigned to the first NAME, the second
+#   word to the second NAME, and so on, with any leftover words assigned to the
+#   last NAME. Only the characters found in $IFS are recognized as word
+#   delimiters.
+#   ”
 #
 # See‽ “Read *a* line” and “Read a *single* line”. Very well emphasized!
 #
-# So, `IFS=$'\n'` (I mean, the `$'\n'` part) does not work with `read`. It
+# So, IFS=$'\n' (I mean, the $'\n' part) does not work with `read`. It
 # simply does not read more than a line at once.
 #
 # This means something like this won't work:
@@ -61,7 +58,8 @@ read x y <<<'10 20'
 # It would loop twice (if we have two input lines), and assign the value to `x`
 # each time, never assigning anything to `y`.
 #
-# == STDIN
+# STDIN
+# -----
 #
 # To read from STDIN:
 #
@@ -78,6 +76,7 @@ read x y <<<'10 20'
 #     read myvar "${1:-/dev/stdin}"
 #
 # == Solution 1
+# -------------
 #
 # One solution is to just invoke `read` twice!
 
@@ -89,13 +88,13 @@ printf '%d\n' $(( $x - $y ))
 printf '%d\n' $(( $x * $y ))
 printf '%d\n' $(( $x / $y ))
 
-bash script.sh <<<$'10\n20'
+# bash script.sh <<<$'10\n20'
 # → 20
 # → 0
 # → 100
 # → 1
 #
-#
+
 # == Solution 2
 #
 # This one uses shell expansion to perform the four operations in a single line!
