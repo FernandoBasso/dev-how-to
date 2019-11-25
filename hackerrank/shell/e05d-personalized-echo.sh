@@ -11,6 +11,15 @@
 #     bash script.sh <<<'Master Yoda'
 #
 
-sed -r 's/(.*)/Welcome \1/g'
+xargs -I ^ printf '%s ' Welcome ^
 # → Welcome Master Yoda
+
+#
+# %s is reused for as many arguments as needed. It leaves a space after
+# the last one, though
+#
+# Works because HackerRank closes STDOUT after writting to it.
+#
+# echo could also be used.
+#
 
