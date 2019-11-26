@@ -1,13 +1,63 @@
 == Compare Numbers
 
+https://www.hackerrank.com/challenges/bash-tutorials---comparing-numbers
 
-=== Solution 4
+Running:
+
+[source,shell-session]
+----
+$ bash script.sh <<<$'3\n5'
+$ printf '%d\n' 3 5 | bash script.sh
+----
+
+=== Solution 1
+
+[source,bash,lineos]
+----
+include::./e06a-compare-numbers.sh[]
+----
+
+This solution uses the old, sh-compatible `test` command. It also shows that `[[ ]]` can use `-gt` style of operators as well.
+
+Read
+
+    help [
+    help test
+
+And/or this section of the Bash manual:
+
+https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions
+
+https://mywiki.wooledge.org/BashFAQ/031
+
+
+=== Solution 2
+
+[source,bash,lineos]
+----
+include::./e06b-compare-numbers.sh[]
+----
+
+This solution uses the newer `[[` test command.
+
+Read
+
+    help [[
+
+And/or this section of the Bash manual:
+
+https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs
+
+https://mywiki.wooledge.org/BashFAQ/031
+
+
+=== Solution 3
 
 Uses brace expansion, arrays, `bc`, and some clever (I deem) math stuff.
 
 [source,bash]
 ----
-include::./scripts/e06d-compare-numbers.sh[]
+include::./e06c-compare-numbers.sh[]
 ----
 
 Bash has this nice brace expansion feature:
@@ -46,7 +96,7 @@ $ echo '4 < 5' | bc
 
 1 is true, 0 is false.
 
-And we can combine both:
+Combining both:
 
 [source,shell-session]
 ----
@@ -66,7 +116,7 @@ $ printf '%s\n' '5'{\<,\>,==}'5' | bc
 1
 ----
 
-Note how the 1s and 0s are arranged each time. We use that for our advantage and create an array with them:
+Note how the 0s and 1s are arranged each time. We use that to our advantage and create an array with them:
 
 [source,shell-session]
 ----
@@ -85,7 +135,7 @@ idx=$(( "${bools[0]}" * 0 + "${bools[1]}" * 1 + "${bools[2]}" * 2 ))
 
 We are using some math trickery to calculate the index of the correct message based on the zeroes and ones of the `bools` array. We multiply each value of the array with its “weight”, or “index” value.
 
-Important the order of the opreations in the brace expansion: `==`, then `<`, then `>`.
+The order of the opreations in the brace expansion: `==`, then `<`, then `>` is important because it is related to the order of the `bools` array elements and the `msgs` array.
 
 
 When `x == y`, 1 is at index 0 on `bools`.
