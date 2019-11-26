@@ -1,5 +1,3 @@
-#!/bin/bash
-
 read -r x <&0
 read -r y <&0
 
