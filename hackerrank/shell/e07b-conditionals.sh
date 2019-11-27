@@ -7,34 +7,29 @@
 
 https://www.hackerrank.com/challenges/bash-tutorials---getting-started-with-conditionals/problem
 
+== Running
+----------
+
+    $ bash script.sh
+    y<Enter>
+
+Or
+
+    $ bash script.sh <<<'Nope'
+
 --------------------------------------------------------------------------------
 ////
 
 read -r answer
 
-case "$answer" in
-  [Yy]*)
-    echo YES
-    ;;
-  [Nn]*)
-    echo NO
-    ;;
-  *)
-    echo 'Crap 💩'
-    ;;
-esac
+[[ "$answer" = [Yy]* ]] && echo SIM
+[[ "$answer" = [Nn]* ]] && echo NOPE
 
 
 : <<-'////'
 --------------------------------------------------------------------------------
-With the [Yn]* syntax, we match either an uppercase or lowercase “y” followed
-by anything.
-
-The match could also be something like this:
-
-     Y*|y*)
+Match anything that starts with Y or y, N or n, followed by anything.
 
 --------------------------------------------------------------------------------
 ////
-
 

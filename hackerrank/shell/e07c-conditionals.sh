@@ -7,34 +7,45 @@
 
 https://www.hackerrank.com/challenges/bash-tutorials---getting-started-with-conditionals/problem
 
+== Running
+----------
+
+    $ bash script.sh
+    y<Enter>
+
+Or
+
+    $ bash script.sh <<<'Nope'
+
 --------------------------------------------------------------------------------
 ////
 
 read -r answer
 
-case "$answer" in
-  [Yy]*)
-    echo YES
-    ;;
-  [Nn]*)
-    echo NO
-    ;;
-  *)
-    echo 'Crap 💩'
-    ;;
-esac
+printf '%s\n%s\n' YES NO | grep -i "^${answer}.*"
 
 
 : <<-'////'
 --------------------------------------------------------------------------------
-With the [Yn]* syntax, we match either an uppercase or lowercase “y” followed
-by anything.
+We are printing yes and no in two lines:
 
-The match could also be something like this:
+    $ printf '%s\n%s' YES NO
+    YES
+    NO
 
-     Y*|y*)
+Then, we grep the output so only matching lines will still make it to
+STDOUT. Use a regex and case-insenstivie grep flag, -i.
+
+
+    $ bash script.sh <<<'nO'
+    NO
+
+    $ bash script.sh <<<'YE'
+    YES
+
+    $ bash script.sh <<<'yEs'
+    YES
 
 --------------------------------------------------------------------------------
 ////
-
 
