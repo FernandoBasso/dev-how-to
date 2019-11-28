@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #
 # World of Numbers
 # ================
@@ -80,13 +82,13 @@
 #
 # One solution is to just invoke `read` twice!
 
-read x < /dev/stdin
-read y < /dev/stdin
+read -r x < /dev/stdin
+read -r y < /dev/stdin
 
-printf '%d\n' $(( $x + $y ))
-printf '%d\n' $(( $x - $y ))
-printf '%d\n' $(( $x * $y ))
-printf '%d\n' $(( $x / $y ))
+printf '%d\n' $(( x + y ))
+printf '%d\n' $(( x - y ))
+printf '%d\n' $(( x * y ))
+printf '%d\n' $(( x / y ))
 
 # bash script.sh <<<$'10\n20'
 # → 20

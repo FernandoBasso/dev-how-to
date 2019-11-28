@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #
 # A Personalized Echo
 # ===================
@@ -15,7 +17,7 @@ cat
 
 #
 # This worked on HackerRank because HackerRank seems to close STDOUT after
-# writting to it. On a real command line, it doesn't work like that, but
+# writing to it. On a real command line, it doesn't work like that, but
 # it is nice to have it jotted down nonetheless.
 #
 

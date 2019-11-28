@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #
 # Looping With Numbers
 # ====================
@@ -9,7 +11,7 @@
 # Loops numbers from 1 to 50.
 #
 for num in {1..50} ; do
-  printf '%d\n' $num
+  printf '%d\n' "$num"
 done
 # → 1
 # → 2

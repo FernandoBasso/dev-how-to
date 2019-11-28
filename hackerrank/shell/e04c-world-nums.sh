@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #
 # World of Numbers
 # ================
@@ -16,10 +18,10 @@
 #      bash script.sh <<<$'20\n5'
 #
 
-read x <&0
-read y <&0
+read -r x <&0
+read -r y <&0
 
-printf '%s\n' $x{+,-,*,/}$y | bc
+printf '%s\n' "$x"{+,-,*,/}"$y"| bc
 # → 25
 # → 15
 # → 100
@@ -29,10 +31,17 @@ printf '%s\n' $x{+,-,*,/}$y | bc
 # Note the use of `%s` (and not `%d`). `%s` works, but `%d` gives an error
 # about “invalid number”.
 #
-
+# == Parenthesis
+# --------------
 #
-# About STDIN
-# -----------
+# The parenthesis around $y, that is, "($y)" is to avoid problems in case
+# y is negative. In bc alone, 3 - -2 or 3 + -2 works. printf 3{+,-}-2 works
+# too. But the combination of printf and bc with that -2 causes problems.
+# Placing -2 inside parenthesis makes everything work fine.
+#
+#
+# == About STDIN
+# --------------
 #
 # As noted in the previous file
 #

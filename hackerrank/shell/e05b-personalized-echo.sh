@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #
 # A Personalized Echo
 # ===================
