@@ -18,3 +18,4 @@
 
 - link:https://www.w3.org/services/svg-server/[W3C tool to test if svg is served correctly^]
 - link:https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Getting_Started[MDN SVG Getting Started Tutorial^]
+- link:https://en.wikipedia.org/wiki/Bézier_curve[Bézier Curve on Wikipedia^]

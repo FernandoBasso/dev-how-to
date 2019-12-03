@@ -2,7 +2,7 @@
 // :linkcss:
 // :stylesheet: asciidoctor-original-with-overrides.css
 // :stylesdir: {user-home}/Projects/proghowto
-:webfonts:
+:webfonts!:
 :icons!: font
 :source-highlighter: pygments
 :pygments-css: class
@@ -80,5 +80,3 @@ world[1] = 'X';
 ----
 
 We get segmentation fault either using subscript notation or pointer notation.
-
-
