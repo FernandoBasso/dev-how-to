@@ -13,6 +13,8 @@
 
 include::bash/basic-concepts.adoc[]
 
+include::bash/stdin.adoc[]
+
 include::bash/strings.adoc[]
 
 include::bash/echo-printf.adoc[]

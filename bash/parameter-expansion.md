@@ -1,5 +1,7 @@
 # Parameter Expansion
 
+[TOC]
+
 Read about it in [Bash Manual](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion) or `PAGER=less man bash` and then do the search `/^ *Parameter Expansion`.
 
 Parameter expansion is used to perform operations on the value stored in the parameter. Read each appropriate section while trying the examples that follow.
@@ -88,3 +90,25 @@ Execute order 66.
 ```
 
 
+
+## Replace Expansion
+
+We have a string of numbers separated by spaces. Replace each space ` " "` with `" + "`, which would effectively turn the string into a math expression, which could in turn be fed to a program like `bc`.
+
+```shell-session
+$ nums='1 2 3 4'
+
+$ echo "${nums// / + }"
+1 + 2 + 3 + 4
+
+$ echo "${nums// / + }" | bc
+10
+```
+
+
+
+
+
+## The End
+
+Really! This is the end of this file.

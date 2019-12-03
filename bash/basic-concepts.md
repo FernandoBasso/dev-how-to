@@ -10,4 +10,3 @@ In bash (and pretty much all other shells), **whitespace is very important**. `<
 
 Read the [manual online](https://www.gnu.org/software/bash/manual/).
 
-

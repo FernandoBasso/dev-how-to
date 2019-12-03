@@ -1,14 +1,12 @@
 #!/bin/bash
 
-: <<-'////'
---------------------------------------------------------------------------------
-= Compute The Average
-=====================
-
-https://www.hackerrank.com/challenges/bash-tutorials---compute-the-average
-
---------------------------------------------------------------------------------
-////
+#
+# Compute The Average
+# =====================
+#
+#
+# https://www.hackerrank.com/challenges/bash-tutorials---compute-the-average
+#
 
 # Produces shellcheck error.
 # https://github.com/koalaman/shellcheck/wiki/SC2207
@@ -22,11 +20,9 @@ nums=${input[*]}
 
 printf '%.3f\n' "$(echo "scale=4; (${nums// / + }) / ${#input[*]}" | bc -l)"
 
-: <<-'////'
---------------------------------------------------------------------------------
-Remember that printf %.f does rounding. Therefore, use scale=4 (not 3) in bc.
+#
+# Remember that printf %.f does rounding. Therefore, use scale=4 (not 3) in bc.
+#
+# Replace spaces with ' + ' which can then be fed to bc.
+#
 
-Replace spaces with ' + ' which can then be fed to bc.
-
---------------------------------------------------------------------------------
-////

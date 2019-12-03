@@ -4,23 +4,15 @@
 
 ## Asciidoc[tor] to Markdown
 
-Pandoc can't convert directly from Asciidoc to Markdown. So, first convert Asciido[ctor] files to Docbook:
+Pandoc can't convert directly from Asciidoc to Markdown. So, first convert Asciido[ctor] files to Docbook and then convert Docbook files to Markdown (gfm here):
 
-```shell-session
-$ for f in *.adoc ; do asciidoctor -b docbook "$f" ; done
-```
+```bash
+for f in *.adoc ; do asciidoctor -b docbook "$f" ; done
 
-Then convert Docbook files to Markdown (gfm here):
-
-
-
-```shell-session
-$ for f in *.xml ; do
+for f in *.xml ; do
 	pandoc -s "$f" -f docbook "$f" -t gfm --wrap=none -o "${f%.*}.md"
 done
 ```
-
-
 
 Remove the .xml files (and possibly the .adoc files):
 

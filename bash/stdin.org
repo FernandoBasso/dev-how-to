@@ -1,0 +1,75 @@
+* STDIN
+  :PROPERTIES:
+  :CUSTOM_ID: stdin
+  :END:
+#+SETUPFILE: ~/Projects/proghowto/org-setup.org
+
+To provide input and parameters to scripts, we can use =read= and:
+
+- =/dev/stdin=
+- =<&0=
+
+** Redirect /dev/stdin
+   :PROPERTIES:
+   :CUSTOM_ID: redirect-devstdin
+   :END:
+
+=/dev/stdin= doesn't play well with =<<<$'10\n20'=.
+
+Taking this script, see two possible ways to feed input to it and the
+output each produce:
+
+#+BEGIN_SRC bash
+# script.sh
+read -r x < /dev/stdin
+read -r y < /dev/stdin
+
+echo "$x"
+echo "$y"
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+$ bash dev.sh <<<$'10\n20'
+10
+10z
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+$ bash dev.sh
+10 (typed manually)
+20 (typed manually)
+10
+20
+#+END_EXAMPLE
+
+With the herestring approach, both =x= and =y= are assigned 10, which is
+not what we wanted. With the normal input, =x= is assigned 10, and =y=
+is assigned 20, which is what we expected.
+
+Let's see with a different way of reading from stdin.
+
+** Redirect <&0
+   :PROPERTIES:
+   :CUSTOM_ID: redirect-0
+   :END:
+
+#+BEGIN_SRC sh
+read -r x <&0
+read -r y <&0
+
+echo "$x"
+echo "$y"
+#+END_SRC
+
+#+BEGIN_SRC sh
+$ bash dev.sh <<<$'10\n20'
+10
+20
+
+$ bash dev.sh
+10 (typed manually)
+20 (typed manually)
+10
+20
+#+END_SRC
+
