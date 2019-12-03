@@ -6,7 +6,7 @@
 
 ### Create And Use An Array
 
-Create an array of numbers. Use `()`, and separate elements with spaces (not commas, like in most languages).
+Create an array of numbers. Use `()`, and, unlike in many other languages, separate elements with spaces, not commas.
 
 ```shell-session
 $ nums=(1 2 3 4)
@@ -42,4 +42,12 @@ $ echo "${nums[@]}"
 ```
 
 
+
+
+
+## Links and Resources
+
+- [Bash Manual: Arrays](https://www.gnu.org/software/bash/manual/bash.html#Arrays)
+- [Bash Manual: Special Parameters](https://www.gnu.org/software/bash/manual/bash.html#Special-Parameters)
+- [Bash Manual: Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting)
 
