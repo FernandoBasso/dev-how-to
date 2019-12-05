@@ -1,7 +1,14 @@
+---
+title: Rsync Notes, Examples and Tips
+---
+
+
+
 # rsync
+
 Created Tuesday 03 April 2018
 
-
+:)
 
 extremely important
 -------------------
@@ -131,7 +138,6 @@ rsync "$dryrun" --archive --relative .mozilla/ .config/ .ssh/ .gnupg/ /path/to/b
 
 Example _without_ trailing slash on source directory
 ----------------------------------------------------
-	----
 	$ tree -C .
 	.
 	└── libs
@@ -159,8 +165,6 @@ Example _without_ trailing slash on source directory
 	    └── parser.c
 	
 	3 directories, 4 files
-	$ 
-	----
 
 We **did not use the trailing slash on `libs` **(the source directory).
 

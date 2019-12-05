@@ -1,4 +1,11 @@
+---
+title: Rsync Experiments
+---
+
+
+
 # rsync experiments
+
 Created Friday 06 April 2018
 
 	$ tree -C ./dir1/
