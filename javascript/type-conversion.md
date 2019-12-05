@@ -177,6 +177,46 @@ Note that when handling a numeric string and a number, or even only numeric stri
 
 
 
+## Conversion, Coercion, Casting
+
+**Cast** implies an _explicit_ type conversion. **Coercion** implies an _implicit_ type conversion.
+
+Examples of coercions (implicit):
+
+```node-session
+> 5 + ' remaining'
+'5 remaining'
+
+> '2' * 5
+10
+```
+
+In the first case, 5 is first _implicitly_ converted to a string, and then concatenated with the other string. In the second case, the string `'2'` is first converted to the number 2, and then multiplied by 5.
+
+Examples of casting (explicit):
+
+```node-session
+> 2 + Number('2')
+4
+
+> +false - 5
+-5
+```
+
+
+
+
+
+- [MDN Type Conversion](https://developer.mozilla.org/en-US/docs/Glossary/Type_conversion)
+- [MDN Type Coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)
+- [MDN Comparison Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators)
+- [WikiBooks Type Conversion](https://en.wikibooks.org/wiki/Computer_Programming/Type_conversion)
+- [Wikipedia Type conversion](https://en.wikipedia.org/wiki/Type_conversion)
+- [Stackoverflow Cast vs Coercion](https://stackoverflow.com/questions/8857763/what-is-the-difference-between-casting-and-coercing)
+- [Programiz Python Conversion and Casting](https://www.programiz.com/python-programming/type-conversion-and-casting)
+
+
+
 
 
 
