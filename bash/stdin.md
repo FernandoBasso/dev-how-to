@@ -1,3 +1,7 @@
+---
+title: Bash STDIN Examples and Tips
+---
+
 To provide input and parameters to scripts, we can use `read` and:
 
   - `/dev/stdin`
@@ -18,7 +22,7 @@ echo "$x"
 echo "$y"
 ```
 
-Output for /dev/stdin and herestring:
+Output for `/dev/stdin` and herestring:
 
 ``` shell-session
 $ bash dev.sh <<<$'10\n20'
@@ -26,7 +30,7 @@ $ bash dev.sh <<<$'10\n20'
 10
 ```
 
-Output for /dev/stdin and normal input:
+Output for `/dev/stdin` and normal input:
 
 ``` shell-session
 $ bash dev.sh
