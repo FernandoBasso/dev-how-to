@@ -181,6 +181,8 @@ Note that when handling a numeric string and a number, or even only numeric stri
 
 **Cast** implies an _explicit_ type conversion. **Coercion** implies an _implicit_ type conversion.
 
+> Type coercion is the automatic or implicit conversion of values from one data type to another (such as strings to numbers). *[Type conversion](https://developer.mozilla.org/en-US/docs/Glossary/Type_conversion)* is similar to *type coercion* because they both convert values from one data type to another with one key difference — *type coercion* is implicit whereas *type conversion* can be either implicit *or* explicit.
+
 Examples of coercions (implicit):
 
 ```node-session
@@ -205,7 +207,7 @@ Examples of casting (explicit):
 
 
 
-
+## Links and Resources
 
 - [MDN Type Conversion](https://developer.mozilla.org/en-US/docs/Glossary/Type_conversion)
 - [MDN Type Coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)
@@ -213,7 +215,8 @@ Examples of casting (explicit):
 - [WikiBooks Type Conversion](https://en.wikibooks.org/wiki/Computer_Programming/Type_conversion)
 - [Wikipedia Type conversion](https://en.wikipedia.org/wiki/Type_conversion)
 - [Stackoverflow Cast vs Coercion](https://stackoverflow.com/questions/8857763/what-is-the-difference-between-casting-and-coercing)
-- [Programiz Python Conversion and Casting](https://www.programiz.com/python-programming/type-conversion-and-casting)
+
+
 
 
 

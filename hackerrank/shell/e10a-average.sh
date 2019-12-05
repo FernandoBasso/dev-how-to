@@ -13,6 +13,8 @@ https://www.hackerrank.com/challenges/bash-tutorials---compute-the-average
 read -r n
 sum=0
 
+echo $sum
+
 if [[ "$n" == 0 ]]
 then
   printf '%.3f\n' "$(echo 'scale=4; 0' | bc -l)"
