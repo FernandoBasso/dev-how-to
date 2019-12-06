@@ -45,7 +45,7 @@ $ echo "${nums[@]}"
 
 `man bash` ([man bash on arrays](https://www.gnu.org/software/bash/manual/bash.html#Arrays)):
 
-> Any element of an array may be referenced using `${name[subscript]}`. If the subscript is `@` or `*`, the word expands to all members of the array name. These subscripts differ only when the word appears within double quotes. If the word is double-quoted, `${name[*]}` expands to a single word with the value of each array member separated by the first character of the IFS variable, and `${name[@]}` expands each element of name to a separate word. 
+> Any element of an array may be referenced using `${name[subscript]}`. If the subscript is `@` or `*`, the word expands to all members of the array name. These subscripts differ only when the word appears within double quotes. If the word is double-quoted, `${name[*]}` expands to a single word with the value of each array member separated by the first character of the IFS variable, and `${name[@]}` expands each element of name to a separate word.
 
 By default the value of `IFS` is a single space. Let's apply this to convert an array to a string.
 
@@ -74,7 +74,7 @@ $ printf '“%s”\n' "${arr[@]}"
 
 ## Convert Array To String
 
-We can get an array and turn it into a string with the elements separated by spaces. From 
+We can get an array and turn it into a string with the elements separated by spaces. From
 Create an array of numbers:
 
 ```shell-session

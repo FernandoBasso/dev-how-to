@@ -1,0 +1,257 @@
+= Bash Arrays
+:linkcss!:
+// :stylesheet: myadoc.css
+// :stylesdir: http://localhost:8000
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts!:
+:stem: latexmath
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option!:
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+:asterisk: *
+
+== Introduction to Bash Arrays
+
+=== Create And Use An Array
+
+Create an array of numbers. Use `()`, and, unlike in many other languages, separate elements with spaces, not commas:
+
+[source,shell-session]
+----
+$ nums=(1 2 3 4)
+----
+
+Use the elements of the array in a loop:
+
+[source,shell-session]
+----
+$ for n in "${nums[@]}" ; do printf '    %s\n' "Iteration $n" ; done
+    Iteration 1
+    Iteration 2
+    Iteration 3
+    Iteration 4
+----
+
+Get the length of the array:
+
+[source,shell-session]
+----
+$ echo "${#nums[@]}"
+4
+----
+
+Append elements to the array:
+
+[source,shell-session]
+----
+$ nums+=(5 6)
+
+$ echo "${#nums[@]}"
+6
+
+$ echo "${nums[@]}"
+1 2 3 4 5 6
+----
+
+== Array Subscript asterisk * and at @
+
+`man bash` (link:https://www.gnu.org/software/bash/manual/bash.html#Arrays[man bash on arrays^]):
+
+[quote, man bash]
+Any element of an array may be referenced using ${name[subscript]}. If the subscript is `@' or `{asterisk}', the word expands to all members of the array name. These subscripts differ only when the word appears within double quotes. If the word is double-quoted, ${name[*]} expands to a single word with the value of each array member separated by the first character of the IFS variable, and ${name[@]} expands each element of name to a separate word.
+
+By default the value of `IFS` is ‘`{nbsp}\t\n`’, that is, a space, a tab, and a newline. Let’s apply what we just discussed to convert an array to a string.
+
+First, create an array with four letters, then, to see the difference between `[*]` and `[@]`, let’s use `printf '%s\n'`, since the specifier `%s` is reused as necessary to consume all given parameters:
+
+[source,shell-session]
+----
+$ arr=(a b c d)
+
+# <1>
+$ printf '“%s”\n' "${arr[*]}"
+“a b c d”
+
+# <2>
+$ printf '“%s”\n' "${arr[@]}"
+“a”
+“b”
+“c”
+“d”
+----
+
+<1> The array is expanded to a single element, thus `“%s”\n` is used only once, and the entire output is a single line inside the curly
+double quotes.
+
+<2> Each element of the array is expanded to a separate word, thus causing `“%s”\n` to be used four times, producing the four output lines.
+With `[*]` we can convert an array into a string.
+
+=== IFS Field Separator
+
+First, let's debug the default value of `IFS`:
+
+[source,shell-session]
+----
+$ echo -n "$IFS" | hexdump -C
+00000000  20 09 0a
+00000003
+
+$ printf '%s\n' "$IFS" | od -c -a -x
+0000000      \t  \n  \n
+         sp  ht  nl  nl
+           0920    0a0a
+----
+
+So, the default value of `IFS` is a space, a horizontal tab, and a newline (which are natural word separators). Remember the excerpt from link:https://www.gnu.org/software/bash/manual/bash.html#Arrays[bash's man page^]:
+
+[quote, bash manual]
+If the word is double-quoted, ${name[*]} expands to a single word with the value of each array member separated by the first character of the IFS variable.
+
+Note it reads *first character of the IFS variable*! So, yeah, the `IFS` variable can contain more than one character which could potentially be used as a word separator.
+
+Let's play with IFS. First, let's create an array:
+
+[source,shell-session]
+----
+$ nums=(1 2 3 4)
+----
+
+The first char of `IFS` is the space, so, as we quote `nums` and use the `{asterisk}` subscript, the output is a string with the elements of `nums` separated by a space.
+
+[source,shell-session]
+----
+$ printf '“%s”\n' "${nums[*]}"
+“1 2 3 4”
+----
+
+We can change the value of `IFS`, and then using the `[*]` syntax helps to better undestand the whole mater:
+
+[source,shell-session]
+----
+$ IFS='#'; printf '“%s”\n' "${nums[*]}"
+“1#2#3#4”
+
+$ IFS='_'; printf '“%s”\n' "${nums[*]}"
+“1_2_3_4”
+
+$ IFS=$'\t'; printf '“%s”\n' "${nums[*]}"
+“1      2       3       4”
+
+$ IFS=$'\n'; printf '“%s”\n' "${nums[*]}"
+“1
+2
+3
+4”
+----
+
+Looks like setting `IFS` for a single command does not work:
+
+[source,shell-session]
+----
+$ nums=(1 2 3 4)
+
+$ IFS=- echo "${nums[*]}"
+2 2 3 4
+
+$ IFS=- printf '%s\n' "${nums[*]}"
+1 2 3 4
+----
+
+In neither of the cases is `-` used with the syntax `[*]`. Both `echo` and `printf` are shell built-ins:
+
+[source,shell-session]
+----
+$ type echo printf
+echo is a shell builtin
+printf is a shell builtin
+----
+
+But it works for `read` (which is also a built-in):
+
+[source,shell-session]
+----
+$ IFS=- read -r -a arr <<<'x-y-z'
+
+$ echo "${#arr[@]}"
+3
+
+$ printf '%s\n' "${arr[@]}"
+x
+y
+z
+----
+
+Yeah, `read` honored `-` as the field  separator, and `arr` was assigned three elements, `a`, `b` and `c`.
+
+@TODO: Why does it work for `read` but not for `echo` and `printf`?
+
+
+### IFS Links and Resources
+
+* https://unix.stackexchange.com/questions/120575/understanding-the-default-value-of-ifs
+* https://unix.stackexchange.com/questions/26784/understanding-ifs
+* https://unix.stackexchange.com/questions/92187/setting-ifs-for-a-single-statement
+
+== Convert Array To String
+
+We can get an array and turn it into a string with the elements separated by spaces. First, let's create an array of numbers:
+
+[source,shell-session]
+----
+$ nums=(1 2 3 4)
+----
+
+Get the length of the array:
+
+[source,shell-session]
+----
+$ echo "${#nums}"
+4
+----
+
+Use the `[*]` syntax on the double-quoted name of the array to turn it into a string:
+
+[source,shell-session]
+----
+$ strnums="${nums[*]}"
+----
+
+The resulting value now has length 7, because our string consists of four digits and three spaces.
+
+[source,shell-session]
+----
+$ echo "${#strnums}"
+7
+----
+
+Shows that it loops only once, printing the entire string in a single run:
+
+[source,shell-session]
+----
+$ for x in "${strnums[@]}" ; do echo "“$x”" ; done
+“1 2 3 4”
+----
+
+Now that `strnums` is a string, even using `[*]` to loop produces a single word:
+
+[source,shell-session]
+----
+$ for x in "${strnums[*]}" ; do echo "“$x”" ; done
+“1 2 3 4”
+----
+
+== Links and Resources
+
+* https://www.gnu.org/software/bash/manual/bash.html#Arrays[Bash Manual:
+Arrays]
+* https://www.gnu.org/software/bash/manual/bash.html#Special-Parameters[Bash
+Manual: Special Parameters]
+* https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting[Bash
+Manual: Word Splitting]
+* https://unix.stackexchange.com/questions/26784/understanding-ifs[Unix StackExchange Question About IFS^]
