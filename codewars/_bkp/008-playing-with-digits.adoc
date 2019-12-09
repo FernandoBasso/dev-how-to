@@ -65,4 +65,4 @@ the sum of the digits of n taken to the successive powers of p
 
 <3> `idx` is 0, 1, 2, 3, ... as the reducer iterates. So, if `p` is 3, `p + idx` will be 3, 4, 5, 6, ... as the reducer iterates.
 
-<3> If `total` is divisible by `n`, then `total / n` is the very `k` the exercise is asking for and we return it; otherwise, return `-1`.
+<4> If `total` is divisible by `n`, then `total / n` is the very `k` the exercise is asking for and we return it; otherwise, return `-1`.

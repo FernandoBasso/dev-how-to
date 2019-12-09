@@ -1,11 +1,11 @@
 = Bash Arrays
-:linkcss!:
+// :linkcss:
 // :stylesheet: myadoc.css
 // :stylesdir: http://localhost:8000
 // :stylesdir: {user-home}/Projects/proghowto
-:webfonts!:
-:stem: latexmath
-:icons!: font
+// :webfonts!:
+// :stem: latexmath
+// :icons!: font
 :source-highlighter: pygments
 :source-linenums-option!:
 :pygments-css: class
@@ -17,6 +17,11 @@
 :asterisk: *
 
 == Introduction to Bash Arrays
+one
+two
+three
+
+NOTE: See‽
 
 === Create And Use An Array
 

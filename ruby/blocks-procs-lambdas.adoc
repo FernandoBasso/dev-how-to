@@ -1,9 +1,9 @@
-= Blocks, Procs, Lambdas
-:linkcss:
-:stylesheet: asciidoctor-original-with-overrides.css
-:stylesdir: {user-home}/Projects/proghowto
-:webfonts:
-:icons: font
+= Blocks, P#rocs, Lambdas
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts!:
+:icons!: font
 :source-highlighter: pygments
 :source-linenums-option:
 :pygments-css: class
@@ -11,8 +11,6 @@
 :sectnums:
 :toclevels: 6
 :toc: left
-:favicon: https://fernandobasso.dev/cmdline.png
-
 
 
 == Blocks
@@ -135,7 +133,11 @@ meth
 
 == Procs
 
-Contrary to the “everything is an object in Ruby” rule, blocks are not objects. Moreover, they can't be store in variables. Procs, however, are indeed objects and can be stored in variables. A proc is like a “saved block”.
+TIP: Ruby blocks are not objects.
+
+TIP: Ruby procs are objects.
+
+Contrary to the “everything is an object in Ruby” rule, blocks are not objects. Moreover, they can't be stored in variables. Procs, however, are indeed objects and can be stored in variables. A proc is like a “saved block”.
 
 === Creating a Proc
 
@@ -196,7 +198,7 @@ To create a lambda function, it is possible to use the both `lambda` literal, in
 
 link:https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line[Rubocop^] has some guidelines for lambda syntax.
 
-==== lambda Method
+=== lambda Method
 
 .lambda literal syntax
 [source,ruby,lineos]
