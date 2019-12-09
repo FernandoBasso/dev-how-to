@@ -3,7 +3,6 @@
 // :stylesheet: myadoc.css
 // :stylesdir: http://localhost:8000
 // :stylesdir: {user-home}/Projects/proghowto
-// :webfonts!:
 // :stem: latexmath
 // :icons!: font
 :source-highlighter: pygments
@@ -16,12 +15,10 @@
 :favicon: https://fernandobasso.dev/cmdline.png
 :asterisk: *
 
-== Introduction to Bash Arrays
-one
-two
-three
 
-NOTE: See‽
+== Introduction to Bash Arrays
+
+NOTE: yes!
 
 === Create And Use An Array
 

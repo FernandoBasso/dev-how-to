@@ -1,9 +1,13 @@
 # vim: set filetype=ruby:
 
 require 'asciidoctor'
+# require 'libnotify'
 
-guard 'shell' do
-  watch(/.*.adoc$/) { |m|
+notification :notifysend, time: 15000
+# notification :libnotify, timeout: 5, transient: true, append: true, urgency: :normal
+
+guard :shell do
+  watch(/.*.adoc$/) do |m|
     Asciidoctor.convert_file(
       m[0],
       :safe => :unsafe,
@@ -23,5 +27,7 @@ guard 'shell' do
         'pygments-css' => 'class',
       }
     )
-  }
+    n "#{m[0]}.html compiled successfuly!'", 'Guard Asciidoctor', :info
+  end
+  # notifysend "--icon='dialog-information' 'Adoc compiled successfull' -t 10"
 end
