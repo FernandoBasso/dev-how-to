@@ -1,10 +1,23 @@
-# Asciidoctor converted files.
-# Se Guardfile
+#
+# Asciidoctor converted files. Se Guardfile
+#
 *.adoc.conv.html
 *.html
+
+#
+# My playground directory.
+#
 0dev/
 
+#
 # Some org-mode stuff.
+#
 \#*\.org\#
 \.#*\.org
 
+#
+# Exclude these Asciidoctor generated files in any subdirectory
+# frm this root directory.
+#
+asciidoctor.css
+pygments-default.css
