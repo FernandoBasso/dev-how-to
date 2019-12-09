@@ -21,10 +21,12 @@ guard :shell do
         'toc' => 'left',
         'webfonts!' => '',
         'icons!' => 'font',
-        'sectnums!' => '',
+        'sectnums' => '',
         'sectlinks' => '',
         'source-highlighter' => 'pygments',
         'pygments-css' => 'class',
+        'docinfo' => 'shared',
+        'docinfodir' => "#{Dir.home}/Projects/proghowto"
       }
     )
     n "#{m[0]}.html compiled successfuly!'", 'Guard Asciidoctor', :info
