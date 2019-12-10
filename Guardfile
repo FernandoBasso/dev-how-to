@@ -26,7 +26,7 @@ guard :shell do
         'source-highlighter' => 'pygments',
         'pygments-css' => 'class',
         'docinfo' => 'shared',
-        'docinfodir' => "#{Dir.home}/Projects/proghowto"
+        'docinfodir' => "#{Dir.pwd}"
       }
     )
     n "#{m[0]}.html compiled successfuly!'", 'Guard Asciidoctor', :info
