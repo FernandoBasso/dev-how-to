@@ -19,8 +19,8 @@ guard :shell do
         # but not for the matjax stuff.
         'linkcss!' => '',
         'toc' => 'left',
-        'webfonts!' => '',
-        'icons!' => 'font',
+        'webfonts@' => '',
+        'icons@' => 'font',
         'sectnums' => '',
         'sectlinks' => '',
         'source-highlighter' => 'pygments',

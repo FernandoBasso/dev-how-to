@@ -30,6 +30,12 @@ $ printf '%s\n' with
 $ printf '%s\n' you.
 ```
 
+From `help printf`:
+
+> The format is re-used as necessary to consume all of the arguments. If there are fewer arguments than the format requires,  extra format specifications behave as if a zero value or null string, as appropriate, had been supplied.
+>
+> -- help printf
+
 ## Escape Character
 
 ### Example 1 - Printing
@@ -44,16 +50,13 @@ foo bar
 
 The unquoted escape removes the newline. We are left with `foo␠␠␠␠bar`. That is two arguments. `echo` prints those arguments separated by a single whitespace.
 
-**Excerpt from \`help echo'.**
 
-``` shell-session
-$ help echo
-echo: echo [-neE] [arg ...]
-    Write arguments to the standard output.
+From `help echo`:
 
-    Display the ARGs, separated by a single space character and followed by a
-    newline, on the standard output.
-```
+> Display the ARGs, separated by a single space character and followed by a newline, on the standard output.
+>
+> -- help echo
+
 
 ### Example 2 - Assignment
 
@@ -82,8 +85,6 @@ str=foo bar
 ```
 
 That is, we create an environment variable `str=foo` for the command `bar`. Can be checked with this:
-
-**Proof of the description above.**
 
 ``` shell-session
 $ str=foo\

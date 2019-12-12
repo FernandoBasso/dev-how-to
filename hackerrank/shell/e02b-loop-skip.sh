@@ -14,8 +14,9 @@
 # Also,
 #
 
-##
+#
 # Print odd numbers from 1 to 99.
+#
 seq 1 2 99
 
 #
@@ -46,4 +47,3 @@ printf '%d\n' {1..9..2}
 # → 5
 # → 7
 # → 9
-

@@ -24,7 +24,7 @@ done
 # `man wget` and search for `EXIT STATUS`.
 #
 
+#
 # We could also use `$(seq 99)` instead of the range. It would be using another
 # process and an external program, but it would work.
-
-
+#

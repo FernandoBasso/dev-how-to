@@ -1,14 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-: <<-'////'
---------------------------------------------------------------------------------
-= Compute The Average
-=====================
-
-https://www.hackerrank.com/challenges/bash-tutorials---compute-the-average
-
---------------------------------------------------------------------------------
-////
+#
+# = Compute The Average
+# =====================
+#
+# https://www.hackerrank.com/challenges/bash-tutorials---compute-the-average
+#
 
 read -r n
 sum=0
@@ -29,9 +26,7 @@ done
 
 printf '%.3f\n' "$(echo "scale=4; $sum / $n" | bc -l)"
 
-: <<-'////'
---------------------------------------------------------------------------------
-Remember that printf %.f does rounding. Therefore, use scale=4 (not 3) in bc.
+#
+# Remember that printf %.f does rounding. Therefore, use scale=4 (not 3) in bc.
+#
 
---------------------------------------------------------------------------------
-////

@@ -18,10 +18,9 @@ xargs -I ^ printf '%s ' Welcome ^
 
 #
 # %s is reused for as many arguments as needed. It leaves a space after
-# the last one, though
+# the last one, though.
 #
 # Works because HackerRank closes STDOUT after writting to it.
 #
 # echo could also be used.
 #
-
