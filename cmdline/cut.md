@@ -6,7 +6,7 @@ description: cut command line examples and tips
 
 Intro
 -----
-Read man cut, info cut and cut --help.
+Read `man cut`, `info cut` and `cut --help`.
 
 Select specific chars from each input line:
 
