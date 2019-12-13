@@ -22,7 +22,7 @@ echo "$x"
 echo "$y"
 ```
 
-Output for `/dev/stdin` and herestring:
+Output for `/dev/stdin` and Here String:
 
 ``` shell-session
 $ bash dev.sh <<<$'10\n20'
@@ -40,9 +40,9 @@ $ bash dev.sh
 20
 ```
 
-With the herestring approach, both `x` and `y` are assigned 10, which is not what we wanted. With the normal input, `x` is assigned 10, and `y` is assigned 20, which is what we expected.
+With the Here String approach, both `x` and `y` are assigned 10, which is not what we wanted. With the normal input, `x` is assigned 10, and `y` is assigned 20, which is what we expected.
 
-Let’s see with a different way of reading from stdin.
+Let’s see with a different way of reading from STDIN.
 
 # Redirect \<&0
 
