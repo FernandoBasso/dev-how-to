@@ -10,7 +10,7 @@ endofline=unix
 disable_trash=False
 
 [JournalPlugin]
-namespace=Journal
+namespace=0Journal
 granularity=Month
 
 [SpellPlugin]

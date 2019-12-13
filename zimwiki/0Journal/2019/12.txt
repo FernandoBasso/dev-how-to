@@ -38,3 +38,14 @@ Use the ''-c'' or ''--bytes'' options:
 head --bytes=128
 '''
 
+
+===== Print Middle Lines of File =====
+@cmdline @sed
+
+Print from line 10 to line 20:
+
+'''
+sed -n '10,20p'
+'''
+
+
