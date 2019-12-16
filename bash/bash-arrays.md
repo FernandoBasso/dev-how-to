@@ -195,6 +195,43 @@ a b c
 
 
 
+## convert each character on a string to an array element
+https://stackoverflow.com/questions/7578930/bash-split-string-into-character-array
+
+geirha's version
+
+```shell-session
+'''
+var=abc;
+for (( i = 0, n = ${#var}; i < n; ++i )); do
+    arr+=( "${var:i:1}" )
+done
+```
+
+
+
+davidl_'s version
+
+```shell-session
+while read -r -n1  ; do
+    chars_array+=($a)
+done <<<"$chars_string"
+```
+
+
+
+```shell-session
+echo "abcdefg" | fold -w1
+
+echo "abcdefg" | grep -o .
+```
+
+
+
+
+
+
+
 # Links and Resources
 
   - [Bash Manual: Arrays](https://www.gnu.org/software/bash/manual/bash.html#Arrays)

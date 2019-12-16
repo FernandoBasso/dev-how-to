@@ -105,7 +105,7 @@ $ str=The force is strong with this one.
 -bash: force: command not found
 ```
 
-The problem is that the shell assigns 'The' to `str`, sees the space, which separates token 'The' from the token 'force' and then tries to run the command `force` using the environment variable `str`, and thus the error.
+The problem is that the shell assigns “The” to `str`, sees the space, which separates token “The” from the token “force” and then tries to run the command `force` using the environment variable `str`, and thus the error.
 
 In short, we are setting the environment variable `str=The` for the command `force`, and the remaining words would become the arguments to the command. Since `force` is not a real command or program (on my system, at least), the error occurs.
 
@@ -159,6 +159,8 @@ one.
 $ printf '%s\n' "$str"
 The force is strong with this one.
 ```
+
+
 
 ## Links and Resources
 

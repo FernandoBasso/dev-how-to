@@ -13,7 +13,7 @@ $ printf '%s\n' "$IFS" | od -c -a -x
            0920    0a0a
 ```
 
-So, the default value of `IFS` is a space, a horizontal tab, and a newline (which are natural word separators). Remember the excerpt from [bash’s man page](https://www.gnu.org/software/bash/manual/bash.html#Arrays):
+So, the default value of `IFS` is a space, a horizontal tab, and a newline (which are natural word separators). Remember the excerpt from [bash’s man page](https://www.gnu.org/software/bash/manual/bash.html#Arrays).
 
 # Using IFS to Convert Array To String
 
