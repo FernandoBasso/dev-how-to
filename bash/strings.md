@@ -4,7 +4,7 @@
 
 > **Caution**
 > 
-> The “space” character is very important in Bash (and other shells). It delimits tokens.
+> The “space” character is very important in Bash (and other shells). It delimits _words_, a.k.a _words_.
 
 [Bash man page section on Quoting](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Quoting)
 

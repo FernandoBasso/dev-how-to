@@ -164,6 +164,40 @@ NOTE: The challenge wants integer division, so, we simply omit `bc`'s scale spec
 
 
 
+```shell
+read -r answer
+
+case "$answer" in
+  [Yy]*)
+    printf '%s\n' YES
+    ;;
+  [Nn]*)
+    printf '%s\n' NO
+    ;;
+  *)
+    printf '%s\n' 'What the poop‽ 💩'
+    ;;
+esac
+```
+
+```shell-session
+$ bash script.sh 
+yes
+YES
+
+$ bash script.sh 
+Y
+YES
+
+$ bash script.sh
+n
+NO
+
+$ bash script.sh
+lol
+What the poop‽ 💩
+```
+
 
 
  

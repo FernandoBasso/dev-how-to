@@ -25,13 +25,13 @@ IFS can be used to our advantage to convert arrays to strings in a very simple a
 
 Note it reads **first character of the IFS variable**\! So, yeah, the `IFS` variable can contain more than one character which could potentially be used as a word separator.
 
-Let’s play with IFS. First, let’s create an array:
+Let’s play with IFS. First, create an array:
 
 ``` shell-session
 $ nums=(1 2 3 4)
 ```
 
-The first char of `IFS` is the space, so, as we quote `nums` and use the `*` subscript, the output is a string with the elements of `nums` separated by a space.
+The first char of `IFS` is the space, so, as we quote `nums` and use the `[*]` subscript, the output is a string with the elements of `nums` separated by a space.
 
 ``` shell-session
 $ printf '“%s”\n' "${nums[*]}"
@@ -93,7 +93,11 @@ z
 
 Yeah, `read` honored `-` as the field separator, and `arr` was assigned three elements, `a`, `b` and `c`.
 
-@TODO: Why does it work for `read` but not for `echo` and `printf`?
+@TODO: Why does it work for `read` but not for `echo` and `printf`? Could it simply be that some commands simply do not honor IFS? In any case, `help read` explicitly tells us that IFS is used with `read`.
+
+@TODO: Check whether the man pages for echo and printf, as well as their posix specs say something about IFS.
+
+
 
 ## IFS Links and Resources
 

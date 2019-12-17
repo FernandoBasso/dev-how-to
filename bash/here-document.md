@@ -2,7 +2,7 @@
 
 ## Here Document To Variable
 
-Assign two lines to the variable `input`.
+Assign two lines to the variable `input` using a Here Document.
 
 ```shell-session
 $ read -r -d '' input << 'EOF'

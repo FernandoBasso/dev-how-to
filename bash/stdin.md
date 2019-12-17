@@ -44,7 +44,7 @@ With the Here String approach, both `x` and `y` are assigned 10, which is not wh
 
 Let’s see with a different way of reading from STDIN.
 
-# Redirect \<&0
+# Redirect <&0
 
 ``` bash
 read -r x <&0

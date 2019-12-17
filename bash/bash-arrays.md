@@ -2,9 +2,9 @@
 description: Examples and tips on using arrays in Bash
 ---
 
-
-
 # Introduction to Bash Arrays
+
+[TOC]
 
 ## Create And Use An Array
 
