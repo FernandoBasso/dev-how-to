@@ -328,6 +328,221 @@ We used `scale=4` by the same reasons described earlier about truncating and rou
 
 
 
+### cut Challenges
+
+* Tags: #cmdline #shell #bash #cut
+
+```shell-session
+$ cut -b 3 -
+
+$ cut -b 2,7 -
+
+$ cut -b 2-7 -
+
+$ cut -b 1-4 -
+
+$ cut -d $'\t' -f 1,2,3 -
+
+$ cut -c 13- -
+
+$ cut -d ' ' -f 4 -
+
+$ cut -d ' ' -f 1,2,3 -
+
+$ cut -d $'\t' -f 2- -
+```
+
+
+
+### Head of Text File Challenges	
+
+```shell-session
+$ head -n 20
+
+$ head -c 20
+```
+
+
+
+### Middle of a Text File
+
+* Tags: #cmdline #shell #bash #sed
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-in-linux---the-middle-of-a-text-file)
+
+```shell-session
+$ sed -n '12,22 p'
+```
+
+
+
+### Tail of a Text File 1 and 2
+
+* Tags: #cmdline #shell #bash #tail
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-tail-1)
+
+```shell-session
+$ tail -n 20 -
+
+$ tail -c 20 -
+```
+
+
+
+### tr Command 1
+
+* Tags: #cmdline #shell #bash #tr #here-document #assignment
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-tr-1)
+
+```shell-session
+# Assign some text to the variable `input'.
+$ read -r -d '' input << 'EOF'
+int i = (int) 5.8;
+int res = (23 + i) * 2;
+EOF
+
+# Inspect `input' contents.
+$ echo "$input"
+int i = (int) 5.8;
+int res = (23 + i) * 2;
+
+# Apply `tr' to `input' and see ( and ) replaced with [ and ].
+$ echo "$input" | tr '()' '[]'
+int i = [int] 5.8;
+int res = [23 + i] * 2;
+```
+
+A [Here Document](https://www.gnu.org/software/bash/manual/bash.html#Here-Documents) is used to assign lines of text to the variable `input`.
+
+
+
+### tr Command 2
+
+* Tags: #cmdline #shell #bash #tr
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-tr-2)
+
+```shell-session
+$ tr -d 'a-z'
+```
+
+
+
+### tr Command 3
+
+* Tags: #cmdline #shell #bash #tr
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-tr-3)
+
+```shell-session
+$ tr -s ' '
+```
+
+
+
+### sort Lines Challenges
+
+* Tags: #cmdline #shell #bash #sort
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-sort-1)
+
+```shell-session
+$ echo -e 'aa\nbb\naa\ncc\nff\ncc' | sort -
+aa
+aa
+bb
+cc
+cc
+ff
+
+$ echo -e 'aa\nbb\naa\ncc\nff\ncc' | sort -r -
+ff
+cc
+cc
+bb
+aa
+aa
+
+$ echo -e '2.1\n3\n0.2\n0' | sort -n -
+0
+0.2
+2.1
+3
+
+$ echo -e '2.1\n3\n0.2\n0' | sort -nr -
+3
+2.1
+0.2
+0
+
+# Sort by field 2, taking Tab as field separator.
+$ sort -t $'\t' -nr -k 2 -
+
+# Same, but in ascending order.
+$ sort -t $'\t' -n -k 2 -
+
+# This time the delimiter is a “|” character
+$ sort -t '|' -nr -k 2 -
+```
+
+
+
+### uniq Challenges
+
+* Tags: #cmdline #shell #bash #uniq
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-in-linux-the-uniq-command-1)
+
+```shell-session
+$ uniq -
+​```
+
+```
+
+Display the count of lines that were uniqfied and the uniqfied lines without leading whitespace/tabs:
+
+```shell-session
+$ read -r -d '' lines << 'EOF'
+> foo
+> foo
+> bar
+> bar
+> bar
+> tux
+> EOF
+
+$ echo "$lines" | uniq -c | sed 's/ \+\([0-9]\+ [^ ]\+\)/\1/'
+2 foo
+3 bar
+1 tux
+
+$ echo "$lines" | uniq -c | sed 's/^[[:space:]]*//g'
+2 foo
+3 bar
+1 tux
+
+$ echo "$lines" | uniq -c | cut -b 7- -
+2 foo
+3 bar
+1 tux
+
+$ echo "$lines" | uniq -c | xargs -l
+2 foo
+3 bar
+1 tux
+
+$ echo "$lines" | uniq -c | xargs -L 1
+2 foo
+3 bar
+1 tux
+
+$ echo "$lines" | uniq -c | colrm 1 6
+2 foo
+3 bar
+1 tux
+```
+
+
+
+
+
+
+
 
 
 
