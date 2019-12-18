@@ -506,35 +506,93 @@ $ read -r -d '' lines << 'EOF'
 > tux
 > EOF
 
-$ echo "$lines" | uniq -c | sed 's/ \+\([0-9]\+ [^ ]\+\)/\1/'
+$ echo "$lines" | uniq -c - | sed 's/ \+\([0-9]\+ [^ ]\+\)/\1/'
 2 foo
 3 bar
 1 tux
 
-$ echo "$lines" | uniq -c | sed 's/^[[:space:]]*//g'
+$ echo "$lines" | uniq -c - | sed 's/^[[:space:]]*//g'
 2 foo
 3 bar
 1 tux
 
-$ echo "$lines" | uniq -c | cut -b 7- -
+$ echo "$lines" | uniq -c - | cut -b 7- -
 2 foo
 3 bar
 1 tux
 
-$ echo "$lines" | uniq -c | xargs -l
+$ echo "$lines" | uniq -c - | xargs -l
 2 foo
 3 bar
 1 tux
 
-$ echo "$lines" | uniq -c | xargs -L 1
+$ echo "$lines" | uniq -c - | xargs -L 1
 2 foo
 3 bar
 1 tux
 
-$ echo "$lines" | uniq -c | colrm 1 6
+$ echo "$lines" | uniq -c - | colrm 1 6
 2 foo
 3 bar
 1 tux
+
+# Case Insenstivie.
+$ read -r -d '' lines << 'EOF'
+> FoO
+> fOO
+> baR
+> Bar
+> bAr
+> TUX
+> EOF
+
+$ echo "$lines" | uniq -ci - | cut -b 7- -
+2 FoO
+3 baR
+1 TUX
+
+$ echo "$lines" | uniq -u -
+TUX
+```
+
+
+
+### Read In An Array
+
+* Tags: #cmdline #shell #bash #arrays
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials-read-in-an-array)
+
+```shell-session
+$ arr=()
+$ while read -r line ; do arr+=("$line") ; done < /dev/stdin
+$ echo "${#arr[*]}"
+```
+
+
+
+### Slice An Array
+
+* Tags: #cmdline #shell #bash #arrays
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials-slice-an-array)
+
+Print the array with the syntax `${arr[*]:START:END}`.
+
+```shell-session
+$ read -r -d '' countries << 'EOF'
+> Namibia
+> Nauru
+> Nepal
+> Netherlands
+> NewZealand
+> Nicaragua
+> Niger
+> Nigeria
+> NorthKorea
+> Norway
+> EOF
+
+$ echo "${arr[*]:3:7}"
+Netherlands NewZealand Nicaragua Niger Nigeria NorthKorea Norway
 ```
 
 
