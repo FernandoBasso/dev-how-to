@@ -124,7 +124,7 @@ $ printf '%s\n' "scale=2; $x"{+,-,*,/}"$y" | bc
 4.00
 '''
 
-If ''y'' is _negative_, like ''-2` we would receive an error:
+If ''y'' is //negative//, like ''-2'' we would receive an error:
 
 '''
 $ read -r x y
@@ -164,6 +164,10 @@ printf '%d\n' $(( x / y ))
 
 NOTE: The challenge wants integer division, so, we simply omit ''bc'''s scale special variable.
 
+==== Getting started with conditionals ====
+Tags: @cmdline @shell @bash @conditionals
+Links: [[https://www.hackerrank.com/challenges/bash-tutorials---getting-started-with-conditionals|challenge]]
+
 '''
 read -r answer
 
@@ -199,8 +203,52 @@ What the poop‽ 💩
 '''
 
 
+==== More on Conditionals ====
+Tags: @cmdline @shell @bash @conditionals @math
+Links: [[https://www.hackerrank.com/challenges/bash-tutorials---more-on-conditionals|challenge]]
 
- 
+Solution based on side lengths.
+
+* equilateral: ''x == y && y == z''
+* scalene: ''x != y && y != z && z != x''
+* isosceles: any other
+
+The script:
+'''
+read -r x
+read -r y
+read -r z
+
+[[ "$x" == "$y" ]] && [[ "$y" == "$z" ]] && echo EQUILATERAL && exit 0
+[[ "$x" != "$y" ]] && [[ "$y" != "$z" ]] && [[ "$z" != "$x" ]] && echo SCALENE && exit 0
+echo ISOSCELES && exit 0
+
+'''
+==== Arithmetic Operations ====
+* Tags: @cmdline @shell @bash @math @bc
+* Links: [[https://www.hackerrank.com/challenges/bash-tutorials---arithmetic-operations|challenge]]
+
+'''
+expression="$1"
+printf '%.3f\n' "$(echo "$expression" | bc -l)"
+'''
+
+''bc -l'' produces up to 6 decimal places. If we use bc scale to 3, for instance, depending on the result, we would produce wront results because printf %f format specifier does rounding by itself.
+
+''bc'' scale is 0 by default if not explicitly set. Also, ''bc'' does no rounding.
+
+''printf'' rounds up from 6, and down from 5:
+
+'''
+$ printf '%.3f\n' 1.2583
+1.258
+$ printf '%.3f\n' 1.2585
+1.258
+$ printf '%.3f\n' 1.2586
+1.259
+'''
+
+Only when the number after 8 passes 5, that is, 6 and above, is that the number is rounded up to 1.259. If one uses ''scale=3'' in ''bc'', then it truncates (does not round) to three decimal places and ''printf'' has no way to round up, making the solution to the exercise incorrect. Therefore, we use ''bc -l'' without scale, or use ''scale=4'' at least.
 
 
 
@@ -208,5 +256,5 @@ What the poop‽ 💩
 
 
 
-@@ The End
+===== The End =====
 

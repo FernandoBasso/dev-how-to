@@ -9,7 +9,9 @@ Unless otherwise noted, assume all scripts contain the following shebang:
 ```
 
 
+
 ## Easy Challenges
+
 https://www.hackerrank.com/domains/shell
 
 
@@ -25,9 +27,11 @@ $ printf '%s\n' HELLO
 ```
 
 
+
 ### Looping With Numbers
-Tags: #cmdline #shell #bash #numbers #looping #for
-Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---looping-with-numbers)
+
+* Tags: #cmdline #shell #bash #numbers #looping #for
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---looping-with-numbers)
 
 ```shell
 for (( i = 1; i <= 9; ++i ))
@@ -44,9 +48,11 @@ $ printf '%d\n' {1..50}
 ```
 
 
+
 ### Looping And Skipping
-Tags: cmdline, numbers #looping #for
-Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---looping-and-skipping)
+
+* Tags: #cmdline, #numbers #looping #for
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---looping-and-skipping)
 
 ```shell
 for (( i = 1; i <= 9; ++i ))
@@ -83,8 +89,8 @@ $ seq -s ' ' 1 2 9
 
 
 ### A Personalized Echo
-Tags: #cmdline #read #echo
-Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---a-personalized-echo)
+* Tags: #cmdline #read #echo
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---a-personalized-echo)
 
 ```shell-session
 $ read -r name
@@ -92,9 +98,11 @@ $ printf 'Welcome %s\n' "$name"
 ```
 
 
+
 ### The World of Numbers
-Tags: #cmdline #shell #bash #numbers #math #bc #ranges
-Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---the-world-of-numbers)
+
+* Tags: #cmdline #shell #bash #numbers #math #bc #ranges
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---the-world-of-numbers)
 
 First, see this clever use of range to produce the math expressions:
 
@@ -200,7 +208,124 @@ What the poop‽ 💩
 
 
 
- 
+### Getting started with conditionals
+* Tags: #cmdline #shell #bash #conditionals
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---getting-started-with-conditionals)
+
+```bash
+read -r answer
+
+case "$answer" in
+  [Yy]*)
+    printf '%s\n' YES
+    ;;
+  [Nn]*)
+    printf '%s\n' NO
+    ;;
+  *)
+    printf '%s\n' 'What the poop‽ 💩'
+    ;;
+esac
+```
+
+```shell-session
+$ bash script.sh 
+yes
+YES
+
+$ bash script.sh 
+Y
+YES
+
+$ bash script.sh
+n
+NO
+
+$ bash script.sh
+lol
+What the poop‽ 💩
+```
+
+
+
+### More on Conditionals
+
+* Tags: #cmdline #shell #bash #conditionals #math
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---more-on-conditionals)
+
+Solution based on side lengths.
+
+* equilateral: x == y && y == z
+* scalene: x != y && y != z && z != x
+* isosceles: any other
+
+```bash
+read -r x
+read -r y
+read -r z
+
+[[ "$x" == "$y" ]] && [[ "$y" == "$z" ]] && echo EQUILATERAL && exit 0
+[[ "$x" != "$y" ]] && [[ "$y" != "$z" ]] && [[ "$z" != "$x" ]] && echo SCALENE && exit 0
+echo ISOSCELES && exit 0
+```
+
+
+
+### Arithmetic Operations
+
+* Tags: #cmdline #shell #bash #math #bc
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---arithmetic-operations)
+
+```bash
+expression="$1"
+printf '%.3f\n' "$(echo "$expression" | bc -l)"
+```
+
+`bc -l` produces up to 6 decimal places. If we use `bc` scale to 3, for instance, depending on the result, we would produce wrong results because `printf %f` format specifier does rounding by itself.
+
+`bc` scale is 0 by default if not explicitly set. Also, `bc` does no rounding.
+
+`printf` rounds up from 6, and down from 5:
+
+```shell-session
+$ printf '%.3f\n' 1.2583
+1.258
+$ printf '%.3f\n' 1.2585
+1.258
+$ printf '%.3f\n' 1.2586
+1.259
+```
+
+Only when the number after 8 passes 5, that is, 6 and above, is that the number is rounded up to 1.259. If one uses `scale=3` in `bc`, then it truncates (does not round) to three decimal places and `printf` has no way to round up, making the solution to the exercise incorrect. Therefore, we use `bc -l` without scale, or use `scale=4` at least.
+
+
+
+### Compute the Average
+
+* Tags: #cmdline #shell #bash #math
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---compute-the-average)
+
+```bash
+read -r n
+sum=0
+
+if [[ "$n" == 0 ]]
+then
+  printf '%.3f\n' "$(echo 'scale=4; 0' | bc -l)"
+  exit 0
+fi
+
+for ((i = 0; i < n; ++i))
+do
+  read -r x
+  sum=$((sum + x))
+done
+
+printf '%.3f\n' "$(echo "scale=4; $sum / $n" | bc -l)"
+```
+
+We used `scale=4` by the same reasons described earlier about truncating and rounding.
+
 
 
 
