@@ -15,7 +15,7 @@ https://www.hackerrank.com/domains/shell
 
 
 ### Let's Echo
-Tags: #cmdline #echo #printf
+Tags: #cmdline #shell #bash #echo #printf
 Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials-lets-echo)
 
 ```shell-session
@@ -26,7 +26,7 @@ $ printf '%s\n' HELLO
 
 
 ### Looping With Numbers
-Tags: #cmdline #numbers #looping #for
+Tags: #cmdline #shell #bash #numbers #looping #for
 Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---looping-with-numbers)
 
 ```shell
@@ -45,7 +45,7 @@ $ printf '%d\n' {1..50}
 
 
 ### Looping And Skipping
-Tags: [cmdline, numbers #looping #for
+Tags: cmdline, numbers #looping #for
 Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---looping-and-skipping)
 
 ```shell
@@ -93,7 +93,7 @@ $ printf 'Welcome %s\n' "$name"
 
 
 ### The World of Numbers
-Tags: #cmdline #numbers #math #bc #ranges
+Tags: #cmdline #shell #bash #numbers #math #bc #ranges
 Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---the-world-of-numbers)
 
 First, see this clever use of range to produce the math expressions:

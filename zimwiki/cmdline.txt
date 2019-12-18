@@ -1,0 +1,15 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2019-12-13T11:06:15-03:00
+
+====== cmdline ======
+Created Friday 13 December 2019
+
+===== Inputting Non-Printable Characters =====
+
+On most terminals, “''Ctrl-v''” then Tab inserts a literal tab. With Bash (and some other shells), writting ''$'\t''' also produces a literal Tab character.
+
+{{{code: linenumbers="False"
+$ printf '%s\n' $'X\tY\tZ'
+X       Y       Z
+}}}
