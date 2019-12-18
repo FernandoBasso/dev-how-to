@@ -9,3 +9,10 @@ shared=True
 endofline=unix
 disable_trash=False
 
+[JournalPlugin]
+namespace=Journal
+granularity=Day
+
+[SpellPlugin]
+language=
+
