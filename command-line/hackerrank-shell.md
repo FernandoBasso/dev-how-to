@@ -570,12 +570,38 @@ $ echo "${#arr[*]}"
 
 
 
+### Display an Element of an Array
+
+* Tags: #cmdline #shell #bash #arrays
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials-display-the-third-element-of-an-array)
+
+```bash
+mapfile -t countries
+echo "${countries[3]}"
+```
+
+`-t` in `mapfile` removes the trailing delimiter so the array elements are “clean”.
+
+
+
+### Count Elements in an Array
+
+* Tags: #cmdline #shell #bash #arrays
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials-count-the-number-of-elements-in-an-array)
+
+```bash
+mapfile -t countries
+echo "${#countries[@]}"
+```
+
+
+
 ### Slice An Array
 
 * Tags: #cmdline #shell #bash #arrays
 * Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials-slice-an-array)
 
-Print the array with the syntax `${arr[*]:START:END}`.
+Print the array with the syntax `${arr[*]:OFFSET:LENGTH}`.
 
 ```shell-session
 $ read -r -d '' countries << 'EOF'
@@ -591,11 +617,79 @@ $ read -r -d '' countries << 'EOF'
 > Norway
 > EOF
 
-$ echo "${arr[*]:3:7}"
+$ echo "${arr[*]:3:5}"
 Netherlands NewZealand Nicaragua Niger Nigeria NorthKorea Norway
 ```
 
+Could read with `countries=($(cat))` too, but ShellSheck complains. Either use the `read` as above, or with `mapfile -t arr`.
 
+Other options would be:
+
+```shell-session
+paste -d ' ' -s | cut -d ' ' -f4-8 -
+```
+
+and:
+
+```shell-session
+head -8 | tail -5 | paste -s -d ' ' -
+```
+
+
+
+### Concatenate Array With Itself
+
+* Tags: #cmdline #shell #bash #arrays
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials-concatenate-an-array-with-itself)
+
+```shell-session
+mapfile -t countries
+
+countries+=("${countries[@]}" "${countries[@]}")
+
+echo "${countries[*]}"
+```
+
+
+
+### grep A
+
+* Tags: #cmdline #shell #bash #arrays
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-4)
+
+```shell-session
+$ grep -iw 'th\(e\|at\|en\|ose\)'
+```
+
+
+
+### grep B
+
+* Tags: #cmdline #shell #bash #arrays
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-5)
+
+Works locally but not on HackerRank:
+
+```shell-session
+$ grep '\(.\) \?\1'
+```
+
+This works locally and on HackerRank:
+
+```shell-session
+$ grep '\(.\) \?\1'
+```
+
+
+
+### sed 3
+
+* Tags: #cmdline #shell #bash #arrays
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-3)
+
+```shell-session
+$ sed 's/[Tt][Hh][Yy]/{&}/g'
+```
 
 
 
