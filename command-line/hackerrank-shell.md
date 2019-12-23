@@ -654,7 +654,7 @@ echo "${countries[*]}"
 
 ### grep A
 
-* Tags: #cmdline #shell #bash #arrays
+* Tags: #cmdline #shell #sed
 * Links: [challenge](https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-4)
 
 ```shell-session
@@ -665,7 +665,7 @@ $ grep -iw 'th\(e\|at\|en\|ose\)'
 
 ### grep B
 
-* Tags: #cmdline #shell #bash #arrays
+* Tags: #cmdline #shell #grep
 * Links: [challenge](https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-5)
 
 Works locally but not on HackerRank:
@@ -684,7 +684,7 @@ $ grep '\(.\) \?\1'
 
 ### sed 3
 
-* Tags: #cmdline #shell #bash #arrays
+* Tags: #cmdline #shell  #sed
 * Links: [challenge](https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-3)
 
 ```shell-session
@@ -693,9 +693,197 @@ $ sed 's/[Tt][Hh][Yy]/{&}/g'
 
 
 
+### sed 4
+
+* Tags: #cmdline #shell #sed
+* Links: [challenge](https://www.hackerrank.com/challenges/sed-command-4)
+
+```shell-session
+$ sed 's/.* \([0-9]\{4\}\)/**** **** **** \1/g'
+```
+
+Or
+
+```shell-session
+$ sed 's/[0-9]\+ /**** /g'
+```
 
 
 
+## Medium Challenges
+
+### Paste 1
+
+* Tags: #cmdline #shell #paste
+* Links: [challenge](https://www.hackerrank.com/challenges/paste-1)
+
+```shell-session
+$ paste -s -d ';' -
+```
+
+
+
+### paste 2
+
+* Tags: #cmdline #shell #paste
+* [challenge](https://www.hackerrank.com/challenges/paste-2)
+
+```shell-session
+paste -d ';' - - -
+```
+
+
+
+### paste 3
+
+* Tags: #cmdline #shell #paste
+* Links: [challenge](https://www.hackerrank.com/challenges/paste-3)
+
+```shell-session
+$ paste -s -
+```
+
+
+
+### paste 4
+
+* Tags: #cmdline #shell #paste
+* Links: [challenge](https://www.hackerrank.com/challenges/paste-4)
+
+```
+$ paste - - -
+```
+
+
+
+### sed 1
+
+* Tags: #cmdline #shell #sed
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-1)
+
+```shell-session
+$ sed 's/\<the\>/this/'
+```
+
+
+
+### sed 2
+* Tags: #cmdline #shell #sed
+* Links: [challenge](https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-2)
+
+
+
+### grep challenges
+
+* Tags: #cmdline #shell #grep
+* Links: [challenge1](https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-1), [challenge2](https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-2), [challenge3](https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-3)
+
+```shell-session
+$ grep '\<the\>'
+
+$ grep -i '\<the\>'
+
+$ grep -iv '\<that\>'
+```
+
+
+
+### awk challenges
+
+* Tags: #cmdline #shell #awk
+* Links: [challenge 1](https://www.hackerrank.com/challenges/awk-1), [challenge 2](https://www.hackerrank.com/challenges/awk-2), [challenge 3](https://www.hackerrank.com/challenges/awk-3), [challenge 4](https://www.hackerrank.com/challenges/awk-4)
+
+
+
+Challenge 1:
+
+```shell-session
+$ awk '{ if ($4 == "") print "Not all scores are available for " $1 }'
+```
+
+
+
+Challenge 2:
+
+```shell
+awk '{
+  answer[0] = "Fail";
+  answer[1] = "Pass";
+  print $1, ":", answer[$2 >= 50 && $3 >= 50 && $4 >= 50];
+}'
+```
+
+
+
+Challenge 3:
+
+```shell
+awk '{
+  avg=($2 + $3 + $4) / 3
+  if (avg >= 80)
+    print $0 " : A";
+  else if (avg >= 60)
+    print $0 " : B";
+  else
+    print $0 " : FAIL";
+}'
+```
+
+
+
+Challenge 4:
+
+```shell-session
+awk 'ORS=NR % 2 ? ";" : "\n"'
+```
+
+
+
+### Filter an Array With Patterns
+
+* Tags: #cmdline #shell #bash #arrays #pattern-matching
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials-filter-an-array-with-patterns)
+
+```shell-session
+while read -r line ; do
+  if [[ ! "$line" =~ [Aa] ]]
+  then
+    echo "$line"
+  fi
+done
+```
+
+
+
+### Remove First Capital Letter From Each Array Element
+
+* Tags: #cmdline #shell #bash #arrays #pattern-matching
+* Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials-remove-the-first-capital-letter-from-each-array-element)
+
+```shell
+arr=()
+
+while read -r line ; do
+  arr+=("${line/[A-Z]/.}")
+done
+
+echo "${arr[*]}"
+```
+
+
+
+## Hard Challenges
+
+### sed 5
+
+* Tags: #cmdline #shell #sed
+* Links: [challenge](https://www.hackerrank.com/challenges/sed-command-5)
+
+```shell-session
+sed 's/\([0-9]\+\) \([0-9]\+\) \([0-9]\+\) \([0-9]\+\)/\4 \3 \2 \1/'
+```
+
+NOTE: Backreferences in the search pattern mean they match the same chars, not the same general regex. That is, `(.)o(.)` matches “bob” or “bob”, for instance, but not “bop”. If `(.)` matched “x”, then `\1` in the search must also match an “x”. That is why we can't do `s/\([0-9]\+\) \1 \1 \1`, because it would only match if all four fields of the number were the same thing, like "1234 1234 1234 1234".
 
 
 
