@@ -887,6 +887,154 @@ NOTE: Backreferences in the search pattern mean they match the same chars, not t
 
 
 
+### Lonely Integer
+
+* Tags: #cmdline #shell #bash #numbers
+* Links: [challenge](https://www.hackerrank.com/challenges/lonely-integer-2)
+
+Not very elegant, but makes use of arrays, which is what they ask for.
+
+```bash
+#!/usr/bin/env bash
+
+#
+# This solution uses a histogram-like approach.
+#
+
+# Dummy-read, since we don't need the first argument they
+# feed into the input.
+read -r
+
+# Read input numbers.
+read -r -a nums
+
+# An array to keep track of which numbers appeared how many times.
+declare -A hist
+
+for n in "${nums[@]}"
+do
+  if [[ -z "${hist[$n]}" ]]
+  then
+    # Use the number as index and increment that index and
+    # initialize it to 1.
+    hist[$n]=1
+  else
+    # Increment it each time that number appears.
+    hist[$n]=$((${hist[$n]} + 1))
+  fi
+done
+
+# Iterate over the indexes.
+for idx in "${!hist[@]}"
+do
+  # If that number appeared only once...
+  if (( hist[$idx] == 1 ))
+  then
+    # ...then print it and bail out.
+    echo "$idx"
+    break;
+  fi
+done
+```
+
+
+
+### Fractal Tree
+
+* Tags: #cmdline #shell #bash
+* Links: [challenge](https://www.hackerrank.com/challenges/fractal-trees-all)
+
+
+
+```bash
+#!/usr/bin/env bash
+
+#
+# Invoke it like this:
+#
+#   bash script.sh 5
+#
+
+declare -A grid
+rows=63
+cols=100
+
+#
+# Initialize the 63x100 grid with underscores.
+#
+init () {
+  for (( row = 0; row < rows; ++row ))
+  do
+    for (( col = 0; col < cols; ++col ))
+    do
+      grid[$row,$col]=_
+    done
+  done
+}
+
+#
+# Actually treeify the drawing.
+#
+treeify () {
+  local count=$1
+  local row=$2
+  local col=$3
+  local iteration=$4
+
+  for (( i = 0; i < count; ++i ))
+  do
+    grid[$row,$col]=1
+    (( row -= 1 ))
+  done
+
+  for (( i = 0; i < count; i++ ))
+  do
+    grid[$row,$((col - i - 1))]=1
+    grid[$row,$((col + i + 1))]=1
+    (( row -= 1 ))
+  done
+
+  if (( iteration > 1 ))
+  then
+    treeify $(( count >> 1 )) "$row" $(( col - count )) $(( iteration - 1 ))
+    treeify $(( count >> 1 )) "$row" $(( col + count )) $(( iteration - 1 ))
+  fi
+
+}
+
+#
+# Simply output the grid, already treeified, to the screen.
+#
+display () {
+  for (( row = 0 ; row < rows ; ++row ))
+  do
+    for (( col = 0 ; col < cols ; ++col ))
+    do
+      printf '%s' "${grid[$row,$col]}"
+    done
+    printf '\n'
+  done
+}
+
+initial_count=16
+initial_row=62
+initial_col=49
+iterations="${1:-5}"
+
+if (( 1 > iterations || iterations > 5 ))
+then
+  printf '%s\n' 'Provide a number between 1 and 5, please.' 1>&2
+else
+  init
+  treeify "$initial_count" "$initial_row" "$initial_col" "$iterations"
+  display
+fi
+```
+
+
+
+
+
 
 ## The End
 
