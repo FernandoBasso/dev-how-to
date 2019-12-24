@@ -1,0 +1,17 @@
+{
+  "name": "redux-getting-started-abramov",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "file": "node --no-warnings --experimental-modules --es-module-specifier-resolution=node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "expect": "^24.9.0"
+  }
+}

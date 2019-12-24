@@ -2,11 +2,9 @@
 
 
 
-Book: https://htdp.org/
+**BOOK**: https://htdp.org/
 
-
-
-Other useful links:
+Other uselfull links:
 
 * https://docs.racket-lang.org/drracket/htdp-langs.html
 * https://docs.racket-lang.org/htdp-langs/index.html
