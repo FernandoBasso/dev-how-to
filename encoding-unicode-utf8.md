@@ -8,7 +8,7 @@ Taking a look at `man ascii` is always helpful nonetheless. :)
 
 ## General
 
-```
+```plain-text
 💩           0x0001f4a9       pile of poo
 ✔           0x2714
 ✓           0x2713
@@ -20,6 +20,7 @@ Taking a look at `man ascii` is always helpful nonetheless. :)
 ’           0x2019
 “           0x201c
 ”           0x201d
+🐧           0x0001f427 penguin
 ```
 
 ## Space
