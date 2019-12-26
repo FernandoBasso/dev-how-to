@@ -174,19 +174,75 @@ The idea is similar as to when removing an item from the array, but instead of i
 **NOTE**: To decrement an array element, we would use exactly the same logic as increment, except instead of adding one, we subtract one.
 
 
-https://egghead.io/lessons/react-redux-avoiding-object-mutations-with-object-assign-and-spread
+===== 10 Redux: Avoiding Object Mutations with Object.assign() and ...spread =====
+[[https://egghead.io/lessons/react-redux-avoiding-object-mutations-with-object-assign-and-spread|Video Lesson 10]]
+
+Do not mutate objects directly. Create new objects with properties from the original object and any new values needed for properties that should change.
+
+To toggle the property ''compl'' in the object ''todo'', do NOT do this:
+
+'''
+todo.compl = !todo.compl;
+return todo;
+'''
+
+That is changing the original object. Do this instead:
+
+'''
+return Object.assign(
+  {},
+  todo,
+  { compl: !todo.compl },
+);
+'''
+
+Note that we do not copy the properties one by one. Instead, we use ''Object.assign()'' to copy everything to a new object, and we just manually override what we need. It means if we someday add more properties to the object, this code will still work for toggling a todo.
+
+Or using spread:
+
+'''
+return {
+  ...todo,
+  compl: !todo.compl,
+};
+'''
+
+**NOTE**: To copy nested properties, we would have some more work to do as the spread syntax does not do that. [[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax|MDN spread docs]]. @TODO: reasearch more on this.
+
+**NOTE**: ''Object.assign()'' is ES6, and object spread is ES7.
 
 
+===== 11 Redux: Writing a Todo List Reducer (Adding a Todo) =====
+[[https://egghead.io/lessons/react-redux-writing-a-todo-list-reducer-adding-a-todo|Video Lesson 11]]
+
+**RULE**: Every reducer has to return the current state for any unknown action.
 
 
-https://egghead.io/lessons/react-redux-writing-a-todo-list-reducer-adding-a-todo
+===== 12 Redux: Writing a Todo List Reducer (Toggling a Todo) =====
+[[https://egghead.io/lessons/react-redux-writing-a-todo-list-reducer-toggling-a-todo|Video Lesson 12]]
 
+Two ways to toggle the todo in the switch case:
 
+Using an approaching similar to removing a todo:
 
+'''
+const idx = state.findIndex(todo => todo.id === action.id);
+return [
+  ...state.slice(0, idx),
+  { ...state[idx], compl: !state[idx].compl },
+  ...state.slice(idx + 1),
+];
+'''
 
-https://egghead.io/lessons/react-redux-writing-a-todo-list-reducer-toggling-a-todo
+Using map (solution from the video):
 
+'''
+return state.map(todo => {
+  if (todo.id !== action.id) return todo;
 
+  return { ...todo, compl: !todo.compl };
+});
+'''
 
 
 https://egghead.io/lessons/react-redux-reducer-composition-with-arrays
