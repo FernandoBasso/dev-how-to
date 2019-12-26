@@ -26,16 +26,24 @@ const counter = (state = 0, action) => {
 
 const store = createStore(counter);
 
-export const Counter = ({ value }) => {
+export const Counter = ({ value, onIncrement, onDecrement }) => {
   return (
-    <div>{ value }</div>
+    <section className='counter-wrp'>
+      <div>{ value }</div>
+      <button onClick={ onDecrement }>--</button>
+      <button onClick={ onIncrement }>++</button>
+    </section>
   );
 };
 
 // Render it once, even before the first click.
 const render = () => {
   ReactDOM.render(
-    <Counter value={ store.getState() } />,
+    <Counter
+      value={ store.getState() }
+      onIncrement={ () => store.dispatch({ type: 'INCR '})}
+      onDecrement={ () => store.dispatch({ type: 'DECR' })}
+    />,
     document.getElementById('root'),
   );
 };
@@ -43,6 +51,9 @@ const render = () => {
 store.subscribe(render);
 render();
 
-document.addEventListener('click', () => {
-  store.dispatch({ type: 'INCR' });
-}, false);
+//
+// We don't want to hard-code the store or redux dependency _inside_ the
+// component. Rather, we want to pass utility/helper functions as props so they
+// can be provided for tests, or even replaced with something else should the
+// need arise.
+//

@@ -78,15 +78,100 @@ Nice cool JavaScript stuff! Worth it by that reason alone, besides the nice view
 
 
 ===== 08 Redux: React Counter Example =====
-
 [[https://egghead.io/lessons/react-redux-react-counter-example|Video Lesson 8]]
 
+A <Counter /> component in React. We do not hard-code the store/redux dependency inside the component. Rather, we pass helper functions as props because it makes testing possible, or at least easier, and because it would allows one to change the implementation of the state should the need arise in the future.
 
 
+===== 09 Avoiding Array Mutations with concat(), slice(), and ...spread =====
+[[https://egghead.io/lessons/react-redux-avoiding-array-mutations-with-concat-slice-and-spread|Video Lesson 9]]
 
-https://egghead.io/lessons/react-redux-avoiding-array-mutations-with-concat-slice-and-spread
+''push()'' and ''splice()'' mutate the object they operate on. Do not use them when you want immutable data structures. Use ''concat()'', ''slice()'' and ''...spread'' instead.
+
+==== Add to array ====
+Do NOT do this:
+
+'''
+list.push(0)
+return list;
+'''
+
+It mutates ''list''. Do this instead:
+
+'''
+return [...list, 0];
+'''
+
+Or this:
+
+'''
+return list.concat([0]);
+'''
+
+Using spread or concat creates a new array and //does not// modify the original one.
+
+==== Remove from array ====
+
+Do NOT do this:
+
+'''
+list.splice(idx, 1);
+return list;
+'''
+
+It mutates ''list''. Do this instead:
+
+'''
+return list
+  .slice(0, idx)
+  .concat(idx + 1);
+'''
+
+That is, create a new list with the elements before and after the element we need to remove. That is, create a new list containing all elements of the original list, except the elements at index ''idx''.
+
+Or with ES6 spread operator:
+
+'''
+return [
+  ...list.slice(0, idx),
+  ...list.slice(idx + 1),
+];
+'''
 
 
+==== Increment value of array element ====
+
+Do NOT do this:
+
+'''
+list[idx]++;
+return list;
+'''
+
+The problem is that ''list[idx]++'' mutates ''list''. We do not want to do that. We want to leave ''list'' unmodified, and return a new array state derived from the original one. Do this:
+
+'''
+return list
+  .slice(0, idx)
+  .concat([list[idx] + 1])
+  .concat(list[idx + 1]);
+'''
+
+Yes, it is more complex, but we are doing it in an immutable, clean, functional programming stylish way. Also, we are being compliant to Redux requirement of never mutating the state tree.
+
+Or using spread and slicing:
+
+'''
+return [
+  ...list.slice(0, idx),
+  list[idx] + 1,
+  ...list.slice(idx + 1),
+];
+'''
+
+The idea is similar as to when removing an item from the array, but instead of ignoring the item to be removed, keep it, incremented by one.
+
+**NOTE**: To decrement an array element, we would use exactly the same logic as increment, except instead of adding one, we subtract one.
 
 
 https://egghead.io/lessons/react-redux-avoiding-object-mutations-with-object-assign-and-spread
