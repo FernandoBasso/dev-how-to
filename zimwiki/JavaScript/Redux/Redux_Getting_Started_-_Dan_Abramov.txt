@@ -58,20 +58,28 @@ The state mutation needs to be described as a pure function that takes the previ
 ===== 05 Redux: Writing a Counter Reducer with Tests =====
 [[https://egghead.io/lessons/react-redux-writing-a-counter-reducer-with-tests|Video Lesson 5]]
 
+When the action type is not provided, or it is unknown, the reducer should return the state unchanged. Not even a copy of it, but the same reference to the State Tree Object so it intentionally //does not// cause a state change. If we returned a copy of the object, it is a new reference, and it would cause redux to perceive it as a state change (because ''{} !== {}'' is true).
+
+The reducer also has to specify the default initial state if it is not provided.
+
+===== 06 Redux: Store Methods: getState(), dispatch(), and subscribe() =====
+[[https://egghead.io/lessons/react-redux-store-methods-getstate-dispatch-and-subscribe|Video Lesson 6]]
+
+* ''getState()''
+* ''dispatch()''
+* ''subscribe()''
 
 
+===== 07 Redux: Implementing Store from Scratch =====
 
-https://egghead.io/lessons/react-redux-store-methods-getstate-dispatch-and-subscribe
+[[https://egghead.io/lessons/react-redux-implementing-store-from-scratch|Video Lesson 7]]
 
-
-
-
-https://egghead.io/lessons/react-redux-implementing-store-from-scratch
+Nice cool JavaScript stuff! Worth it by that reason alone, besides the nice view into ''createStore()''. Very instructive.
 
 
+===== 08 Redux: React Counter Example =====
 
-
-https://egghead.io/lessons/react-redux-react-counter-example
+[[https://egghead.io/lessons/react-redux-react-counter-example|Video Lesson 8]]
 
 
 

@@ -7,8 +7,5 @@ https://egghead.io/courses/getting-started-with-redux
 
 ## Running
 
-We are using node 13. It supports ES6 Modules.
+Run with `npm start`, open the browser at http://localhost:3000 and open the browser console to see some messages.
 
-```shell-session
-$ npm run file my_program.js
-```

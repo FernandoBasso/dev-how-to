@@ -1,0 +1,13 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2019-12-26T07:24:16-03:00
+
+====== Types ======
+Created Thursday 26 December 2019
+
+
+'''
+undefined + 1
+'''
+ is ''NaN''
+
