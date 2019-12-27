@@ -9,6 +9,49 @@ import {
   freeze,
 } from './lib';
 
+//
+// We'll extract the todo logic into a separate function.
+//
+
+/**
+ * The mighty `todo' reducer. Helps the `todos' reducer.
+ *
+ * Returns a new todo from the action data, or toggles a todo.
+ *
+ * In this case, `state` is the todo itself.
+ *
+ * @param {object} state
+ * @param {object} action
+ * @return {object}
+ */
+const todo = (state, action) => {
+  switch (action.type) {
+    case 'TODO_ADD':
+      return {
+        id: action.id,
+        text: action.text,
+        compl: false,
+      };
+    case 'TODO_TOGGLE':
+      // NOTE: in this case, state is the individual todo.
+      if (state.id !== action.id) return state;
+
+      // This is the choosen one!.
+      return { ...state, compl: !state.compl };
+    default:
+      return state;
+  }
+};
+
+/**
+ * The todos reducer.
+ *
+ * Delegates single-todo logic to the `todo' reducer.
+ *
+ * @param {object} state
+ * @param {object} action
+ * @return {object}
+ */
 const todos = (state = [], action) => {
   const { type } = action;
 
@@ -16,28 +59,10 @@ const todos = (state = [], action) => {
     case 'TODO_ADD':
       return [
         ...state,
-        {
-          id: action.id,
-          text: action.text,
-          compl: false,
-        },
+        todo(undefined, action),
       ];
     case 'TODO_TOGGLE':
-      // const idx = state.findIndex(todo => todo.id === action.id);
-      // return [
-      //   ...state.slice(0, idx),
-      //   { ...state[idx], compl: !state[idx].compl },
-      //   ...state.slice(idx + 1),
-      // ];
-
-      // The above works, but we can opt for this one which uses `map'.
-      return state.map(todo => {
-        // These are not the droids you are looking for. Move along.
-        if (todo.id !== action.id) return todo;
-
-        // Found it! Toggle `compl'.
-        return { ...todo, compl: !todo.compl };
-      });
+      return state.map(t => todo(t, action));
     default:
       return state;
   }
