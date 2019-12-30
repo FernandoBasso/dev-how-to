@@ -13,6 +13,6 @@ import './index.css';
 // import './v09-no-array-mutation';
 // import './v10-no-object-mutation';
 // import './v11-add-todo';
-import './v12-toggle-todo';
-
-
+// import './v12-toggle-todo';
+// import './v13-composition-with-arrays';
+import './v14-composition-with-arrays';

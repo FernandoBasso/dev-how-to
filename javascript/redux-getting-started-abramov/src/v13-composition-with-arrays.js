@@ -14,7 +14,7 @@ import {
 //
 
 /**
- * The mighty `todo' reducer. Helps the `todos' reducer.
+ * The mighty `todo' reducer to handle an individual todo.
  *
  * Returns a new todo from the action data, or toggles a todo.
  *

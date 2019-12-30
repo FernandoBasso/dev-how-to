@@ -243,10 +243,10 @@ return state.map(todo => {
 '''
 
 
-===== Redux: Reducer Composition with Arrays =====
+===== 13 Redux: Reducer Composition with Arrays =====
 [[https://egghead.io/lessons/react-redux-reducer-composition-with-arrays|Video Lesson 13]]
 
-The ''todos'' reducer do too many things. Let's create a ''todo'' reducer/function that handles a todo (add, toggle).
+The ''todos'' reducer do too many things. It concerns itself with updating the todo's  array //and// how individual todos are updated. Let's create a ''todo'' reducer/function that handles a todo (add, toggle). It will concern itself with individual todos.
 
 This pattern is pervasive in redux development. It is called **reducer composition**. 
 
@@ -256,12 +256,21 @@ Different reducers specify how different parts of the state tree are updated in 
 
 The ''todos'' reducer handles changes in array, and ''todo'' reducer handles changes to individual todo.
 
+""
+This pattern can be applied many times, and while there is still a single top level reducer managing the state of your app, you will find it convenient to express it as many reducers calling each other, each contributing to a part of the application state tree.
+""
+
 **NOTE**: Read the comments on the [[https://egghead.io/lessons/react-redux-reducer-composition-with-arrays|video link]].
 
 
-https://egghead.io/lessons/react-redux-reducer-composition-with-objects
+===== 14 Redux: Reducer Composition with Objects =====
+[[https://egghead.io/lessons/react-redux-reducer-composition-with-objects|Video Lesson 14]]
 
+To add new situations to the reducers, do not change the existing one. Rather, create new reducers and use the composition pattern.
 
+Here, we create another reducer, which delegates responsibilities to other reducers.
+
+When an action comes in, it calls the reducers with the part of the state that they manage and the action and combines the results into the new state object.
 
 
 https://egghead.io/lessons/react-redux-reducer-composition-with-combinereducers
