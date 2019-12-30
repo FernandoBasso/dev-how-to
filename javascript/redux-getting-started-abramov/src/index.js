@@ -19,4 +19,5 @@ import './index.css';
 // import './v15-combine-reducers';
 // import './v16-react-add-todo';
 // import './v19-react-todo-filtering';
-import './v20-extract-presentational-components';
+// import './v20-extract-presentational-components';
+import './v22-extract-container-comp';

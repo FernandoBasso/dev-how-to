@@ -319,13 +319,16 @@ The accumulator state //is// modified; it //is// mutated, but it is not a proble
 Separating Presentational Components from Container Components helps with separation of logic and concerns, while it also makes it more complex in terms of following the code, and passing props left and right all over the place. That can be mitigated with techniques shown in the next videos.
 
 
-
-https://egghead.io/lessons/react-redux-extracting-presentational-components-addtodo-footer-filterlink
-
-
+===== 21 Redux: Extracting Presentational Components (AddTodo, Footer, FilterLink) =====
+[[https://egghead.io/lessons/react-redux-extracting-presentational-components-addtodo-footer-filterlink|Video Lesson 21]]
 
 
-https://egghead.io/lessons/react-redux-extracting-container-components-filterlink
+
+===== 22 Redux: Extracting Container Components (FilterLink) =====
+[[https://egghead.io/lessons/react-redux-extracting-container-components-filterlink|Video Lesson 22]]
+
+With the previous approach, we have to pass props down the tree of components, even when the intermediate components don't use those props (just pass them further along).
+For example, ''<FooterLink />'' component has to receive ''visibilitFilter'' prop just to pass it along to ''<FilterLink />''
 
 
 
