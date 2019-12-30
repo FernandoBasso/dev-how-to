@@ -273,13 +273,31 @@ Here, we create another reducer, which delegates responsibilities to other reduc
 When an action comes in, it calls the reducers with the part of the state that they manage and the action and combines the results into the new state object.
 
 
-https://egghead.io/lessons/react-redux-reducer-composition-with-combinereducers
+===== 15 Redux: Reducer Composition with combineReducers() =====
+[[https://egghead.io/lessons/react-redux-reducer-composition-with-combinereducers|Video Lesson 15]]
+
+Use of Redux's implementation of ''combineReducers()''.
 
 
+===== 16 Redux: Implementing combineReducers() from Scratch =====
+[[https://egghead.io/lessons/react-redux-implementing-combinereducers-from-scratch|Video Lesson 16]]
 
+'''
+const combineReducers = (reducers) => {
+  return (state = {}, action) => {
+    return Object.keys(reducers).reduce((nextState, key) => {
+      nextState[key] = reducers[key](state[key], action);
+      return nextState;
+    }, {});
+  };
+};
+'''
 
-https://egghead.io/lessons/react-redux-implementing-combinereducers-from-scratch
+The return value of ''combineReducers()'' is a reducer itself. That means, ''combineReducers()'' is a function that returns a function.
 
+''nextState'' is the accumulator of ''Array.prototype.reduce()''. It has the initial value of ''{}''.
+
+The accumulator state //is// modified; it //is// mutated, but it is not a problem because it is an object created //inside// that function. We are not mutating something from outside that came as a parameter. Our function is still considered pure.
 
 
 
