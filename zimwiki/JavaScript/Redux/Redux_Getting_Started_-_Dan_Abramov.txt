@@ -300,24 +300,23 @@ The return value of ''combineReducers()'' is a reducer itself. That means, ''com
 The accumulator state //is// modified; it //is// mutated, but it is not a problem because it is an object created //inside// that function. We are not mutating something from outside that came as a parameter. Our function is still considered pure.
 
 
-
-https://egghead.io/lessons/react-redux-react-todo-list-example-adding-a-todo
-
-
+===== 17 Redux: React Todo List Example (Adding a Todo) =====
+[[https://egghead.io/lessons/react-redux-react-todo-list-example-adding-a-todo|Video Lesson 17]]
 
 
-https://egghead.io/lessons/react-redux-react-todo-list-example-toggling-a-todo
+===== 18 Redux: React Todo List Example (Toggling a Todo) =====
+[[https://egghead.io/lessons/react-redux-react-todo-list-example-toggling-a-todo|Video Lesson 18]]
 
 
-
-
-https://egghead.io/lessons/react-redux-react-todo-list-example-filtering-todos
+===== 19 Redux: React Todo List Example (Filtering Todos) =====
+[[https://egghead.io/lessons/react-redux-react-todo-list-example-filtering-todos|Video Lesson 19]]
 
 
 
+===== 20 Redux: Extracting Presentational Components (Todo, TodoList) =====
+[[https://egghead.io/lessons/react-redux-extracting-presentational-components-todo-todolist|Video Lesson 19]]
 
-https://egghead.io/lessons/react-redux-extracting-presentational-components-todo-todolist
-
+Separating Presentational Components from Container Components helps with separation of logic and concerns, while it also makes it more complex in terms of following the code, and passing props left and right all over the place. That can be mitigated with techniques shown in the next videos.
 
 
 

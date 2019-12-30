@@ -11,7 +11,11 @@ import {
   deepFreeze,
 } from './lib';
 
+import './todoapp.css';
+
 const log = console.log.bind(console);
+
+
 
 /**
  * The mighty `todo' reducer to handle an individual todo.
@@ -95,16 +99,54 @@ const combineReducers = (reducers) => {
   };
 };
 
+
+const getVisibleTodos = (todos, filter) => {
+  switch (filter) {
+    case 'SHOW_ALL':
+      return todos;
+    case 'SHOW_ACTIVE':
+      return todos.filter(({ compl }) => !compl);
+    case 'SHOW_COMPLETED':
+      return todos.filter(({ compl }) => compl);
+    default:
+      return [];
+  }
+}
+
 const todoApp = combineReducers({
   todos,
   visibilityFilter,
 });
 
 
+const FilterButton = ({ filter, currentFilter, children }) => {
+  if (filter === currentFilter) {
+    return (
+      <span>[ { children } ]</span>
+    )
+  }
+  return (
+    <button
+      className='like-a-link'
+      onClick={ () => {
+        store.dispatch({
+          type: 'SET_VISIBILITY_FILTER',
+          filter,
+        });
+      }}
+    >
+      { children }
+    </button>
+  )
+};
+
 let nextTodoId = 0;
 
-const TodoApp = (state) => {
+const TodoApp = ({ todos, visibilityFilter }) => {
   const inputRef = useRef(null);
+
+  const visibleTodos = getVisibleTodos(todos, visibilityFilter);
+  l('visibleTodos', visibilityFilter, visibleTodos);
 
   return (
     <div>
@@ -127,14 +169,46 @@ const TodoApp = (state) => {
 
       <ul>
         {
-          state.todos.map((todo) => {
+          visibleTodos.map((todo) => {
             const { id, text, compl } = todo;
             return (
-              <li key={id }>{ text }</li>
+              <li
+                currentFilter={ visibilityFilter }
+                onClick={ () => {
+                  store.dispatch({ type: 'TODO_TOGGLE', id });
+                }}
+                style={ { textDecoration: compl ? 'line-through' : 'none' } }
+              >
+                { text }
+              </li>
             )
           })
         }
       </ul>
+
+      <div>
+        Filters: {' '}
+        <FilterButton
+          filter='SHOW_ALL'
+          currentFilter={ visibilityFilter }
+        >
+          All
+        </FilterButton>
+        {' '}
+        <FilterButton
+          filter='SHOW_ACTIVE'
+          currentFilter={ visibilityFilter }
+        >
+          Active
+        </FilterButton>
+        {' '}
+        <FilterButton
+          filter='SHOW_COMPLETED'
+          currentFilter={ visibilityFilter }
+        >
+          Completed
+        </FilterButton>
+      </div>
     </div>
   );
 };
@@ -145,7 +219,7 @@ log('\ninitial state:', store.getState());
 const render = () => {
   ReactDOM.render(
     <TodoApp
-      todos={ store.getState().todos }
+      { ...store.getState() }
     />,
     document.getElementById('root'),
   );
@@ -157,3 +231,20 @@ store.subscribe(render);
 
 // Call it once to pouplate the UI, even before any state changes.
 render();
+
+// Add some todos so we have something to start with.
+store.dispatch({
+  type: 'TODO_ADD',
+  id: nextTodoId++,
+  text: 'Learn Redux',
+});
+store.dispatch({
+  type: 'TODO_ADD',
+  id: nextTodoId++,
+  text: 'Play Tomb Raider I, 1996',
+});
+store.dispatch({
+  type: 'TODO_ADD',
+  id: nextTodoId++,
+  text: 'Study the book HtDP 2e',
+});

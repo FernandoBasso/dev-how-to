@@ -17,4 +17,6 @@ import './index.css';
 // import './v13-composition-with-arrays';
 // import './v14-composition-with-arrays';
 // import './v15-combine-reducers';
-import './v16-react-add-todo';
+// import './v16-react-add-todo';
+// import './v19-react-todo-filtering';
+import './v20-extract-presentational-components';
