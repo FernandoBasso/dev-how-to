@@ -2,7 +2,7 @@
 
 import expect from 'expect';
 import { createStore, combineReducers } from 'redux';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import {
@@ -12,6 +12,29 @@ import {
 import './todoapp.css';
 
 const log = console.log.bind(console);
+
+/**
+ * A custom hook to force a re-render of a functional component.
+ *
+ * The hook returns a single element. Use it like:
+ *
+ *    const forceUpdate = useForceUpdate();
+ *
+ * Then, you can use `forceUpdate' when you need to force an update/re-render
+ * of a component:
+ *
+ *    store.subscribe(forceUpdate);
+ *
+ * Now, every time the store changes, the component will re-render itself.
+ *
+ * https://stackoverflow.com/questions/46240647/react-how-can-i-force-render-a-function-component
+ *
+ * @return {function}
+ */
+const useForceUpdate = () => {
+  const [val, setVal] = useState(0);
+  return () => setVal(val => ++val);
+};
 
 
 
@@ -209,6 +232,9 @@ const AddTodo = ({
 
 
 const Footer = () => {
+  const forceUpdate = useForceUpdate();
+  store.subscribe(forceUpdate);
+
   return (
     <div>
       Filters: {' '}
@@ -233,11 +259,16 @@ const Footer = () => {
   );
 };
 
-
 const VisibleTodoList = ({
   // NOTE: Can't use trailing comma after the rest operator.
   ...props
 }) => {
+  const forceUpdate = useForceUpdate();
+
+  useEffect(() => {
+    store.subscribe(forceUpdate);
+  });
+
   const { todos, visibilityFilter } = store.getState();
 
   return (
@@ -257,13 +288,9 @@ const VisibleTodoList = ({
 const TodoApp = () => {
   return (
     <div className='todos-wrapper'>
-
       <AddTodo />
-
       <VisibleTodoList />
-
       <Footer />
-
     </div>
   );
 };
@@ -274,22 +301,6 @@ ReactDOM.render(
   <TodoApp />,
   document.getElementById('root')
 );
-
-const render = () => {
-  ReactDOM.render(
-    <TodoApp
-      { ...store.getState() }
-    />,
-    document.getElementById('root'),
-  );
-};
-
-// `render()' wants to be notified/called everytime there is a change
-// in the state tree.
-store.subscribe(render);
-
-// Call it once to pouplate the UI, even before any state changes.
-render();
 
 // Add some todos so we have something to start with.
 store.dispatch({
