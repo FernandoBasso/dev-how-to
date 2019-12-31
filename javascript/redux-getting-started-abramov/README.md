@@ -365,24 +365,31 @@ Passing store down, manually, explicitly, via props makes testing possible, but 
 
 
 
-## 26
+## 26 Passing the Store Down with `<Provider>` from React Redux
 
-<https://egghead.io/lessons/react-redux-passing-the-store-down-with-provider-from-react-redux>
+[Video Lesson 26](https://egghead.io/lessons/react-redux-passing-the-store-down-with-provider-from-react-redux)
 
-
-
-
-<https://egghead.io/lessons/react-redux-generating-containers-with-connect-from-react-redux-visibletodolist>
+Did not work well with newer React versions and using functional components and hooks.
 
 
 
+## 27 Generating Containers with connect() from React Redux (VisibleTodoList)
 
-<https://egghead.io/lessons/react-redux-generating-containers-with-connect-from-react-redux-addtodo>
+[Video Lesson 27](https://egghead.io/lessons/react-redux-generating-containers-with-connect-from-react-redux-visibletodolist)
 
 
 
+## 28 Generating Containers with connect() from React Redux (AddTodo)
 
-<https://egghead.io/lessons/react-redux-generating-containers-with-connect-from-react-redux-footerlink>
+[Video Lesson 28](https://egghead.io/lessons/react-redux-generating-containers-with-connect-from-react-redux-addtodo)
+
+
+
+## 29 Generating Containers with connect() from React Redux (FooterLink)
+
+[Video Lesson 29](https://egghead.io/lessons/react-redux-generating-containers-with-connect-from-react-redux-footerlink)
+
+
 
 
 
