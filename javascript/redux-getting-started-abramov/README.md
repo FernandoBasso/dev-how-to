@@ -391,10 +391,11 @@ Did not work well with newer React versions and using functional components and 
 
 
 
+## 30 Extracting Action Creators
+
+[Video Lesson 30](https://egghead.io/lessons/react-redux-extracting-action-creators)
 
 
-
-<https://egghead.io/lessons/react-redux-extracting-action-creators>
 
 
 
