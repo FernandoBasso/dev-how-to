@@ -21,4 +21,5 @@ import './index.css';
 // import './v19-react-todo-filtering';
 // import './v20-extract-presentational-components';
 // import './v22-extract-container-comp';
-import './v23-extract-container-comp2';
+// import './v23-extract-container-comp2';
+import './v24-pass-store-via-props';

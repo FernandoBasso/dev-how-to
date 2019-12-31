@@ -351,12 +351,15 @@ A Container Component provides the behavior and the data to the Presentational C
 
 
 
-## 24
+## 24 Passing the Store Down Explicitly via Props
+
+[Video Lesson 24](https://egghead.io/lessons/react-redux-passing-the-store-down-explicitly-via-props)
 
 
-<https://egghead.io/lessons/react-redux-passing-the-store-down-explicitly-via-props>
 
 
+
+## 25
 
 
 <https://egghead.io/lessons/react-redux-passing-the-store-down-implicitly-via-context>
