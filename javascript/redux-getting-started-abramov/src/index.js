@@ -22,4 +22,5 @@ import './index.css';
 // import './v20-extract-presentational-components';
 // import './v22-extract-container-comp';
 // import './v23-extract-container-comp2';
-import './v24-pass-store-via-props';
+// import './v24-pass-store-via-props';
+import './v25-pass-store-via-context';

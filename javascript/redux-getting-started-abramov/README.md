@@ -355,17 +355,17 @@ A Container Component provides the behavior and the data to the Presentational C
 
 [Video Lesson 24](https://egghead.io/lessons/react-redux-passing-the-store-down-explicitly-via-props)
 
+Passing store down, manually, explicitly, via props makes testing possible, but it does not scale well because we need to pass it all over the place.
 
 
 
+## 25 Passing the Store Down Implicitly via Context
 
-## 25
-
-
-<https://egghead.io/lessons/react-redux-passing-the-store-down-implicitly-via-context>
+[Video Lesson 25](https://egghead.io/lessons/react-redux-passing-the-store-down-implicitly-via-context)
 
 
 
+## 26
 
 <https://egghead.io/lessons/react-redux-passing-the-store-down-with-provider-from-react-redux>
 
