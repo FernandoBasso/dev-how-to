@@ -20,4 +20,5 @@ import './index.css';
 // import './v16-react-add-todo';
 // import './v19-react-todo-filtering';
 // import './v20-extract-presentational-components';
-import './v22-extract-container-comp';
+// import './v22-extract-container-comp';
+import './v23-extract-container-comp2';

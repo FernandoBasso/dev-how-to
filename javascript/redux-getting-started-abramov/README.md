@@ -27,7 +27,7 @@ Three principles of Redux
 
 
 
-01 Redux: The Single Immutable State Tree
+01 The Single Immutable State Tree
 -----------------------------------------
 [Video Lesson 1](https://egghead.io/lessons/react-redux-the-single-immutable-state-tree)
 
@@ -38,7 +38,7 @@ The whole state of the application is represented with a single (plain) JS objec
 Everything that changes in the application, whether the data and/or the UI state, is contained in the single object called the State (or The State Tree).
 
 
-02 Redux: Describing State Changes with Actions
+02 Describing State Changes with Actions
 -----------------------------------------------
 [Video Lesson 2](https://egghead.io/lessons/react-redux-describing-state-changes-with-actions)
 
@@ -53,20 +53,20 @@ The action is the minimum representation of the change to the data.
 The action *must* have a ``type`` property which is not undefined.
 
 
-03 Redux: Pure and Impure Functions
+03 Pure and Impure Functions
 -----------------------------------
 [Video Lesson 3](https://egghead.io/lessons/react-redux-pure-and-impure-functions)
 
 If you accidentaly mutate the state tree, redux cannot detect a change has ocurred. Redux compares objects references, not values.
 
 
-04 Redux: The Reducer Function
+04 The Reducer Function
 ------------------------------
 [Video Lesson 4](https://egghead.io/lessons/react-redux-the-reducer-function)
 
 The state mutation needs to be described as a pure function that takes the previous state and the action being dispatched and returns the next state of the application. This function is called “the reducer.”
 
-05 Redux: Writing a Counter Reducer with Tests
+05 Writing a Counter Reducer with Tests
 ----------------------------------------------
 [Video Lesson 5](https://egghead.io/lessons/react-redux-writing-a-counter-reducer-with-tests)
 
@@ -74,7 +74,7 @@ When the action type is not provided, or it is unknown, the reducer should retur
 
 The reducer also has to specify the default initial state if it is not provided.
 
-06 Redux: Store Methods: getState(), dispatch(), and subscribe()
+06 Store Methods: getState(), dispatch(), and subscribe()
 ----------------------------------------------------------------
 [Video Lesson 6](https://egghead.io/lessons/react-redux-store-methods-getstate-dispatch-and-subscribe)
 
@@ -85,7 +85,7 @@ The reducer also has to specify the default initial state if it is not provided.
 
 
 
-07 Redux: Implementing Store from Scratch
+07 Implementing Store from Scratch
 -----------------------------------------
 
 [Video Lesson 7](https://egghead.io/lessons/react-redux-implementing-store-from-scratch)
@@ -93,7 +93,7 @@ The reducer also has to specify the default initial state if it is not provided.
 Nice cool JavaScript stuff! Worth it by that reason alone, besides the nice view into ``createStore()``. Very instructive.
 
 
-08 Redux: React Counter Example
+08 React Counter Example
 -------------------------------
 [Video Lesson 8](https://egghead.io/lessons/react-redux-react-counter-example)
 
@@ -174,7 +174,7 @@ The idea is similar as to when removing an item from the array, but instead of i
 **NOTE**: To decrement an array element, we would use exactly the same logic as increment, except instead of adding one, we subtract one.
 
 
-10 Redux: Avoiding Object Mutations with Object.assign() and ...spread
+10 Avoiding Object Mutations with Object.assign() and ...spread
 ----------------------------------------------------------------------
 [Video Lesson 10](https://egghead.io/lessons/react-redux-avoiding-object-mutations-with-object-assign-and-spread)
 
@@ -214,7 +214,7 @@ Or using spread:
 **RULE**: Every reducer has to return the current state for any unknown action.
 
 
-12 Redux: Writing a Todo List Reducer (Toggling a Todo)
+12 Writing a Todo List Reducer (Toggling a Todo)
 -------------------------------------------------------
 [Video Lesson 12](https://egghead.io/lessons/react-redux-writing-a-todo-list-reducer-toggling-a-todo)
 
@@ -236,7 +236,7 @@ Using map (solution from the video):
 	});
 
 
-13 Redux: Reducer Composition with Arrays
+13 Reducer Composition with Arrays
 -----------------------------------------
 [Video Lesson 13](https://egghead.io/lessons/react-redux-reducer-composition-with-arrays)
 
@@ -257,7 +257,7 @@ This pattern can be applied many times, and while there is still a single top le
 **NOTE**: Read the comments on the [video link](https://egghead.io/lessons/react-redux-reducer-composition-with-arrays).
 
 
-14 Redux: Reducer Composition with Objects
+14 Reducer Composition with Objects
 ------------------------------------------
 [Video Lesson 14](https://egghead.io/lessons/react-redux-reducer-composition-with-objects)
 
@@ -268,14 +268,14 @@ Here, we create another reducer, which delegates responsibilities to other reduc
 When an action comes in, it calls the reducers with the part of the state that they manage and the action and combines the results into the new state object.
 
 
-15 Redux: Reducer Composition with combineReducers()
+15 Reducer Composition with combineReducers()
 ----------------------------------------------------
 [Video Lesson 15](https://egghead.io/lessons/react-redux-reducer-composition-with-combinereducers)
 
 Use of Redux's implementation of ``combineReducers()``.
 
 
-16 Redux: Implementing combineReducers() from Scratch
+16 Implementing combineReducers() from Scratch
 -----------------------------------------------------
 [Video Lesson 16](https://egghead.io/lessons/react-redux-implementing-combinereducers-from-scratch)
 
@@ -295,36 +295,40 @@ The return value of ``combineReducers()`` is a reducer itself. That means, ``com
 The accumulator state *is* modified; it *is* mutated, but it is not a problem because it is an object created *inside* that function. We are not mutating something from outside that came as a parameter. Our function is still considered pure.
 
 
-17 Redux: React Todo List Example (Adding a Todo)
+17 React Todo List Example (Adding a Todo)
 -------------------------------------------------
 [Video Lesson 17](https://egghead.io/lessons/react-redux-react-todo-list-example-adding-a-todo)
 
 
-18 Redux: React Todo List Example (Toggling a Todo)
+
+
+18 React Todo List Example (Toggling a Todo)
 ---------------------------------------------------
 [Video Lesson 18](https://egghead.io/lessons/react-redux-react-todo-list-example-toggling-a-todo)
 
 
-19 Redux: React Todo List Example (Filtering Todos)
+
+
+19 React Todo List Example (Filtering Todos)
 ---------------------------------------------------
 [Video Lesson 19](https://egghead.io/lessons/react-redux-react-todo-list-example-filtering-todos)
 
 
 
-20 Redux: Extracting Presentational Components (Todo, TodoList)
+20 Extracting Presentational Components (Todo, TodoList)
 ---------------------------------------------------------------
 [Video Lesson 19](https://egghead.io/lessons/react-redux-extracting-presentational-components-todo-todolist)
 
 Separating Presentational Components from Container Components helps with separation of logic and concerns, while it also makes it more complex in terms of following the code, and passing props left and right all over the place. That can be mitigated with techniques shown in the next videos.
 
 
-21 Redux: Extracting Presentational Components (AddTodo, Footer, FilterLink)
+21 Extracting Presentational Components (AddTodo, Footer, FilterLink)
 ----------------------------------------------------------------------------
 [Video Lesson 21](https://egghead.io/lessons/react-redux-extracting-presentational-components-addtodo-footer-filterlink)
 
 
 
-22 Redux: Extracting Container Components (FilterLink)
+22 Extracting Container Components (FilterLink)
 ------------------------------------------------------
 [Video Lesson 22](https://egghead.io/lessons/react-redux-extracting-container-components-filterlink)
 
@@ -337,11 +341,17 @@ A Container Component provides the behavior and the data to the Presentational C
 
 
 
-## 23
+## 23 Extracting Container Components (VisibleTodoList, AddTodo)
 
-<https://egghead.io/lessons/react-redux-extracting-container-components-visibletodolist-addtodo>
+[Video Lesson 23](https://egghead.io/lessons/react-redux-extracting-container-components-visibletodolist-addtodo)
+
+> All container components are similar. Their job is to connect a  presentational component to the Redux store and specify the data and the behavior that it (the presentational component) needs.
+>
+> -- Dan Abramov
 
 
+
+## 24
 
 
 <https://egghead.io/lessons/react-redux-passing-the-store-down-explicitly-via-props>
