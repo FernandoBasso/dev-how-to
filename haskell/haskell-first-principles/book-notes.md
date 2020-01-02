@@ -32,7 +32,7 @@ Lambda calculus has tree three basic components, or *lambda terms*: expressions,
 
 ## 2 Hello Haskell
 
-Stack installation, then add this to `~/.stack/global-project/stack.yaml`:
+Stack installation, then add this to `~/.stack/global-project/stack.yaml` (because this is the version used by the book, and we don't want unnecessary trouble as we are getting started):
 
 ```yaml
 resolver: lts-12.10
@@ -42,7 +42,7 @@ packages: []
 
 
 ```
-$ stack ghci
+$ $ stack --resolver lts-12.10 ghci
 
 :set prompt "λ "
 
@@ -75,6 +75,21 @@ Can use `:reload` or `:r` to reload when a loaded file has been modified.
 Return to Prelude after having loaded a module, type `:module` or `:m`. It unloads the previously loaded file, and its code will no longer be in scope.
 
 Normal form We say that expressions are in normal form when there are no more evaluation steps that can be taken, or, put differently, when they’ve reached an irreducible form. Reducible expressions are also called *redexes*.
+
+
+
+What the poop‽
+
+```ghci
+λ (\f -> (2, 2 + f)) 2
+(2,4)
+
+λ (\f -> (2, 2 + f)) 8
+(2,10)
+
+λ (\f -> ('_', 2 + f)) 5
+('_',7)
+```
 
 
 
