@@ -50,7 +50,43 @@ $ stack ghci
 λ :q
 
 λ :set prompt "λ "
-
-λ 
 ```
+
+Prelude is in Haskell [base](https://www.stackage.org/package/base).
+
+`:quit` is not Haskell code, but but a GHCi feature.
+
+```ghci
+λ :load b01-say-hello.hs
+[1 of 1] Compiling Main             ( b01-say-hello.hs, interpreted )
+Ok, one module loaded.
+λ :info sayHello
+sayHello :: String -> IO ()     -- Defined at b01-say-hello.hs:2:1
+λ sayHello "Haskell"
+Hello, Haskell!
+λ :module
+λ :info sayHello
+
+<interactive>:1:1: error: Not in scope: ‘sayHello’
+```
+
+Can use `:reload` or `:r` to reload when a loaded file has been modified.
+
+Return to Prelude after having loaded a module, type `:module` or `:m`. It unloads the previously loaded file, and its code will no longer be in scope.
+
+Normal form We say that expressions are in normal form when there are no more evaluation steps that can be taken, or, put differently, when they’ve reached an irreducible form. Reducible expressions are also called *redexes*.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
