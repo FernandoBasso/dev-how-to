@@ -46,3 +46,30 @@ Haskell variables are immutable. `x = 3` does not mean “3 is assigned to x” 
 
 
 
+@TODO: Is this an infinite thing?
+
+```haskell
+y :: Int
+y = y + 1
+```
+
+`maxBound` and `minBound`
+
+```ghci
+λ let numDigits = length (show (2 ^ ( 2 ^ (2 ^ (2 ^ 2)))))
+λ numDigits 
+19729
+```
+
+
+
+IMPORTANT gotcha about GHCI:
+
+https://stackoverflow.com/questions/15978118/haskell-basic-factorial-not-exiting
+
+
+
+
+
+
+
