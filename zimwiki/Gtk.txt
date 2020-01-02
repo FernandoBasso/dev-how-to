@@ -1,0 +1,32 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2019-12-28T08:22:02-03:00
+
+====== Gtk ======
+Created Saturday 28 December 2019
+
+
+* Gtk 3 Getting Started Tutorial in C ([[https://developer.gnome.org/gtk3/stable/gtk-getting-started.html|link]])
+* Compiling Gtk Stuff ([[https://developer.gnome.org/gtk3/stable/gtk-compiling.html|link]])
+* Application ID like org.gtk.memoapp, how to choose an ID‽ ([[https://wiki.gnome.org/HowDoI/ChooseApplicationID|link]])
+* Some conventions on naming stuff: ([[https://developer.gnome.org/gobject/stable/gtype-conventions.html|link]])
+
+
+===== Random notes =====
+
+The ''activate'' signal is sent when the application is launched with ''g_application_run()''.
+
+Declare a ''GtkWidget *window'' but instantiate it to a window with ''window = gtk_application_window_new (app);''. When using ''window'', we have to cast it from ''GtkWidget'' to ''GtkWindow'' using the macro ''GTK_WINDOW''.
+
+According to mclasen@gtk riot/irc, these casts and are mainly habit. Nothing especial. Could have declared as ''GtkWindow *window'' in the first place (instead of ''GtkWidget *window'').
+
+===== g_signal_connect() vs g_signal_connect_swapped() =====
+
+Reast last paragraph of [[https://developer.gnome.org/gtk3/stable/gtk-getting-started.html|this link]]. Then, in devhelp, read about ''g_signal_connect_swapped()''.
+
+""
+''g_signal_connect_swapped()'' allows you to specify what the callback function should take as parameter by letting you pass it as data. In this case the function being called back is ''gtk_widget_destroy()'' and the window pointer is passed to it. This has the effect that when the button is clicked, the whole GTK window is destroyed. In contrast if a normal ''g_signal_connect()'' were used to connect the "clicked" signal with ''gtk_widget_destroy()'', then the button itself would have been destroyed, not the window.
+""
+
+
+
