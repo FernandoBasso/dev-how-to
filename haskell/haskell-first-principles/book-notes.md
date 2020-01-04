@@ -32,7 +32,21 @@ Lambda calculus has tree three basic components, or *lambda terms*: expressions,
 
 ## 2 Hello Haskell
 
-Stack installation, then add this to `~/.stack/global-project/stack.yaml` (because this is the version used by the book, and we don't want unnecessary trouble as we are getting started):
+Install [stack](https://docs.haskellstack.org/en/stable/README/):
+
+```shell-session
+$ curl -sSL https://get.haskellstack.org/ | sh
+```
+
+To install a given version of Haskell without a “project”, simply do:
+
+```shell-session
+$ stack --resolver lts-12.10 ghci
+```
+
+And stack will install it if not already installed! These dependencies may need to be installed on your distro: gcc, make, libffi, zlib, libgmp, libtinfo.
+
+Then add this to `~/.stack/global-project/stack.yaml` (because this is the version used by the book, and we don't want unnecessary trouble as we are getting started):
 
 ```yaml
 resolver: lts-12.10
@@ -74,7 +88,11 @@ Can use `:reload` or `:r` to reload when a loaded file has been modified.
 
 Return to Prelude after having loaded a module, type `:module` or `:m`. It unloads the previously loaded file, and its code will no longer be in scope.
 
-Normal form We say that expressions are in normal form when there are no more evaluation steps that can be taken, or, put differently, when they’ve reached an irreducible form. Reducible expressions are also called *redexes*.
+We say that expressions are in normal form when there are no more evaluation steps that can be taken, or, put differently, when they’ve reached an irreducible form. Reducible expressions are also called *redexes*.
+
+
+
+Haskell uses a “two pass” compilation. Order of code in a source file does not matter.
 
 
 
@@ -93,7 +111,23 @@ What the poop‽
 
 
 
+Formal parameter is what is defined as a variable in function signature/definitions. Arguments are the actual values we pass when applying functions.
 
+## div, quot, rem, mod, divMod, quotRem
+
+https://stackoverflow.com/questions/8111120/integral-operators-quot-vs-div
+
+
+
+https://wiki.haskell.org/Let_vs._Where
+
+
+
+## Chapter 3
+
+
+
+## The End
 
 
 
