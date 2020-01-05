@@ -115,15 +115,24 @@ Formal parameter is what is defined as a variable in function signature/definiti
 
 ## div, quot, rem, mod, divMod, quotRem
 
+
+
 https://stackoverflow.com/questions/8111120/integral-operators-quot-vs-div
-
-
 
 https://wiki.haskell.org/Let_vs._Where
 
 
 
 ## Chapter 3
+
+```ghci
+Prelude> :type "Cati"
+"Cati" :: [Char]
+```
+
+`String` is a type alias (or synonym) for a list of `Char`.
+
+
 
 
 
