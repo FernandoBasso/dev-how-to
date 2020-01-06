@@ -134,6 +134,10 @@ Prelude> :type "Cati"
 
 
 
+`Foldable t => t [a]` can be thought of as a list, like `[[a]]`.
+
+
+
 
 
 ## The End
