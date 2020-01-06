@@ -6,7 +6,7 @@
 
 
 
-## 1 All You Need is Lambda λ
+## 01 All You Need is Lambda λ
 
 
 
@@ -30,7 +30,7 @@ Lambda calculus has tree three basic components, or *lambda terms*: expressions,
 
 
 
-## 2 Hello Haskell
+## 02 Hello Haskell
 
 Install [stack](https://docs.haskellstack.org/en/stable/README/):
 
@@ -123,7 +123,7 @@ https://wiki.haskell.org/Let_vs._Where
 
 
 
-## Chapter 3
+## 03 Strings
 
 ```ghci
 Prelude> :type "Cati"
@@ -135,6 +135,83 @@ Prelude> :type "Cati"
 
 
 `Foldable t => t [a]` can be thought of as a list, like `[[a]]`.
+
+`[]` is the list type constructor.
+
+
+
+## 04 Basic Datatypes
+
+Datatypes, type constructors, data constructors.
+
+Type declarations are how types are defined.
+
+Type constructors are capitalized and are used to write type signatures at the *type level* of the code.
+
+Data constructors are the actual values in the code, at the *term level*.
+
+In `data Bool = False | True` the `|` indicates a *sum type*, or logical disjunction “or”.
+
+https://wiki.haskell.org/Constructor
+
+
+
+```haskell
+data Bool = False | True
+```
+
+the `|` indicates a *sum type*, or *logical disjunction* “or”.
+
+![image-20200106144738511](/home/fernando.basso/Projects/proghowto/haskell/haskell-first-principles/images/data-declaration1.png)
+
+
+
+
+
+The whole thing is a **data declaration**.
+
+`Bool` is a type constructor, but True and False are data constructors.
+
+`:info Bool` displays the data declaration for `Bool`.
+
+Data constructors are the actual values.
+
+- Int
+- Integer (arbitrarily large)
+- Word (zero and up)
+- Float
+- Double
+- Rational
+- Fixed
+- Scientific (must be [installed](https://hackage.haskell.org/package/scientific))
+
+
+
+`Num` is a **type class** (not a type).
+
+```ghci
+Prelude> :type (/)
+(/) :: Fractional a => a -> a -> a
+```
+
+`Fractional a =>` denotes a type class constraint. That is, the type variable “a” must implement the Fractional type class.
+
+`!=` does not exist in Haskell. Use `/=` instead.
+
+Haskell has *if expressions* (not if statements).
+
+Tuple constructor is `(,)`. `:info (,)`. A *product type*, not a *sum type*.
+
+A product type represents a logical conjunction: you must supply both arguments to construct a value.
+
+For tuples, the arity is set in the type and immutable (contrary to lists).
+
+```ghci
+Prelude> langs = ["scheme", "haskell"]
+Prelude> :type langs langs :: [[Char]] 
+```
+
+`langs` is a list of lists, because `[]` is a list, and `[Char]` is a list or chars. `String` is an alias for `[Char]`.
 
 
 
