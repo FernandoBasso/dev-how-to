@@ -213,6 +213,15 @@ Prelude> :type langs langs :: [[Char]]
 
 `langs` is a list of lists, because `[]` is a list, and `[Char]` is a list or chars. `String` is an alias for `[Char]`.
 
+```
+Prelude> :type length
+length :: Foldable t => t a -> Int
+```
+
+Consider `Foldable t` to mean “a list” for now.
+
+
+
 
 
 
