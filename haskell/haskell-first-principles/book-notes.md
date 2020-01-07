@@ -218,9 +218,21 @@ Prelude> :type length
 length :: Foldable t => t a -> Int
 ```
 
-Consider `Foldable t` to mean “a list” for now.
+Consider `Foldable t` to mean “a list of some type t” for now.
+
+Tuples have zero (called *unit*), two,  three, etc. elements. A tuple with one element does not exist.
+
+A *type class* is a set of operations defined with regard to a polymorphic type.
+
+> Data declarations define new datatypes in Haskell. Data declarations always create a new type constructor, but may or may not create new data constructors. Data declarations are how we refer to the entire definition that begins with the `data` keyword.
 
 
+
+So, *data declarations* create types, not data/values.
+
+`type` creates a type alias, and `data` creates a type.
+
+`isEqual :: Eq a => a -> a -> Bool` means that `isEqual` takes *any* type *a* as long is that type has an instance of `Eq` type class.
 
 
 
