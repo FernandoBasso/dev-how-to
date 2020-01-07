@@ -90,7 +90,7 @@ Return to Prelude after having loaded a module, type `:module` or `:m`. It unloa
 
 We say that expressions are in normal form when there are no more evaluation steps that can be taken, or, put differently, when they’ve reached an irreducible form. Reducible expressions are also called *redexes*.
 
-
+I had a run-in with the [boss](https://dictionary.cambridge.org/us/dictionary/english/boss)/the [law](https://dictionary.cambridge.org/us/dictionary/english/law)/the [police](https://dictionary.cambridge.org/us/dictionary/english/police) [yesterday](https://dictionary.cambridge.org/us/dictionary/english/yesterday).
 
 Haskell uses a “two pass” compilation. Order of code in a source file does not matter.
 
@@ -113,7 +113,7 @@ What the poop‽
 
 Formal parameter is what is defined as a variable in function signature/definitions. Arguments are the actual values we pass when applying functions.
 
-## div, quot, rem, mod, divMod, quotRem
+### div, quot, rem, mod, divMod, quotRem
 
 
 
@@ -233,6 +233,26 @@ So, *data declarations* create types, not data/values.
 `type` creates a type alias, and `data` creates a type.
 
 `isEqual :: Eq a => a -> a -> Bool` means that `isEqual` takes *any* type *a* as long is that type has an instance of `Eq` type class.
+
+
+
+## 05 Types
+
+A datatype declaration defines a type constructor and data constructors. Data constructors are the values of a particular type; they are also functions that let us create data, or values, of a particular type,
+
+> Type systems in logic and mathematics have been designed to **impose constraints that enforce correctness**.
+
+
+
+`->` is the type constructor for functions. It takes arguments and has no data constructors.
+
+`(,)` is the type constructor for the two-tuple.
+
+`[]` is the type constructor for lists.
+
+Unlike the tuple constructor, the function type has no data constructors. The value that shows up at term level is the function. Functions are values.
+
+
 
 
 
