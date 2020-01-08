@@ -236,25 +236,15 @@ So, *data declarations* create types, not data/values.
 
 
 
-## 05 Types
+## Links
 
-A datatype declaration defines a type constructor and data constructors. Data constructors are the values of a particular type; they are also functions that let us create data, or values, of a particular type,
+https://github.com/pushcx/hpffp-resources
 
-> Type systems in logic and mathematics have been designed to **impose constraints that enforce correctness**.
+https://github.com/scarvalhojr/haskellbook
 
+https://github.com/katjad/haskellbook-solutions
 
-
-`->` is the type constructor for functions. It takes arguments and has no data constructors.
-
-`(,)` is the type constructor for the two-tuple.
-
-`[]` is the type constructor for lists.
-
-Unlike the tuple constructor, the function type has no data constructors. The value that shows up at term level is the function. Functions are values.
-
-
-
-
+https://github.com/andrewMacmurray/haskell-book-solutions/tree/master/src
 
 
 
