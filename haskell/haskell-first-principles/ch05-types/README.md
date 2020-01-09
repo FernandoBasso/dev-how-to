@@ -210,6 +210,290 @@ myAlph :: Char -> Bool
 
 Since inside the function body `c` is being compared with a `'k'`, clearly a `Char`, then the `c` parameter must also be a `Char`, otherwise the comparison would be impossible.
 
+## Chapter Exercises
+
+### Multiple choice
+
+1. C is correct.
+2. A is correct. The outer `[ ]` means “a list of something”. The inner `[a]` means “a list of some type _a_, which could be a list of chars. So, `[[a]]` could be `[[Char]]` or `[String]`.
+3. B is correct. It takes a list of some type _a_, an `Int` (probably an index), and returns one element of the type _a_ from the list.
+4. C is correct.
+
+### Determine the type
+
+As instructed in the book, add this to the top of the file:
+
+```haskell
+{-# LANGUAGE NoMonomorphismRestriction #-}
+```
+
+
+
+### Exercise 1a
+
+```ghci
+val = (* 9) 6
+λ> val1
+54
+λ> :t val1
+val1 :: Num a => a
+```
+
+### Exercise 1b
+
+```haskell
+val = head[(0, "Lara"), (1, "Croft")]
+```
+
+```λ> val
+λ> val
+(0,"Lara")
+λ> :t val
+val :: Num a => (a, [Char])
+```
+
+### Exercise 1c
+
+```haskell
+val = head[(0 :: Integer, "Lara"), (1, "Croft")]
+```
+
+```ghci
+λ> val
+(0,"Lara")
+λ> :t val
+val :: (Integer, [Char])
+```
+
+### Exercise 1d
+
+```haskell
+val = if False then True else False
+```
+
+```ghci
+λ> val
+False
+λ> :t val
+val :: Bool
+```
+
+### Exercise 1e
+
+```haskell
+val = length [1..5]
+```
+
+```ghci
+λ> val
+5
+λ> :t val
+val :: Int
+```
+
+Since `length` returns an `Int`, the type of `val` _has to be_ an `Int`.
+
+### Exercise 1f
+
+```haskell
+val = (length [1..4]) > (length "TACOCAT")
+```
+
+```ghci
+λ> val
+False
+λ> :t val
+val :: Bool
+```
+
+### Exercise 2
+
+There is not enough information for the concrete type of number, so the compiler infers the most generic, the type class `Num`, therefore, the type of `w` is `Num a`.
+
+### Exercise 3
+
+```haskell
+x = 5
+y = x + 5
+z y = y * 10
+```
+
+```ghci
+λ> :t z
+z :: Num a => a -> a
+```
+
+### Exercise 4
+
+```haskell
+x = 5
+y = x + 5
+f = 4 / y
+```
+
+```ghci
+λ> :t f
+f :: Fractional a => a
+```
+
+### Exercise 5
+
+```haskell
+x = "Julie"
+y = " <3 "
+z = "Haskell"
+f = x ++ y ++ z
+```
+
+```ghci
+λ> :t f
+f :: [Char]
+```
+
+Yes, just `[Char]` because `f` does not take parameters, and just uses `++` with strings.
+
+## Does it compile?
+
+### Exercise 1
+
+```haskell
+bigNum = (^) 5 $ 10
+wahoo = bigNum $ 10
+```
+
+The `$ 10` on line one is wrong. Fix:
+
+```haskell
+bigNum = (^) 5
+wahoo = bigNum $ 10
+```
+
+```ghci
+λ> bigNum 5
+3125
+λ> bigNum $ 5
+3125
+```
+
+### Exercise 2
+
+```haskell
+x = print
+y = print "tomb"
+z = x "raider"
+```
+
+```ghci
+λ> z
+"raider"
+```
+
+Yes, it does compile. Functions are values. We assigned `print` to `x` and now `x` is the function `print`. `z` is a function that uses `x` (`print`) to print the string.
+
+### Exercise 3
+
+They don't tell what the expected result should be. There are several ways to "fix" this. One is:
+
+```haskell
+a = (+)
+b = a
+c = b 10
+d = c 200
+```
+
+### Exercise 4
+
+`c` is not in scope. We must do something like `c = 1`.
+
+```haskell
+c = 1
+a = 12 + b
+b = 10000 * c
+```
+
+```ghci
+λ> b
+10000
+λ> a
+10012
+```
+
+## Type variable or specific type constructor?
+
+The answers are one of:
+
+- fully polymorphic type variable
+- constrained polymorphic type variable
+- concrete type constructor
+
+
+
+### Exercise 1
+
+```haskell
+f :: Num a => a -> b -> Int -> Int
+--           [0]  [1]    [2]    [2]
+```
+
+Constrained polymorphic [1], fully polymorphic [2], concrete [2] and [3].
+
+### Exercise 2
+
+```haskell
+f :: zed -> Zed -> Blah
+--   [1]    [2]     [3]
+```
+
+Fully polymorphic type variable [1], concrete type constructor [2] and [3].
+
+### Exercise 3
+
+```haskell
+f :: Enum b => a -> b -> C
+--            [1]  [2]  [3]
+```
+
+Fully polymorphic type variable [1], constrained polymorphic type [2], concrete [3]. `C` is an uppercase letter, like a type for `Integer` or `Double`.
+
+### Exercise 4
+
+```haskell
+f :: f -> g -> C
+--  [1]  [2]  [3]
+```
+
+Fully polymorphic type variable [1] and [2], concrete [3].
+
+## Write a type signature
+
+### Exercise 1
+
+```fnH :: [a] -> a
+fnH :: [a] -> a
+fnH (x:_) = x
+```
+
+### Exercise 2
+
+```haskell
+fnC :: (Ord a) => a -> a -> Bool
+fnC x y =
+  if (x > y) then True else False
+```
+
+Note that we need only _one_ constrained type `Ord a`. The `>` operator need both operands to be of the same type, so, the two parameters for the function are of the same constrained type `a`.
+
+### Exercise 3
+
+```haskell
+fnS :: (a, b) -> b
+fnS (x, y) = y
+```
+
+
+
+
+
 
 
 
