@@ -102,5 +102,117 @@ kessel (1 :: Integer) 2 :: Integer
 
 ## Exercises: Parametricity
 
+[mvaldesdeleon](https://github.com/mvaldesdeleon/haskell-book/blob/master/ch05/exerises.md#parametricity)
+
+1. There is nothing we can do about it. Impossible.
+
+2. If `a -> a` is the identity function and the only thing it can do is to return its argument, then `a -> a -> a` has two possible implementations only, which is to return the first argument, or the second, similar to what `id` does. We end up with implementations similar to what `fst` and `snd` for tuples do.
+
+   ```haskell
+   f1 :: a -> a -> a
+   f1 x y = x
+   
+   f2 :: a -> a -> a
+   f2 x y = y
+   
+   --
+   -- λ> f1 "Tomb" "Raider"
+   -- "Tomb"
+   -- λ> f2 "Tomb" "Raider"
+   -- "Raider"
+   --
+   ```
+
+3. It can have only one implementation, because it is again similar to the `id` function. Since `a -> b -> b` is parametricaly polymorphic, there is nothing it can do but to return `b`.
+
+   ```haskell
+   h :: a -> b -> b
+   h x y = y
+   
+   --
+   -- λ> h "Tomb Raider" "The Last Revelation"
+   -- "The Last Revelation"
+   --
+   ```
+
+   
+
+## Exercises: Apply Yourself
+
+Start at end of page 146.
+
+```ghci
+λ> :t (++)
+(++) :: [a] -> [a] -> [a]
+```
+
+All we know about `++` is that it takes "two" lists of some type `a` and produces a list  of some type `a`.
+
+### 1 list concatenation ++
+
+The type signature of `++`: `(++) :: [a] -> [a] -> [a]`. It is only known that it concatenates lists of some type `a`. However, `myConcat` now _has_ not alternative but to infer that it will concatenate lists of `Char` because of the literal string `" yo Adrian!"`.
+
+```ghci
+λ> myConcat s = s ++ " yo Adrian!"
+λ> :t myConcat
+myConcat :: [Char] -> [Char]
+```
+
+### 2 general function *
+
+The function `*` has the signature signature `(*) :: Num a => a -> a -> a`. When used in the expression `(x / 3) * 5` _has_ to produce some sort of fractional type:
+
+```ghci
+λ> myMult x = (x / 3) * 5
+λ> :t myMult
+myMult :: Fractional a => a -> a
+```
+
+
+
+### 3 take
+
+`take` has the signature `take :: Int -> [a] -> [a]` . If we create a function that “takes” from a list of chars, the return type must be `[Char]`.
+
+```ghci
+λ> myTake n = take n "Master Yoda"
+λ> :t myTake
+myTake :: Int -> [Char]
+```
+
+
+
+### 4 Ord, Int and >
+
+```ghci
+λ> :t (>)
+(>) :: Ord a => a -> a -> Bool
+
+λ> myCom n = n > (length [1..10])
+λ> :t myCom
+myCom :: Int -> Bool
+```
+
+`n` is parametric polymorphic, meaning it could be any type, or any of the number types, but since `length` returns an `Int`, `n` has to be turned into an `Int` too.
+
+
+
+### 5 Ord, Char and <
+
+```ghci
+λ> :t (<)
+(<) :: Ord a => a -> a -> Bool
+
+λ> myAlph c = c < 'k'
+λ> :t myAlph
+myAlph :: Char -> Bool
+```
+
+Since inside the function body `c` is being compared with a `'k'`, clearly a `Char`, then the `c` parameter must also be a `Char`, otherwise the comparison would be impossible.
+
+
+
+
+
 
 

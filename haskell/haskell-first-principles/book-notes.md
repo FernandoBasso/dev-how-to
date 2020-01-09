@@ -248,6 +248,16 @@ https://github.com/andrewMacmurray/haskell-book-solutions/tree/master/src
 
 
 
+Exercises for the types stuff too:
+
+https://github.com/mvaldesdeleon/haskell-book
+
+
+
+https://github.com/mvaldesdeleon/haskell-book/blob/master/ch05/exerises.md
+
+
+
 ## The End
 
 
