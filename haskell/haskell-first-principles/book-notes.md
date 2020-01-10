@@ -238,6 +238,10 @@ So, *data declarations* create types, not data/values.
 
 ## Links
 
+http://homepages.inf.ed.ac.uk/wadler/topics/parametricity.html
+
+https://twitter.com/parametricity
+
 https://github.com/pushcx/hpffp-resources
 
 https://github.com/scarvalhojr/haskellbook
