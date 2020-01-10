@@ -229,7 +229,7 @@ As instructed in the book, add this to the top of the file:
 
 
 
-### Exercise 1a
+#### Exercise 1a
 
 ```ghci
 val = (* 9) 6
@@ -239,7 +239,7 @@ val = (* 9) 6
 val1 :: Num a => a
 ```
 
-### Exercise 1b
+#### Exercise 1b
 
 ```haskell
 val = head[(0, "Lara"), (1, "Croft")]
@@ -252,7 +252,7 @@ val = head[(0, "Lara"), (1, "Croft")]
 val :: Num a => (a, [Char])
 ```
 
-### Exercise 1c
+#### Exercise 1c
 
 ```haskell
 val = head[(0 :: Integer, "Lara"), (1, "Croft")]
@@ -265,7 +265,7 @@ val = head[(0 :: Integer, "Lara"), (1, "Croft")]
 val :: (Integer, [Char])
 ```
 
-### Exercise 1d
+#### Exercise 1d
 
 ```haskell
 val = if False then True else False
@@ -278,7 +278,7 @@ False
 val :: Bool
 ```
 
-### Exercise 1e
+#### Exercise 1e
 
 ```haskell
 val = length [1..5]
@@ -293,7 +293,7 @@ val :: Int
 
 Since `length` returns an `Int`, the type of `val` _has to be_ an `Int`.
 
-### Exercise 1f
+#### Exercise 1f
 
 ```haskell
 val = (length [1..4]) > (length "TACOCAT")
@@ -352,9 +352,9 @@ f :: [Char]
 
 Yes, just `[Char]` because `f` does not take parameters, and just uses `++` with strings.
 
-## Does it compile?
+### Does it compile?
 
-### Exercise 1
+#### Exercise 1
 
 ```haskell
 bigNum = (^) 5 $ 10
@@ -375,7 +375,7 @@ wahoo = bigNum $ 10
 3125
 ```
 
-### Exercise 2
+#### Exercise 2
 
 ```haskell
 x = print
@@ -390,7 +390,7 @@ z = x "raider"
 
 Yes, it does compile. Functions are values. We assigned `print` to `x` and now `x` is the function `print`. `z` is a function that uses `x` (`print`) to print the string.
 
-### Exercise 3
+#### Exercise 3
 
 They don't tell what the expected result should be. There are several ways to "fix" this. One is:
 
@@ -401,7 +401,7 @@ c = b 10
 d = c 200
 ```
 
-### Exercise 4
+#### Exercise 4
 
 `c` is not in scope. We must do something like `c = 1`.
 
@@ -418,7 +418,7 @@ b = 10000 * c
 10012
 ```
 
-## Type variable or specific type constructor?
+### Type variable or specific type constructor?
 
 The answers are one of:
 
@@ -428,7 +428,7 @@ The answers are one of:
 
 
 
-### Exercise 1
+#### Exercise 1
 
 ```haskell
 f :: Num a => a -> b -> Int -> Int
@@ -437,7 +437,7 @@ f :: Num a => a -> b -> Int -> Int
 
 Constrained polymorphic [1], fully polymorphic [2], concrete [2] and [3].
 
-### Exercise 2
+#### Exercise 2
 
 ```haskell
 f :: zed -> Zed -> Blah
@@ -446,7 +446,7 @@ f :: zed -> Zed -> Blah
 
 Fully polymorphic type variable [1], concrete type constructor [2] and [3].
 
-### Exercise 3
+#### Exercise 3
 
 ```haskell
 f :: Enum b => a -> b -> C
@@ -455,7 +455,7 @@ f :: Enum b => a -> b -> C
 
 Fully polymorphic type variable [1], constrained polymorphic type [2], concrete [3]. `C` is an uppercase letter, like a type for `Integer` or `Double`.
 
-### Exercise 4
+#### Exercise 4
 
 ```haskell
 f :: f -> g -> C
@@ -464,16 +464,16 @@ f :: f -> g -> C
 
 Fully polymorphic type variable [1] and [2], concrete [3].
 
-## Write a type signature
+### Write a type signature
 
-### Exercise 1
+#### Exercise 1
 
 ```fnH :: [a] -> a
 fnH :: [a] -> a
 fnH (x:_) = x
 ```
 
-### Exercise 2
+#### Exercise 2
 
 ```haskell
 fnC :: (Ord a) => a -> a -> Bool
@@ -483,12 +483,18 @@ fnC x y =
 
 Note that we need only _one_ constrained type `Ord a`. The `>` operator need both operands to be of the same type, so, the two parameters for the function are of the same constrained type `a`.
 
-### Exercise 3
+#### Exercise 3
 
 ```haskell
 fnS :: (a, b) -> b
 fnS (x, y) = y
 ```
+
+
+
+### Given a type, write a function
+
+#### Exercise 1
 
 
 
