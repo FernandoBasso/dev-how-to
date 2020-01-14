@@ -1,0 +1,45 @@
+--
+-- Enum, p 194.
+--
+
+--
+--    λ> succ 1
+--    2
+--    λ> pred 0
+--    -1
+--    λ> succ 'y'
+--    'z'
+--    λ> pred 'Z'
+--    'Y'
+--
+--    λ> take 3 $ enumFrom 0
+--    [0,1,2]
+--
+--    λ> enumFromTo (-4) (-1)
+--    [-4,-3,-2,-1]
+--
+--    λ> enumFromTo 'v' 'z'
+--    "vwxyz"
+--
+-- @TODO: Learn more about this.
+-- enumFromThenTo, looks like it lists the first and second argument, and
+-- then goes up to the third argument in steps of (second - first).
+--
+--    λ> enumFromThenTo 0 10 50
+--    [0,10,20,30,40,50]
+--
+--    λ> enumFromThenTo 1 10 50
+--    [1,10,19,28,37,46]
+--
+--    λ> enumFromThenTo 0 2 10
+--    [0,2,4,6,8,10]
+--
+--    λ> enumFromThenTo 0 5 15
+--    [0,5,10,15]
+--
+--    λ> enumFromThenTo 1 4 15
+--    [1,4,7,10,13]
+--
+--    λ> enumFromThenTo 'a' 'c' 'z'
+--    "acegikmoqsuwy"
+--
