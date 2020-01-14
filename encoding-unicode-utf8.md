@@ -21,6 +21,7 @@ Taking a look at `man ascii` is always helpful nonetheless. :)
 “           0x201c
 ”           0x201d
 🐧           0x0001f427 penguin
+•           0x2022
 ```
 
 ## Space
