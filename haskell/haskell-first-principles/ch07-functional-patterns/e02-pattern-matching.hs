@@ -11,8 +11,7 @@ isZero _ = False
 -- least specific.
 --
 
-
-isOne :: Integer -> Bool
+Isone :: Integer -> Bool
 isOne 1 = True
 --
 -- Oops. Forgot to handle the cases when the parameter is not 1.
@@ -23,5 +22,4 @@ isOne 1 = True
 --
 -- Use `:set -Wall' to catch the problem before runtime.
 --
-
 
