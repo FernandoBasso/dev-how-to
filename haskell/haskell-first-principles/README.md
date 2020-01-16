@@ -44,3 +44,21 @@ $ stack --resolver lts-12.10 ./install.hs data
 
 https://www.vacationlabs.com/haskell/environment-setup.html
 
+
+
+
+
+## Chat
+
+Results of some chat with people on #haskell-beginners and/or other online communities.
+
+
+
+User "shapr" on #haskell-beginners:
+
+https://github.com/shapr/fermatslastmargin/
+
+
+
+
+
