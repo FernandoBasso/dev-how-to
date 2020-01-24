@@ -1,0 +1,7 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-01-23T11:31:12-03:00
+
+====== Haskell From First Principles ======
+Created Thursday 23 January 2020
+

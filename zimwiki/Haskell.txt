@@ -1,0 +1,8 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-01-23T10:31:25-03:00
+
+====== Haskell ======
+Created Thursday 23 January 2020
+
+

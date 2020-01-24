@@ -1,0 +1,12 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-01-23T11:01:03-03:00
+
+====== Let and Where ======
+Created Thursday 23 January 2020
+
+
+@TODO
+[DATETIME: 2020-01-23 11:02] hffp book, p 57.
+
+“You will often see let and where used to introduce components of expressions, and they seem similar. It takes some practice to get used to the appropriate times to use each.  The contrast here is that let introduces an expression, so it can be used wherever you can have an expression, but where is a declaration and is bound to a surrounding syntactic construct.”

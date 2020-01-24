@@ -1,0 +1,29 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-01-24T16:31:35-03:00
+
+====== ch04 Basic Datatypes ======
+Created Friday 24 January 2020
+
+If '':info <SomeType>'' shows ''Unbounded'', it means that do ''minBound :: ThatType'' and ''maxBound :: ThatType'' to figure out their min and max bounds.
+
+'''
+λ> import GHC.Int
+λ> :info Int8
+...
+instance Bounded Int -- Defined in ‘GHC.Enum’
+...
+λ> minBound :: Int8
+-128
+λ> maxBound :: Int8
+127
+'''
+
+You might’ve noticed that the upper bounds of Word types is approximately double that of the same size Int types. That’s because the bit in Int values used to express negative numbers is now used to signify extra positive numbers.
+
+Five common Fractional types used in Haskell are Float, Double, Rational, Fixed, and Scientific.
+
+Try :info and see.
+
+
+:)

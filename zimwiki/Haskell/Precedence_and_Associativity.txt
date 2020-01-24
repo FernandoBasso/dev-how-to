@@ -1,6 +1,11 @@
-# Associativity and Precedence
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-01-23T10:33:54-03:00
 
-## Understanding `$'
+====== Precedence and Associativity ======
+Created Thursday 23 January 2020
+
+===== Understanding `$' =====
 
 @WORKING
 
@@ -17,7 +22,7 @@ And
 
 I can't clearly see how `f $ a = f a` is the same as `($) :: (a -> b) -> a -> b`.
 
-### Explanation
+==== Explanation ====
 
 Thanks to @dminuoso in #haskell-beginners for the wonderful explanation.
 
@@ -26,7 +31,6 @@ First, `($) :: (a -> b) -> a -> b` is the same as `($) :: (a -> b) -> (a -> b)`,
 The reason that it might seem pointless, is that in order to apply `f` to `x`, you don't need any operator to do that. You'd just write `f x`. So it should beg the question of why write `f $ x` in the first place, when you could have written `f x` instead.
 
 So, in `(2^) $ 2 + 2`, it will partially apply `2^`, sectioning it to  the right, which is the function `(a -> b`), and then, `($)` being  infixr will cause `2 + 2` to be evaluated before the final application  of the earlier partially applied function?
-
 
 
 The evaluation order is not specified here.  
@@ -55,42 +59,45 @@ e.g.
 
 
 
-## $ doesn't work
+===== When `$' doesn't work =====
 
 @WORKING
 
 Why do neither of these work?
 
-```ghci
+First case:
+'''
 λ> 2 * 2 $ ^ 2
 <interactive>:38:9: error: parse error on input ‘^’
-```
+'''
 
-```ghci
+Second case:
+'''
 λ> 2 * 2 ^ $ 2
 <interactive>:40:9: error:
-    parse error on input ‘$’
-    Perhaps you intended to use TemplateHaskell
-```
+	parse error on input ‘$’
+	Perhaps you intended to use TemplateHaskell
+'''
 
-```ghci
+Third case:
+'''
 λ> 2 * 2 $ (^2)
 <interactive>:39:1: error:
-    • Non type-variable argument in the constraint: Num ((a -> a) -> t)
-      (Use FlexibleContexts to permit this)
-    • When checking the inferred type
-        it :: forall a t. (Num a, Num ((a -> a) -> t)) => t
-```
+	* Non type-variable argument in the constraint: Num ((a -> a) -> t)
+	  (Use FlexibleContexts to permit this)
+	* When checking the inferred type
+		it :: forall a t. (Num a, Num ((a -> a) -> t)) => t
+'''
 
 `$` is `id`, but infixr 0.
 
-```ghci
+'''
 λ> f n = n + 1
 λ> f 1
 2
 λ> f $ 1
 2
-```
+'''
 
 This works:
 
@@ -105,7 +112,7 @@ This works:
 
 Note that `(2^)` is a function. It awaits the next argument, which is 2 in the first line, and 4 on the other two lines.
 
-## Don't try to apply a constant value to a function
+===== Don't try to apply a constant value to a function =====
 
 `(2 + 2) (*1)` is not `4 * 1`. Since `(*1)` is a function, a sectioned function, GHCi will try to apply 4 to `(*1)`, as if 4 was a function, which it is not, thus an error.
 
