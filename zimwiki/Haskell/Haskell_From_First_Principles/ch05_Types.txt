@@ -1,0 +1,213 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-01-27T08:16:04-03:00
+
+====== ch05 Types ======
+Created Monday 27 January 2020
+
+==== Types ====
+A data type declaration defines a type constructor and data constructors.
+
+Data constructors are values of a particular type and are also functions that let us create values of a particular type.
+
+In Haskell, you cannot create untyped data, so except for a sprinkling of syntactic sugar for things like numbers or functions, everything originates in a data constructor from some definition of a type.
+
+===== What are types for? =====
+Type systems in logic and mathematics have been designed to impose constraints that enforce correctness.
+
+The ‘Bool’ type has two inhabitants, ‘True’ and ‘False’. When a type ‘Bool’ is declared in type signature, the compiler will only accept one of those two values, and when one of those two values appear in the code, the compiler knows they are from the ‘Bool’ type.
+
+In Haskell, where //typing is static//, typechecking occurs //at compile time//.
+
+Statically typed languages allow otimizations because the compiler can predict certain things based on the type.
+
+
+===== How to read type signatures =====
+Can query types for functions, partially-applied functions, and values.
+
+‘:type 1’ displays typeclass information rather than information of a concrete type. The compiler doesn't know and doesn't need to infer a specific type until it is forced to do so.
+
+λ> :type 1
+1 :: Num p => p
+
+Explicitly tell the compiler the type:
+
+λ> n = 1 :: Double
+λ> :type n
+n :: Double
+
+Typeclasses are not types.
+
+λ> n = 1 :: Fractional
+...error...
+
+Must use concrete type of the ‘Fractional’ typeclass.
+
+λ> n = 1 :: Float
+λ> :type n
+n :: Float
+
+λ> :info Fractional
+class Num a => Fractional a where
+  (/) :: a -> a -> a
+  recip :: a -> a
+  fromRational :: Rational -> a
+  {-# MINIMAL fromRational, (recip | (/)) #-}
+		-- Defined in ‘GHC.Real’
+__instance Fractional Float__ -- Defined in ‘GHC.Float’
+__instance Fractional Double__ -- Defined in ‘GHC.Float’
+
+So, both ‘Float’ and ‘Double’ have instances of the ‘Fractional’ typeclass.
+
+==== Understanding the function type ====
+[DATETIME: Mon, 2020-01-27 11:04]
+
+The arrow ‘(->)’ is the type constructor for functions. It is a type constructorl like ‘Bool’, except ‘(->)’ takes arguments and has no data constructors.
+
+**REMEMBER**: parens in type signatures just imply grouping, not precedence.
+
+λ> :info Bool
+data Bool = False | True
+
+λ> :info (->)
+data (->) (a :: TYPE q) (b :: TYPE r)
+infixr 0 (->)
+
+λ> :info (,)
+data (,) a b = (,) a b
+
+Note how a tuple type constructor takes params (‘a’ and ‘b’ before the ‘=’), but the function type constructor does not take any params (‘=’ doesn't even show up in the function type constructor). The value that shows up at term level is the function. Functions are values.
+
+A function is a value/expression that it can be applied, and the structure of the type demonstrates this. The arrow is an infix operator that has two parameters and associates to the right (although function application is left associative)
+
+==== Typeclass-constrained type variables ====
+[DATETIME: Mon, 2020-01-27 11:16]
+
+λ> :type (+)
+(+) :: Num a => a -> a -> a
+
+λ> :type (/)
+(/) :: Fractional a => a -> a -> a
+
+‘(+)’ can add together ints, doubles, etc., so, GHCi gives the most possible generic polymorphic type possible instead of limiting the function to handle only ‘Int’ or only ‘Double’ for instance. No, we get a typeclass-constrained polymorphic type variable.
+
+Each type class offers a standard set of functions that can be used across several concrete types.
+
+So, if a variable is typeclass-constrained with ‘Num a’, we can get a list of concrete types that have an instance of ‘Num’:
+
+λ> :info Num
+λ> :info Fractional
+
+We say it’s constrained because we still don’t know the concrete type of a, but we do know it can only be one of the types that has the required type class instance.
+
+We can create a more specific/concrete type from a more polymorphic one, but not the other way arround:
+
+λ> n = 1
+λ> i = n :: Int
+λ> d = n :: Double
+
+λ> :type n
+n :: Num p => p
+
+λ> :type i
+i :: Int
+
+λ> :type d
+d :: Double
+
+λ> d + n
+2.0
+
+λ> d + i
+...error...
+
+The error is because ‘i’ is no longer polymorphic. After GHCi evaluates ‘d’ which is a ‘Double’, the ‘(+)’ function requiries that the other parameter is also a ‘Double’. In ‘d + n’ it works because ‘n’ is polymorphic ‘Num’ and can be inferred to be ‘Double’, but ‘i’ is ‘Int’, a concrete type, not a polymorphic type, so, it cannot be converted to ‘Double’ which is required to match the first argument ‘d’ and thus the error. In short, we can't do ‘d + i’ because they are not polymorphic and they concrete types are different so they have different definitions on how to implement addition.
+
+Multiple typeclass constraints
+
+One typeclass constraint for each variable:
+
+(Num a, Num b) => a -> b -> b
+
+Both constraints on the same variable ‘a’:
+
+(Ord a, Num a) => a -> a -> Ordering
+
+Nothing to the left of the typeclass arrow ‘=>’ shows up at the term level. The tuple of constraints _does_ represent a product, or conjunction of constraints.
+
+
+==== Question about associativity left and right ====
+[DATETIME: Mon, 2020-01-27 11:04]
+
+Thanks to #haskell-beginners@merijn (again) ☺
+
+THE ARROW ASSOCIATES TO THE RIGHT, BUT **APPLICATION** IS LEFT-ASSOCIATIVE.
+
+**REMEMBER**: parens in type signatures just imply grouping, not precedence.
+
+So "f x y z" == "(((f x) y) z)"
+
+But "a -> b -> c -> d" == "a -> (b -> (c -> d))"
+
+So applying a function to an 'a' returns a new function (consuming the remaining arguments)
+
+ME: "a -> (b -> (c -> d))" looks like it should apply like "f (x (y z)))".
+
+Consider this: If you apply 'f' to an 'a' then what's left?
+A function that still needs a 'b' and a 'c'
+But with "f (x (y z))" 'f' only ever gets one argument
+Which is "x (y z)"
+
+@TODO
+Does the right-associativeness of ‘(->)’ in the type signatures just mean the function will take on param at a time, from _left_ to right, providing the currying thing‽
+
+**REMEMBER**: parens in type signatures just imply grouping, not precedence.
+
+===== Currying =====
+[DATETIME: Mon, 2020-01-27 14:16]
+
+It looks like functions take multiple arguments in Haskell, but the truth is that we have a chain of nested functions: all functions in Haskell take one argument and return one result. When a function appear to take multiple functions, in truth, it takes one argument and returns another function that takes the next argument, and so on until all the arguments have been consumed and the final result is produced.
+
+Each arrow ‘->’ in a type signature represents one argument and one result, with the final type being the final result.
+
+data (->) a b
+
+In ‘(+) :: Num a => a -> a -> a’, the ‘a -> a -> a’ represent successive function applications.
+
+The way the type constructor for functions, (->), is defined makes currying the default in Haskell. This is because it is an infix operator and right associative. Because it associates to the right, types are implicitly parenthesized like so:
+
+f :: a -> a -> a
+
+is the same as 
+
+f :: a -> (a -> a)
+
+and
+
+map :: (a -> b) -> [a] -> [b]
+
+is the same as
+
+map :: (a -> b) -> ([a] -> [b])
+
+The association here, or grouping into parentheses, is not to control precedence or order of evaluation; it only serves to group the parameters into argument and result, since there can only be one argument and one result per arrow. Since all the arrows have the same precedence, the associativity does not change the precedence or order of evaluation.
+
+Explicit parenthesization, as when an input parameter is itself a function (such as in map, above), may be used to indicate order of evaluation, but the implicit associativity of the function type does not mean the inner or final set of parentheses, i.e., the result type, evaluates first. Application is evaluation; in other words, the only way to evaluate anything is by applying functions, and function application is left associative. So, the leftmost, or outermost, arguments will be evaluated first.
+
+==== Partial Application ====
+[DATETIME: Mon, 2020-01-27 17:04]
+
+add :: Integer -> Integer -> Integer
+add n m = n + m
+
+λ> add1 = add 1
+λ> :type add1
+add1 :: Integer -> Integer
+λ> add1 10
+11
+
+‘add’ takes _one_ argument and returns a function that takes _one_ argument which then returns the final result.
+
+
+
+===== The End =====

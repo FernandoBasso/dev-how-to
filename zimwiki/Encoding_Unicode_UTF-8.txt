@@ -1,0 +1,37 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-01-27T08:32:23-03:00
+
+====== Encoding Unicode UTF-8 ======
+Created Monday 27 January 2020
+
+
+===== List of useful unicode codepoints =====
+
+symbol        hex value
+‘   		2018
+’   		2019
+“   		201c
+”   		201d
+λ   		03bb
+✔                     2714
+✓                     2713
+✗                     2717
+💩             0001f4a9
+
+
+===== Alt, AltGr =====
+
+On Linux, Xfce4 at least, type AltGr+Shift v and b for ‘ and ’.
+
+https://superuser.com/questions/361184/xmodmap-six-characters-to-one-key-and-two-layouts
+
+https://superuser.com/questions/189869/xmodmap-six-characters-to-one-key
+
+Setting:
+
+$ xmodmap -e "keycode 38 = a A U201C U201D U2018 U2019"
+
+makes AltGr+a insert ‘ and AltGr+Shift+a insert ’.
+
+
