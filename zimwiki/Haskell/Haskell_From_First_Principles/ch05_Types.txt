@@ -408,8 +408,41 @@ f (1 :: Int) :: Int -> Int
 
 Now we gave the compiler a concrete type, so, it must infer the other ‘a’s to be of that same concrete type as well.
 
+===== Asserting types for declarations =====
 
+triple n = n * 3
 
+λ> :type triple
+triple :: Num a => a -> a
+
+Can't yet decide on a concrete type for ‘3’.
+
+triple n = n * 3 :: Integer
+
+λ> :type triple
+triple :: Integer -> Integer
+
+Note the type class constraint is gone, because ‘Integer’ implements ‘Num’, so that constraint is redundant.
+
+triple :: Integer -> Integer
+triple n = n * 3
+
+triple n = triplefy n
+  where triplefy :: Int -> Int
+		triplefy y = y * 3
+
+triple' n =
+  let triplefy :: Int -> Int
+	  triplefy y = y * 3
+  in triplefy n
+
+In both examples above, type information propagates from the ‘where’ and ‘let’ clauses to the ‘triple’ toplevel functions.
+
+Can't do this:
+
+f x y = x + y :: String
+
+‘(+)’ cannot be used to produce strings, not matter what, because ‘String’ does not implement the ‘Num’ typeclass.
 
 
 
