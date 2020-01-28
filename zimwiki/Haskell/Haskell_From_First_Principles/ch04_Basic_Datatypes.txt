@@ -19,7 +19,7 @@ instance Bounded Int -- Defined in ‘GHC.Enum’
 127
 '''
 
-You might’ve noticed that the upper bounds of Word types is approximately double that of the same size Int types. That’s because the bit in Int values used to express negative numbers is now used to signify extra positive numbers.
+The upper bounds of Word types is approximately double that of the same size Int types because the bit in Int values used to express negative numbers is now used to signify extra positive numbers.
 
 Five common Fractional types used in Haskell are Float, Double, Rational, Fixed, and Scientific.
 

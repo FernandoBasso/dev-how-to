@@ -208,6 +208,213 @@ add1 :: Integer -> Integer
 
 ‘add’ takes _one_ argument and returns a function that takes _one_ argument which then returns the final result.
 
+Partially applying subtraction and division functions is trickier because they are not is not associative and commutative by default ([[http://mathforum.org/library/drmath/view/72185.html|link]]).
+
+sub :: Integer -> Integer -> Integer
+sub dividend divisor = dividend - divisor
+
+λ> subFrom5 = sub 5
+λ> subFrom5 1
+4
+
+When we apply ‘sub’ to 5, 5 is the dividend. But we want to pass the amount to subtract as the first argument, so we can have functions like ‘sub1’ or ‘sub10’. For that we can use **sectioning**:
+
+sub1 :: Integer -> Integer
+sub1 = (subtract 1)
+
+λ> sub1 1
+0
+λ> sub1 (-1)
+-2
+
+over2 :: Double -> Double
+over2 = (/ 2)
+
+λ> over2 1
+0.5
+
+__NOTE__ that we do the sectioning placing the operator function to the left, so for the subtraction, the argument already applied is the divisor, and for the divistion/fraction the argument already applied is the denominator. It is a way of forcing partially-applying the second argument first.
+
+==== Manual currying and uncurrying ====
+To uncurry we unest two functions and replace them with a tuple of two values.
+
+Curried and uncurried ‘(+)’:
+
+(+) :: Num a => a -> a -> a
+(+) :: Num a => (a, a) -> a
+
+* Uncurried functions: One function, many arguments.
+* Curried functions: Many functions, one argument apiece.
+
+==== Currying and uncurrying existing functions ====
+λ> curry f a b = f (a, b)
+λ> :t curry
+curry :: ((a, b) -> t) -> a -> b -> t
+
+In ‘((a, b) -> t)’, the outer parens mean a function that returns ‘t’. The function takes two params ‘a’ and ‘b’. The inner set of params with the tuple ‘(a, b)’ mean the fuction really takes two params. It is not curried. It requires both params at once.
+
+‘f’ takes ‘a’ and ‘b’. The return type is implicit. A function must return something, in this case, some type ‘t’.
+
+curry takes a function that expects two “curried params” and turns it into a function that must be applied to a tuple of those two params, effectively making it require the two params at once, in one go.
+
+λ> uncurry f (a, b) = f a b
+λ> :type uncurry
+uncurry :: (t1 -> t2 -> t3) -> (t1, t2) -> t3
+
+A function ‘f’ that requires two params at once (because of the tuple ‘(a, b)’ and produces a function that accepts one param at a time.
+
+==== Sectioning ====
+The term sectioning specifically refers to the partial application of infix operators, which has a special syntax that allows you to choose whether you’re partially applying the operator to the first or the second argument.
+
+The side of the operator makes no difference when the function is commutative:
+
+λ> addX = (+ 1)
+λ> addY = (1 +)
+λ> addX 1
+2
+λ> addY 1
+2
+
+But it does make a difference when the function is not commutative:
+
+λ> overTwo = (/ 2)
+λ> twoOver = (2 /)
+λ> overTwo 1
+0.5
+λ> twoOver 1
+2.0
+
+λ> minusOne = (subtract 1)
+λ> oneMinus = (1 -)
+λ> minusOne 1
+0
+λ> oneMinus 1
+0
+
+‘(1 -)’ could also be ‘(1 `subtract`)’.
+
+λ> powerTwo = (^ 2)
+λ> twoPower = (2 ^)
+λ> powerTwo 3
+9
+λ> twoPower 3
+8
+
+λ> hello = ("hello " ++)
+λ> world = (++ " world")
+λ> hello "world"
+"hello world"
+λ> world "hello"
+"hello world"
+
+λ> contains3 = (3 `elem`)
+λ> contains3 [1, 2, 4]
+False
+λ> contains3 [1, 2, 3, 4]
+True
+
+===== Polymorphism =====
+Polymorph is a word of relatively recent provenance. It was invented in the early 19th century from the Greek words poly for “many” and morph for “form.” The -ic suffix in polymorphic means “made of.” So, “polymorphic” means “made of many forms.” In programming, this is understood to be in contrast to monomorphic, “made of one form.”
+
+Broadly speaking, type signatures may have three kinds of types:
+* concrete (Int, Double, etc.).
+* constrained polymorphic (Num a, Ord b, etc.).
+* parametrically polymorphic (a, b, etc.).
+
+Two categories of polymorphism:
+* parametric polymorphism (variables, fully polymorphic).
+* constrained polymorphism (type class, ad-hoc polymorphism). Implemented with type classes.
+
+id :: a -> a
+
+Maximally polymorphic signature for ‘id’. Any type is allowed.
+
+By default, type variables are resolved at the left-most part of the type signature and are fixed once sufficient information to bind them to a concrete type is available. That is, once an ‘a’ is decided upon a concrete type, say, ‘Integer’, all other references to ‘a’ will be ‘Integer’ as well.
+
+We do not know we can add ‘a’ and ‘a’ together, but we know we can add ‘Num a’ and ‘Num a’ together.
+
+Methods/functions are implemented through type classes. Since ‘a’ bears no typeclass information, there is no function we can apply to ‘a’. We can simply just return it.
+
+A type ‘Num a’ implements only the functions in the ‘Num’ typeclass, but an ‘Integer’, for instance, implements functions both from ‘Num’ and ‘Integral’ type classes, due to the additive nature of type class inheritance. The more concrete a type is, the less flexibility on the type, but the more operations can be performed on it, and vice-versa.
+
+If something has an instance of Num but not an instance of Integral, it can’t implement the methods of the Integral type class. A subclass cannot override the methods of its superclass.
+
+A function is polymorphic when its type signature has variables that can represent more than one type. That is, its parameters are polymorphic. Parametric polymorphism refers to fully polymorphic (unconstrained by a type class) parameters. Parametricity is the property we get from having parametric polymorphism. Parametricity means that the behavior of a function with respect to the types of its (parametrically polymorphic) arguments is uniform. The behavior cannot change just because it was applied to an argument of a different type.
+
+==== Polymorphic constants ====
+λ> :type (-10)
+(-10) :: Num a => a
+λ> :typ 6.3
+6.3 :: Fractional p => p
+λ> :type (-10) + 6.3
+(-10) + 6.3 :: Fractional a => a
+
+Doesn't work:
+
+λ> 6 / length [1, 2]
+
+‘/’ works on Fractional, but ‘length’ returns Int. Can't convert from a more specific type to a more generic one. ‘length’ isn't polymorphic enough. ‘Fractional’ doesn't include the type ‘Int’.
+
+λ> 6 / fromIntegral (length [1, 2])
+3.0
+
+==== Question about fromIntegral ====
+
+https://hoogle.haskell.org and search for ‘fromIntegral’ ([[https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:fromIntegral|link]]). It is in Prelude.
+
+‘:i Prelude.fromIntegral’ says "defined in GHC.Real", but ‘:i Real’ does not show ‘fromIntegral’.
+
+GHC.Real is a module, but with :i Real you're asking about the typeclass called Real. The fully qualified name of the typeclass would be GHC.Real.Real.
+
+‘:i GHC.Real.Real’ doesn't show it either.
+
+well, of course not! that only shows the methods which actually *belong* to Real
+
+`:browse GHC.Real` should show it
+The point is that GHC.Real is *different* from GHC.Real.Real, so while the first one (i.e. the module) contains it, the second (the class) does not
+
+yes, ':browse ModuleNameHere' shows everything exported by that module
+
+===== Type Inference =====
+Haskell’s type inference is built on an extended version of the Damas-Hindley-Milner type system.
+
+Haskell will infer the most generally applicable (polymorphic) type that is still correct.
+
+λ> greet s = "Hey " ++ s
+λ> :type greet
+greet :: [Char] -> [Char]
+
+Because GHCi knows ‘++’ and sees it is being used with a list of ‘Char’, it knows ‘s’ can only be ‘Char’.
+
+But here we are back to a polymorphic type signature:
+
+λ> greet x y = x ++ y
+λ> :type greet
+greet :: [a] -> [a] -> [a]
+
+GHCi knows ‘++’ concatenates lists, but it has no idea about ‘x’ and ‘y’, so it infers the parametrically polymorphic types.
+
+
+f :: Num a => a -> a -> a
+f x y = x + y + 1
+
+λ> :t f 1
+f 1 :: Num a => a -> a
+
+Still ‘Num a’ because there is nothing forcing GHCi to infer that 1 or x or y should have a more specific, concrete type.
+
+λ> :t f (1 :: Int)
+f (1 :: Int) :: Int -> Int
+
+Now we gave the compiler a concrete type, so, it must infer the other ‘a’s to be of that same concrete type as well.
+
+
+
+
+
+
+
+
 
 
 ===== The End =====
