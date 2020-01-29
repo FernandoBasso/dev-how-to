@@ -444,6 +444,158 @@ f x y = x + y :: String
 
 ‘(+)’ cannot be used to produce strings, not matter what, because ‘String’ does not implement the ‘Num’ typeclass.
 
+===== Questions =====
+
+==== Polymorphism ====
+Q: Polymorphism refers to type variables that...
+
+A:
+...may refer to more than one concrete type.
+
+==== Polymorphism ====
+Q: In Haskell, polymorphism usually manifests as...
+
+A:
+...parametric or ad-hoc (typeclass-constrained) polymorphism.
+
+==== Type Inference ====
+Q: What is type inference?
+
+A:
+It is a faculty which enables a programming language to infer _principal types_ from terms without the need to write them explicitly.
+
+==== Principal Type ====
+Q: In Haskell, what is the principal type?
+
+A:
+It is the most generic type that still typechecks.
+
+==== Principal Type ====
+Q:
+
+a
+Num a => a
+Int
+
+What is the principal type?
+
+A:
+It is the parametrically polymorphic ‘a’ because it can be both ‘Num a’ and ‘Int’.
+
+==== Principal Type ====
+Q:
+
+(Ord a, Num a) => a
+Integer
+
+What is the principal type?
+
+A:
+It is ‘(Ord a, Num a) => a’ because ‘Integer’ implements those other two typeclasses.
+
+==== Type Variable ====
+Q: A type variable is a way to refer to...
+
+A:
+...an unspecified type or set of types in type signatures.
+
+==== Kind of polymorphism variable ====
+Q:
+
+id :: a -> a
+
+(+) :: Num a => a -> a -> a
+
+Wha tare the types of polymorphism used in each of the two functions?
+
+A:
+* ‘id’ uses parametrically polymorphic type variables. ‘a’ could be any type.
+* ‘(+)’ uses typeclass-constrained (ad-hoc) type variables. ‘a’ must be of a concrete type that has an instance of the ‘Num’ typeclass. 
+
+==== Typeclass ====
+Q: What is a typeclass?
+
+A: It is a means of expressing faculties or interfaces that are common to multiple (concrete) datatypes so that common operations can be reused across those datatypes without re-implementing those operations for each concrete type.
+
+==== Parametricity ====
+Q: What is parametricity?
+
+A: It is a property that states that the behaviour of a function will be  uniform (the same) accross all concrete applications of that function regardless of the type of the data being consumed by that function.
+
+==== More questions ====
+
+--------------------
+Q: What property guarantees that the function ‘id :: a -> a’ will work the same way no matter what the type of values the function is applied to.
+
+A: Parametricity.
+
+--------------------
+Q: What does parametricity mean here?
+
+const :: a -> b -> a
+
+A: It means ‘const’ can do nothing but return the first value.
+
+--------------------
+Q: What does parametricity mean here?
+
+f :: a -> a -> a
+
+A: It means ‘f’ can return either the first or second value, and nothing else. No matter what type the parameters have, the function will always return the first or the second parameter. It will not change behaviour depending on the type of the values passed.
+
+--------------------
+Q: What does this function do?
+
+f :: b -> String
+
+A:
+It totally ignores the argument ‘b’ and returns a string, certainly hardcoded. It requires the throw-away argument ‘b’ for no reason.
+
+--------------------
+Q: What does this function do? What possible values does it return? What about the length?
+
+f :: a -> [a]
+
+A:
+The function can either return an empty list ‘[]’ or a list with the single element that was passed. Nothing else. The length will be either 0 or 1.
+
+--------------------
+Q: Ad-hoc polymorphism (sometimes called “constrained polymorphism”) is polymorphism that applies one or more type class constraints to what would’ve otherwise been a...
+
+A:
+...parametrically polymorphic type variable.
+
+--------------------
+Q: Parametrically polymorphism represents uniformity of behavior accross all concrete applications. Ad-hoc polymorphism...
+
+A:
+...allows the function to have different behaviour for each instance. That is ‘(+)’ from ‘Num’, for instance (no pun intended), will perform addition  differently for ‘Double’ than for ‘Int’, etc.
+
+--------------------
+Q: What is a module?
+
+A:
+It is a unit of organization that collects together declarations of values, functions, datatypes, type classes and class instances.
+
+--------------------
+Q: What is the use of ‘import’?
+
+A:
+To import declarations from a module.
+
+--------------------
+Q:
+import Data.Aeson (encode)
+import Database.Persist
+
+What is being imported from the module ‘Data.Aeson’? And from ‘Database.Persist’?
+
+A:
+Just the function ‘encode’ is being imported from ‘Data.Aeson’. As for ‘Database.Persist’, we are importing everything it makes available.
+
+
+
+
 
 
 

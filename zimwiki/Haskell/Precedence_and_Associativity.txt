@@ -5,6 +5,8 @@ Creation-Date: 2020-01-23T10:33:54-03:00
 ====== Precedence and Associativity ======
 Created Thursday 23 January 2020
 
+https://rosettacode.org/wiki/Operator_precedence#Haskell
+
 ===== Understanding `$' =====
 
 @WORKING
@@ -66,12 +68,14 @@ e.g.
 Why do neither of these work?
 
 First case:
+
 '''
 λ> 2 * 2 $ ^ 2
 <interactive>:38:9: error: parse error on input ‘^’
 '''
 
 Second case:
+
 '''
 λ> 2 * 2 ^ $ 2
 <interactive>:40:9: error:
@@ -80,6 +84,7 @@ Second case:
 '''
 
 Third case:
+
 '''
 λ> 2 * 2 $ (^2)
 <interactive>:39:1: error:
@@ -99,16 +104,18 @@ Third case:
 2
 '''
 
+‘$’ takes a function on the left side. ‘2 ^ 2’ produces a value which is not a function. Therefore, ‘2 ^ 2 $ ^ 2’ is is like trying to do ‘4 $ ...’ and 4 is not a function.
+
 This works:
 
-```ghci
+'''
 λ> (2^) 2 + 2
 6
 λ> (2^) (2 + 2)
 16
 λ> (2^) $ 2 + 2
 16
-```
+'''
 
 Note that `(2^)` is a function. It awaits the next argument, which is 2 in the first line, and 4 on the other two lines.
 

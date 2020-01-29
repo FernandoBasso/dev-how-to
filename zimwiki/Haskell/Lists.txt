@@ -1,0 +1,10 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-01-29T09:11:51-03:00
+
+====== Lists ======
+Created Wednesday 29 January 2020
+
+==== cons ====
+λ> (:) 'k' $ (:) 'x' []
+"kx"
