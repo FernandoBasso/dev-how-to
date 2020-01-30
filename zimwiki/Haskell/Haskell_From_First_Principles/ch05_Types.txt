@@ -480,7 +480,7 @@ Int
 What is the principal type?
 
 A:
-It is the parametrically polymorphic ‘a’ because it can be both ‘Num a’ and ‘Int’.
+It is the parametrically polymorphic ‘a’. ‘a’ in the first line is the same type of ‘a’ on the second line. Guaranteed. Once a type variable stands for a type, it is the same throughout all the uses of the type variable. ‘Int’ has an instance of ‘Num’. AOK.
 
 ==== Principal Type ====
 Q:
@@ -491,13 +491,22 @@ Integer
 What is the principal type?
 
 A:
-It is ‘(Ord a, Num a) => a’ because ‘Integer’ implements those other two typeclasses.
+It is ‘(Ord a, Num a) => a’ because ‘Integer’ implements those two typeclasses.
 
 ==== Type Variable ====
 Q: A type variable is a way to refer to...
 
 A:
 ...an unspecified type or set of types in type signatures.
+
+Unspecified. ‘a’ can be of _any_ type:
+
+f :: a -> a
+
+Set of types. Can be one of the concrete types that have an instance of ‘Num’:
+
+f :: Num a => a -> a -> a
+
 
 ==== Kind of polymorphism variable ====
 Q:
@@ -506,7 +515,7 @@ id :: a -> a
 
 (+) :: Num a => a -> a -> a
 
-Wha tare the types of polymorphism used in each of the two functions?
+Whar tare the types of polymorphism used in each of the two functions?
 
 A:
 * ‘id’ uses parametrically polymorphic type variables. ‘a’ could be any type.
@@ -520,28 +529,32 @@ A: It is a means of expressing faculties or interfaces that are common to multip
 ==== Parametricity ====
 Q: What is parametricity?
 
-A: It is a property that states that the behaviour of a function will be  uniform (the same) accross all concrete applications of that function regardless of the type of the data being consumed by that function.
+A:
+It is a property that states that the behaviour of a function will be  uniform (the same) accross all concrete applications of that function regardless of the type of the data being consumed by that function.
 
 ==== More questions ====
 
 --------------------
 Q: What property guarantees that the function ‘id :: a -> a’ will work the same way no matter what the type of values the function is applied to.
 
-A: Parametricity.
+A:
+Parametricity.
 
 --------------------
 Q: What does parametricity mean here?
 
 const :: a -> b -> a
 
-A: It means ‘const’ can do nothing but return the first value.
+A:
+It means ‘const’ can do nothing but to return the first value.
 
 --------------------
 Q: What does parametricity mean here?
 
 f :: a -> a -> a
 
-A: It means ‘f’ can return either the first or second value, and nothing else. No matter what type the parameters have, the function will always return the first or the second parameter. It will not change behaviour depending on the type of the values passed.
+A:
+It means ‘f’ can return either the first or second value, and nothing else. No matter what type the parameters have, the function will always return the first or the second parameter. It will not change behaviour depending on the type of the values passed.
 
 --------------------
 Q: What does this function do?
@@ -552,18 +565,44 @@ A:
 It totally ignores the argument ‘b’ and returns a string, certainly hardcoded. It requires the throw-away argument ‘b’ for no reason.
 
 --------------------
-Q: What does this function do? What possible values does it return? What about the length?
+Q: What does this function do? What possible values does it return? What about the length of the resuling list?
 
 f :: a -> [a]
 
 A:
 The function can either return an empty list ‘[]’ or a list with the single element that was passed. Nothing else. The length will be either 0 or 1.
 
+If it was implemented like this, it would its return value (a list) would have length 0.
+
+'''
+f :: a -> [a]
+f x = []
+'''
+
+'''
+λ> length $ f 'x'
+0
+'''
+
 --------------------
 Q: Ad-hoc polymorphism (sometimes called “constrained polymorphism”) is polymorphism that applies one or more type class constraints to what would’ve otherwise been a...
 
 A:
 ...parametrically polymorphic type variable.
+
+
+--------------------
+Q:
+
+'''
+f :: a -> a -> a
+f x y = x + y
+'''
+
+Is the code above OK?
+
+A:
+No, because we used parametrically polymorphic type variables, we are explicitly telling GHCi that ‘a’ could be _any_ type. We can't use ‘(+)’ with unspecified types because ‘(+)’ only works for types that have an instance of ‘Num’.
 
 --------------------
 Q: Parametrically polymorphism represents uniformity of behavior accross all concrete applications. Ad-hoc polymorphism...
