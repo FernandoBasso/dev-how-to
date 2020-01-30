@@ -7,6 +7,8 @@ Created Thursday 23 January 2020
 
 https://rosettacode.org/wiki/Operator_precedence#Haskell
 
+[[https://gist.github.com/thewoolleyman/cb89b77ecc45038cc36c15f0573d7107|thewoolleyman gist on precedence and associativity]]
+
 ===== Understanding `$' =====
 
 @WORKING

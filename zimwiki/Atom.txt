@@ -1,0 +1,17 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-01-30T15:35:26-03:00
+
+====== Atom ======
+Created Thursday 30 January 2020
+
+===== Disable Italic in Comments =====
+
+'''
+.syntax--comment.syntax--line {
+  font-style: normal !important;
+}
+'''
+
+
+

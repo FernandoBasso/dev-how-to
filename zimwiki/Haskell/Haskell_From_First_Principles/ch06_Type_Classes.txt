@@ -5,3 +5,225 @@ Creation-Date: 2020-01-29T14:49:01-03:00
 ====== ch06 Type Classes ======
 Created Wednesday 29 January 2020
 
+===== What are type classes? =====
+
+Type classes and types are, in some sense, opposites.
+
+* Declaration of a type: how a type is created.
+* Declaration of a ype class: how a set of types are consumed/used in computations.
+
+Type classes are like interfaces in other languages. Type classes are a means of ad-hoc (constrained) polymorphism because code is dispatched by type.
+
+No need different ‘==’ and ‘/=’ functions for each type of data. As long as the type implements ‘Eq’, we can use those functions with that type.
+
+===== Back to Bool =====
+
+‘:info Bool’ displays the data declaration for ‘Bool’ and which
+type classes it already has instances of.
+
+'''
+λ> :info Bool
+data Bool = False | True
+instance Eq Bool
+instance Ord Bool
+instance Show Bool
+instance Read Bool
+instance Enum Bool
+instance Bounded Bool
+'''
+
+
+Q:
+Is ‘Bool’ a type or a type class‽
+
+A:
+‘Bool’ is a type, and it has instances of ‘Eq’, ‘Ord’, ‘Show’, ‘Bounded’, etc.
+
+The type class instances that ‘Bool’ implements are unique specifications of how ‘Bool’ makes use of the methods from each of those type classes.
+
+'''
+λ> minBound
+()
+λ> maxBound
+()
+λ> minBound :: Bool
+False
+λ> maxBound :: Bool
+True
+λ> minBound :: Integer
+-9223372036854775808
+λ> maxBound :: Int
+9223372036854775807
+'''
+
+--------------------
+Q: Why ‘minBound :: Integer’ throws an error?
+
+A:
+Because the type ‘Integer’ does not have an instance of ‘Bounded’. See with ‘:info Integer’.
+
+--------------------
+
+Type classes have a hierarchy of sorts. All Fractional numbers implement the ‘Num’ type class, but not all members of ‘Num’ are ‘Fractional’. All members of ‘Ord’ must be members of ‘Eq’, and all members of ‘Enum’ must be members of ‘Ord‘. To be able to put things into an enumerated list, they must be orderable; to be orderable, they must be able to be compared for equality.
+
+===== Eq =====
+
+Not all objects can be compared for equality, functions being one such case.
+
+'''
+λ> :info Eq
+class Eq a where
+  (==) :: a -> a -> Bool
+  (/=) :: a -> a -> Bool
+  {-# MINIMAL (==) | (/=) #-}
+'''
+
+‘class Eq’ here means a “type class”.
+
+--------------------
+Q:
+
+'''
+λ> (==) 'z'
+'''
+
+Why partially-applying ‘==’ above produces an error?
+
+A:
+Because it produces a function, and functions do not implement ‘Show’. It works if we store the result in a variable.
+
+--------------------
+
+The type of a type variable is usually set by the left-most argument. In ‘x == y’, if ‘x’ is an ‘Int’, ‘y’ must be an ‘Int’ too.
+
+'''
+λ> :t (==)
+(==) :: Eq a => a -> a -> Bool
+λ> :t (==) 'z'
+(==) 'z' :: Char -> Bool
+'''
+
+So, ‘==’ is type-class-constrained by ‘Eq’. When we partially-apply it to a concrete type, the type class constraint ‘Eq’ is dropped because it is redundant, since ‘Char’ has an instance of it.
+
+'''
+λ> :info (,)
+data (,) a b = (,) a b
+instance (Eq a, Eq b) => Eq (a, b)
+'''
+
+The equality of two tuples depend on the equality of their constituent values! Note the ‘Eq a’ and ‘Eq b’ stuff! Tuples can be compared if their individual values can be compared.
+
+--------------------
+Q: What are some type classes one can magically derive? What does “deriving” mean‽
+
+A:
+We can magically derive ‘Eq’, ‘Ord’, ‘Enum’, ‘Bounded’, ‘Read’, and ‘Show’.
+
+“Deriving” means one doesn't have to manually write instances of those type casses for each new datatype one creates.
+
+--------------------
+
+===== Writting type class instances =====
+
+Data types vs type classes.
+
+Data types are types. Type classes are like interfaces. Types have instances of type classes.
+
+In the [[http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Eq.html|Eq docs]], it reads: “Minimal complete definition: either ‘==’ or ‘/=’.” It means we don't need to define both because one can be defined as a negation of the other.
+
+Data constructors and type constructors often have the same name.
+
+The keyword ‘instance’ begins a declaration of a type class instance.
+
+'''
+data Trivial = Foo | Bar
+
+instance Eq Trivial where
+  Foo == Foo = True
+  Bar == Bar = True
+  _   == _   = False
+'''
+
+‘Trivial’ is the type, and we are also implementing an instance of ‘Eq’ type class for the ‘Trivial’ type. We can now say that ‘Trival’ has an instance of ‘Eq’.
+
+You can’t have two type class instances for the same type. Type class instances are unique for a given type.
+
+==== Partial Functions ====
+
+PARTIAL FUNCTION: a function that does not handle all possible inputs.
+
+'''
+data Thing = Foo | Bar
+  deriving Show
+
+instance Eq Thing where
+  (==) Foo Foo = True
+'''
+
+'''
+λ> :set -Wall
+λ> :load dev.hs
+[1 of 1] Compiling Main             ( dev.hs, interpreted )
+
+dev.hs:7:3: warning: [-Wincomplete-patterns]
+    Pattern match(es) are non-exhaustive
+    In an equation for ‘==’:
+        Patterns not matched:
+            Foo Bar
+            Bar _
+  |
+7 |   (==) Foo Foo = True
+  |   ^^^^^^^^^^^^^^^^^^^
+Ok, one module loaded.
+λ> Foo == Foo
+True
+λ> Bar == Foo
+*** Exception: dev.hs:7:3-21: Non-exhaustive patterns in function ==
+
+'''
+The problem is that we did not handle ‘Bar’ in the ‘Eq’ instance for ‘Thing’. Fix:
+
+'''
+instance Eq Thing where
+  (==) Foo Foo = True
+  (==) Bar Bar = True
+  (==) _   _   = False
+'''
+
+Another example of a partial function:
+
+'''
+f :: Int -> Bool
+f 1 = False
+'''
+
+What about when the input to the function isn't 1? Could do it like this, prehaps:
+
+'''
+f :: Int -> Bool
+f 0 = True
+f _ = False
+'''
+
+
+'''
+instance Eq (Identity a) where
+  (==) (Identity v) (Identity v') = v == v'
+'''
+
+Impossible to be sure that ‘a’ has an instance of ‘Eq’. GHC errors out. We can type-class-constrain ‘a’, though.
+
+'''
+instance Eq a => Eq (Identity a) where
+  (==) (Identity v) (Identity v') = v == v'
+'''
+
+
+
+
+
+
+===== The End =====
+
+Really! the end!
+
