@@ -35,3 +35,5 @@ $ xmodmap -e "keycode 38 = a A U201C U201D U2018 U2019"
 makes AltGr+a insert ‘ and AltGr+Shift+a insert ’.
 
 
+===== Links =====
+https://www.honeybadger.io/blog/the-rubyist-guide-to-unicode-utf8/
