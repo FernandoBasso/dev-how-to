@@ -15,3 +15,7 @@ Created Thursday 30 January 2020
 
 
 
+===== Stop Cursor Blinking =====
+
+It really works! One single line of CSS!
+https://atom.io/packages/stop-cursor-blinking

@@ -10,7 +10,7 @@ Created Wednesday 29 January 2020
 Type classes and types are, in some sense, opposites.
 
 * Declaration of a type: how a type is created.
-* Declaration of a ype class: how a set of types are consumed/used in computations.
+* Declaration of a type class: how a set of types are consumed/used in computations.
 
 Type classes are like interfaces in other languages. Type classes are a means of ad-hoc (constrained) polymorphism because code is dispatched by type.
 
@@ -37,7 +37,7 @@ Q:
 Is ‘Bool’ a type or a type class‽
 
 A:
-‘Bool’ is a type, and it has instances of ‘Eq’, ‘Ord’, ‘Show’, ‘Bounded’, etc.
+‘Bool’ is a type, and it has instances of type classes like ‘Eq’, ‘Ord’, ‘Show’, ‘Bounded’, etc.
 
 The type class instances that ‘Bool’ implements are unique specifications of how ‘Bool’ makes use of the methods from each of those type classes.
 
@@ -90,7 +90,10 @@ Q:
 Why partially-applying ‘==’ above produces an error?
 
 A:
-Because it produces a function, and functions do not implement ‘Show’. It works if we store the result in a variable.
+Because it produces a function, and functions do not implement ‘Show’. It works if we store the result in a variable. It is not partially-applying it that produces an error, but trying to print the resulting function.
+
+NOTE: It works on Emacs haskell-mode REPL. It must be doing something funny behind the scenes, like merijn@haskell-beginners infered (pun intended), “Seems like the error handling/printing logic is overridden.”
+
 
 --------------------
 
@@ -219,7 +222,103 @@ instance Eq a => Eq (Identity a) where
 '''
 
 
+===== Num =====
 
+'''
+λ> :info Integral
+class (Real a, Enum a) => Integral a where
+  quot :: a -> a -> a
+  rem :: a -> a -> a
+  div :: a -> a -> a
+  mod :: a -> a -> a
+  quotRem :: a -> a -> (a, a)
+  divMod :: a -> a -> (a, a)
+  toInteger :: a -> Integer
+  {-# MINIMAL quotRem, toInteger #-}
+        -- Defined in ‘GHC.Real’
+instance Integral Word -- Defined in ‘GHC.Real’
+instance Integral Integer -- Defined in ‘GHC.Real’
+instance Integral Int -- Defined in ‘GHC.Real’
+'''
+
+Any type that has an instance of ‘Integral’ must also have an instance of ‘Real’ and ‘Enum’, and ‘Real’ itself requires an instance of ‘Num’. The inheritance thing in Haskell is **only** __additive__. That is, ‘Real’ cannot override the methods inherited from ‘Num’ nor can ‘Integral’ override the functions inherited from ‘Real’ and/or ‘Enum’. Therefore Haskell avoids the ambiguity problems — the so-called “deadly diamond of death” — caused by multiple inheritance in some programming languages.
+
+
+===== Type-defaulting type classes =====
+
+**NOTE**: type defaulting produces warnings with ‘-Wall’.
+
+When you have a type class-constrained (ad hoc), polymorphic value and need to evaluate it, the polymorphism must be resolved to a specific concrete type. The concrete type must have an instance for all the required type class instances (that is, if it is required to implement ‘Num’ and ‘Fractional’, then the concrete type can’t be an ‘Int’).
+
+‘1 / 2’ produces 0.5 and defaults to ‘Double’. We can explicitly make it another, non-default, type:
+
+'''
+λ> 1 / 2 :: Float
+0.5
+λ> 1 / 2 :: Double
+0.5
+λ> 1 / 2 :: Rational
+1 % 2
+'''
+
+The Haskell Report specifies the defaults:
+
+'''
+default Num Integer
+default Real Integer
+default Enum Integer
+default Integral Integer
+default Fractional Double
+default RealFrac Double
+default Floating Double
+default RealFloat Double
+'''
+
+So, when a concrete type is not explicitly specified, these defaults are used.
+
+Functions from ‘Num’ get specialized when applied to more monomorphic, concrete types:
+
+'''
+λ> :type (+) (1 :: Int)
+(+) (1 :: Int) :: Int -> Int
+'''
+
+Or we can create specialized, monomorphic versions:
+
+'''
+λ> add = (+) :: Word -> Word -> Word
+λ> :t add
+add :: Word -> Word -> Word
+λ> add 0 1
+1
+λ> add 0 (-1)
+
+<interactive>:40:9: warning: [-Woverflowed-literals]
+    Literal -1 is out of the Word range 0..18446744073709551615
+18446744073709551615
+'''
+
+But we CANNOT make more generic, polymorphic versions from more monomorphic, specific ones. Types can be made more specific, but they cannot be made more general or polymorphic.
+
+===== Ord =====
+
+'''
+λ> :info Ord
+λ> :info Ordering
+λ> :info compare
+'''
+
+‘<’, ‘>’, ‘>=’, and ‘<=’ return ‘Bool’. ‘compare’ returns ‘Ordering’.
+
+==== Enum ====
+
+‘Enum’ type class covers types that are enumerable, that is, their values have known predecessors and successors.
+
+‘enumFromThenTo’ starts from arg1, then in steps of ‘arg2 - arg1’, up to ‘arg3’.
+
+==== Show ====
+
+GHCi uses ‘Show’ to generate String values it can print in the terminal. ‘Show’ is not a serialization format. Serialization is how data is rendered to a textual or binary format for persistence or communicating with other computers over a network. An example of persistence would be saving data to a file on disk. ‘Show’ is not suitable for any of these purposes; it’s expressly for human readability.
 
 
 

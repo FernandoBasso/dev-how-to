@@ -37,3 +37,7 @@ makes AltGr+a insert ‘ and AltGr+Shift+a insert ’.
 
 ===== Links =====
 https://www.honeybadger.io/blog/the-rubyist-guide-to-unicode-utf8/
+
+
+
+
