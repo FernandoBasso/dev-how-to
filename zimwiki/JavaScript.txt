@@ -5,3 +5,10 @@ Creation-Date: 2019-12-24T15:53:35-03:00
 ====== JavaScript ======
 Created Tuesday 24 December 2019
 
+===== Testing =====
+https://testing-library.com/docs/learning
+
+https://egghead.io/lessons/react-understanding-how-react-testing-library-works-with-kent-c-dodds
+
+Test Driven Development with react-testing-library - Kent C. Dodds
+https://www.youtube.com/watch?v=kCR3JAR7CHE&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u

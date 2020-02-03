@@ -320,6 +320,102 @@ But we CANNOT make more generic, polymorphic versions from more monomorphic, spe
 
 GHCi uses ‘Show’ to generate String values it can print in the terminal. ‘Show’ is not a serialization format. Serialization is how data is rendered to a textual or binary format for persistence or communicating with other computers over a network. An example of persistence would be saving data to a file on disk. ‘Show’ is not suitable for any of these purposes; it’s expressly for human readability.
 
+Haskell manages effects by separating effectful computations from pure computations in ways that preserve the predictability and safety of function evaluation. Importantly, effect-bearing computations themselves become more composable and easier to reason about.
+
+'''
+λ> :type print
+print :: Show a => a -> IO ()
+'''
+
+That is, ‘print’ takes an ‘a’ and returns an ‘IO’ action tha returns a value of type ‘()’.
+
+‘main’ only produces side effects, that is why its type is
+
+'''
+main :: IO ()
+'''
+
+The ‘()’ denotes an empty tuple, which we refer to as unit. Unit is a value and also a type that has only this one inhabitant, which essentially represents nothing.
+
+===== Read =====
+
+While ‘Show’ takes things and turn them into human-readable strings, ‘Read’ takes strings and make them into things.
+
+'''
+λ> read "1984" :: Integer
+1984
+λ> read "xyz" :: Integer
+*** Exception: Prelude.read: no parse
+'''
+
+A FUCKING RUNTIME ERROR! ‘read’ is a partial function. It doesn't return a proper value as a result for all possible inputs.
+
+
+==== Instances are dispatched by type ====
+
+Type classes are dispatched by type.
+
+Type classes are defined by the set of operations and values that all instances must provide. Type class instances are unique pairings of a type class and a type. They define the ways to implement the type class methods for that type
+
+* A type class defines a set of functions and/or values.
+* Types have instances of that type class.
+* The instances specify the ways that type uses the functions of the type class.
+
+‘Num’ does not imply ‘Ord’, but ‘Int’ does. ‘:info’ is your friend.
+
+A concrete type always implies the type classes that are provided for it.
+
+
+--------------------
+@TODO @QUESTION
+
+===== Question about Eq and Ord =====
+
+'''
+data Rocks =
+  Rocks String
+  deriving (Eq, Show)
+
+data Yeah =
+  Yeah Bool
+  deriving (Eq, Ord, Show)
+
+data Papu =
+  Papu Rocks Yeah
+  deriving (Eq, Ord, Show)
+
+
+-- eq :: Papu -> Papu -> Bool
+-- eq p p' = (==) p p'
+
+cmp :: Papu -> Papu -> Bool
+cmp p p' = (>) p p'
+
+'''
+
+Why doesn't it work just by deriving ‘Ord’ if I want the function ‘cmp’ to use ‘>’? Why do I have to derive both ‘Eq’ and ‘Ord’?
+
+
+--------------------
+@TODO @QUESTION
+
+Why doesn't this work?
+
+'''
+art :: Num b => (a -> b) -> Integer -> a -> Integer
+art aToB i a = (+) i (aToB a) :: Integer
+'''
+
+Shouldn't ‘(+) i (aToB a)’ produce an Integer, since i is Integer?
+
+--------------------
+
+
+
+
+
+
+
 
 
 ===== The End =====
