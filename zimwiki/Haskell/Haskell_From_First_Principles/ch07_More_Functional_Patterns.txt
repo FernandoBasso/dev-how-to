@@ -1,0 +1,167 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-02-04T07:34:17-03:00
+
+====== ch07 More Functional Patterns ======
+Created Tuesday 04 February 2020
+
+===== Make it func-y =====
+
+A function is an instruction for producing an output from an input, or argument. Functions are applied to arguments that bind their parameters to values. The fully applied function with its arguments is then evaluated to produce the output, or result. Haskell functions are first-class entities that:
+
+* Can be values in expressions, lists, or tuples.
+* Can be passed as arguments to a function.
+* Can be returned from a function as a result.
+* Make use of syntactic patterns.
+
+===== Arguments and parameters =====
+All Haskell values can be arguments to functions (they are first-class values), and Haskell functions are values (first-class values) too.
+
+--------------------
+
+===== Question Function Val Polymorphic =====
+@TODO @QUESTION
+
+'''
+x :: Int
+x = 1
+vx f = x
+
+vy f = 1
+'''
+
+Why does the above produces these types:
+
+'''
+λ> :t vx
+vx :: p -> Int
+
+λ> :t vy
+vy :: Num p1 => p2 -> p1
+'''
+
+Note this too:
+
+'''
+vy f = 1 :: Int
+'''
+
+Produces
+
+'''
+λ> :t vy
+vy :: p -> Int
+'''
+
+So, if the number is constrained polymorphic, we get the type signature ‘Num p1 => p2 -> p1’, but if it is a concrete type like ‘Int’, then we get the signature ‘p -> Int’... Why?
+
+This code...
+
+'''
+num :: Int
+num = 1
+
+fnF f = num
+
+fnG f = 1
+
+fnH f = 1 :: Int
+'''
+
+...produces these types
+
+'''
+λ> :t fnF
+fnF :: p -> Int
+
+λ> :t fnG
+fnG :: Num p1 => p2 -> p1
+
+λ> :t fnH
+fnH :: p -> Int
+'''
+
+--------------------
+
+Q: How to tell a value from a function value?
+A: A value is not applied to arguments, and a function value is.
+
+Applying a func- tion binds its parameters to values. Type parameters become bound to a type, and function variables are bound to a value. The binding of variables concerns not only the application of function arguments, but also things like let expressions and where clauses.
+
+
+NOTE: Careful with let, where scoping when creating binds, can careful with shadowing variables. Haskell is lexically-scoped, that is, scope is resolved by the location of stuff in the source code. The lexically innermost binding for a variable of a particular name always takes precedence.
+
+===== Anonymous Functions =====
+
+'''
+λ> (\x -> x * 3) 5
+15
+
+λ> triple = (\x -> x * 3)
+λ> :t triple
+triple :: Num a => a -> a
+'''
+
+
+--------------------
+
+===== Question about myFlip =====
+@TODO @QUESTION
+
+Undertand this...
+
+'''
+mflip f = \x -> \y -> f y x
+
+myFlip :: (a -> b -> c) -> b -> a -> c
+myFlip f x y = f y x
+'''
+
+‘myFlip’ takes a function ‘(a -> b -> c)’. It produces ‘c’, so, we change only the order of the two params, so, the result is something like ‘(b -> a -> c)’.
+
+--------------------
+
+===== Pattern Matching =====
+
+Patterns can include things as diverse as undefined variables, numeric literals, and list syntax. Pattern matching matches on any and all data constructors.
+
+TIP: Pattern matching is something akin to method overload in some languages. Depending on the signature (number of params, types), we dispatch a different version of the method.
+
+Patterns are matched against values, or data constructors, not types.
+
+Pattern-match from the most espcific to the more generic.
+
+Incomplete pattern matches applied to data they don’t handle will return bottom, a non-value used to denote that the program cannot return a value or result. ‘:set -Wall’ is your friend.
+
+===== Case Expressions =====
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===== The End =====
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
