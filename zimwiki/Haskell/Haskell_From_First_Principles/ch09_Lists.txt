@@ -1,0 +1,169 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-02-10T07:18:00-03:00
+
+====== ch09 Lists ======
+Created Monday 10 February 2020
+
+===== Lists =====
+
+* Collection, or plurality, of values.
+* An infinite series of values, acting as a stream data type.
+
+
+===== The list datatype =====
+
+'''
+λ> :info []
+data [] a = [] | a : [a]
+'''
+
+‘[]’ is the type constructor for lists as well as the data constructor for the empty list.
+
+‘[]’ is a nullary constructor because it takes no arguments.
+
+‘:’ is the infix //cons// operator.
+
+This constructor is recursive because it mentions its own type ‘[a]’ as one of the members of the product.
+
+
+===== Pattern matching on lists =====
+
+We can pattern-match on data constructors, and list data constructors are not exception. We match on the first argument to the infix ‘:’ cons operator, and the rest, after it.
+
+'''
+λ> myHead (x : xs) = x
+λ> :t myHead
+myHead :: [a] -> a
+'''
+
+Since we don't need ‘xs’, let's use ‘_’:
+
+'''
+λ> myHead (x : _) = x
+'''
+
+The tail function:
+
+'''
+λ> myTail (_ : xs) = xs
+λ> :t myTail
+myTail :: [a] -> [a]
+'''
+
+WE ARE NOT GRACEFULLY HANDLING EMPTY LISTS. THESE ARE NOT SAFE FUNCTIONS.
+
+'''
+safeHead :: [a] -> Maybe a
+safeHead [] = Nothing
+safeHead (x:_) = Just x
+
+safeTail        :: [a] -> Maybe [a]
+safeTail []     = Nothing
+safeTail (_:[]) = Nothing
+safeTail (_:xs) = Just xs
+'''
+
+
+===== List’s syntactic sugar =====
+
+'''
+λ> [1, 2, 3] ++ [4] == (1 : 2 : 3 : []) ++ 4 : []
+True
+'''
+
+“cons cells” and “spines”.
+
+The cons cells are the list datatype’s second data constructor, ‘a : [a]’, the result of recursively prepending a value to “more list.” The cons cell is a conceptual space that values may inhabit.
+
+The spine is the connective structure that holds the cons cells together and in place. This structure nests the cons cells rather than ordering them in a right-to-left row. Because different functions may treat the spine and the cons cells differently, it is important to understand this underlying structure.
+
+===== Using ranges to construct lists =====
+
+For “ranging” a type it is required that the type have an instance of the ‘Enum’ type class.
+
+'''
+λ> [1..5]
+[1,2,3,4,5]
+
+λ> ['a', 'c', 'z']
+"acz"
+
+λ> ['a', 'c' .. 'z']
+"acegikmoqsuwy"
+
+λ> [1, 5 .. 30]
+[1,5,9,13,17,21,25,29]
+
+λ> [0, 5 .. 30]
+[0,5,10,15,20,25,30]
+'''
+
+And the ‘enumFrom...’ family of functions. The first arg must be lower than the second, or we get an empty list.
+
+===== IRC Chat =====
+
+{{./chat1.png}}
+
+
+[11:06:28] <systemhalted> This is the first time I saw learnhaskell GitHub. I was happy to see it suggesting to not install platform.
+[11:26:48] <Fernando-Basso> I wonder why technologies sometimes (most of the times?) get into these messy situations where something that comes “standard” is not the recommended thing.
+[11:27:10] <Fernando-Basso> One example is the date stuff in Java. People recommend to use a lib instead.
+[11:27:59] <merijn> Fernando-Basso: Because the better thing was implemented later, but too much depend on the current standard thing that you can't just change/replace it, because everything will break
+[11:28:12] <merijn> Fernando-Basso: It took ages to fix the Applicative/Monad nonsense in base for that reason
+[11:28:35] <Fernando-Basso> I see. Many things don't get fixed in JS because of the same reason.
+[11:28:43] <Fernando-Basso> Things get added, but not fixed.
+[11:29:19] <merijn> Fernando-Basso: In Haskell the most egregious things tend to get fixed, but it can't take along while because it often means entire ecosystems have to update, so you have to be *really* sure your fix is actually better
+[11:32:53] <Fernando-Basso> That is OK then. There is a limit to what even the best minds can conceive and create.
+[11:35:10] <merijn> Fernando-Basso: Fun facts: It took several years before monadic IO as we have it now was invented, Applicative wasn't discovered until like 15 years after the first Haskell implementation ;)
+[11:35:24] <Fernando-Basso> :o
+[11:35:58] <merijn> Fernando-Basso: The first paper on Applicatives was written in 2004
+[11:36:39] <merijn> Fernando-Basso: Before IO Haskell programs were implemented via "main :: [IOResponse] -> [IORequest]" taking an infinite (lazy) list of IO responses as input and producing a lazy infinite list of IO Requests
+[12:46:36] <Fernando-Basso> merijn, Interesting. Although I have not reached such topics (still on chapter 09 on lists), I'll note this down so I can ponder about this further when I learn about such topics. Thanks.
+
+[12:48:21] <merijn> Fernando-Basso: Well, that's mostly obsolete history now :p
+[12:49:17] <merijn> Fernando-Basso: I just find that many beginners think that a lot of this stuff was arrived at through divine intervention, or something, while in reality these things were invented way after the language and then adopted because they were just that awesome
+[12:50:37] <solonarv> we do still have some such warts in the language
+[12:50:53] <solonarv> String, Num, and the plethora of partial functions in base spring to mind
+[12:51:39] <boxscape> at least all of those are library issues rather than issues inherent to the language
+
+[12:51:50] <merijn> solonarv: You call Num a wart, but it's unclear what would be better
+[12:53:22] <Fernando-Basso> merijn, Well, I like to know the history about stuff, languages, decisions, etc. I like to know why things are the way they are, when it was because of lack of design (like PHP), or too short time to implement (like JS in the beginning), or when people just believed it was a good decision that turned out to be a bad one, or turned out bad after paradigm change or technology evolution.
+
+[12:54:38] <OK_b00m3r> that's going to be a long list :)
+[12:55:07] <Fernando-Basso> And it tends to infinity, for sure, because such problems will never cease, I believe.
+[12:55:27] <solonarv> merijn: I'm not sure what should happen with abs/signum, but at least a diamond-shaped lattice of Additive-AdditiveGroup/Semiring-Ring would be a better split of + - * fromInteger
+
+[12:56:13] <OK_b00m3r> Fernando-Basso: exactly. i was trying to find the words to say that.
+[12:56:20] <OK_b00m3r> Fernando-Basso: much like organic matter versus time
+[12:56:28] <Fernando-Basso> Well put!
+[12:56:33] <OK_b00m3r> ;-)
+
+[13:00:59] <Fernando-Basso> Anyway, the reason I like to know such things whenever I can is because I am not of the type “lang X sucks, lang Y is the best”. I like to have informed opinion about stuff as much as possible. Of course I do like some things/langs more than others, though, just that I do not join the rage/troll party.
+[13:01:23] <OK_b00m3r> Fernando-Basso: *nod*
+
+===== Extracting portions of lists =====
+
+See ‘take’, ‘drop’ and ‘splitAt’, ‘takeWhile’, ‘dropWhile’.
+
+'''
+λ> takeWhile (< 3) [1..5]
+[1,2]
+λ> takeWhile (> 3) [1..5]
+[]
+'''
+
+
+===== List comprehensions =====
+
+
+
+
+
+
+
+===== The End =====
+
+
+
+

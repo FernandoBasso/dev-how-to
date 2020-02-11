@@ -1,0 +1,9 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-02-07T11:04:10-03:00
+
+====== Math ======
+Created Friday 07 February 2020
+
+Sheilong@lisp-br, irc
+https://schoolyourself.org/learn/

@@ -9,6 +9,12 @@ Created Thursday 23 January 2020
 shapr@haskell-beginners, irc
 https://www.youtube.com/watch?v=gMDiKOuwLXw
 
+===== prompt =====
+
+'''
+:set prompt "\n\027[31mλ>\027[0m "
+'''
+
 
 
 ===== GHCi plain REPL vs haskell-mode REPL =====
