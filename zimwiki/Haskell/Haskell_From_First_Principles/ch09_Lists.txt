@@ -156,10 +156,52 @@ See ‘take’, ‘drop’ and ‘splitAt’, ‘takeWhile’, ‘dropWhile’.
 
 ===== List comprehensions =====
 
+'''
+λ> [ x ^ 2 | x <- [1..10]]
+[1,4,9,16,25,36,49,64,81,100
+
+λ> [ x ^ 2 | x <- [1..10], (x >) 5]
+[36,49,64,81,100]
+
+λ> [ x ^ 2 | x <- [1..10], even x]
+[4,16,36,64,100]
+'''
+
+With two generators, apply each value from the first generator to all of the values of the second generator. That is, add 1 to 1 and 10, then add 2 to 1 and 10, then add 3 to 1 and 10, then add 4 to 1 and 10.
+
+'''
+λ> [x + y | x <- [1 .. 4], y <- [1, 10]]
+[2,11,3,12,4,13,5,14]
+'''
+
+And using a predicate to tell that the result should not be greater than 10.
+
+'''
+λ> [x + y | x <- [1 .. 4], y <- [1, 10], x + y <= 10]
+[2,3,4,5]
+'''
+
+Creating tuples:
+
+'''
+λ> [(x, y) | x <- ['A' .. 'C'], y <- [1, 2]]
+[('A',1),('A',2),('B',1),('B',2),('C',1),('C',2)]
+
+[(x, y) | x <- mySqr,
+          y <- mySqr,
+          x < 50,
+          y > 50]
+'''
+
+With strings (which are lists of ‘Char’:
+
+'''
+λ> elem 'R' "Tomb Raider"
+True
+'''
 
 
-
-
+{{./pasted_image.png}}
 
 
 ===== The End =====

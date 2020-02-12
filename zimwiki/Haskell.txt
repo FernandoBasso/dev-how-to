@@ -5,6 +5,16 @@ Creation-Date: 2020-01-23T10:31:25-03:00
 ====== Haskell ======
 Created Thursday 23 January 2020
 
+Informação de Serviço
+
+Data: Quarta, 12 de Fevereiro de 2020.
+
+Tempo: # Faça valer a pena.
+
+Esse é um dia novinho em folha, completo com 24 horas de oportunidades, escohas e prazeres. Um perfeito conjunto de 1440 minutos.
+
+Esse presente único não pode ser trocado, substituído ou estornado. Use-o com cuidado. Faça o melhor uso dele. Limitado a uma unidade por consumidor.
+
 
 shapr@haskell-beginners, irc
 https://www.youtube.com/watch?v=gMDiKOuwLXw
