@@ -201,7 +201,193 @@ True
 '''
 
 
-{{./pasted_image.png}}
+{{./list-comprehension-troad-exe.png}}
+
+
+===== Spines and non-strict-evaluation =====
+
+Lists are a recursive series of cons cells ‘a : [a]’ terminated by the empty list ‘[]’.
+
+A cons cell ‘:’ contains a value and another cons cell.
+
+'''
+          :
+         / \
+         1  :
+           / \
+           2  :
+             / \
+             3 []
+'''
+
+So, ‘1 : (2 : (3 : []))’ is the syntax we use, but does not mean 1 exists before the cons cell ‘:’. That is just syntax sugar.
+
+Because of this and the way non-strict evaluation works, you can evaluate cons cells independently of what they contain. It is possible to evaluate only the spine of the list without evaluating individual values. It is also possible to evaluate only part of the spine of a list and not the rest of it.
+
+Haskell’s evaluation is non-strict, so the list isn’t constructed until it’s
+consumed. A list is evaluated down, forming a blueprint representation of what the list will be like when it is forced to be constructed.
+
+Inspecting evaluation:
+
+'''
+λ> aToZ = ['a' .. 'z']
+λ> :sprint aToZ
+aToZ = _
+λ> take 1 aToZ
+"a"
+λ> :sprint aToZ
+aToZ = 'a' : _
+λ> take 5 aToZ
+"abcde"
+λ> :sprint aToZ
+aToZ = 'a' : 'b' : 'c' : 'd' : 'e' : _
+'''
+
+‘length’ is only strict in the spine, meaning it only forces evaluation of the spine, not the values. Unfortunately, ‘:sprint aToZ’ behaves as though we had forced e valuation of the entire list. This is a quirk of how GHCi evaluates code.
+
+==== Spines are evaluated independently of values ====
+
+Values in Haskell get reduced to weak head normal form by default. By “normal form,” we mean that the expression is fully evaluated. “Weak head normal form” means the expression is only evaluated as far as is necessary to reach a data constructor.
+
+Weak head normal form (WHNF) is a larger set and contains both the possibility that the expression is fully evaluated (normal form) and the possibility that the expression has been evaluated to the point of arriving at a data constructor or lambda awaiting an argument. For an expression in weak head normal form, further evaluation may be possible once another argument is provided. If no further inputs are possible, then it is still in WHNF but also in normal form (NF).
+
+‘(++) "hel" "lo"’ is fully applied but not yet evaluated. It is not WHNF because the function has been fully applied. It is not in NF becasuse it has not yet been evaluated.
+
+'''
+λ> s = "hel" ++ "lo"
+λ> :sprint s
+s = _
+'''
+
+[10:50:04] <Fernando-Basso> Is 1 in normal form?
+[10:54:28] <Fernando-Basso> I don't see why this is not normal form: ‘(++) "tomb" " raider"’.
+[10:57:49] <boxscape> Fernando-Basso whether or not 1 is in normal form depends on what exactly you mean by 1; (++) "tomb" "raider" is not in weak-head normal form (what we usually use instead of normal form) because the outer-most term is an application of a function rather than a constructor or a lambda.
+
+[10:59:24] <boxscape> if you really mean normal form and not weak-head normal form then the reason is simply that it's not fully evaluated
+[10:59:36] <boxscape> the fully evaluated version being "tomb raider"
+
+A function not fully applied is WHNF. A constructor or lambda is WHNF.
+
+[11:01:53] <boxscape> Fernando-Basso that's in principle correct, though in the context of haskell specifically, when you type "1" in a haskell file, the compiler will actually interpret that as "fromInteger 1"
+[11:03:26] <Fernando-Basso> Gosh!
+[11:04:05] <dminuoso> Also, another useful bit to understand, is that in GHC a polymorphic value is secretly parametrized over a type.
+[11:04:40] <dminuoso> Which adds more mud
+
+[11:01:53] <boxscape> Fernando-Basso that's in principle correct, though in the context of haskell specifically, when you type "1" in a haskell file, the compiler will actually interpret that as "fromInteger 1"
+[11:05:31] <Fernando-Basso> :O
+
+[11:07:04] <Fernando-Basso> Perhaps the only way to truly learn Haskell is to be part of the Report process and a GHC core dev :D
+[11:07:25] <dminuoso> Fernando-Basso: No, you just explore ideas that are orthogonal to becoming a productive programmer.
+[11:07:35] <dminuoso> Knowing what normal form is, is in no way required for being a competent developer
+
+[11:08:12] <Fernando-Basso> Roger that.
+[11:09:01] <Fernando-Basso> I'm 41 now. Learning math in general and Haskell will is being fun, but hard.
+[11:09:33] <Fernando-Basso> I thank you all for the kind and insightful help!
+
+[11:10:39] <jonap> Come on! this's fun: http://dirk.rave.org/combinatris/
+[11:10:46] <Fernando-Basso> s/will//
+[11:10:48] <dminuoso> You dont need any math or theoretical computer science in order to become a productive haskell developer
+[11:10:56] <dminuoso> Fernando-Basso: https://patrickmn.com/software/the-haskell-pyramid/
+[11:11:01] <dminuoso> This might be an enlightening read
+
+[11:16:30] <Fernando-Basso> dminuoso, Yeah, makes sense. I am generally one more than one side when it comes to opinions. I agree with the post, makes sense, but I also feel like Haskell learning curve is like Vi learning curve in that old, known joke: https://i.imgur.com/xjWucy4.png
+[11:16:52] <Fernando-Basso> s/one/on/
+
+Using this syntax, bottom (‘undefined’) is not part of the spine, so, no problems to evaluate the length.
+
+'''
+λ> list = [1, undefined, 3]
+λ> length list
+3
+'''
+
+We know that ‘length’ only evaluates the spine because even though we have bottom/undefined in the list, using ‘length’ on the list doesn't crash. Try ‘print list’ and see.
+
+'''
+λ> xs = 1 : (undefined : (3 : []))
+λ> len xs
+3
+'''
+
+NOTE: The REPL automatically prints stuff, so, if you do not assign the “result” to a variable or use something that doesn't allow lazyness, you'll get an error (in the REPL).
+
+Looks like this causes ‘undefined’ to be part of the spine itself, though:
+
+'''
+λ> xs = [1] ++ undefined ++ [3]
+λ> length xs
+*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:78:14 in base:GHC.Err
+  undefined, called at <interactive>:48:13 in interactive:Ghci6
+'''
+
+This is OK:
+
+'''
+λ> xs = [1] ++ [undefined] ++ [2]
+λ> length xs
+3
+'''
+
+An expression cannot be in normal form or weak head normal form if the outermost part of the expression isn’t a data constructor. It can’t be in normal form if any part of the expression is unevaluated.
+
+Remember that the REPL implicitly uses ‘print’ and automatically prints stuff:
+
+'''
+λ> [1, 2, 3]
+[1,2,3]
+λ> 1 : (2 : (3 : []))
+[1,2,3]
+λ> xs = [1, undefined, 3]
+λ> ys = 1 : (undefined : (3 : []))
+'''
+
+No error defining ‘xs’ and ‘ys’ because the values are not evaluated (lazyness, remember?). But if you do not assign the last two lists to variables, then the REPL tries to print them, and when it gets to the ‘undefined’, DOOM.
+
+'''
+λ> [1, undefined, 3]
+[1,*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:78:14 in base:GHC.Err
+  undefined, called at <interactive>:43:5 in interactive:Ghci10
+λ>
+λ> 1 : (undefined : (3 : []))
+[1,*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:78:14 in base:GHC.Err
+  undefined, called at <interactive>:44:6 in [[interactive:Ghci10]]
+'''
+
+
+'''
+λ> take 1 $ map (+ 1) [1, undefined]
+[2]
+λ> take 2 $ map (+ 1) [1, undefined]
+[2,*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:78:14 in base:GHC.Err
+  undefined, called at <interactive>:48:24 in [[interactive:Ghci11]]
+'''
+
+Non-strict, lazy evaluation allows for this not to throw an error:
+
+'''
+λ> r = (+ 1) undefined
+'''
+
+But when it is forced to evaluate:
+
+'''
+λ> r
+*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:78:14 in base:GHC.Err
+  undefined, called at <interactive>:51:11 in [[interactive:Ghci11]]
+'''
+
+A common mantra for performance sensitive code in Haskell is, “lazy in the spine, strict in the leaves.”
+
 
 
 ===== The End =====

@@ -8,16 +8,17 @@ Created Monday 27 January 2020
 
 ===== List of useful unicode codepoints =====
 
-symbol        hex value
-‘   		2018
-’   		2019
-“   		201c
-”   		201d
-λ   		03bb
-✔                     2714
-✓                     2713
-✗                     2717
-💩             0001f4a9
+symbol	hex value
+‘   	2018
+’   	2019
+“   	201c
+”   	201d
+λ   	03bb
+✔       2714
+✓       2713
+✗       717
+💩      0001f4a9
+⊥           22a5		Bottom (used in Lambda and Haskell)
 
 
 ===== Alt, AltGr =====
