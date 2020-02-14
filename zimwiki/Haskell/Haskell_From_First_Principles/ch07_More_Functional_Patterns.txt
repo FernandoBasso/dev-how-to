@@ -178,6 +178,9 @@ myAbs x
 
 ===== Function composition =====
 
+IMPORTANT: Looks like composed functions work only with one argument. In Ramda, we can pass multiple arguments to the first function in the chain of composed functions. Looks like it is not the case in Haskell. True, all Haskell functions take one argument, but there is suggar to allow us to “pretend” we can pass multiple argument. It seems that suggar does not happen in function composition.
+
+
 '''
 λ> :info .
 (.) :: (b -> c) -> (a -> b) -> a -> c
@@ -270,6 +273,7 @@ addAndDrop = const . (1 +)
 reverseMkTuple = flip (,)
 reverseTuple = uncurry (flip (,))
 '''
+
 
 ===== Demonstrating composition =====
 

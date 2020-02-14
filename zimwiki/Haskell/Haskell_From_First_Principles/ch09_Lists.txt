@@ -388,7 +388,74 @@ CallStack (from HasCallStack):
 
 A common mantra for performance sensitive code in Haskell is, “lazy in the spine, strict in the leaves.”
 
+===== Zipping lists =====
 
+'''
+λ> zip [1, 2, 3, 4] ['A', 'B']
+[(1,'A'),(2,'B')]
+
+λ> zip [1..100000000000000] []
+[]
+'''
+
+‘zip’ stops as soon as one of the lists run out of values.
+
+Use ‘unzip’ to get the original lists back (as much as it can, because values might have been dropped if one of the lists was shorter than the other.
+
+'''
+λ> tup = zip [1, 2, 3, 4] ['A', 'B']
+λ> tup
+[(1,'A'),(2,'B')]
+λ> unzip tup
+([1,2],"AB")
+'''
+
+
+'''
+λ> zipWith (+) [1..5] [100..104]
+[101,103,105,107,109]
+
+λ> zipWith max [1, 5, 3] [2, 4, 9]
+[2,5,9]
+'''
+
+‘zip’ produces a list of tuples. ‘zipWith’ produces a list of single values. Yet, we can use ‘zipWith’ to produce tuples:
+
+'''
+λ> zipWith (,) [1..3] [4..6]
+[(1,4),(2,5),(3,6)]
+'''
+
+
+
+===== chat about function composition =====
+
+[09:27:52] <Fernando-Basso> I am composing ‘f . g’. ‘g’ “takes two arguments”. Yet, the composed functions do not allow me to pass “two arguments”. Doesn't the sugar for function arguments work for composed functions?
+[09:29:52] <merijn> Fernando-Basso: What sugar are you referring too?
+[09:29:56] <merijn> There's no sugar in that example
+[09:30:08] <Fernando-Basso> The appearance that functions take multiple arguments.
+[09:30:36] <merijn> f . g = \x -> f (g x)
+[09:30:59] <merijn> Fernando-Basso: If 'g' happens to return a new function that doesn't affect (.) at all
+[09:31:04] <Fernando-Basso> ‘g’ takes "two arguments". But when I compose them, it does not allow me to pass two arguments. I thought I could pass two arguments, then ‘g’ would produce one value, which would then be passed to ‘f’.
+
+[09:31:23] <merijn> Fernando-Basso: That's not what (.) does
+
+[09:32:22] <merijn> "(f . g) x y" -> "(\z -> f (g z)) x y" -> "(f (g x)) y"
+
+[09:32:50] <merijn> Fernando-Basso: if 'g x' returns a function, then 'f' gets a function as argument
+[09:33:28] <Fernando-Basso> Yeah, passing "two args" to g is partially-applying it only, as far as I can see here.
+[09:33:37] <Fernando-Basso> It is passing 1 arg, in truth.
+[09:35:01] <boxscape> @pl \x y -> f (g x y)
+[09:35:01] <lambdabot> (f .) . g
+
+[09:35:01] <boxscape> @pl \x y -> f (g x y)
+[09:35:01] <lambdabot> (f .) . g
+[09:42:51] <Fernando-Basso> merijn, did not get why you introduced ‘z’ and yet, both ‘x’ and ‘y’ remain to be applied.
+[09:43:22] <Fernando-Basso> Gosh this stuff is hard.
+[09:43:30] * Fernando-Basso scratches his bald head
+[09:43:44] <merijn> Fernando-Basso: Because "f . g" returns a new function, that function is equivalent to the lambda I wrote
+[09:44:08] <merijn> Fernando-Basso: So the "why" is "because that's how (.) is defined"
+[09:44:43] <merijn> Fernando-Basso: (.) is syntactic sugar, magic, or whatever, it's literally just a function that's equivalent to "compose f g = \z -> f (g z)"
 
 ===== The End =====
 
