@@ -1,0 +1,30 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-02-17T17:39:38-03:00
+
+====== ch10 Folding Lists ======
+Created Monday 17 February 2020
+
+===== Folds =====
+
+Folding is a concept that extends in usefulness and importance beyond lists, but lists are often how they are introduced. Folds as a general concept are called catamorphisms. You’re familiar with the root “morphism” from polymorphism. “Cata-” means “down” or “against,” as in “catacombs.” Catamorphisms are a means of decon- structing data. If the spine of a list is the structure of a list, then a fold is what can reduce that structure.
+
+===== Bringing you into the fold =====
+
+Where map applies a function to each member of a list and returns a list, a fold replaces the cons constructors with the function and reduces the list.
+
+'''
+λ> :t map
+map :: (a -> b) -> [a] -> [b]
+
+λ> :t foldr
+foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
+
+λ> map (+ 1) [1..5]
+[2,3,4,5,6]
+
+λ> foldr (+) 0 [1..5]
+15
+'''
+
+Continue...

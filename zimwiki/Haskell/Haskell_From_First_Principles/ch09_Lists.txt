@@ -457,6 +457,61 @@ Use ‘unzip’ to get the original lists back (as much as it can, because value
 [09:44:08] <merijn> Fernando-Basso: So the "why" is "because that's how (.) is defined"
 [09:44:43] <merijn> Fernando-Basso: (.) is syntactic sugar, magic, or whatever, it's literally just a function that's equivalent to "compose f g = \z -> f (g z)"
 
+
+
+True> 
+λ> main
+True
+True
+λ> caesar "cati"
+"zxqf"
+λ> caesar orig
+"qeb nrfzh yoltk clu grjmp lsbo qeb ixwv ald"
+λ> it == caesar
+
+<interactive>:257:7-12: error:
+	* Couldn't match expected type ‘[Char]’
+				  with actual type ‘[Char] -> [Char]’
+	* Probable cause: ‘caesar’ is applied to too few arguments
+	  In the second argument of ‘(==)’, namely ‘caesar’
+	  In the expression: it == caesar
+	  In an equation for ‘it’: it = it == caesar
+λ> it == caesared
+True
+λ> main
+True
+True
+λ> :m
+λ> and
+
+<interactive>:283:1-3: error:
+	* No instance for (Show ([Bool] -> Bool))
+		arising from a use of ‘print’
+		(maybe you haven't applied a function to enough arguments?)
+	* In a stmt of an interactive GHCi command: print it
+λ> and [False]
+False
+λ> and []
+True
+λ> myAnd [True, False]
+False
+λ> myAnd [True, not False]
+True
+λ> myAnd []
+True
+λ> or []
+False
+λ> myOr []
+False
+λ> myOr [False]
+False
+λ> myOr [False, True]]
+
+<interactive>:328:19: error: parse error on input ‘]’
+λ> myOr [False, True]
+True
+λ> myOr [False, True
+
 ===== The End =====
 
 
