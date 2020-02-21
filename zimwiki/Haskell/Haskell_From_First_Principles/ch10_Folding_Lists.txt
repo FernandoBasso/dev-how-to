@@ -27,4 +27,377 @@ foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
 15
 '''
 
-Continue...
+
+===== Recursive patterns =====
+
+'''
+mySum :: [Integer] -> Integer
+mySum [] = 0
+mySum (x:xs) = x + mySum xs
+
+myLength :: [a] -> Integer
+myLength [] = 0
+myLength (_:xs) = 1 + myLength xs
+
+myProduct :: [Integer] -> Integer
+myProduct [] = 1
+myProduct (x:xs) = x * myProduct xs
+
+myConcat :: [[a]] -> [a]
+myConcat [] = []
+myConcat (x:xs) = x ++ myConcat xs
+'''
+
+In each case, the base case is the identity for that function. If you add, subtract, multiply, divide or concat a value with its identity, the value remains the same, like ‘1 + 0 = 1’ or ‘7 / 1 = 7’.
+
+===== Fold right =====
+
+https://wiki.haskell.org/Fold
+
+Folding happens in two stages:
+* Traversal: the fold recurses over the spine.
+* Folding: evaluation/reduction of the folding function applied to the values.
+
+All folds recurse over the spine in the same direction; the difference between left folds and right folds is in the association, or parenthesization, of the folding function and, thus, in which direction the folding or reduction proceeds.
+
+===== Fold left =====
+
+{{./fold-left.png}}
+
+'''
+display op x y = concat ["(", x, op, y, ")"]
+
+λ> f = display "+"
+
+λ> foldr f "0" $ map show [1..4]
+"(1 + (2 + (3 + (4 + 0))))"
+
+λ> foldl f "0" $ map show [1..4]
+"((((0 + 1) + 2) + 3) + 4)"
+'''
+
+
+
+foldr (+) 0 [1, 2, 3, 4]
+1 + [2, 3, 4]
+1 + (2 + [3, 4])
+1 + (2 + (3 + [4]))
+1 + (2 + (3 + (4 + 0)))
+
+foldr :: (a -> b -> b) -> b -> [a] -> b
+foldr _ z [] = z
+foldr f z (x:xs) = f x (myFoldr f z xs)
+  
+foldr (+) [1, 2, 3]
+(+) 1 (foldr (+) 0 [2, 3])
+(+) 1 ((+) 2 (foldr (+) 0 [3]))
+(+) 1 ((+) 2 ((+) 3 (foldr (+) 0 [])))
+(+) 1 ((+) 2 ((+) 3 0)) == 1 + (2 + (3 + 0))
+
+foldr const 0 [1, 2, 3]
+const 1
+
+Unline ‘(+)’, ‘const’ is not strict on both values. It does not evaluate its second argument, causing the folding to stop without further processing.
+
+[10:19:18] <Fernando-Basso> ‘myAny f xs = foldr (\x b -> f x || b) False xs’, ‘myAny even [1..3]’ I don't understand why ‘even 1’ which is ‘False’ and causes ‘b’ to be evaluated does not stop the folding, and why when ‘even 2’ is ‘True’, it does stop the folding.
+[10:23:07] <Fernando-Basso> Wait, when “the next” argument is not evaluated, the fold is not further processed. It only continues evaluating when the “next” argument is evaluated.
+
+[10:24:29] <MarcelineVQ>  || will check the second argument if the first is False, and deoesn't bother checking the second argument if the first is True
+[10:24:35] <MarcelineVQ> @src ||
+[10:24:35] <lambdabot> True  || _ = True
+[10:24:35] <lambdabot> False || x = x
+[10:25:19] <MarcelineVQ> even 1 is false then we must check b, b is 'the rest of the fold' due to how foldr is defined
+[10:25:25] <MarcelineVQ> @src foldr
+[10:25:25] <lambdabot> foldr f z []     = z
+[10:25:25] <lambdabot> foldr f z (x:xs) = f x (foldr f z xs)
+[10:25:32] <Fernando-Basso> That is an explanation for the ‘||’ operator, which is OK, but so, if the second argument is _not_ checked, no further processing is required. Is that so?
+[10:25:38] <MarcelineVQ> b would correspond to '(foldr f z xs)'
+[10:25:45] <MarcelineVQ> f is ||
+[10:26:05] <Fernando-Basso> Hmm. “f is ||”. Let me see!
+
+[10:27:05] <MarcelineVQ> because || doesn't need to check its second argument if the first is True, then no further proceessing is required. This won't be true for every single choice of f
+[10:27:26] <Fernando-Basso> Yeah, because some functions are strict on both operands.
+[10:27:31] <MarcelineVQ> correct
+[10:28:43] <Fernando-Basso> “f is ||”. I thought ‘f’ was ‘even’ in this case.
+[10:29:50] <MarcelineVQ> f is ||     x is even x
+
+[10:30:29] <MarcelineVQ> myAny f xs = foldr (\x b -> f x || b) False xs    is   myAny f xs = foldr (\x b -> (||) (f x) b) False xs
+
+[10:30:57] <MarcelineVQ> we might be mixing up f's and such here do to the defintions above, when I was saying f is || I was referring to
+[10:31:00] <MarcelineVQ> @src foldr
+[10:31:00] <lambdabot> foldr f z []     = z
+[10:31:00] <lambdabot> foldr f z (x:xs) = f x (foldr f z xs)
+
+[10:32:53] <MarcelineVQ> Which I'm now regretting how I'm explaining this, because that isn't true, that   f is  (\x b -> f x || b)  given your definition of myAny. it's just that || is what's deciding if we use b
+[10:33:41] <Fernando-Basso> Whish is closer to what I was thinking.
+[10:33:47] <merijn> MarcelineVQ: Well, you can refactor his myAny to "foldr (||) False . map pred"
+[10:34:09] <merijn> "myAny f xs = foldr (||) False (map f xs)"
+
+[10:34:41] <merijn> That one is bascially the same, but slightly simpler to follow by decoupling the predicate from the foldr/stop condition
+[10:36:45] <MarcelineVQ> thanks for that, I'm flailing for some reason
+
+[10:40:34] <Fernando-Basso> I am still in a bit confused, which according to experts, it is a sign that my brain is working and learning, so, I'll take this confusion as good :D. Thank you both for the (as always) awesome help and insights. Much appreciated.
+[10:41:14] <boxscape> just remember that the goal is to eventually resolve this consfusion ;)
+[10:41:30] <MarcelineVQ> And that you're allowed to ask more than one question :>
+[10:41:35] <Fernando-Basso> Dully noted, boxscape!
+[10:41:42]  MarcelineVQ madnight Majiir malaclyps manveru MasterNayru 
+[10:41:46] <Fernando-Basso> MarcelineVQ, Sure :)
+
+‘foldr’ uses the base case 0 only when the list is finally ‘[]’.
+
+λ> foldr (\n _ -> n) 0 [1..5]
+1
+λ> foldr (\n m -> m) 0 [1..5]
+0
+λ> foldl (\n m -> m) 0 [1..5]
+5
+
+
+--------------------
+foldr (\n _ -> n) 0 [1..5]
+
+Takes ‘1’ for ‘n’, ignoring the second argument ‘_’, so, it returns ‘1’ and does not require/force further processing.
+
+foldr (\n _ -> n) 0 [1..5]
+
+	  (\1 0 -> 1)
+
+	  1
+
+
+--------------------
+foldr (\_ m -> m) 0 [1..3]
+
+The ‘(\n m -> m)’ function is strict on ‘m’, the “second argument”, so, ‘foldr’ continues evaluating until the list is empty and the base case is reached.
+
+
+[13:01:39] <Fernando-Basso> I am trying to reduce this: foldr (\_ m -> m) 0 [1..3] https://hastebin.com/raw/uhujucusud I am embarrassing myself here, but that was the closest I could get so far.
+[13:06:17] <merijn> Fernando-Basso: Note that every recursion is a *new* application of that lambda
+[13:19:35] <Fernando-Basso> https://hastebin.com/raw/tasaqotimi Something like this then, perhaps?
+[13:22:15] <merijn> Fernando-Basso: You're missing the recursive foldr, though
+[14:04:22] <Cale> Fernando-Basso: foldr f z (x:xs) = f x (foldr f z xs) -- you should be using this a whole lot, and note that foldr occurs on both sides of the equation
+[14:05:14] <Cale> (and then  foldr f z [] = z  will come up at some point)
+[14:05:40] <Cale> It may help to explicitly write the list [1,2,3] without the syntax sugar as (1 : (2 : (3 : [])))
+[14:06:02] <Cale> so that it is clear which parts of it are matched by x and xs
+[14:35:14] <Fernando-Basso> merijn, Cale, thanks.
+[14:35:17] <Fernando-Basso> What about this? https://hastebin.com/raw/posahidafu
+[14:38:22] <Cale> Fernando-Basso: that's correct, though you're using strict evaluation there, if it matters
+[14:38:56] <Cale> Lazy evaluation is outermost-first, so you'd normally apply the function (\_ m -> m) before evaluating its arguments
+
+
+
+foldr (\_ m -> m) 2001 [1, 2, 3]
+
+(\_ m -> m) 1 (foldr (\_ m -> m) 2001 [2, 3])
+
+(\_ m -> m) 1 ((\_ m -> m) 2 (foldr (\_ m -> m) 2001 [3]))
+
+(\_ m -> m) 1 ((\_ m -> m) 2 ((\_ m -> m) 3 (foldr (\_ m -> m) 2001 [])))
+
+(\_ m -> m) 1 ((\_ m -> m) 2 ((\_ m -> m) 3 2001))
+
+(\_ m -> m) 1 ((\_ m -> m) 2 2001)
+
+(\_ m -> m) 1 2001
+
+2001
+
+[14:42:26] <Fernando-Basso> > ((\_ m -> m) 1) foldr (\_ m -> m) 2001 [2, 3]
+[14:42:29] <lambdabot>  2001
+[14:42:38] <Fernando-Basso> So, this way of parenthesizing it makes it lazy?
+[14:43:37] <merijn> Fernando-Basso: Parenthisation doesn't affect laziness
+[14:43:44] <Cale> Well, I just mean, following the line with
+
+(\_ m -> m) 1 (foldr (\_ m -> m) 2001 [2, 3])
+
+[14:43:59] <Cale> you could go immediately to
+
+foldr (\_ m -> m) 2001 [2, 3]
+
+[14:44:38] <Cale> Because we're applying (\_ m -> m) to 1 and (foldr (\_ m -> m) 2001 [2, 3]), and the result is the second argument
+[14:44:49] <Cale> We do that bit before evaluating the argument
+
+foldr (\_ m -> m) 2001 [1, 2, 3]
+foldr (\_ m -> m) 2001 [2, 3]
+foldr (\_ m -> m) 2001 [3])
+2001
+
+--------------------
+foldr :: (a -> b -> b) -> b -> [a] -> b
+foldr f z []     = z
+foldr f z (x:xs) = f x (foldr f z xs)
+
+foldr const 0 [1, 2, 3]
+const 1 (foldr const 0 [2, 3])
+1
+
+Since ‘const’ returns its first argument, ‘1’ in this case, its second argument, the ‘foldr ...’ thing is not evaluated. 1 is returned and execution is stopped.
+
+REMEMBER: ‘z’ is only returned when the list is empty.
+
+--------------------
+foldl :: (b -> a -> b) -> b -> [a] -> b
+foldl f acc [] = acc
+foldl f acc (x:xs) = foldl f (f acc x) xs
+
+foldl const 0 [1, 2, 3]
+
+foldl const (const 0 1) [2, 3]
+
+foldl const (const 0 2) [3]
+
+foldl const (const 0 3) []
+
+0
+
+REMEMBER: ‘z’ is only returned when the list is empty.
+
+"foldl const (const 0 1) [2, 3]" -> "foldl const (const (const 0 1) 2) [3]"
+
+[08:47:16] <merijn> Fernando-Basso: Your example immediately reduces "const (const 0 1) 2" to "const 0 2" which is rather arbitrary, why only evaluate 1 level rather than 0 or 2?
+
+foldl const 0 [1, 2, 3]
+foldl const (const 0 1) [2, 3]
+foldl const (const (const 0 1) 2) [3]
+foldl const (const (const (const 0 1) 2) 3) []
+const (const (const 0 1) 2) 3
+const 0 3
+0
+
+
+
+
+
+
+--------------------
+foldl :: (b -> a -> b) -> b -> [a] -> b
+foldl f acc [] = acc
+foldl f acc (x:xs) = foldl f (f acc x) xs
+
+foldl f 0 [1, 2, 3]
+
+foldl f (f 0 1) [2, 3]
+
+foldl f (f 0 2) [2, 3]
+
+===== Can't nest foldl =====
+__[08:37:13] <Fernando-Basso> I was able to nest invocations with foldr, but I am not being able to do so with foldl.__
+__[08:38:46] <merijn> Fernando-Basso: Incidnetally, this is why foldr works on infinite lists, but foldl doesn't.__
+
+
+[08:41:20] <merijn> Define "correct" :)
+[08:41:30] <merijn> It computes the right result
+[08:42:33] <Fernando-Basso> Yes, but it does not end up with nesting like ‘(+) 1 ((+) 2 ((+) 3 (foldr (+) 0 [])))’.
+[08:43:12] <Fernando-Basso> I couldn't find a way of parenthesizing to the left like ‘foldr’ parenthesizes to the right.
+[08:43:39] <merijn> Fernando-Basso: Well, you could get a nesting like "const 0 (const 1 (const 2 3))"
+[08:44:14] <Fernando-Basso> But not if I follow the implementation of ‘foldl’ in that link, right?
+[08:44:30] <merijn> Fernando-Basso: That question has no right answer
+[08:44:53] <merijn> Fernando-Basso: Because your answer relies on knowing what evaluation strategy is used
+[08:45:08] <Fernando-Basso> ‘foldl f acc (x:xs) = foldl f (f acc x) xs’ <-- I don't see how I could nest ‘const’ calls here.
+[08:45:25] <merijn> Fernando-Basso: Haskell's evaluation strategy is unspecified (well, it's required to be non-strict, but that's it)
+[08:46:08] <merijn> "foldl const (const 0 1) [2, 3]" -> "foldl const (const (const 0 1) 2) [3]"
+
+--------------------
+foldl :: (b -> a -> b) -> b -> [a] -> b
+foldl f acc [] = acc
+foldl f acc (x:xs) = foldl f (f acc x) xs
+
+foldl + 0 [1, 2, 3]
+
+foldl + (+ 0 1) [2, 3]
+
+foldl + (+ (+ 0 1) 2) [3]
+
+foldl + (+ (+ (+ 0 1) 2) 3) []
+
+ + (+ (+ (+ 0 1) 2) 3) 0
+
+ + (+ (+ 1 2) 3) 0
+
+ + (+ 3 3) 0
+
+ 6
+
+
+--------------------
+[1..3] == 1 : 2 : 3 : []
+foldr f z [1, 2, 3]
+1 `f` (foldr f z [2, 3])
+1 `f` (2 `f` (foldr f z [3]))
+1 `f` (2 `f` (3 `f` (foldr f z [])))
+1 `f` (2 `f` (3 `f` z))
+
+foldr (^) 2 [1..3]
+(1 ^ (2 ^ (3 ^ 2)))
+(1 ^ (2 ^ 9))
+1 ^ 512
+1
+
+foldl (^) 2 [1..3]
+((2 ^ 1) ^ 2) ^ 3
+(2 ^ 2) ^ 3
+4 ^ 3
+64
+
+
+foldr : [] [1, 2, 3]
+1 : (2 : (3 : []))
+
+foldl (:) [] [1, 2, 3]
+((([] : 1) : 2) : 3)
+
+‘(:)’ expects ‘x:[]’, not ‘[]:x’. But if we ‘flip’ the cons function ‘:’, then it works:
+
+foldr (flip (:)) [] [1, 2, 3]
+[3, 2, 1]
+
+λ> f = (:)
+λ> 1 `f` (2 `f` [])
+[1,2]
+
+λ> g = flip (:)
+λ> ([] `g` 2) `g` 1
+[1,2]
+λ> ([] `g` 1) `g` 2
+[2,1]
+
+
+--------------------
+
+foldl (flip (*)) 1 [1..3]
+
+ *  x y r
+ *' y x r
+
+foldl *' 1 [1, 2, 3]
+
+foldl (flip (*)) 1 [1, 2, 3]
+
+foldl (flip (*)) (flip (*) 1 1) [2, 3]
+
+foldl (flip (*)) (flip (*) 1 1) [2, 3]
+
+foldl (flip (*)) ((flip (*)) ((flip (*)) 1 1) 2) [3]
+
+foldl (flip (*)) ((flip (*)) ((flip (*)) ((flip (*)) 1 1) 2) 3) []
+
+((flip (*)) ((flip (*)) ((flip (*)) 1 1) 2) 3)
+
+((flip (*)) ((flip (*)) 1 2) 3)
+
+((flip (*)) 2 3
+
+6
+
+
+
+
+
+
+
+
+
+
+===== The End =====
+
+
