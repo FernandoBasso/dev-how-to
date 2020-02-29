@@ -1,0 +1,17 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-02-28T20:33:57-03:00
+
+====== Interview Questions ======
+Created Friday 28 February 2020
+
+"Filter a list of intervals that are within range [a, b]."
+
+bool checkRange(int low, int high, List<Range> items) {
+	for (Range r : items) {
+		 if (range.low < low || range.high > high) {
+			 return false;
+		 }
+	}
+	return true;
+ }

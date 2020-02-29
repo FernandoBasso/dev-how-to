@@ -5,6 +5,15 @@ Creation-Date: 2020-01-23T11:31:12-03:00
 ====== Haskell From First Principles ======
 Created Thursday 23 January 2020
 
+https://github.com/mvaldesdeleon/haskell-book
+
+https://github.com/evturn/haskellbook
+
+https://github.com/mukeshsoni/haskell-programming-book
+
+
+
+
 ===== Sectioning =====
 ‘(-1) 2’ does not create sectioning and partially apply subtraction to the value 1. When used like that, on the left side of a number, it means negation of the number sign, not subtraction.
 

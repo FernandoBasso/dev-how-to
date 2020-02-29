@@ -389,13 +389,34 @@ foldl (flip (*)) ((flip (*)) ((flip (*)) ((flip (*)) 1 1) 2) 3) []
 
 6
 
+===== Folding and evaluation =====
+
+@TODO @QUESTION
+
+'''
+λ> lcf = foldl (flip (:)) []
+λ> xs = [1, 2, 3] ++ undefined
+λ> take 3 $ lcf xs
+... error because of the undefined
+λ> take 3 $ lcf [1, 2, 3] ++ undefined
+[3,2,1]
+'''
+
+Why constructing the list on the fly works, and if it is stored in ‘xs’, it produces the error?
+
+
+===== Scans =====
+
+@ALGORITHM @POST
+[[https://chrisdone.com/posts/twitter-problem-loeb/|I failed a twitter interview]] :O The Waterflow Problem
 
 
 
+===== More notes =====
 
+The ‘bool :: a -> a -> Bool -> a’ function in ‘Data.Bool’ is an example of a simple catamorphism for a simple, non-collection datatype.
 
-
-
+Similarly, ‘maybe :: b -> (a -> b) -> Maybe a -> b’ is the catamorphism for ‘Maybe’.
 
 
 ===== The End =====
