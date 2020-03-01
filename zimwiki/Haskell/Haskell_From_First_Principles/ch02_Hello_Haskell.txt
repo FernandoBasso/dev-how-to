@@ -5,10 +5,167 @@ Creation-Date: 2020-01-23T11:31:41-03:00
 ====== ch02 Hello Haskell ======
 Created Thursday 23 January 2020
 
-===== Exercises: Comprehension Check =====
+===== Interacting with Haskell code =====
+
+'''
+λ> (^) 10 2
+100
+λ> (^) 2 10
+1024
+'''
+
+Why two different results?
+
+Because the ‘^’ function is not [[https://en.wikipedia.org/wiki/Commutative_property|commutative]].
+
+'''
+(^) 10 2 == (*) 10 10
+(^) 2 10 == 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2
+'''
+
+--------------------
+How to read ‘::’ from type signatures aloud?
+
+You say either “has the type” or “has type”.
+
+Read more [[https://wiki.haskell.org/Keywords#::|here]].
+
+--------------------
+
+===== GHCi basics =====
+
+'''
+:load program.hs
+:module
+:type (some function)
+:info (some function or type or whatever)
+:reload
+:quit
+'''
+
+‘:module’ unloads any loaded file and goes back to the default, standard Prelude module.
+
+--------------------
+
+===== Understanding expressions =====
+
+Everything in Haskell is either an expression or a declaration. Declarations are toplevel bindings that allow naming expressions.
+
+Examples of expressions:
+
+'''
+1
+(+) 2 3
+foldr (+) 0 [1..5]
+take 3 [1..]
+"Tomb Raider" ++ " " ++ "The Angel of Darkness"
+'''
+
+Programs are large expressions composed of smaller expressions.
+
+The expression ‘1’ has no further possible reduction steps, so, it stands for itself and results in the value 1. The other expressions are reduced until no further reduction is possible at which point the final, irreducible value is produced. An irreducible expression is generally referred to as a value.
+
+When an expression can NOT be further evaluated/reduced it is said to be in **NORMAL FORM** (or CANONICAL FORM). When expressions can still be further reduced they are called **REDEXES**.
+
+‘1 + 1’ is a redex, not in normal form, but ‘2’ is in normal form.
+
+--------------------
+
+===== Functions =====
+
+Expressions are the most basic units of a Haskell program, and a function is a specific type of expression.
+
+Functions in Haskell take one argument and and return one result. When it looks like it can take more than one argument, that is syntax sugar. In Haskell, when it seems like we are passing multiple arguments to a function, we are actually applying a series of nested functions, each to one argument. This is called **CURRYING**.
+
+Functions can also appear in the expressions that form the bodies of other functions or be used as arguments to functions, just as any other value can be.
+
+**FORMAL PARAMETER** is the variable name used when defining a function.
+
+**ARGUMENT** is the actual value which stands for the formal parameter when applying a function.
+
+In the function definition ‘add1 n = n + 1’, the ‘n’ before the ‘=’ definition operator is a formal parameter, but wen we apply ‘add1 5’, then ‘5’ is the argument that stands for the formal parameter ‘n’.
+
+Function //definition// a.k.a function //declaration.//
+
+Functions start with lowercase, and then camelCase may be used where appropriate, like in ‘sayHello’ or ‘parseTitle’.
+
+--------------------
+
+===== Evaluation =====
+
+Evaluating an expression is reducing the terms to their simplest form (normal form), when it reaches an irreducible state, also a.k.a value.
+
+Haskell uses non-strict (a.k.a “lazy”) evaluation strategy that defers evaluation of terms until the last possible moment.
+
+Values are irreducible, but applications of functions to arguments are reducible. Reducing an expression means evaluating the terms until you’re left with a value. As in the lambda calculus, application is evaluation: applying a function to an argument allows evaluation or reduction. Values are expressions, but they cannot be reduced further. Values, in other words, are a terminal point of reduction.
+
+NORMAL FORM is also called CANONICAL FORM.
+
+Haskell doesn’t evaluate everything to canonical or normal form
+by default. Instead, it only evaluates to **weak head normal form**
+(**WHNF**) by default. What this means is that not everything will get
+reduced to its irreducible form immediately.
+
+--------------------
+Infinite examples on the web, the book, and every other universe use ‘f’ as the name of functions or to name parameters that are functions. Therefore, the expression ‘(\f -> (1, 2 + f)) 2’ from the book may trick one into thinking that ‘f’ is a function. It is NOT. It is just a variable. It could have been named ‘n’ or ‘x’, like ‘(\n -> (1, 2 + n)) 2’.
+
+'''
+λ> (\n -> (1, 2 + n)) 2
+(1,4)
+'''
+
+The expression is a lambda expression that takes a parameter and then produces the final value, a tuple. ‘2 + 2’ is not evaluated to 4 until the last possible moment.
+
+'''
+λ> v = (\f -> (1, 1 + f)) 1
+λ> :sprint v
+v = _
+'''
+
+The “_” means that v has not been fully evaluated. Since we assigned the expression to a variable, it has not yet produced the final result. It has not yet be reduced to Normal Form.
+
+@TODO
+
+'''
+λ> v = (\f -> (1, 1 + f)) 1
+λ> print v
+(1,2)
+λ> :sprint v
+v = _
+'''
+
+Why does ‘:sprint’ shows ‘v = _’, meaning it has not yet been evaluated when I clearly printed and caused ‘v’ to be, in fact, evaluated?
+
+According to glguy#haskell-beginners, it has to do with the “often-maligned Monomorphism Restriction,” and “That gets reevaluated at every use because it's a function of your choice of types.”
+
+'''
+λ> :set -XMonomorphismRestriction 
+λ> v = (\f -> (1, 1 + f)) 1
+λ> v
+(1,2)
+λ> :sprint v
+v = (1,2)
+'''
+
+Now, look at this:
+
+'''
+λ> :set -XNoMonomorphismRestriction 
+λ> v = (\f -> (1, 1 + f)) 1
+λ> v
+(1,2)
+λ> :sprint v
+v = _
+'''
+
+https://stackoverflow.com/questions/32496864/what-is-the-monomorphism-restriction
+
+--------------------
+
+==== Exercises: Comprehension Check ====
 Page 35.
 
-==== 01, playing with exprs ====
+=== 01 playing with exprs ===
 
 '''
 λ> half x = (/) x 2
@@ -19,7 +176,7 @@ Page 35.
 '''
 
 
-==== 02 writing a function ====
+=== 02 writing a function ===
 
 '''
 λ> f n = 3.14 * (n * n)
@@ -33,9 +190,9 @@ Page 35.
 50.24
 '''
 
-3.14 does not change. That value is hardcoded inside the function body. The value that is multiplied inside parentheses do change, so, we make it a parameter.
+3.14 does not change. That value is hard-coded inside the function body. The value that is multiplied inside parentheses do change, so, we make it a parameter.
 
-==== 03 function using `pi' ====
+=== 03 function using `pi' ===
 
 '''
 λ> f n = pi * (n * n)
@@ -45,46 +202,148 @@ Page 35.
 50.26548245743669
 '''
 
+--------------------
 
-===== Exercises: Parentheses and Association =====
+===== Infix operators =====
+
+Functions (that are not special symbols like ‘+’, ‘<’ or ‘$’) are PREFIX BY DEFAULT.
+
+Operators are functions that can be used in infix style. All operators are functions; not all functions are operators.
+
+Make prefix function infix by enclosing them in backticks, like ‘10 `div` 3’, and make infix functions prefix by enclosing them inside in parenthesis, like in ‘(+) 2 3)’.
+
+If the function name is alphanumeric, it is a prefix function by default, and not all prefix functions can be made infix. If the name is a symbol, it is infix by default but can be made prefix by wrapping it in parentheses.
+
+==== Associativity and precedence ====
+
+The ‘:info’ command shows precedence and associativity of operators and functions:
+
+'''
+λ> :info div
+class (Real a, Enum a) => Integral a where
+  ...
+  div :: a -> a -> a
+  ...
+  	-- Defined in ‘GHC.Real’
+infixl 7 `div`
+
+λ> :info +
+class Num a where
+  (+) :: a -> a -> a
+  ...
+  	-- Defined in ‘GHC.Num’
+infixl 6 +
+
+λ> :info ^
+(^) :: (Num a, Integral b) => a -> b -> a 	-- Defined in ‘GHC.Real’
+infixr 8 ^
+'''
+
+Note the “infixl” (left) and “infixr” (right) words followed by a number indicating their precedence.
+
+Precedence is on a scale of 0-9.
+
+For ‘+’ and ‘*’, being infixl doesn't change the result because they are associative, but things are different with ‘^’, for example.
+
+'''
+λ> (2 + 3) + 4
+9
+λ> 2 + (3 + 4)
+9
+
+λ> 2 ^ 3
+8
+λ> 3 ^ 2
+9
+
+λ> 2 ^ 3 ^ 4
+2417851639229258349412352
+λ> (2 ^ 3) ^ 4
+4096
+'''
+
+Because ‘^’ associates to the right, infixr, ‘2 ^ 3 ^ 4’ is the same as ‘2 ^ (3 ^ 4)’.
+
+Addition and multiplication are associative, so, shifting the parenthesis around doesn't change the result.
+
+Division and exponentiation are NOT associative, so, shifting the parenthesis around DOES CHANGE THE RESULT.
+
+
+
+==== Exercises: Parentheses and Association ====
 Page 39.
 
-==== 01 add, multiply ====
+=== 01 add, multiply ===
+a) ‘8 + 7 * 9’
+b) ‘(8 + 7) * 9’
 
-a and b produce different results. Parentheses here does make a difference.
+a and b produce different results. Parentheses here do make a difference. In a, first ‘7 * 9’ is reduced first, then its result is added to 8. In b, because of the parenthesis, first add 8 and 7, and then multiply that result by 9.
 
-==== 02 perimeter, multiply and add ====
+=== 02 perimeter, multiply and add ===
+a) ‘perimeter x y = (x * 2) + (y * 2)’
+b) ‘perimeter x y = x * 2 + y * 2’
 
-No change. Parenthesizing multiplication around an addition does not change anything. The multiplication would have been performed first anyway.
+No change. Parenthesizing multiplication around an addition does not change anything. Both multiplication expressions would have been performed first anyway.
 
-==== 03 divide and add ====
+=== 03 divide and add ===
+a) ‘f x = x / 2 + 9’
+b) ‘f x = x / (2 + 9)’
 
-Here, doing 2 + 9 before the division does change the result.
+Here, use of parenthesis to cause the expression ‘2 + 9’ to be reduced before the division does change the result.
 
-===== Exercises: Heal the Sick =====
-Page 45.
+===== Declaring values =====
 
-==== 01 area space after dot ====
+The order of declaration in a source file doesn't matter because GHCi has this feature called “two-pass evaluation” and it knows all the values that have been defined. In the REPL, order does matter.
 
-There is a space after the dot in "3. ".
+'''
+-- file: dev.hs
+x = 10 * 5 + y
+result = x * 5
+y = 10
+'''
+
+Even though ‘y’ is used //before// it is declared, it works in a source file.
+
+
+==== Exercises: Heal the Sick ====
+Page 46.
+
+=== 01 area space after dot ===
+
+'''
+area x = 3. 14 * (x * x)
+'''
+
+There is a space after the dot in ‘3. 14’. Fixed:
 
 '''
 area x = 3.14 * (x * x)
 '''
 
 
-==== 02 unbound variable, unused variable ====
+=== 02 unbound variable, unused variable ===
 
-The function bounds `x` but attempts to use `b`, which is not in scope. Fix: use `x` inside the body of the function:
+'''
+double x = b * 2
+'''
+
+The function binds ‘x’ formal parameter but attempts to use ‘b’ the the function body, which is not in scope. Fix: use ‘x’ inside the body of the function or bind ‘b’ instead of ‘x’ in the head.
 
 '''
 double x = x * 2
+double' b = b * 2
 '''
 
 
 ==== 03 indentation mishap ====
 
-There is a horrible, monstrous whitespace before `y` causing GHCi to throw a fit.
+'''
+x = 7
+ y = 10
+f = x + y
+'''
+
+There is a horrible, monstrous whitespace before ‘y’ causing GHCi to throw a fit.
 
 '''
 x = 7
