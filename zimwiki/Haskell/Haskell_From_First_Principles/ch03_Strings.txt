@@ -1,0 +1,470 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-02T16:58:16-03:00
+
+====== ch03 Strings ======
+Created Monday 02 March 2020
+
+===== A first look at types =====
+* Single quotes: Char.
+* Double quotes: [Char], or String.
+
+'''
+λ> :t 'k'
+'k' :: Char
+λ> :t "croft"
+"croft" :: [Char]
+'''
+
+‘String’ is a type alias for ‘[Char]’.
+
+===== Printing simple strings =====
+
+‘print’ converts anything that has an instance of ‘Show’ to a string so it can be printed on the terminal.
+
+‘putStr’ and ‘putStrLn’ print ‘[Char]’. They won't automatically convert other types to ‘String’ an will cause an error if their argument is not of type ‘[Char]’.
+
+
+The special type ‘IO’ (input/output) is used to indicate a side effect.
+
+'''
+main :: IO ()
+main = putStrLn "The force is strong with this one."
+'''
+
+Concatenating lists:
+
+'''
+s :: [Char]
+s = "May the force be with you."
+
+w :: String
+w = "The force is strong with this one."
+
+fname :: String
+fname = "Lara"
+
+lname :: [Char]
+lname = "Croft"
+
+fullname :: String
+fullname = fname ++ " " ++ lname
+
+main :: IO ()
+main = do
+  putStrLn s
+  putStrLn w
+  putStrLn fullname
+'''
+
+
+===== Top-level vs local definitions =====
+
+Toplevel definitions can be accessed anywhere in a module. Local definitions can only be accessed in the current and inner scopes.
+
+'''
+discount :: Int
+discount = 5
+
+fn x = result
+  where val :: Int
+        val = 1
+        result :: Int
+        result = x + val - discount
+
+main :: IO ()
+main = do
+  print $ fn 10
+  -- 6
+'''
+
+‘discount’ is a toplevel declaration. ‘val’ and ‘result’ are local declarations. Can't use ‘val’ or ‘result’ outside the enclosing function ‘fn’.
+
+‘let’ and ‘where’ introduce local bindings or declarations. To bind or declare something means to give an expression a name.
+
+==== Exercises: Scope ====
+Page 74.
+
+=== 01 ===
+
+Is ‘y’ in scope for ‘z’ in this REPL session?
+
+'''
+λ> x = 5
+λ> y = 7
+λ> z = x * y
+'''
+
+Yes, it is!
+
+=== 02 ===
+
+Is ‘h’ in scope for ‘g’ in this REPL session?
+
+'''
+λ> f = 3
+λ> g = 6 * f + h
+'''
+
+No, it isn't.
+
+=== 03 ===
+
+In this source file, is everything in scope for ‘area’?
+
+'''
+area d = pi * (r * r)
+r = d / 2
+'''
+
+No, ‘d’ is a parameter for the function ‘area’, but it is not in anyway in scope for the expression ‘r = d / 2’.
+
+=== 04 ===
+
+In this source file, is everything in scope for ‘area’?
+
+'''
+area d = pi * (r * r)
+  where r = d / 2
+'''
+
+Yes. ‘pi’ is available globally. ‘d’ is a parameter to the function, which is used to define ‘r’, which because of the ‘where’ declaration, is available anywhere inside the function ‘area’.
+
+
+===== Types of concatenation functions =====
+
+‘concat’ is a normal, prefix function (therefore, with the highest precedence).
+
+'''
+λ> :info concat
+concat :: Foldable t => t [a] -> [a]
+'''
+
+‘++’ is an infix right, precedence 5 function.
+
+'''
+λ> :info (++)
+(++) :: [a] -> [a] -> [a]
+infixr 5 ++
+'''
+
+For now, consider ‘Foldable t => t [a]’ to mean ‘a’.
+
+‘concat’ concatenates inner lists of a list as a single, flattened list. It is more like a “flatten” function than a “concatenation” one.
+
+'''
+λ> concat [[1, 2], [3, 4]]
+[1,2,3,4]
+
+λ> [1, 2] ++ [3, 4]
+[1,2,3,4]
+
+λ> concat ["Tomb", "Raider", "The", "Last", "Revelation"]
+"TombRaiderTheLastRevelation"
+
+λ> [[1, 2], [3, 4]] ++ [[5, 6], [7, 8]]
+[[1,2],[3,4],[5,6],[7,8]]
+'''
+
+‘a’ in ‘[a]’ is polymorphic. We can concatenate lists of any type, like a list of ‘Int’ or a list of ‘Char’. But we cannot concatenate a list of ‘Int’ with a list of ‘Char’.
+
+==== Exercises: syntax errors ====
+Page 77.
+
+=== 01 ===
+
+'''
+++ [1, 2, 3] [4, 5, 6]
+'''
+
+Won't compile. To use ‘++’ in prefix position, surround it with parenthesis or use it in infix style:
+
+'''
+(++) [1, 2, 3] [4, 5, 6]
+'''
+
+
+=== 02 ===
+
+'''
+'<3' ++ ' Haskell'
+'''
+
+Won't compile. In haskell, single quotes is for ‘Char’, and double quotes for a list of ‘Char’, and ‘++’ concatenates lists, not chars.
+
+'''
+"<3" ++ " Haskell"
+'''
+
+
+=== 03 ===
+
+'''
+concat ["<3", " Haskell"]
+'''
+
+This one is fine! ♡
+
+===== More list functions =====
+
+Strings are lists.
+
+'''
+λ> :t 'k'
+'k' :: Char
+λ> :t "k"
+"k" :: [Char]
+'''
+
+‘:’ is the cons operator and prepends an element to a list.
+
+'''
+λ> :type (:)
+(:) :: a -> [a] -> [a]
+λ> :info (:)
+data [] a = ... | a : [a]
+infixr 5 :
+
+λ> (:) 1 []
+[1]
+λ> (:) 1 [2]
+[1,2]
+λ> 1 : [2, 3]
+[1,2,3
+
+λ> (:) 'L' "ara"
+"Lara"
+
+λ> 'C' : "roft"
+"Croft"
+'''
+
+We also have ‘head’, ‘tail’, ‘take’, ‘drop’, ‘!!’. They are unsafe because they can't handle empty lists.
+
+===== Chapter exercises =====
+Page 82.
+
+==== Reading syntax ====
+
+=== 01 Fix syntax errors ===
+
+Fix those that are broken.
+
+== a ==
+'''
+concat [[1, 2, 3], [4, 5, 6]]
+'''
+
+This one is fine!
+
+== b ==
+'''
+++ [1, 2, 3] [4, 5, 6]
+'''
+
+Incorrect. Make it really prefix with parens as in ‘(++)’ or use it in infix position. Fixes:
+
+'''
+(++) [1, 2, 3] [4, 5, 6]
+[1, 2, 3] ++ [4, 5, 6]
+'''
+
+
+== c ==
+'''
+(++) "hello" " world"
+'''
+
+Another fine especimen.
+
+== d ==
+'''
+["hello" ++ " world]
+'''
+
+Missing the closing ‘"’. Also, perhaps they meant a comma in the place of ‘++’? Possible fixes:
+
+'''
+["hello" ++ " world"]
+["hello", " world"]
+'''
+
+
+== e ==
+'''
+4 !! "hello"
+'''
+
+The operands for the ‘!!’ function are inverted. Fix:
+
+'''
+"hello" !! 4
+(!!) "hello" 4
+'''
+
+
+== f ==
+'''
+(!!) "hello" 4
+'''
+
+A perfect organism!
+
+== g ==
+'''
+take "4 lovely"
+'''
+
+They probably meant the 4 to be outside the quotes.
+
+'''
+take 4 "lovely"
+'''
+
+
+== h ==
+'''
+take 3 "awesome"
+'''
+
+Remarkable! No errors!
+
+
+==== Match expressions with results ====
+Page 82.
+
+Expressions:
+
+{{./exercise-exprs-matches.png}}
+
+==== Building functions ====
+Page 83.
+
+Just use functions from this chapter.
+
+=== 01 ===
+
+A) Input: "Curry is awesome", output: "Curry is awesome!".
+
+We need to append the char ‘!’ to the string. We make that char a string of one char so we can use ‘++’.
+
+'''
+λ> (++) "Curry is awesome" "!"
+"Curry is awesome!"
+λ> "Curry is awesome" ++ "!"
+"Curry is awesome!
+'''
+
+B) Input: "Curry is awesome!", output: "y".
+
+Lists are zero-indexed. ‘y’ is at index 4, and we use the function ‘!!’.
+
+'''
+λ> (!!) "Curry is awesome!" 4
+'y'
+λ> "Curry is awesome!" !! 4
+'y
+'''
+
+C) Input: "Curry is awesome!", output: "awesome!".
+
+Need to ‘drop’ the chars from ‘C’ to the second space.
+
+'''
+λ> drop 9 "Curry is awesome!"
+"awesome!"
+'''
+
+
+=== 02 ===
+
+'''
+exclaim :: String -> String
+exclaim s = s ++ ['!']
+--
+-- λ> exclaim "Tomb Raider"
+-- "Tomb Raider!"
+--
+
+-- The 5th char is on index 4.
+take5thChar :: String -> Char
+take5thChar s = (!!) s 4
+--
+-- λ> take5thChar "Croft Manor"
+-- 't'
+--
+
+drop9 :: String -> String
+drop9 s = drop 9 s
+--
+-- λ> drop9 "Curry is awesome!"
+-- "awesome!"
+-- λ> drop9 "Croft is arriving!"
+-- "arriving!"
+--
+'''
+
+
+=== 03 third letter ===
+
+'''
+thirdLetter :: String -> Char
+thirdLetter s = (!!) s 3
+--
+-- λ> thirdLetter "Lara"
+-- 'a'
+--
+'''
+
+
+=== 04 letter index ===
+
+'''
+letterIndex :: Int -> Char
+letterIndex i = (!!) "A perfect organism. I admire its purity." i
+--
+-- λ> letterIndex 0
+-- 'A'
+-- λ> letterIndex 10
+-- 'o'
+--
+
+'''
+=== 05 rvrs ===
+Takes especifically the string “Curry is awesome!”.
+
+'''
+rvrs :: [Char] -> [Char]
+rvrs s = end ++ " " ++ mid ++ " " ++ ini
+  where
+    ini = take 5 s
+    mid = take 2 $ drop 6 s
+    end = drop 9 s
+--
+-- λ> rvrs "Curry is awesome!"
+-- "awesome! is Curry"
+--
+'''
+
+
+=== 06 rvrs module ===
+
+'''
+module Reverse where
+
+rvrs :: [Char] -> [Char]
+rvrs s = end ++ " " ++ mid ++ " " ++ ini
+  where
+    ini = take 5 s
+    mid = take 2 $ drop 6 s
+    end = drop 9 s
+
+main :: IO ()
+main = print (rvrs "Curry is awesome!")
+'''
+
+
+===== The End =====
+
+
+

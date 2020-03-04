@@ -11,6 +11,11 @@ https://rosettacode.org/wiki/Operator_precedence#Haskell
 
 ===== Understanding `$' =====
 
+““
+like grep "something" file | sort | uniq | wc -l
+I like to think of $ as a reverse pipe
+”” -- froyo, in #haskell-beginners discord
+
 @WORKING
 
 `f $ a = f a`  “Immediately this seems a bit pointless until we  remember that it’s defined as an infix operator with the lowest possible precedence.” (page 54 on HFFP book). Why does it seem pointless?

@@ -5,6 +5,26 @@ Creation-Date: 2020-01-23T10:31:25-03:00
 ====== Haskell ======
 Created Thursday 23 January 2020
 
+===== Alien and Haskell =====
+
+--------------------
+
+
+{{./alien-haskell.png?height=320}}
+
+Finalmente entendi o file Alien.
+
+Ash: You still don't understand what you're dealing with do you? Perfect organism. It's structural perfection is matched only by its hostility.”
+
+Lambert: You admire it.
+
+Ash: I admire its purity. A survivor, unclouded by conscience, remorse, or delusions of morality.
+
+Ele claramente estava se referindo a linguagem Haskell.
+
+--------------------
+
+
 Informação de Serviço
 
 Data: Quarta, 12 de Fevereiro de 2020.

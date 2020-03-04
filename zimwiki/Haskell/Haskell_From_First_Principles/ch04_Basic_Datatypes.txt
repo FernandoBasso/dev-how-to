@@ -5,7 +5,33 @@ Creation-Date: 2020-01-24T16:31:35-03:00
 ====== ch04 Basic Datatypes ======
 Created Friday 24 January 2020
 
-If '':info <SomeType>'' shows ''Unbounded'', it means that do ''minBound :: ThatType'' and ''maxBound :: ThatType'' to figure out their min and max bounds.
+Types are also called data types.
+
+Types, type constructors, data constructors, type signatures, type classes.
+
+===== Anatomy of a data declaration =====
+
+DATA DECLARATIONS are how DATATYPES are defined.
+
+Type signatures live in the type level of our code. Values and expressions live at the term level.
+
+When you are reading or writing type signatures, the type names or type constructors are what you use.
+
+Data constructors are the values that inhabit the type they are defined in. They are the values that show up in your code, at the term level instead of the type level. By term level, we mean they are the values as they appear in your code or the values that your code evaluates to.
+
+'''
+data Bool = False | True
+'''
+
+
+
+
+
+
+
+
+If ‘:info <SomeType>’ shows ‘Unbounded’, it means that we can do ‘minBound :: ThatType’ and ‘maxBound :: ThatType’ to figure out their min and max bounds.
+
 
 '''
 λ> import GHC.Int
@@ -19,7 +45,7 @@ instance Bounded Int -- Defined in ‘GHC.Enum’
 127
 '''
 
-The upper bounds of Word types is approximately double that of the same size Int types because the bit in Int values used to express negative numbers is now used to signify extra positive numbers.
+The upper bounds of ‘Word’ types is approximately double that of the same size ‘Int’ types because the bit in ‘Int’ values is used to express negative numbers is now used to signify extra positive numbers.
 
 Five common Fractional types used in Haskell are Float, Double, Rational, Fixed, and Scientific.
 
