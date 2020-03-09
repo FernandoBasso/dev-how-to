@@ -1,0 +1,16 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-04T08:04:57-03:00
+
+====== Man, Info, Help ======
+Created Wednesday 04 March 2020
+
+===== info grep =====
+
+@TODO
+The info pages for grep uses the chars ‘ and ’ to enclose options and inline snippets of code. That is true on Xubuntu at least.
+
+Check that this is true in Arch Linux as well.
+
+
+

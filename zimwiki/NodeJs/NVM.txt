@@ -1,0 +1,14 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-04T08:49:22-03:00
+
+====== NVM ======
+Created Wednesday 04 March 2020
+
+===== Install latest LTS =====
+
+https://github.com/nvm-sh/nvm/issues/1706
+
+'''
+nvm install --lts node
+'''
