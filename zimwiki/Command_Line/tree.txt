@@ -1,0 +1,51 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-13T06:58:50-03:00
+
+====== tree ======
+Created Friday 13 March 2020
+
+===== Failed to pay attention to man page again =====
+[DATETIME: Fri, 2020-03-13 06:58]
+
+Read the man page, and yes, I can ignore ‘node_modules/’ with ‘-I node_modules’. But how can I ignore two directories? Neither of the following worked:
+
+* ‘-I node_modules,coverage’
+* ‘-I node_modules coverage’
+* ‘-I node_modules -I coverage’
+
+Search the web, and sure enough, found [[https://unix.stackexchange.com/questions/47805/how-do-we-specify-multiple-ignore-patterns-for-tree-command|this]]:
+
+'''
+-I pattern
+      Do not list those files that match the wild-card pattern.
+'''
+
+Which is precisely what the man page I had read says. See‽ “wild-card pattern”. I should have payed attention to each and every word. Once in #bash someone told me, “man pages are written with extreme care, and should be read likewise.”. Also, I now that “pattern” means. I just failed to make the connection because of my hurry to find the solution and lack of attention.
+
+Here's what works:
+
+'''
+~/Projects/github-followers [(ef0b7de...) ✔]
+
+$ tree -C -I 'node_modules|coverage'
+.
+├── babel.config.js
+├── package.json
+├── package-lock.json
+├── public
+│   ├── favicon.ico
+│   └── index.html
+├── README.md
+└── src
+    ├── App.vue
+    ├── assets
+    │   └── logo.png
+    ├── components
+    │   └── HelloWorld.vue
+    └── main.js
+
+'''
+
+
+
