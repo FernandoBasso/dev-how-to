@@ -1,0 +1,25 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-13T14:06:04-03:00
+
+====== Github API ======
+Created Friday 13 March 2020
+
+===== followers status 502 no response =====
+
+'''
+Request URL: https://api.github.com/users/torvalds/followers?page=1&per_page=12
+Request Method: GET
+Remote Address: 18.229.199.252:443
+Status Code: 502
+Version: HTTP/1.1
+Referrer Policy: no-referrer-when-downgrade
+'''
+
+Json response:
+
+'''
+{
+  "message": "Server Error"
+}
+'''

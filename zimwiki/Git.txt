@@ -1,0 +1,9 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-13T16:19:53-03:00
+
+====== Git ======
+Created Friday 13 March 2020
+
+https://chris.beams.io/posts/git-commit/
+
