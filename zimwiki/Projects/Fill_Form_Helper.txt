@@ -1,0 +1,40 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-16T10:17:47-03:00
+
+====== Fill Form Helper ======
+Created Monday 16 March 2020
+
+https://github.com/dlottermann/fill-form-helper
+
+
+===== The Type Guesser =====
+
+1. Fetch all elements of a form.
+2. Go through each element, and decide on its type (email, firstname, range, date, randon/unespecified string).
+3. Return the reference to the element + its infered type?
+4. Based on each type, fire the especific function that will fill-up/check/mark that element.
+
+Perhaps, for fields that cannot be more precisely guessed, we could ask the user to provide a type from a list of selectable types? In HTML5, when an input doesn't have a type, or it is an unsuported type, it defaults to text.
+
+IDEA: Generate all the data for the form beforehand? Like, having an object structure with the elements in the data to insert in each?
+
+
+
+===== Command Line =====
+
+'''
+tmux \
+  -f ~/Projects/dotfiles/tmux/themes/tmux-light.conf \
+  new-session -s fillform \
+  -c ~/Projects/fill-form-helper \
+  -n main \; send-keys 'nvm use' \; \
+  new-window -n jest \; send-keys 'nvm use' \; \
+  new-window -n shell \; send-keys 'nvm use'
+'''
+
+
+
+
+
+
