@@ -1,0 +1,10 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-18T10:27:40-03:00
+
+====== Hacker Like Stuff ======
+Created Wednesday 18 March 2020
+
+Bitwise generating ramdom string. Amzing stuff!
+https://stackoverflow.com/a/56399551/2855955
+
