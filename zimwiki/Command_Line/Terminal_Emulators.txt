@@ -1,0 +1,15 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-26T09:08:54-03:00
+
+====== Terminal Emulators ======
+Created Thursday 26 March 2020
+
+===== rxvt-unicode urxvt =====
+
+https://lukesmith.xyz/programs.html
+
+https://www.youtube.com/watch?v=eaBf_yFHps8
+
+“I've used urxvt in the past, but it is utterly unable to handle unicode characters.”
+

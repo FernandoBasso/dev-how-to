@@ -11,3 +11,5 @@ https://kentcdodds.com/blog/but-really-what-is-a-javascript-mock
 
 
 
+https://stackoverflow.com/questions/51269431/jest-mock-inner-function
+

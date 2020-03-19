@@ -5,6 +5,12 @@ Creation-Date: 2020-03-12T12:13:27-03:00
 ====== HTML and CSS ======
 Created Thursday 12 March 2020
 
+===== Specs =====
+https://english.stackexchange.com/questions/46809/what-does-non-normative-mean-in-this-context
+
+https://html.spec.whatwg.org
+
+
 ===== Designing Intrinsic Layouts =====
 by Jen Simmons—An Event Apart video
 https://aneventapart.com/news/post/designing-intrinsic-layouts-aea-video
@@ -16,4 +22,13 @@ display: flow-root;
 
 ===== Jen Simmons Youtube Channel =====
 https://www.youtube.com/layoutland
+
+
+===== Attributes vs Properties =====
+
+https://stackoverflow.com/questions/6003819/what-is-the-difference-between-properties-and-attributes-in-html
+
+https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect
+
+https://stackoverflow.com/questions/12354918/what-does-idl-attribute-mean-in-the-whatwg-html5-standard-document
 
