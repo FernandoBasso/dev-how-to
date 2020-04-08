@@ -1,0 +1,28 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-28T08:37:44-03:00
+
+====== HTML Spec Notes ======
+Created Saturday 28 March 2020
+
+===== A quick introduction to HTML =====
+https://html.spec.whatwg.org/#a-quick-introduction-to-html
+
+'''
+<form name="main">
+ Result: <output name="result"></output>
+ <script>
+  document.forms.main.elements.result.value = 'Hello World';
+ </script>
+</form>
+'''
+
+DOM Elements API:
+
+'''
+var a = document.links[0];
+a.href = 'sample.html';
+a.protocol = 'https'; // change just the scheme part of the URL
+a.setAttribute('href', 'https://example.com/'); // change the content attribute directly
+'''
+

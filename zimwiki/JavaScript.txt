@@ -12,3 +12,11 @@ https://egghead.io/lessons/react-understanding-how-react-testing-library-works-w
 
 Test Driven Development with react-testing-library - Kent C. Dodds
 https://www.youtube.com/watch?v=kCR3JAR7CHE&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u
+
+
+===== Coverage Report =====
+
+https://stackoverflow.com/questions/53342824/temporarily-get-jest-coverage-to-show-only-files-in-a-specific-folder
+
+https://github.com/facebook/create-react-app/issues/1455
+

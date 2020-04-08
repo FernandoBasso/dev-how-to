@@ -6,7 +6,7 @@
 
 ## Translate [] to ()
 
-```shell-session
+```
 $ echo 'for [[j=0; j < 5; ++j]]' | tr '[]' '()'
 for ((j=0; j < 5; ++j))
 ```
@@ -17,7 +17,7 @@ for ((j=0; j < 5; ++j))
 
 Use `--delete` or `-d`:
 
-```shell-session
+```
 $ echo 'May The Force' | tr --delete 'a-z'
 M T F
 ```

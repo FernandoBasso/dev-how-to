@@ -1,0 +1,20 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-04-05T16:16:08-03:00
+
+====== Bash ======
+Created Sunday 05 April 2020
+
+
+===== Re-evaluate functions in PS1 =====
+
+https://askubuntu.com/questions/651871/why-is-my-function-not-re-evaluated-in-ps1
+
+http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x279.html
+
+'''
+PS1="\n${blue}\$(curdir) ${cyan}[node:\$(version_node)] $(git_info)\n${normal}$ "
+'''
+
+The backslash protects the contents of ‘$()‘ from immediate shell interpretation, so ‘curdir’ and ‘version_node’ are called every time a prompt is generated.
+
