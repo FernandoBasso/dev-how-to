@@ -5,3 +5,29 @@ Creation-Date: 2020-04-08T17:40:37-03:00
 ====== sed ======
 Created Wednesday 08 April 2020
 
+===== Links =====
+
+A Brief History of sed
+https://blog.sourcerer.io/a-brief-history-of-sed-6eaf00302ed
+
+https://hackaday.com/2020/04/24/debugging-for-sed-no-kidding/
+https://soptik.tech/articles/building-desed-the-sed-debugger.html
+
+===== Gotchas =====
+
+==== empty file ====
+
+If you do
+'''
+cat foo.txt 's/this/that/' > foo.txt
+'''
+you'll end up with an empty foo.txt because sed is writing to the same file that cat is reading.
+
+
+
+===== replace special chars with their simpler version =====
+
+Nice discussion on several things, like ranges and locales.
+https://stackoverflow.com/questions/50430188/how-to-use-sed-expression-for-substituting-double-width-characters-with-single-w
+
+

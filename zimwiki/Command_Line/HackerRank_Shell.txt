@@ -49,7 +49,7 @@ $ printf '%d\n' {1..50}
 
 
 ==== Looping And Skipping ====
-Tags: cmdline, numbers @looping @for
+Tags: @cmdline, @numbers @looping @for
 Links: [[https://www.hackerrank.com/challenges/bash-tutorials---looping-and-skipping|challenge]]
 
 '''
@@ -233,7 +233,7 @@ expression="$1"
 printf '%.3f\n' "$(echo "$expression" | bc -l)"
 '''
 
-''bc -l'' produces up to 6 decimal places. If we use bc scale to 3, for instance, depending on the result, we would produce wront results because printf %f format specifier does rounding by itself.
+''bc -l'' produces up to 6 decimal places. If we use bc scale to 3, for instance, depending on the result, we would produce wrong results because printf %f format specifier does rounding by itself.
 
 ''bc'' scale is 0 by default if not explicitly set. Also, ''bc'' does no rounding.
 

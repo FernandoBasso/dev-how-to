@@ -1,3 +1,3 @@
 
-s/source/FORCE/g
+s/source/FORCE/g "$1"
 

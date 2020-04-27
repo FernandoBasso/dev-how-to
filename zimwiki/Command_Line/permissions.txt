@@ -15,4 +15,6 @@ Uploaded `jpegoptim' binary to a `''server:~/bin/''` and although it was owned b
 -bash-3.2$ 
 '''
 
-It so happens that the filesystem is mounted with the `''noexec''` option in /etc/fstab. Out of look since this is a shared host.
+It so happens that the filesystem is mounted with the ‘noexec’ option in ‘/etc/fstab’.
+
+

@@ -21,7 +21,7 @@ Search the web, and sure enough, found [[https://unix.stackexchange.com/question
       Do not list those files that match the wild-card pattern.
 '''
 
-Which is precisely what the man page I had read says. See‽ “wild-card pattern”. I should have payed attention to each and every word. Once in #bash someone told me, “man pages are written with extreme care, and should be read likewise.”. Also, I now that “pattern” means. I just failed to make the connection because of my hurry to find the solution and lack of attention.
+Which is precisely what the man page I had read says. See‽ “wild-card pattern”. I should have payed attention to each and every word. Once in #bash someone told me, “man pages are written with extreme care, and should be read likewise.”. Also, I now what “pattern” means. I just failed to make the connection because of my hurry to find the solution and lack of attention.
 
 Here's what works:
 
@@ -46,6 +46,16 @@ $ tree -C -I 'node_modules|coverage'
     └── main.js
 
 '''
+
+
+===== Colors and ‘less’ =====
+
+Piping to ‘less’ causes colors to show as escape sequences. Use ‘less -R’ instead:
+
+'''
+$ tree -C src | less -R
+'''
+
 
 
 

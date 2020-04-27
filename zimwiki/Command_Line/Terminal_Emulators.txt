@@ -5,6 +5,13 @@ Creation-Date: 2020-03-26T09:08:54-03:00
 ====== Terminal Emulators ======
 Created Thursday 26 March 2020
 
+
+===== Gruvbox Vim Theme =====
+Has A LOT of good info about terminals, perks, tips, commands to query info, etc. Amazing docs!
+
+https://github.com/morhetz/gruvbox/wiki/Terminal-specific
+
+
 ===== rxvt-unicode urxvt =====
 
 https://lukesmith.xyz/programs.html

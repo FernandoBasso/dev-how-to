@@ -6,7 +6,7 @@ Creation-Date: 2018-04-06T12:17:55-03:00
 Created Friday 06 April 2018
 
 ===== generate private/public pair =====
-`''ssh-keygen''` generates files in `''$PWD''` and creates two files: "id_<keytype>" and "id_<keytype>.pub". We can use `''-f''` to specify the output:
+‘ssh-keygen’ generates files in ‘$PWD’ and creates two files: "id_<keytype>" and "id_<keytype>.pub". We can use `''-f''` to specify the output:
 
 '''
 $ ssh-keygen -t rsa -b 4096 -f id_vbsmidia-rsa-4096bits

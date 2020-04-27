@@ -26,3 +26,36 @@ Git stores everything in its database not by file name but by the hash value of 
 
 ‘git config --local’: ‘./.git/config’, local to the current project.
 
+
+===== 2.2 Git Basics - Recording Changes to the Repository =====
+git status --short
+
+git status --help
+search: --short
+search: Short Format
+
+git diff
+git diff --staged
+
+git diff --name-only | xargs npx eslint
+
+git commit (uses EDITOR env var)
+git commit -v
+git commit --message
+
+git commit -a
+
+git rm <file> (remove from git, will not be further tracked)
+
+git rm --cached (remove from stage but keep in working tree)
+
+git rm log/\*.log (git has its own filename expansion)
+git rm \*~
+
+git mv foo.txt bar.txt
+
+===== 2.3 Git Basics - Viewing the Commit History =====
+
+
+
+

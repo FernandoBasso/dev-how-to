@@ -5,6 +5,12 @@ Creation-Date: 2020-04-05T16:16:08-03:00
 ====== Bash ======
 Created Sunday 05 April 2020
 
+http://mywiki.wooledge.org/ THE BEST BASH STUFF EVER!
+
+https://github.com/progrium/bashstyle
+
+https://soptik.tech/articles/beware-of-shell-globs.html
+
 
 ===== Re-evaluate functions in PS1 =====
 
@@ -16,5 +22,5 @@ http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x279.html
 PS1="\n${blue}\$(curdir) ${cyan}[node:\$(version_node)] $(git_info)\n${normal}$ "
 '''
 
-The backslash protects the contents of ‘$()‘ from immediate shell interpretation, so ‘curdir’ and ‘version_node’ are called every time a prompt is generated.
+The backslash protects the contents of ‘$()‘ from immediate shell interpretation, so ‘curdir’ and ‘version_node’ are called every time a prompt is generated (after each command).
 

@@ -38,4 +38,40 @@ There is bash (or other shell) completion scripts. For internal tmux commands, t
 
 
 
+Online book:
+https://leanpub.com/the-tao-of-tmux/read
+
+Tut from 2015:
+https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
+
+Tut from 2011:
+https://robots.thoughtbot.com/a-tmux-crash-course
+
+===== status-left, session name =====
+Setting ''status-left'' to something like '<<#S ☺ >>' causes the session name to be cut, and the smiley not appear if the session name is more than  four or five chars long + the other embelishing chars I added myself.
+
+<gxt> Fernando-Basso: Search the man page for `status-left-length`
+
+So, something like this makes an okay status bar:
+'''
+set -g status-left-length 35
+set -g status-left '«#S ☺ » '
+set -g status-right ' %a, %b %d, %Y %H:%M:%S '
+'''
+
+And run tmux with that config:
+'''
+tmux -f ~/.dotifles/FILEs/tmux-light1.conf new-session \
+  -s 'Long Session Name' \
+  \; rename-window vim
+'''
+
+
+
+
+--------------------
+[08:16:03] <rIMpossible> How can I automatically (every 5 second) switch panes in tmux?
+[08:28:43] <nicm> while :; do tmux selectp -U; sleep 5; done
+
+
 

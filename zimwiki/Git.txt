@@ -5,7 +5,20 @@ Creation-Date: 2020-03-13T16:19:53-03:00
 ====== Git ======
 Created Friday 13 March 2020
 
+===== Commit Message =====
 https://chris.beams.io/posts/git-commit/
+
+https://www.mantisbt.org/wiki/doku.php/mantisbt:git_commit_messages
+
+https://git.kernel.org/pub/scm/git/git.git/tree/Documentation/SubmittingPatches?id=928f0ab4bae61954c27a77794d80c2332c8e816c
+
+https://stackoverflow.com/questions/13861318/why-is-it-considered-good-practice-to-describe-git-commits-in-the-present-tense/13861351#13861351
+
+
+https://stackoverflow.com/questions/8741290/tagging-commit-messages-and-changesets
+
+https://docs.scipy.org/doc/numpy-1.15.1/dev/gitwash/development_workflow.html
+
 
 
 ===== rebase continue then skip? =====
@@ -29,5 +42,29 @@ https://git-scm.com/docs/git-config#Documentation/git-config.txt-corewhitespace
 git config --global color.diff.whitespace 'red reverse'
 '''
 
+
+===== Upstream =====
+
+This git message:
+
+'''
+$ git push -u origin
+fatal: The current branch tasks/XYZ-1234 has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin tasks/XYZ-1234
+'''
+
+But I don't want to type that tedious tasks/XYZ-1234 numberish thing. We can do:
+
+'''
+$ git push --set-upstream origin HEAD
+'''
+
+https://stackoverflow.com/questions/14031970/git-push-current-branch-shortcut
+
+
+===== Lint only staged files =====
+git diff --name-only --staged | xargs npx eslint
 
 

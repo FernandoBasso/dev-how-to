@@ -8,9 +8,8 @@ Created Wednesday 04 March 2020
 ===== info grep =====
 
 @TODO
-The info pages for grep uses the chars ‘ and ’ to enclose options and inline snippets of code. That is true on Xubuntu at least.
+The info pages for grep uses the chars ‘ and ’ to enclose options and inline snippets of code.
 
-Check that this is true in Arch Linux as well.
 
 
 

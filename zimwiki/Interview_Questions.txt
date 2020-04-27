@@ -15,3 +15,9 @@ bool checkRange(int low, int high, List<Range> items) {
 	}
 	return true;
  }
+
+
+https://dev.to/emmabostian/i-passed-the-google-technical-interviews-you-can-too-4i6m
+https://gist.github.com/emmabostian/c996c68458dd5eb770529b52dd7bfb00
+
+book Atomic Habits by James Clear
