@@ -1,0 +1,7 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-04-27T05:59:07-03:00
+
+====== Text Editors and IDEs ======
+Created Monday 27 April 2020
+

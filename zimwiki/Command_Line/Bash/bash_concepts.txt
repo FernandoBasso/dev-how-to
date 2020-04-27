@@ -1,0 +1,217 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-04-26T05:49:49-03:00
+
+====== bash concepts ======
+Created Thursday 26 April 2018
+
+===== types of shell =====
+
+A **login shell** is a shell that is run as part of your login process.
+
+A **non-login shell** is a shell that you open from a system you are already logged into, like clicking on the terminal icon of your applications menu.
+
+A **non-interactive shell** is one that you cannot directly interface/interact with. It runs a script or an automated task.
+
+To see if your shell is interactive, inspect the variable ''-'' and see if "i" shows up:
+
+'''
+echo $-
+himBHs
+# contains "i", this shell is interactive
+'''
+
+
+===== bash config files =====
+
+Files read by bash depend on the "type" of shell.
+
+==== login shell ====
+
+* ''/etc/profile''
+
+In an interactive login shell, after reading `/etc/profile`,  bash tries to read
+
+* ''~/.bash_profile''
+* ''~/.bash_login''
+* ''~/.profile''
+
+The first one found is read and the others are ignored.
+
+==== non-login shell ====
+On a non-login shell, bash only tries to read ''~/.bashrc''.
+
+==== interactive shell ====
+A shell that you type commands in.
+
+==== non-interactive shell ====
+Like when executing a script, bash tries to read files defined in
+* ''BASH_ENV'' environment variable
+
+If you do ''bash myscript.sh'', the shell that runs the script is a non-interactive //subshell.//
+
+==== posix mode ====
+* ''/etc/profile''
+* ''~/profile''
+
+==== interactive vs non-interactive ====
+
+The script sees this as an interactive shell:
+'''
+source script.sh
+'''
+
+The script sees this as a non-interactive shell:
+'''
+bash script.sh
+./script.sh
+'''
+
+Another example:
+'''
+# filename: script.sh
+case "$-" in
+    *i*) printf '%s\n' 'Interactive!' ;;
+    *) printf '%s\n' 'Not interactive...' ;;
+esac
+'''
+
+'''
+$ bash script.sh
+Interactive!
+$ source script.sh
+Not interactive...
+'''
+
+
+
+==== bashrc gotcha ====
+
+You have a ''~/.bash_profile'' and it looks like your settings from ''~/.bashrc'' are not present in your environment after login.
+
+On a login shell, bash first tries to read ''~/.bash_profile'' and if it does exist, bash does no further searching of files to read. Therefore, if you have a `~/.bash_profile` and you are in a login shell, you must ''source ~/.bashrc'' (and any other files you might need) from your ''~/.bash_profile'' file.
+
+'''
+# ~/.bash_profile
+# Source ~/.bashrc on login shells.
+[ -f $HOME/.bashrc ] && source $HOME/.bashrc
+'''
+
+
+===== hashed? =====
+Look at this:
+'''
+$ type firefox               
+firefox is /usr/bin/firefox  
+
+$ firefox --version          
+Mozilla Firefox 55.0.3       
+
+$ type firefox                      
+firefox is hashed (/usr/bin/firefox)
+'''
+
+After login, the user has not yet started the program firefox and its path is not yet "hashed" (cached). When running `firefox --version`, the shell has to find where firefox is located in order to invoke it, and _chaches_ its path so further invokations don't have to find the path for that program again.
+
+It is similar to what happens with DNS. First access has to go through a process to discover the IP of some web thing. That ip is then cached so further acesses to that thing don't have to go through the process of discovering the IP again.
+
+===== word designators =====
+
+==== last argument from previous command ====
+
+
+You run ''emasc ~/.dotfiles/FILES/config/termite/config'' which fails because you made a typo ("emasc"). Instead of typing the full commad again, you just type "emacs" (properly this time) and some cool **word designator**:
+
+'''
+emacs !!:$
+'''
+
+NOTE: ''!!:$'' can be abbreviated to '''!$'''.
+
+TIP: of ''!!:$'' to mean "the last argument of the previous command".
+
+==== all arguments from previous command ====
+
+You run
+
+'''
+du -h main.c main.h config.c config.h parser.c parser.h
+'''
+
+Now, to move those same files to, say, the directory ''src/'', you could do
+
+'''
+mv -v main.c main.h config.c config.h parser.c parser.h
+'''
+
+But better yet, be clever and use more cool word designinators:
+
+'''
+mv -v !!:*
+'''
+
+NOTE: ''!!:*'' can be abbreviated to ''!*''.
+
+TIP: of ''!!:*'' as "all the arguments of the previous commands" (not the command switches and options, like the "-v" switch above, but real arguments, the things the command will operate on.
+
+===== event designators =====
+
+An **event designator** is a reference to a command line entry.
+
+**Word designators** are used to select desired words from an **event**.
+
+
+===== subshell =====
+A subshell is a child process of a shell.
+If you do something like ''./myscript.sh'' you are in a subshell.
+
+If you do ''bash myscript.sh'', the shell that runs the script is a //non-interactive// **subshell**//.//
+
+
+
+
+===== debugging =====
+http://lists.gnu.org/archive/html/help-bash/2018-06/msg00006.html
+
+Bash (and sh) has two different "debug" options: -x and -v.
+
+set -x tells bash (or sh) to print each command as it is being
+*executed*, showing parameter expansions.  It is a useful tool.
+
+set -v tells bash (or sh) to print each *line* of the script as it
+is being *read*.  But this is not useful, because the point at which
+a line of input is read has nothing to do with when the commands
+contained in that line are executed.
+
+As Peng partially demonstrated, any long compound command (e.g. a
+function definition, or a while loop) is read all at once, before
+any execution happens.  set -v shows you the shell reading the lines
+of the script.  So what?  It's not executing them.  It's just reading
+them.  It doesn't reveal any useful information.
+
+Adding echo/printf commands to show the contents of variables (or the
+simple fact that execution has reached a specific point) is a useful tool,
+and you should continue doing so wherever it's helpful.  This is similar
+to how set -x helps you -- it shows you what the shell is actually doing.
+
+"declare -p varname" is also useful for showing the contents of
+variables in many cases.  In a very small number of cases, even that
+may not reveal enough information, and then something like
+
+  printf %s "$varname" | od -c -An
+
+(or your favorite hexdumper) may be what's needed
+
+
+
+
+
+
+
+
+
+
+
+
+
+

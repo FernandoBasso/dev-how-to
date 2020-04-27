@@ -1,0 +1,34 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-05-05T07:59:54-03:00
+
+====== pacman arch linux ======
+Created Saturday 05 May 2018
+
+===== installed as dependency? =====
+Install reason (look for the line "Install Reason"):
+'''
+pacman -Qi <package>
+
+'''
+===== package is required by? =====
+
+See what package depends on this package (look for the line "Required by"):
+0p------------------''pacman -Sii <package>''
+
+===== list files a package contains =====
+'''
+pacman -Ql <package>
+'''
+
+
+===== remove unused packages =====
+'''
+sudo pacman -Rns $(pacman -Qtdq)
+'''
+
+
+
+
+
+

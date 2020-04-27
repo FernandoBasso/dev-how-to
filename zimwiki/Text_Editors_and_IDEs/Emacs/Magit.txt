@@ -1,0 +1,28 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-02-28T07:29:32-03:00
+
+====== Magit ======
+Created Friday 28 February 2020
+
+https://emacsair.me/2017/09/01/magit-walk-through/
+
+
+===== Untrack file =====
+
+https://emacs.stackexchange.com/questions/9317/untrack-file-without-deleting-it
+
+In the magit buffer, move to the line displaying the to be untracked, then ‘K’ (uppercase k).
+
+
+
+===== Toggling switches =====
+
+
+Reddish because “force with lease” toggled on (active).
+
+{{./switch-toggled-on.png}}
+
+Grayish because “force with lease” is toggled off (inactive).
+{{./switch-toggled-off.png}}
+

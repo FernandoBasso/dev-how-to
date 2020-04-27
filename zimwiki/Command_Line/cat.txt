@@ -1,0 +1,76 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-04-08T07:05:54-03:00
+
+====== cat ======
+Created Sunday 08 April 2018
+
+===== some examples =====
+
+'''
+echo ('USE mydb;'; cat dump.sql) | mysql -host dev.local.me -u ...
+'''
+
+'''
+cat > file.txt
+line 1
+lorem ipsum
+may the source
+Ctrl-D
+'''
+
+'''
+cat > file.txt << EOF
+line 1
+lorem ipsum
+may the source
+EOF
+'''
+
+https://stackoverflow.com/questions/49200095/how-to-get-cat-output-path-as-a-variable-in-bash-script
+
+===== heredoc backticks problem with cat =====
+https://stackoverflow.com/questions/48745627/bash-complains-about-syntax-errors-in-here-document-when-using-backticks
+
+'''
+$ cat << END_TEXT
+>        _             _ 
+>       | |           | |
+>   __ _| |__   ___ __| |
+>  / _` | '_ \ / __/ _` |
+> | (_| | |_) | (_| (_| |
+>  \__,_|_.__/ \___\__,_|
+> END_TEXT
+bash: command substitution: line 1: syntax error near unexpected token `|'
+bash: command substitution: line 1: ` | '_ \ / __/ _'
+       _             _ 
+      | |           | |
+  __ _| |__   ___ __| |
+ / _ |
+| (_| | |_) | (_| (_| |
+ \__,_|_.__/ \___\__,_|
+'''
+
+Instead of escaping the backticks, just single quote the heredoc opening delimiter (the closing one shall not be quoted:
+'''
+$ cat << 'END_TEXT'
+       _             _ 
+      | |           | |
+  __ _| |__   ___ __| |
+ / _` | '_ \ / __/ _` |
+| (_| | |_) | (_| (_| |
+ \__,_|_.__/ \___\__,_|
+END_TEXT 
+
+       _             _ 
+      | |           | |
+  __ _| |__   ___ __| |
+ / _` | '_ \ / __/ _` |
+| (_| | |_) | (_| (_| |
+ \__,_|_.__/ \___\__,_|
+'''
+
+
+
+
+

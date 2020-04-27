@@ -1,0 +1,42 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-05-21T10:56:53-03:00
+
+====== bash quoting rules ======
+Created Monday 21 May 2018
+
+'
+[DATETIME: 2018-05-21 10:57]
+'''
+----
+[10:54:03] <Fernando-Basso> shellecheck wants me to quote $(hostname) to "$(hostname)". I know very little about bash quoting rules. Still, that sounds like "too much".
+[10:54:49] <Fernando-Basso> I also have $1 to be an exit status, and also have to quote it.
+[10:55:03] <nai> !quotewhen
+[10:55:03] <greybot> "Double quote" every literal that contains spaces/metacharacters and _every_ expansion: "$var", "$(command "$var")", "${array[@]}", "a & b". Use 'single quotes' for code or literal $'s: 'Costs $5 US', ssh host 'echo "$HOSTNAME"'. See http://mywiki.wooledge.org/Quotes , http://mywiki.wooledge.org/Arguments and http://wiki.bash-hackers.org/syntax/words .
+[10:55:15] <geirha> the result of unquoted $() as part of a simple command will be subjected to word splitting and pathname expansion. That's you want to quote it.
+----
+'''
+
+
+
+
+'''
+[07:29:49] <haobug> xmbswc: are there any way to disable the quotes removing.
+[07:31:14] <xmbswc> no
+[07:31:24] <xmbswc> only manual escaping ( \" \' )
+[07:31:39] <xmbswc> quotes of " get as-is excepts $variables get expanded
+[07:31:44] <xmbswc> no quotes mean multiple arguments
+[07:31:47] <nai> !quotewhen
+[07:31:48] <greybot> "Double quote" every literal that contains spaces/metacharacters and _every_ expansion: "$var", "$(command "$var")", "${array[@]}", "a & b". Use 'single quotes' for code or literal $'s: 'Costs $5 US', ssh host 'echo "$HOSTNAME"'. See http://mywiki.wooledge.org/Quotes , http://mywiki.wooledge.org/Arguments and http://wiki.bash-hackers.org/syntax/words .
+[07:32:12] <xmbswc> and single quotes are for static strings where no $var gets interpreted ( stays with the dollar sign )
+[07:32:19] <nai> haobug: if you want to get a quoted string that can be reused, use printf %q or ${foo@Q}
+[07:32:31] <xmbswc> nai, do u remember some days ago u !qefs me
+[07:32:39] <xmbswc> i use it now since recently :))
+[07:32:45] <nai> # foo='bar\n'; printf %q "$foo"; echo "${foo@Q}"
+[07:32:47] <shbot> nai: bar\\n'bar\n'
+[07:32:55] <nai> # foo='bar\n'; printf %q\\n "$foo"; echo "${foo@Q}"
+[07:32:56] <shbot> nai: bar\\n
+[07:32:56] <shbot> nai: 'bar\n'
+'''
+
+

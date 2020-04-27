@@ -1,0 +1,49 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-04-13T13:52:54-03:00
+
+====== imagemagic ======
+Created Friday 13 April 2018
+http://www.imagemagick.org/discourse-server/index.php
+
+ImageMagick provides commands like `''convert''`, `''identify''`.
+
+==== Resize Images ====
+Resize width to 200px, automatic height resizing based on new width:
+'''
+for img in *.{jpg,png} ; do convert "$img" -resize 200x "$img"; done
+'''
+
+Resize height to 100px, automatic width resizing based on new height:
+'''
+for img in *.{jpg,png} ; do convert "$img" -resize x200 "$img"; done
+'''
+
+See the results:
+'''
+identify *.{jpg,png} | column -t
+'''
+
+Resize canvas to 200x150 and center images inside (assume no image is more than 200x150):
+'''
+for img in *.{jpg,png} ; do
+    convert "$img" -background White -gravity center -extent 200x150 "$img"
+done
+'''
+
+Resize image to 200x<auto> and extend canvas to 200x150 and center images inside (assume no image is more than 200x150):
+'''
+for img in *.{jpg,png} ; do
+    convert "$img" -resize 200x -background White -gravity center -extent 200x150 "$img"
+done
+'''
+
+
+===== Convert Format =====
+
+Convert png to jpg:
+'''
+for img in *.png ; do
+    convert "$img" "${img%.*}.png"
+done
+'''

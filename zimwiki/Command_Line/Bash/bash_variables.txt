@@ -1,0 +1,36 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-05-19T19:18:42-03:00
+
+====== bash variables ======
+Created Saturday 19 May 2018
+
+===== assign to variable using heredoc =====
+
+https://stackoverflow.com/questions/1167746/how-to-assign-a-heredoc-value-to-a-variable-in-bash
+
+
+'''
+read -r -d '' msg << EOF
+NOTE:
+
+If the destionation seems to be missing files, remember
+that we are making a backup of several dot files and
+directories (aka hidden files).
+
+    ls -A $dest
+
+EOF
+'''
+
+Then you can printf it:
+
+'''
+printf '%s\n' "$msg"
+'''
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-05-19T21:13:15-03:00
+
+====== shell redirection ======
+Created Saturday 19 May 2018
+
+===== printf to stdout =====
+
+'''
+printf '%s' 'Oops, this is an error...' 1>&2
+'''
+

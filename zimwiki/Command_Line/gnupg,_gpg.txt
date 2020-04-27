@@ -1,0 +1,72 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-04-12T14:18:13-03:00
+
+====== gnupg, gpg ======
+Created Thursday 12 April 2018
+
+https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages
+https://wiki.archlinux.org/index.php/GnuPG
+
+http://allanmcrae.com/2015/01/two-pgp-keyrings-for-package-management-in-arch-linux/
+https://wiki.archlinux.org/index.php/GnuPG#Use_a_keyserver
+
+
+==== Personal Use ====
+
+'''
+$ gpg --full-gen-key
+$ gpg --output ~/Documents/GPG/revocation.crt --gen-revoke your@email.com
+$ chmod 600 ~/revocation.crt
+'''
+
+
+Encrypt a file using password:
+'''
+gpg -c mypasswords.txt
+'''
+and it creates the file mypassword.txt.gpg.
+
+Now you can open it in emacs and in vim (with th plugin gnupg.vim) and when you save the file it will ask you for the password. At this point you can remove the original .txt file.
+
+WARNING: if you forget your password, your will not be able to recover its contents.
+
+===== import screte key to another computer =====
+https://askubuntu.com/questions/32438/how-to-share-one-pgp-key-on-multiple-machines
+https://unix.stackexchange.com/questions/407062/gpg-list-keys-command-outputs-uid-unknown-after-importing-private-key-onto
+
+In machine 1 (will ask password):
+'''
+$ gpg --export-secret-key -a > mysecretkey.asc
+'''
+
+In machine 2 (will ask password):
+'''
+$ gpg --import mysecretkey.asc
+'''
+
+Do this in both machines:
+'''
+$ shred --remove mysecretkey.asc
+'''
+Then, the key on the new machine shows as "[unknown]" trust level with `''--list-secret-keys''`. Do this:
+'''
+gpg --edit-key user@email.xz
+'''
+
+and now, from gpg prompt:
+'''
+gpg> trust
+choose option 5 (five) here
+gpg> save
+'''
+
+
+
+
+
+
+
+
+
+

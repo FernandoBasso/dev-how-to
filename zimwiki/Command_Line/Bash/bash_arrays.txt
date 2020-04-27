@@ -1,0 +1,56 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-05-05T14:21:39-03:00
+
+====== bash arrays ======
+Created Saturday 05 May 2018
+
+===== convert each character on a string to an array element =====
+https://stackoverflow.com/questions/7578930/bash-split-string-into-character-array
+
+
+geirha's version
+'''
+var=abc;
+for (( i = 0, n = ${#var}; i < n; ++i )); do
+    arr+=( "${var:i:1}" )
+done
+'''
+
+
+davidl_'s version
+'''
+while read -r -n1  ; do
+    chars_array+=($a)
+done <<<"$chars_string"
+'''
+
+echo "abcdefg" | fold -w1
+
+echo "abcdefg" | grep -o .
+
+
+===== check if variable is a number =====
+https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
+
+[15:48:51] <Fernando-Basso> From which version of bash onward should I expect "if [[ $1 =~ ^[0-9]+$ ]] ; then" to work‽
+[15:49:37] <mknod> at least 3.2 for sure, if that's the underlying question
+[15:50:06] <mknod> [[...]]: regex support (=~)  3.0-alpha
+[15:51:09] <e36freak> or just use [[ $1 && $1 != *[!0-9]* ]]
+
+'''
+for (( i = 0; i <= 9; ++i ))
+  if (( i % 2 == 0 ))
+  then
+    continue
+  fi
+  printf '%d\n' "$i"
+done
+'''
+
+
+
+
+
+
+

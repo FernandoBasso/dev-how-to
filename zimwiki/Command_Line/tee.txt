@@ -1,0 +1,21 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-04-08T18:20:18-03:00
+
+====== tee ======
+Created Sunday 08 April 2018
+
+Redirect output of `''tree''` to stdout //and// out.txt:
+'''
+$ tree -F ./ | tee out.txt
+'''
+
+Create "env.bkp" from original ".env" file, and replace "Laravel" with "My New Amazing App" enclosed in single quotes and store the result on the file ".env.new":
+'''
+$ cat .env | tee .env.bkp | sed "s/Laravel/'My New Amazing App'"/ > .env.new
+'''
+
+If your sed support `''-i''` (GNU Sed does) you can replace ".env" in-place:
+'''
+$ cat .env | tee .env.bkp | sed -i "s/Laravel/'My New Amazing App'"/
+'''

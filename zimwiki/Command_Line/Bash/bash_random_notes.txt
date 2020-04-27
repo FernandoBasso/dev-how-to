@@ -1,0 +1,34 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-04-26T07:10:57-03:00
+
+====== bash random notes ======
+Created Thursday 26 April 2018
+
+===== printf error invalid option =====
+
+'''
+$ printf '-----\n%s\n' 'Catiane'
+bash: printf: --: invalid option
+printf: usage: printf [-v var] format [arguments]
+'''
+
+The problem is the first ''--'' inside the quotes. They are interpreted as if they are a command line option, like ''--login'', ''--help'' or ''--verbose''.
+
+To fix it just add an extra pair of ''--'' before the arguments to `printf`:
+
+'''
+printf -- '----\n%s\n' 'Catiane'
+'''
+
+
+
+--------------------
+
+[16:00:27] <Fernando-Basso> cd ../compiled || printf '%s\n' "'../compiled/' directory was not foundJ" 1>&2 && exit 1 <-- is this bad?
+[16:00:32] <uplime> not sure what you're talking about for starters
+[16:00:42] <uplime> !&&|| > Fernando-Basso
+[16:00:42] <greybot> Fernando-Basso: foo && bar || baz is not equivalent to 'if foo; then bar; else baz; fi'. In the former case, baz will happen if *either* foo *or* bar return false. In the latter case, baz will only trigger if foo returns false, regardless of the exit code for bar. See http://mywiki.wooledge.org/BashPitfalls
+[16:01:14] <phy1729> Fernando-Basso: it will always exit unless printf fails somehow
+
+--------------------

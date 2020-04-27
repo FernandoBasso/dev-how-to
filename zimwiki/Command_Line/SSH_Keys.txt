@@ -1,0 +1,89 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-04-06T12:17:55-03:00
+
+====== SSH Keys ======
+Created Friday 06 April 2018
+
+===== generate private/public pair =====
+`''ssh-keygen''` generates files in `''$PWD''` and creates two files: "id_<keytype>" and "id_<keytype>.pub". We can use `''-f''` to specify the output:
+
+'''
+$ ssh-keygen -t rsa -b 4096 -f id_vbsmidia-rsa-4096bits
+'''
+
+Generates:
+* `''$HOME/.ssh/id_vbsmidia-rsa-4096bits''` (the private key, never upload this file to server, never publish it), and
+* `''$HOME/.ssh/id_vbsmidia-rsa-4096bits.pub''` (the public key that should be uploaded to servers).
+
+Also, keys must have correct permissions (this are correct):
+'''
+$ ls -l $HOME/.ssh/
+total 36
+-rw-r--r-- 1 fernando fernando    65 Aug  8  2017 config
+-r-------- 1 fernando fernando  1675 Mar 28  2017 id_rsa
+-rw-r--r-- 1 fernando fernando   408 Mar 28  2017 id_rsa.pub
+-rw------- 1 fernando fernando  3243 Apr  6 12:41 id_vbsmidia-rsa-4096bits
+-rw-r--r-- 1 fernando fernando   743 Apr  6 12:41 id_vbsmidia-rsa-4096bits.pub
+-rw-r--r-- 1 fernando fernando 13662 Apr  5 15:41 known_hosts
+'''
+
+
+===== upload public key =====
+
+You will have to provide the ssh password at least this once:
+'''
+ssh-copy-id -i ~/·ssh/id_mykey.pub user@host
+'''
+
+The above command will add your pub key contents to the end of `''/home/youruser/.ssh/authorized_keys''` on the server.
+
+If "~/.ssh/authorized_keys" does not exist on the server, create it (empty file) and set the correct permissions:
+
+'''
+chmod 744 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+'''
+
+If permissions are two permissive, ssh won't work (neither if it is all 000).
+
+
+===== rsync with key auth =====
+
+After you have your pub key on the server:
+
+'''
+rsync -e 'ssh -i ~/.ssh/id_vbsmidia-rsa-4096bits' \
+    --include-from=./0noup/upload-patterns-site.txt \
+    ./ \
+    myuser@mycompany.myserver.net:~/public_html/
+'''
+
+
+===== rsync with key auth and ~/.ssh/config =====
+
+If you have your server set in `''~/.ssh/config''`, like
+'''
+Host myproject
+IdentityFile ~/.ssh/id_workservers-rsa-4096bits
+Port 22
+User myuser
+HostName mycompany.myserver.net
+'''
+
+Then you can use `''myproject''` as the host argument for rsync:
+
+'''
+rsync -e 'ssh -i ~/.ssh/id_vbsmidia-rsa-4096bits' \
+    --include-from=./0noup/upload-patterns-site.txt \
+    ./ \
+    myproject:~/public_html/
+'''
+
+
+
+
+
+
+
+

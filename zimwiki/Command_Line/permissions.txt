@@ -1,0 +1,18 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-04-12T07:41:32-03:00
+
+====== permissions ======
+Created Thursday 12 April 2018
+
+===== execute binary 774 permission denied =====
+Uploaded `jpegoptim' binary to a `''server:~/bin/''` and although it was owned by me and had had executable permissions for the user and group, couldn't run it:
+
+'''
+-rwxrwxr-- 1 theuser theuser 106698 Apr 12 07:34 jpegoptim*
+-bash-3.2$ ./bin/jpegoptim
+-bash: ./bin/jpegoptim: Permission denied
+-bash-3.2$ 
+'''
+
+It so happens that the filesystem is mounted with the `''noexec''` option in /etc/fstab. Out of look since this is a shared host.

@@ -1,0 +1,12 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-10T08:24:12-03:00
+
+====== Useful Tmux Commands ======
+Created Tuesday 10 March 2020
+
+
+
+tmux -f ~/Projects/dotfiles/tmux/themes/tmux-light.conf new-session -c ~/Projects/github-followers -s ghfolw -n serv \; send-keys 'nvm use && npm run serve' C-m \; new-window -n 'jest' \; send-keys 'nvm use && npm run test:unit -- --watch' C-m \; new-window -n shell \; send-keys 'nvm use' C-m
+
+

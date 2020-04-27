@@ -1,0 +1,18 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-03-27T19:24:55-03:00
+
+====== tar ======
+Created Friday 27 March 2020
+
+'''
+$ tar \
+    -C ~/Documents \
+    -vcf ~/Documents/Translation-Bundle.tar \
+    Translation-Bundle
+
+$ tar \
+    -xf ~/Documents/Translation-Bundle.tar \
+    -C ~/Documents/
+'''
+
