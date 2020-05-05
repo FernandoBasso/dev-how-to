@@ -74,4 +74,11 @@ tmux -f ~/.dotifles/FILEs/tmux-light1.conf new-session \
 [08:28:43] <nicm> while :; do tmux selectp -U; sleep 5; done
 
 
+===== ColoUrs =====
+
+https://superuser.com/questions/285381/how-does-the-tmux-color-palette-work/285400
+
+
+
+===== The End =====
 

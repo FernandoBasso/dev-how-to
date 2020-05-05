@@ -13,3 +13,6 @@ Looks like both Atom and VSCode do not honor editorconfigs ‘max_line_length’
 https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties#max_line_length
 
 Vim, on the other hand, does honor that setting without any trouble at all. Even to reformat/reflow comments simply use ‘gq’ and be done with it!
+
+
+

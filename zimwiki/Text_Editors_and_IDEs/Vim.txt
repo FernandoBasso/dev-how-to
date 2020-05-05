@@ -1,0 +1,26 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-04-28T16:26:00-03:00
+
+====== Vim ======
+Created Tuesday 28 April 2020
+
+===== webpack alias app src =====
+
+E158: Unknown option: “app”
+set includeexpr=substitute(v:fname, 'app', 'src', '')
+
+Works!
+set includeexpr=substitute(v:fname,'app','src','')
+
+““
+It's not the function which is the problem, it's that you're using it in a :set [option]
+
+-- nickspon at #vim, irc
+””
+
+
+===== Tabs vs Buffers =====
+
+https://github.com/ap/vim-buftabline
+

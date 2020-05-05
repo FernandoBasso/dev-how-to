@@ -8,6 +8,8 @@ Created Friday 07 February 2020
 Sheilong@lisp-br, irc
 https://schoolyourself.org/learn/
 
+Interactive book:
+http://immersivemath.com/ila/index.html
 
 
 XProger (OpenLara)

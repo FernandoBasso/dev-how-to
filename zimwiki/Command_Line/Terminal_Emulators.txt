@@ -5,11 +5,22 @@ Creation-Date: 2020-03-26T09:08:54-03:00
 ====== Terminal Emulators ======
 Created Thursday 26 March 2020
 
+__NOTE__: No matter how much I research or what configs I try, it looks like old shcool terminal emulators like Xterm and URxvt cannot beat new-wave (VTE-based) terminals like mate-terminal or xfce4-terminal when it comes to handling multibyte/unicode chars.
+
+The X Resources
+http://linuxdocs.org/HOWTOs/XWindow-User-HOWTO-8.html
+
+
 
 ===== Gruvbox Vim Theme =====
 Has A LOT of good info about terminals, perks, tips, commands to query info, etc. Amazing docs!
 
 https://github.com/morhetz/gruvbox/wiki/Terminal-specific
+
+
+===== xterm =====
+
+xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T 'λ Always Be Awesome! λ'
 
 
 ===== rxvt-unicode urxvt =====
@@ -20,3 +31,11 @@ https://www.youtube.com/watch?v=eaBf_yFHps8
 
 “I've used urxvt in the past, but it is utterly unable to handle unicode characters.”
 
+
+===== Tilix =====
+https://github.com/gnunn1/tilix/issues/571
+
+dconf dump /com/gexperts/Tilix/ > tilix.dconf
+dconf load /com/gexperts/Tilix/ < tilix.dconf
+
+https://github.com/gnunn1/tilix/issues/99
