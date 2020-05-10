@@ -17,3 +17,8 @@ Created Monday 09 March 2020
 
 Thanks Tomb Raider for introducing more and more people to the diverse and beautiful cultural riches of the world!
 
+
+
+I wonder if another further step regarding these keybinding for “broadcasting” would be to leave only two of them, and instead of three we currently have, they would instead toggle it! For instance, Ctrl-Shift-A would enable “broadcast all” if disabled the, and disable otherwise. The same for “broadcast group”. This way, instead of users having to remember three keybindings, only two would suffice.
+
+As a side note, Tilix uses the same key to toggle the broadcasting, and Tmux, similarly, uses the same set-window-option synchronize-panes to toggle the feature on and off. Not that I want to copy those, but it does seem to make sense using a toggle-like thing than having to know a third command to toggle off the feature.

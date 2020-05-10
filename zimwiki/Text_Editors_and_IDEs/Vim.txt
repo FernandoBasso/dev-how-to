@@ -24,3 +24,27 @@ It's not the function which is the problem, it's that you're using it in a :set 
 
 https://github.com/ap/vim-buftabline
 
+
+
+===== How to Do 90% of What Plugins Do (With Just Vim) =====
+[DATETIME: Fri, 2020-05-08 07:21]
+https://www.youtube.com/watch?v=XA2WjJbmmoM
+
+https://github.com/changemewtf/no_plugins
+
+:set path+=**
+:set wildmenu
+:find foo<Tab>
+:find *.rb
+
+
+command! [[MakeTags]] !ctags -R .
+
+^]
+g^]
+^t
+
+^x^n
+^x^f
+^x^]
+^n

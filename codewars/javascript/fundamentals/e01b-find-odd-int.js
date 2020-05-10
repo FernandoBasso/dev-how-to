@@ -6,14 +6,22 @@ const l = console.log.bind(console);
 
 /**
  * Find number that appear an odd number of times.
- * 
+ *
  * ASSUME: There will always be only one integer that appears
  * an odd number of times.
- * 
+ *
  * @param {array<number>} arr
  * @return {number}
  */
 function findOdd(arr) {
+  // This ‘find’ and ‘filter’ version only works because of the
+  // assumption we made above. If there are more than one number
+  // that appears an odd number of times,  then this algorithm
+  // would find only the first one.
+
+  // “Find an ‘n’ in the array ‘arr’ which an odd number of times”.
+  // ‘filter’ filers all ‘e’s that are equal to ‘n’ and then verifies
+  // that the resulting filtered array has an odd (1, 3, 5, etc). ‘length’.
   return arr.find(n => arr.filter(e => e === n).length % 2 !== 0);
 }
 

@@ -5,6 +5,7 @@ Creation-Date: 2019-12-24T15:53:35-03:00
 ====== JavaScript ======
 Created Tuesday 24 December 2019
 
+https://1loc.dev/ (Thanks to Maiquel Melo for sharing this with me)
 
 https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
 

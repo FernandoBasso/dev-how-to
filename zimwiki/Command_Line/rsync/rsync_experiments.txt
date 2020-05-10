@@ -134,7 +134,7 @@ proj1/
 
 We want to backup only files inside any `''libs''` directories, and nothing else. We try this:
 * `''+ */''` → allow rsync to look inside every directory and subdirectory.
-* `''+ libs/*''` → and look for "libs/<anythign else inside>"
+* `''+ libs/*''` → and look for "libs/<anything else inside>"
 * `''- *''` → and exclude all files (except those already matched above
 
 Remember, anything that does not match is not skipped. So, `''+ */''` means that all dirs match. So, transfer all dirs. Then transfers all "libs/<files here>", and ignore all files `''*''`, but not the directories already matched.

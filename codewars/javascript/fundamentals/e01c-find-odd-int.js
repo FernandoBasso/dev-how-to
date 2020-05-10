@@ -6,10 +6,10 @@ const l = console.log.bind(console);
 
 /**
  * Find number that appear an odd number of times.
- * 
+ *
  * ASSUME: There will always be only one integer that appears
  * an odd number of times.
- * 
+ *
  * @param {array<number>} arr
  * @return {number}
  */
@@ -37,7 +37,7 @@ l(findOdd([5, 4, 3, 2, 1, 5, 4, 3, 2, 10, 10]));
 
 NOTE: This is my own explanation.
 
-1. XORing x to itself yields 0.
+1. XORing x to itself always yields 0.
     1 ^ 1 = 0
     1 ^ 1 ^ 1 ^ 1 = 0
 
@@ -90,7 +90,7 @@ This is usefull to undertand second thing below.
 -----------------
 
 A ^ A = 0 ( ex: 10 ^ 10 = 0 )
-A ^ 0 = A 
+A ^ 0 = A
 
 (ps: we don't need other properties to undertand)
 
@@ -118,11 +118,11 @@ This solution will iterate like this.
 the order or prio operations
 so we can write 10 ^ 10 ^ 3 ^ 20, now use the properties (A ^ A = 0)
 so 10 ^ 10 = 0 ... then 0 ^ 3 ^ 20. Again use the property (A ^ 0 = A)..
-so 0 ^ 3 ^ 20 = 3 ^ 20. we continu iteration ... 
-  
+so 0 ^ 3 ^ 20 = 3 ^ 20. we continu iteration ...
+
 - 3 ^ 20 ^ 3 .. Again use associativity and properties, the result here is 20
 - 20 ^ 20 = 0, then last iteration
-- 0 ^ 10 = 10 ! 
+- 0 ^ 10 = 10 !
 
 As you see the behaviour is that: if at a time we meet/encounter a number
 that's already IN previous  XOR operations .. like:
