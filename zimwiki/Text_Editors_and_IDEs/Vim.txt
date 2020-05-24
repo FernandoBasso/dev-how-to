@@ -48,3 +48,43 @@ g^]
 ^x^f
 ^x^]
 ^n
+
+
+===== Working With Options =====
+
+See '':help options'' to learn about the subject. Other useful things follow.
+
+==== Place the value of option into the buffer ====
+
+From insert mode type ''Ctrl-r'' followed by ''='', which makes the command line at the bottom wait for the rest of the command. Then type ''&'' followed by the name of an option, like ''listchars''. and end it with ''<CR>''.
+
+==== Copy value of option to clipboard ====
+
+'''
+:help clipboard
+:help x11-selection
+'''
+
+Vim uses the register ‘''*''’ for the primary X11 selection, and the register ‘''+''’ for the clipboard. So, to “copy” to the primary selection or the clipbaord, we must “assing” stuff to those register. Registers are assigned to with the syntax ‘''@<register-name> = <value>''’, like ‘''@z = 'foo'''’ to assign the the string “foo” to the register ‘''z''’.
+
+Example with the option ‘listchars’ using the clipboard:
+
+'''
+:let @+ = &listchars
+'''
+
+Now you can ''Ctrl-v'' in some other application to paste the contents of the clipboard.
+
+Example with the option ‘listchars’ using the primary selection:
+
+'''
+:let @* = &listchars
+'''
+
+Now you can middle-click in some other application to paste the contents of the primary selection.
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-05-23T15:36:54-03:00
+
+====== Fundamentals ======
+Created Saturday 23 May 2020
+

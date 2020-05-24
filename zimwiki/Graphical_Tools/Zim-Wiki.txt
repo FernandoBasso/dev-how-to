@@ -1,0 +1,12 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-05-24T10:16:14-03:00
+
+====== Zim-Wiki ======
+Created Sunday 24 May 2020
+
+===== Handy Keyboard Shortcuts =====
+
+‘''Alt-Left-Arrow''’ and ‘''Alt-Right-Arrow''’ navigate back and forth on the hostory of navigated pages.
+
+

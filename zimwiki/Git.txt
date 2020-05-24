@@ -23,7 +23,7 @@ https://docs.scipy.org/doc/numpy-1.15.1/dev/gitwash/development_workflow.html
 
 ===== rebase continue then skip? =====
 
-Sometimes we fix a rebase conflict, run ‘git rebase --continue’, and then git says the fixes were applied, but remains in the dirty state ‘my-branch REBASE N/M’. It happens when fixing the conflict causes the incoming (the local) changes to be ignored. That is, the conflict happened, and handling it removes all the stuff that were present in the incoming/local changes in such a way that it would become an empty commit. Therefore, we can just do ‘git rebase --skip’ and be done with it.
+Sometimes we fix a rebase conflict, run ‘git rebase --continue’, and then git says the fixes were applied, but remains in the dirty state ‘my-branch REBASE N/M’. It happens when fixing the conflict causes the incoming (the local) changes to be ignored. That is, the conflict happened, and handling it removes all the stuff that was present in the incoming/local changes in such a way that it would become an empty commit. Therefore, we can just do ‘git rebase --skip’ and be done with it.
 
 
 ===== diff whitespace =====

@@ -7,3 +7,13 @@ Created Thursday 23 April 2020
 
 https://emacs.stackexchange.com/questions/27601/how-to-markup-a-quotation/27604
 
+
+Shortcut for inserting code-blocks:
+
+Before org-mode 9.2:
+
+<sTAB
+
+From org-mode 9.2:
+
+C-c C-,

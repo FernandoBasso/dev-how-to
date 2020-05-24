@@ -1,0 +1,10 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-05-23T15:36:47-03:00
+
+====== Codewars Challenges ======
+Created Saturday 23 May 2020
+
+**NOTE**: Stop worring about asciidoctor, org-mode, markdown, etc. Just use something simple to take notes and make a better use of your time.
+
+

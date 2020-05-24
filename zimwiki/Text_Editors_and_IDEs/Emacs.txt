@@ -12,7 +12,8 @@ https://emacs.stackexchange.com/questions/3458/how-to-switch-between-windows-qui
 '''
 (windmove-default-keybindings)
 '''
-
+ 
+‘foo ’ bar is the way to GoThere to see.
 
 ===== org-mode hide markup =====
 [10:43:11] <Fernando-Basso> Is there currently anyway to have org-mode hide //, ~ ~, and #+begin_<thing> #+end_<thing>?
@@ -28,3 +29,13 @@ https://emacs.stackexchange.com/questions/3458/how-to-switch-between-windows-qui
 [08:51:40] <fsbot> [1] at http://www.emacswiki.org/emacs/TheTruePath
 [08:51:40] <fsbot> [2] at http://emacswiki.org/emacs/ed
 [08:51:40] <fsbot> [3] small intro/howto/demo: http://blog.sanctum.geek.nz/actually-using-ed/
+
+===== Fonts =====
+
+'''
+(set-default-font "ProFontIIx Nerd Font Mono")
+'''
+
+If you ''2 ^ 2'' you'll see.
+
+

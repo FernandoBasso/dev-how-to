@@ -1,0 +1,235 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-05-23T16:10:54-03:00
+
+====== You Are Square ======
+Created Saturday 23 May 2020
+
+One Two Three
+
+===== Links =====
+
+Challenge:
+* https://www.codewars.com/kata/54c27a33fb7da0db0100040e
+* https://en.wikipedia.org/wiki/Square_number
+* https://www.quora.com/What-is-the-quickest-way-to-determine-if-a-number-is-a-perfect-square
+* https://math.stackexchange.com/questions/41337/efficient-way-to-determine-if-a-number-is-perfect-square -- Mindblowing stuff!
+
+
+===== Sample Input =====
+
+- -1: false, negative numbers cannot be square numbers
+-  0: true, ‘0 * 0 = 0’.
+-  4: true, ‘2 * 2 = 4’.
+-  9: true, ‘3 * 3 = 9’.
+- 25: true, ‘5 * 5 = 25’.
+- 26: false, no ‘x * x’ produces 25.
+
+===== Solution Tips =====
+
+If ‘x * x = n’, then ‘n’ is a perfect square.
+
+If the ‘sqrt’ of number produces an integer (no decimal places), then that number is a perfect square. For instance:
+
+If the ‘sqrt’ of a number produces a value that is not an integer, then it is not a perfect square.
+
+‘parseInt(3.14)’ returns the integer, discarding the decimal.
+
+'''
+> sqrt(16)
+4
+> sqrt(16) % 1
+0
+> sqrt(16) % 1
+0
+> sqrt(16) % 1 === 0
+true
+
+> sqrt(15)
+3.872983346207417
+> sqrt(15) % 1
+0.872983346207417
+> sqrt(15) % 1 === 0
+false
+'''
+
+
+===== Solutions =====
+
+==== C ====
+
+Zero is false. ‘2 == 1’ returns 0. One is true. ‘2 == 2’ returns 1. BUT exit status 0 means “success”, and any other (positive or negative) number means some sort of failure.
+
+=== cast ===
+
+'''
+#+begin_src c
+#include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
+
+bool is_square (int n)
+{
+  double val = sqrt (n);
+  return (int) val == val;
+}
+'''
+
+If ‘sqrt(n)’ produces a number like, say, 4.0, then ‘(int) 4.0’ produces 4, and and it is equal to the not cast ‘val’. That is ‘4.0 == 4’ is true (1). It means ‘sqrt’ produces a value, and if that value is the same value as when it is cast to an int, then ‘n’ is a perfect square.
+
+=== multiplication ===
+
+'''
+#+begin_src c
+#include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
+
+bool is_square (int n)
+{
+  double val = sqrt (n);
+  return val * val == n;
+}
+'''
+
+
+=== Solution 3 modf ===
+
+'''
+#+begin_src C
+#include <stdio.h>
+#include <math.h>
+
+int is_square (int n)
+{
+  double dummy;
+  return modf (sqrt (n), &dummy) == 0;
+}
+'''
+
+See ‘man modf’, but in short, ‘modf’ returns the integral part and assigns the decimal part into ‘&dummy’. The integral return of ‘modf’ is compared with 0. ‘dummy’ is a throww-away variable which is not used in this case.
+
+==== Haskell ====
+
+=== multiplication ===
+
+The challenge requires ‘Int’ as the input for the function, so, we have convert it to ‘Floating’ so we can do operations with the result of ‘sqrt’, which also produces ‘Floating’.
+
+'''
+isSqr :: Int -> Bool
+isSqr n = val * val == d
+  where
+	d   = fromIntegral n :: Double
+	val = sqrt d :: Double
+'''
+
+
+==== JavaScript ====
+
+=== ES6 isInteger ===
+
+'''
+// isSquare :: number -> bool
+function isSquare(n) {
+  return Number.isInteger(Math.sqrt(n));
+}
+'''
+
+
+=== sqrt % 1 ===
+
+'''
+// isSquare :: number -> bool
+// Produce true if ‘n’ is a perfect square; false otherwise.
+function isSquare(n) {
+  return Math.sqrt(n) % 1 === 0;
+}
+'''
+
+
+==== Python ====
+
+=== sqrt ===
+
+'''
+from math import sqrt
+
+def is_sqr(n):
+  if n < 0:
+	return False
+
+  val = sqrt(n)
+  return int(val) == val
+'''
+
+
+=== sqrt bitwise XOR ===
+
+'''
+from math import sqrt
+
+def is_square(n):
+  return n >= 0 and sqrt(n) % 1 == 0
+'''
+
+Using “exclusive or”, or “XOR”.
+
+'''
+0 ^ 1
+
+   0  00000000  0x0
+^  1  00000001  0x1
+-----------------------------------
+=  1  00000001  0x1
+'''
+
+
+==== Ruby ====
+
+=== sqrt ===
+
+'''
+def is_square(n)
+  n >= 0 and (Math.sqrt(n) % 1).zero?
+end
+'''
+
+
+==== Scheme ====
+
+=== sqrt ===
+
+'''
+(define is-sqr
+  (lambda (n)
+	(cond
+	 ((< n 0) #f)
+	 (else
+	  (let ((x (sqrt n)))
+		(= (* x x) n))))))
+
+(define nums '(-1 0 9 24 25))
+
+(print nums)
+(print (map is-sqr nums))
+'''
+
+We check whether ~n~ is less than 0 because in Scheme ~sqrt~ computes the square root of a number as an imaginary number.
+
+===== The End =====
+
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+

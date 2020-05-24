@@ -76,3 +76,11 @@ dconf dump /com/gexperts/Tilix/ > tilix.dconf
 dconf load /com/gexperts/Tilix/ < tilix.dconf
 
 https://github.com/gnunn1/tilix/issues/99
+
+
+===== Gnome Terminal =====
+
+https://askubuntu.com/questions/616404/ubuntu-15-04-fresh-install-cant-rename-gnome-terminal-tabs
+
+
+

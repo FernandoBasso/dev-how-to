@@ -1,0 +1,17 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-05-13T13:13:17-03:00
+
+====== Chicken Scheme ======
+Created Wednesday 13 May 2020
+
+http://parenteses.org/mario/misc/installing-chicken.txt
+
+http://parenteses.org/mario/misc/awful-install.txt
+
+Link executables to ‘~/bin’.
+
+$ ln -sv ~/local/chicken-5.2.0/bin/* ~/bin/
+
+It is imperative that we provide full paths and not relative paths.
+

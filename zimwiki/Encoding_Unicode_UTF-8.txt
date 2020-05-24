@@ -8,17 +8,51 @@ Created Monday 27 January 2020
 
 ===== List of useful unicode codepoints =====
 
+'''
 symbol	hex value
-‘   	2018
-’   	2019
-“   	201c
-”   	201d
+‘   	2018   alt-shift-v
+’   	2019   alt-shift-b
+“   	201c   alt-v
+”   	201d   alt-b
 λ   	03bb
 ✔       2714
 ✓       2713
 ✗       717
 💩      0001f4a9
 ⊥           22a5		Bottom (used in Lambda and Haskell)
+🦕      0001f995     Deno, Dinosaur
+'''
+
+
+===== Space Chars =====
+* http://jkorpela.fi/chars/spaces.html
+
+==== Visible Spaces ====
+
+'''
+␣  u+2423  OPEN BOX
+␢ u+2422  BLANK SYMBOL
+␠ u+2420  SYMBOL FOR SPACE
+'''
+
+Some texts talking about RegExp sometimes use the Middle Dot to denote a space:
+
+'''
+· u+00b7  MIDDLE DOT
+'''
+
+Example:
+
+“The pattern ''·foo·'' matches “foo” surrounded by a single space on each side.”
+
+“abc ''␣foo␣'' def”, or even “abc ''␠foo␠'' def”
+
+In Vim, you can set this to make tabs, and especially trailing space (which causes dirty commits) visible.
+
+'''
+:set listchars=tab:▸ ,trail:·
+'''
+
 
 
 ===== Alt, AltGr =====
@@ -222,6 +256,12 @@ String/Symbol#upcase/downcase/swapcase/capitalize(!) now handle Unicode case map
 Table with several  test results:
 http://blog.honeybadger.io/ruby-s-unicode-support/
 
+
+===== List of Fonts =====
+
+* [[https://www.nerdfonts.com/font-downloads|Nerd Fonts]]
+* [[https://www.jetbrains.com/lp/mono/|JetBrains Mono]], arch/community
+* [[https://company.paratype.com/pt-sans-pt-serif|ParaType, PT Mono,]] font used in the awesome book Eloquent JavaScript.
 
 
 

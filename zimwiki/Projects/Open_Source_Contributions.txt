@@ -9,5 +9,10 @@ https://github.com/gnome-terminator/terminator/pull/59
 
 https://github.com/gnome-terminator/terminator/pull/60
 
+Terminator Initial Website
+
+
+Deno Docs on Vim (PR accepted)
+https://github.com/denoland/deno/pull/5499
 
 
