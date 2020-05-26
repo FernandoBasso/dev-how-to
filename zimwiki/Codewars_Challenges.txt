@@ -7,4 +7,109 @@ Created Saturday 23 May 2020
 
 **NOTE**: Stop worring about asciidoctor, org-mode, markdown, etc. Just use something simple to take notes and make a better use of your time.
 
+===== Languages =====
+
+Intro
+PS: I’m currently solving the “fundamentals” challenges.
+My solutions to Codewars Kata Challenges.
+
+The main langauges I am interested in solving these are (in alphabetical order):
+
+* C (GCC)
+* Haskell (Stack)
+* JavaScript (Node)
+* Python
+* Ruby (MRI)
+* Scheme (Chicken)
+* TypeScript (Deno)
+
+I’m also very fond of Bash, but doing algorithms entirely in it is overkill, and many, probably impossible.
+
+Why these languages, you ask? Mostly because with them I have several different paradigms to work with and practice.
+
+C is mostly procedural (although one can create classes and objects, like Gtk does), have us manage memory, know about pointers, etc.
+
+Haskell is purely functional.
+
+JavaScript can be anything, from OO to procedural and, thankfully, functional too, besides being “the language of the web”.
+
+Python is used for pretty much everything, including AI and ML.
+
+Ruby has features from OO and Lisp, and is very cool in itself.
+
+Scheme is a smaller dialect of Lisp, is used in SICP, and a good candidate to do lisp-like code.
+
+===== Running The Solutions =====
+Most of the time, these insntructions will do. When needed, additional information on how to run the code will be provided with the solution.
+
+==== C ====
+Most of time a simple gcc invocation will do:
+
+'''
+$ gcc -std=c99 -Wall -pedantic -o main main.c
+'''
+
+Sometimes, you’ll need to also add -lm at the end, as for when including math.h:
+
+'''
+$ gcc -std=c99 -Wall -pedantic -o main main.c -lm
+'''
+
+
+==== Haskell ====
+
+Most of the time, this will do.
+
+'''
+$ stack --resolver lts-13.24 ghc main.hs
+$ ./main
+'''
+
+Or, as I do, from Emacs and haskell-mode, ‘''C-c C-l''’.
+
+==== JavaScript ====
+
+If using commonjs modules (require), the simple node command will do:
+
+'''
+$ node main.js
+'''
+
+If a solution has import/export of ES6 modules, then use this alias to help:
+
+'''
+$ alias js='node --no-warnings --experimental-modules --es-module-specifier-resolution=node'
+
+$ js main.js
+'''
+
+
+==== Python ====
+
+Generally, as simple as:
+
+'''
+$ python3 file.py
+'''
+
+
+==== Ruby ====
+
+Also simple. Generally:
+
+$ ruby -w file.rb
+
+==== Scheme ====
+
+'''
+$ csi -q main.scm
+'''
+
+
+==== TypeScript Deno ====
+
+'''
+$ deno run -q main.ts
+'''
+
 

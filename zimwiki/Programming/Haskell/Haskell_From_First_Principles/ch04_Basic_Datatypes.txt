@@ -25,11 +25,6 @@ data Bool = False | True
 
 
 
-
-
-
-
-
 If ‘:info <SomeType>’ shows ‘Unbounded’, it means that we can do ‘minBound :: ThatType’ and ‘maxBound :: ThatType’ to figure out their min and max bounds.
 
 

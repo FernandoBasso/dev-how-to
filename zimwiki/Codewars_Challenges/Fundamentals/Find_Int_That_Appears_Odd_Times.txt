@@ -13,9 +13,80 @@ Find the int that appears an odd number of times.
 
 ===== Solutions =====
 
+=== C ===
+
+==== Haskell ====
+
+=== find, filter, Maybe ===
+It returns a ‘''Maybe Int''’, which does not pass the challenge tests because they want us to return a ‘''Int''’.
+
+'''
+import Data.List (find)
+
+oddLen :: Foldable t -> t a -> Bool
+oddLen xs = odd $ length xs
+
+findIt :: [Int] -> Maybe Int
+findIt nums = find (\n -> oddLen (filter (\i -> i == n) nums)) nums
+'''
+
+
+=== return Int ===
+Forcing the return of ‘''Int''’. We return ‘''-1''’ if ‘''find''’ returns ‘''Nothing''’.
+
+'''
+import Data.List (find)
+
+isOddLen :: [a] -> Bool
+isOddLen = odd . length
+
+findIt :: [Int] -> Int
+findIt nums = found
+      where
+        x     = find (\n -> isOddLen (filter (\i -> i == n) nums)) nums
+        found = case x of
+          Nothing -> -1
+          Just x  -> x
+'''
+
+
+=== bitwise XOR ===
+
+'''
+findIt :: [Int] -> Int
+findIt = foldr1 xor
+'''
+
+Only works because there is only one int that appears an odd number of times. Any number bitwise XOR'd against itself results in 0. Since all but one number in the array occurs an even times, all other numbers cancel each other out. The only thing left is the only number which appears an odd number of times.
+
+=== list comprehension ===
+
+'''
+findIt :: [Int] -> Int
+findIt xs =
+  head [x | x <- xs, odd . length . filter (== x) $ xs]
+'''
+
+
+=== list comprehension, helper functions ===
+
+'''
+filterXs :: Int -> [Int] -> [Int]
+filterXs x xs = filter (x ==) xs
+
+isOddLen :: [Int] -> Bool
+isOddLen = odd . length
+
+findIt :: [Int] -> Int
+findIt xs =
+  head [x | x <- xs, isOddLen $ filterXs x xs]
+'''
+
+
 ==== JavaScript ====
 
 === lengthy reduce, Object.keys find ===
+
 '''
 /**
  * @param {number[]} arr
@@ -209,7 +280,7 @@ With ‘find’ we cannot be sure it'll find the thing we are looking for, there
 '''
 function findInt(nums: number[]): number | undefined {
   return nums.find(n => nums.filter(i => i === n).length % 2 !== 0);
-};
+}
 '''
 
 

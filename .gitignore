@@ -5,9 +5,10 @@
 *.html
 
 #
-# My playground directory.
+# My playground directories.
 #
 0dev/
+0devcodewars/
 
 #
 # Some org-mode stuff.
@@ -21,3 +22,10 @@
 #
 asciidoctor.css
 pygments-default.css
+
+
+#
+# Some C stuff.
+#
+.ccls-cache
+

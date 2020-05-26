@@ -10,3 +10,11 @@ Created Sunday 24 May 2020
 ‘''Alt-Left-Arrow''’ and ‘''Alt-Right-Arrow''’ navigate back and forth on the hostory of navigated pages.
 
 
+===== zim export default with index =====
+
+CCS to add:
+'''
+pre {
+  font-family: 'SauceCodePro Nerd Font', 'ProFontIIx Nerd Font Mono';
+}
+'''

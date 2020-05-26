@@ -1,0 +1,90 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-05-26T08:17:17-03:00
+
+====== 01 Getting Started ======
+Created Tuesday 26 May 2020
+
+Convert C code to machine code.
+
+'''
+$ gcc -std=c99 -Wall -pedantic -o main main.c
+'''
+
+* Write C code.
+* Compiler checks for errors and compiles the C source code.
+* Compiler creates the //executable// which is a stream of 0s and 1That is the program we can actually run.
+
+C: Speed, space, portability.
+
+Three standars:
+* ANSI C, or C89, late 1980s.
+* C99, 1989 standard that fixed some stuff FROM C89.
+* C11, from 2011.
+
+We use the extension “c” for C source files, like “main.c”. The “.c” extension is just a convention, but we'd better follow it.
+
+C itself is very small and can do almost nothing without external libraries like stdio or stdlib.
+
+stdio: standard input and output (read and write data to the terminal).
+
+The ‘''main''’ function is the starting point of all C programs. That name is important. Without that function the program won't start.
+
+A return type ‘''int''’ is a way to communicate the OS about the exit status. 0 for success, and non-zero (1, 3, -1, etc) for some sort of failure.
+
+‘''printf''’ is used for formatted outpout. Each each ‘''%''’ parameter must have a matching variable:
+
+'''
+printf ("%s age is %d.\n", "Yoda", 900);
+// Produces “Yoda age is 900.”
+'''
+
+* stdio.h: printf, scanf, and much more. See ‘''man stdio.h''’.
+* stdlib.h: atoi, and much more. See ‘''man stdlib.h''’.
+
+Comments are inside ''/* ... */''. . If the compiler supports C99 (and , then ''//'' comments are also valid.
+
+GCC supports ANSI C, C99, C11 and others. See in the [[https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html|GCC docs]].
+
+The computer/processor does not run C code. It runs compiled (binary, machine code) only.
+
+Compiling and running:
+
+'''
+$ gcc -std=c99 -Wall -pedantic -o main main.c
+$ ./main
+'''
+
+C doesn't have strings natively. It supports array of single byte chars. Libraries provide string utilities, though.
+
+The string ''"jedi"'' is just an array of chars ''{'j', 'e', 'd', 'i', '\0'}''.
+
+'''
+j  e  d  i \0
+0  1  2  3  4
+'''
+
+The initials for “Master Yoda”, “M”, “Y”, but we also need space for the NUL terminator ''\0''.
+
+'''
+char initials[3] = {'M', 'Y', '\0'};
+'''
+
+A double-quoted string ''"bar"'' is an alias for the array ''{'b', 'a', 'r'}''.
+
+Single quotes for chars, double quotes for string literals.
+
+String literals are constant, character arrays can be changed after they are created. If you try to change a string literal, the compiler will likely display a bus error (it can't update a piece of memory).
+
+The ''return 0;'' in the ''main'' function means success, and any other number means some sort of failure. Yet, in a boolean context ''0'' is “falsy” and any other number is “truthy”. C99 allows the use of the keywords ''true'' and ''false'', but compilers interpret them as 1 and 0 anyway.
+
+'''
+if (flag != 0)
+'''
+ is the same thing as ''if (flag)''.
+
+
+
+
+
+
