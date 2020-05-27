@@ -81,7 +81,122 @@ The ''return 0;'' in the ''main'' function means success, and any other number m
 '''
 if (flag != 0)
 '''
- is the same thing as ''if (flag)''.
+is the same thing as ''if (flag)''.
+
+
+The condition ''if (flag != 0)'' can be shortened to ''if (flag)''.
+
+Switch syntax example:
+
+'''
+switch (card_name[0]) {
+  case 'K': case 'Q': case 'J':
+    val = 10;
+    break;
+  case 'A':
+    val = 11;
+    break;
+  default:
+    val = atoi(card_name);
+}
+
+'''
+
+The three ''case'' for K, Q and J could be placed on three different lines, which is the preferred way:
+
+'''
+switch (card_name[0]) {
+  case 'K':
+  case 'Q':
+  case 'J':
+    val = 10;
+    break;
+  case 'A':
+    val = 11;
+    break;
+  default:
+    val = atoi(card_name);
+}
+
+'''
+Be VERY CAREFUL not to forget the ''break'' statement to avoid buggy code, unless you really need some fall-through logic in specific situations.
+
+With switch, it is more obvious that the entire block is concerned with a single variable.
+
+Switch can only check a single value. Since strings are arrays of multiple chars, it cannot check them. Switch can check a char, but not a string.
+
+Loops basically require three main steps:
+* Startup code, like setting a counter to 1.
+* Checking a condition, like, verifying that the counter has or has not achieved some number.
+* Updating the condition value, like, incrementing or decrementing the counter.
+
+'''
+while (<condition>) {
+  // Do stuff...
+  // ...
+  // Finally, remember to update <condition>
+}
+
+do {
+  // Do stuff...
+  // ...
+  // Remember to update <condition> values.
+} while (<condition>);
+
+for (<initial>, <condition>, <update condition>) {
+  // Do stuff...
+}
+'''
+
+Loops also have the ''break'' and ''continue'' statements.
+
+Functions that don't return a value return ''void'':
+
+'''
+#include <stdio.h>
+
+void exclaim(char *s)
+{
+  fprintf (stdout, "%s!!!\n", s);
+}
+
+int main ()
+{
+  exclaim ("Read the source, Luke");
+  // → Read the source, Luke!!!
+  return 0;
+}
+'''
+
+Both ''x'' and ''y'' are set to 3:
+
+'''
+short x = 3;
+short y = x;
+'''
+
+WARNING: This produces an error that ''x'' is undeclared:
+
+'''
+short y = (x = 3);
+'''
+
+This also sets both ''x'' and ''y'' to three. (But let's first properly declare ''x'' and ''y'' to avoid the error):
+
+'''
+short x, y;
+y = (x = 3);
+'''
+
+We don't even need the parenthesis because assignment happens right to left and assignments have return values!
+
+'''
+short x, y;
+y = x = 3;
+'''
+
+
+
 
 
 

@@ -5,3 +5,17 @@ Creation-Date: 2020-05-26T07:47:24-03:00
 ====== C ======
 Created Tuesday 26 May 2020
 
+===== GDB Useful Commands =====
+
+Type of a variable:
+
+'''
+(gdb) ptype main
+type = int ()
+
+(gdb) ptype card_name 
+type = char [3]
+'''
+
+
+
