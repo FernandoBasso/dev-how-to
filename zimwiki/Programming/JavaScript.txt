@@ -29,3 +29,13 @@ https://stackoverflow.com/questions/53342824/temporarily-get-jest-coverage-to-sh
 
 https://github.com/facebook/create-react-app/issues/1455
 
+
+
+
+===== JSON, stringify =====
+
+https://twitter.com/getify/status/1265695569990889473
+
+''JSON.stringify(new Error())'' returns ''{}''.
+
+

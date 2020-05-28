@@ -188,12 +188,15 @@ short x, y;
 y = (x = 3);
 '''
 
-We don't even need the parenthesis because assignment happens right to left and assignments have return values!
+We don't even need the parenthesis because assignment happens right to left and assignments have return values — the value being assigned to the variable is “returned” and can be further assigned to other variables.
 
 '''
 short x, y;
 y = x = 3;
 '''
+
+Most expressions in C have/return/produce values. Assignment expressions are one example, and that is why we can chain them together.
+
 
 
 

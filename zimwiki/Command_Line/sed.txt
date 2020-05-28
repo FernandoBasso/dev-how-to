@@ -7,11 +7,12 @@ Created Wednesday 08 April 2020
 
 ===== Links =====
 
-A Brief History of sed
-https://blog.sourcerer.io/a-brief-history-of-sed-6eaf00302ed
 
-https://hackaday.com/2020/04/24/debugging-for-sed-no-kidding/
-https://soptik.tech/articles/building-desed-the-sed-debugger.html
+* [[https://blog.sourcerer.io/a-brief-history-of-sed-6eaf00302ed|A Brief History of sed]]
+* https://hackaday.com/2020/04/24/debugging-for-sed-no-kidding/
+* https://soptik.tech/articles/building-desed-the-sed-debugger.html
+* [[https://www.digitalocean.com/community/tutorial_series/using-sed|Using Sed (DigitalOcean, Justin Ellingwood and Brian Hogan)]]
+
 
 ===== Gotchas =====
 
