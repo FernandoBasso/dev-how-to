@@ -1,0 +1,68 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-05-28T07:23:30-03:00
+
+====== 02 Memory and Pointers ======
+Created Thursday 28 May 2020
+
+A pointer is an address of a piece of data in memory.
+
+Instead of passing full data copies around, you pass addresses of where data is stored. They are a form of indirection.
+
+Pointers main goals:
+* avoid (expensive, time consuming) copies
+* share data
+
+C sends arguments as values (unless the argument is an array/pointer, which). To pass the variable itself, use the “address of” operator, ''&''.
+
+Print the address of a variable in hex:
+
+'''
+printf ("Address of “latitude” is: %p\n",
+       (void *) &latitude);
+// → Address of “latitude” is: 0x7fffe29ddf84
+'''
+
+Note the “&” in front of the variable.
+
+* [[https://stackoverflow.com/questions/7290923/when-printf-is-an-address-of-a-variable-why-use-void|When printf is an address of a variable, why use void*?]]
+* [[https://stackoverflow.com/questions/24867814/printfp-and-casting-to-void|printf(“%p”) and casting to (void *)]]
+
+In short, ''%p'' format specifier requires a pointer to void.
+
+'''
+int x = 1;
+int *x_ptr = &x;
+int x_val = *x;
+'''
+
+When “*identifier” is on the left-hand side, it means we are creating a pointer.
+
+When “*identifier” is on the righ-hand side, it means we are accessing the value inside “identifier” (dereferencing).
+
+After we do ''int *x_ptr = &x'', from that point on, ''x_ptr'' stores the memory of ''x''. That is, ''x_ptr'' (without “*”) is the memory location if ''x''. This comparison produces true/1:
+
+'''
+x_ptr == &x
+'''
+
+The ''*'' and ''&'' operators are opposites. The ''&'' operator takes a piece of data and tells you where it’s stored. The ''*'' operator takes an address and tells you what’s stored there. Because pointers are sometimes called references, the ''*'' operator is said to dereference a pointer.
+
+To change the contents of ''x'' through its pointer, we need to use ''*'' again, but this time on the  left-side:
+
+'''
+*x_ptr = 2;
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,3 +8,11 @@ Created Tuesday 26 May 2020
 https://twitter.com/ed1conf
 
 
+===== Titlefy Lines =====
+
+'''
+t.
+s/./=/g
+'''
+
+
