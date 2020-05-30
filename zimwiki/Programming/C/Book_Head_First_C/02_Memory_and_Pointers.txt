@@ -54,9 +54,35 @@ To change the contents of ''x'' through its pointer, we need to use ''*'' again,
 *x_ptr = 2;
 '''
 
+An array variable is the pointer to the first element of the array.
 
+'''
+char str[] = "Yoda";
+printf ("%d\n", str == &str[0]);
+// 1 (true)
+'''
 
+When we pass an array to a function, we are actually passing a pointer (to the array's first element).
 
+'''
+void fn (char msg[])
+{
+  printf ("%lu\n", sizeof (msg));
+}
+'''
+
+The above produces “warning: ‘sizeof’ on array function parameter ‘msg’ will return size of ‘char *’ [-Wsizeof-array-argument]”
+
+Looks like the compiler [[https://stackoverflow.com/a/13006722/2855955|thinks we are assuming]] ''sizeoff'' on a char array will give us the “length of the string”. We know it will just give us the number of bytes of the pointer to the first char. Yet, to remove the warning, we can replace ''char msg[]'' with ''char *msg'' in the function signature:
+
+'''
+void fn (char *msg)
+{
+  printf ("%lu\n", sizeof (msg));
+}
+'''
+
+And remember that ''sizeof'' results in an “unsigned long int” which require one of ''%ld'', ''%lu'', or ''%lx''.
 
 
 

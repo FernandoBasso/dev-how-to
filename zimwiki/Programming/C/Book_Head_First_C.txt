@@ -5,3 +5,10 @@ Creation-Date: 2020-05-26T08:16:48-03:00
 ====== Book Head First C ======
 Created Tuesday 26 May 2020
 
+Unless otherwise noted, assume all warnings, errors, etc. are a result of code compiled with GCC using ''-std=c99'', ''-Wall'' and ''-pedantic'' options. Examples:
+
+'''
+$ gcc -std=c99 -Wall -pedantic -o my_program main.c
+'''
+
+

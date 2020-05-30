@@ -18,3 +18,10 @@ $ tar \
     -C ~/Documents/
 '''
 
+
+
+'''
+find ./src/modules/locale/messages/en_MY -name  '*.json' \
+ -exec cp -v '{}' ~/Desktop/Translation-Bundle-en_MY \;
+'''
+
