@@ -1,0 +1,10 @@
+#
+# filename: .gitignore
+#
+
+#
+# C dev files.
+#
+0dev.c
+0dev
+
