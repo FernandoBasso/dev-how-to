@@ -18,4 +18,13 @@ type = char [3]
 '''
 
 
+===== Links and Resources =====
+
+From Discord [[https://discord.com/channels/244230771232079873/287491279888318465|Programmers Hangout C Room]]
+
+* http://c-faq.com/
+* https://www.learn-c.org/
+* https://gribblelab.org/CBootCamp/
+* (others, check Discord room)
+
 

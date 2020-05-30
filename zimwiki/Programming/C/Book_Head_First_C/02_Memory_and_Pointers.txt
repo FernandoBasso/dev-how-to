@@ -84,6 +84,106 @@ void fn (char *msg)
 
 And remember that ''sizeof'' results in an “unsigned long int” which require one of ''%ld'', ''%lu'', or ''%lx''.
 
+'''
+char s[] = "Jedi";
+char *p = s;
+
+printf ("%lu\n", sizeof (s));
+// → 5
+// “Jedi” plus the nul terminator \0.
+
+printf ("%lu\n", sizeof (p));
+// → 8
+// The size of a pointer storage on my 64-bit machine.
+'''
+
+
+“sizeof an array” produces the size of an array. But when the array is treated as a pointer (like when it is passed as argument to a function), then sizeof produces the size, in bytes, necessary to hold a pointer.
+
+A function saying ''(char msg[])'' only //lookes like// it is receving an array, but it will allways actually receive a pointer (to the first element of the array).
+
+**ARRAYS ARE CONSTANT POINTERS**
+
+““
+When you create a pointer variable, the machine will allocate 4 or 8 bytes of space to store it. But what if you create an array? The computer will allocate space to store the array, but it won’t allocate any memory to store the array variable. The compiler simply plugs in the address of the start of the array. But because array variables don’t have allocated storage, it means you can’t point them at anything else.
+””
+
+That means we can reassign, increment or decrement a pointer, but not an array variable. Array variables are constant pointers.
+
+'''
+ptr++ // OK
+arr++ // ERROR
+'''
+
+If you assign an array to a pointer, you do not acutally assign the array to the pointer. Rather, you assign the address of the first element of the array to the pointer.
+
+When you pass an array to a function, you do not actually pass the array to the function. Rather, you pass the address of the first element of the array, which means it is a pointer.
+
+A function or a pointer cannot possibly know the length of the “original array”. For functions, a parameter with the length is necessary, or some other means of identifying the end of the data, like the presence of ''\n'' for strings.
+
+Retrieve the first element:
+'''
+arr[0]
+*arr
+*(arr + 0)
+'''
+
+Retrieve the Nth element:
+'''
+arr[n]
+*(arr + n)
+'''
+
+Because of pointer arithmetic, “the index is just the number that’s added to the pointer to find the location of the element.”
+
+NOTE: For the ''%s'' specifier and pointers, we don't use ''*'' on the pointer. We do not pass a string to ''%s''. We pass it an address of an array of chars (and hope it contains a NUL terminator ''\0'').
+
+'''
+%s
+'''
+ takes a ''char *'', not a literal value.
+
+WRONG:
+'''
+char msg[] = "Don't call me";
+printf ("%s\n", *(msg + 6));
+'''
+
+CORRECT:
+'''
+char msg[] = "Don't call me";
+printf ("%s\n", (msg + 6));
+'''
+
+Pointers have types so the compiler knows how much to add or subtract when doing pointer arithmetic.
+
+A char is 1 byte, so ''my_char_ptr + 1'' moves the pointer 1 memory address forward. An int type of 4 bytes causes ''my_int_ptr + 1'' to move 4 memory addresses forward.
+
+a[b] is exactly equivalent to *(a + b)
+Which is equivalent to *(b + a)
+Which is equivalent to b[a]
+
+“it's the other languages that has brainwashed you into thinking a[0] is special”
+
+@QUESTION
+Why doesn't ''printf ("%s\n", 6[msg])'' work?
+
+Perhaps because ''%s'' takes a ''char *'' and ''6[msg]'' returns an int?
+
+'''
+char name[18];
+short age;
+
+scanf ("%17s", name);
+scanf ("%hd", &age);
+'''
+
+Note how ''scanf'' takes “name” and “&age”, the latter with the //address of// operator. That is because arrays are already pointers to a memory locaion so we don't need the ''&'' operator.
+
+ALWAYS limit the length of strings being read with ''scanf''. Never do a plain ''scanf ("%s", arr)''. SECURITY ALERT! Always place a limit, like above, if the array has space for 18 bytes, use ''scanf ("%17s", name)'' so we can store up to 17 chars plus the NUL terminator '\0'.
+
+Prefer ''fgets'' which **requires** a limit param. Unless... you have to read multiple inputs. ''fgets'' reads into one pinter at a time. ''scanf'' (and its friends) can read onto multiple pointers at a time.
+
 
 
 
