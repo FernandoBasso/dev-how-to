@@ -184,6 +184,49 @@ ALWAYS limit the length of strings being read with ''scanf''. Never do a plain '
 
 Prefer ''fgets'' which **requires** a limit param. Unless... you have to read multiple inputs. ''fgets'' reads into one pinter at a time. ''scanf'' (and its friends) can read onto multiple pointers at a time.
 
+String literals can't be updated. Can't do:
+'''
+char *s = "hey";
+s[0] = 'H'; // Segmentation fault.
+'''
+
+But can create an array instead so we can update it later:
+'''
+char s[] = "hey";
+s[0] = 'H'; // OK.
+'''
+
+String literals go into the “constants” area of the memory. This area is read only. Simple as that.
+
+{{./constant-strings.png}}
+
+In ''char *p = "hey";'', ''p'' is a pointer to a piece of read-only memory (because of the string constant literal).
+
+In ''char a[] = "you";'', ''a'' is a completely new, fresh copy of the string literal. The string literal is still in the constants/read-only area of the memory, but its copy in ''a'' can now be freely modified and updated at will.
+
+Also, doing ''char s[] = "hello"'' causes the compiler to set aside enough memory in the array ''s'' to store the string with its NUL terminator. Since we are providing the string right then and there, the compiler counts the chars and figures out the amount of RAM needed for ''s''.
+
+And just to make it clear: ''char name[] = "Yoda";'' allocates space in RAM and also **copies the contents** of the string literal into the stack memory.
+
+To avoid the gotcha, use ''const char *arr'' to declare your literal, so the compiler can catch attempts to modify the string and tell you and refuse to compile your program.
+
+'''
+const char *name = "yoda";
+...
+name[0] = 'Y';
+// Compiler error and no executable generated.
+'''
+
+A declaration is a piece of code that declares that something (a variable, a function) exists. A definition is a piece of code that says what something is. If you declare a variable and set it to a value (e.g., int x = 4; ), then the code is both a declaration and a definition.
+
+
+
+
+
+
+
+
+
 
 
 
