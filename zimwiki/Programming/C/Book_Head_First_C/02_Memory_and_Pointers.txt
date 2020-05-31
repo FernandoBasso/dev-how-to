@@ -219,10 +219,54 @@ name[0] = 'Y';
 
 A declaration is a piece of code that declares that something (a variable, a function) exists. A definition is a piece of code that says what something is. If you declare a variable and set it to a value (e.g., int x = 4; ), then the code is both a declaration and a definition.
 
+==== Problem With fgets and strstr ====
+
+Because ''fgets'' also stores the newline, comparison with ''strstr'' (or some other things) fail.
+
+Never matches because of the newline:
+'''
+if (strstr (tracks + i, q)) {
+  printf ("Track %hi: “%s”\n", i, *(tracks + i));
+}
+'''
+
+Simple dumb way to replace trailing newline with NUL terminator using subscript notation:
+'''
+if (query[strlen (query) - 1] == '\n') {
+  query[strlen (query) - 1] = '\0';
+}
+'''
+
+And here using pointer arithmetic:
+'''
+if (*(query + (strlen (query) - 1)) == '\n') {
+  *(query + (strlen (query) - 1)) = '\0';
+}
+'''
 
 
+We can update a ''const'' pointer (do pointer arithmetic), but we cannot update the ''const'' pointer value.
+
+'''
+void fn (const char *s)
+{
+  s++; // OK.
+  *(s + 3) = 'X'; ERROR.
+}
+'''
 
 
+If a function takes a ''const'' pointer, and inside the function you create another variable from that const pointer, then this new variable must also be const.
+
+'''
+void fn (const char *s)
+{
+  const char *t = s + strlen (s) - 1;
+  // ...
+}
+'''
+
+Since the function param is ''const char'', our ''t'' pointer must also be ''const char''. See [[https://stackoverflow.com/questions/2316387/initialization-discards-qualifiers-from-pointer-target-type|this question]].
 
 
 
