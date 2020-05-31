@@ -1,0 +1,23 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-05-31T08:10:26-03:00
+
+====== 03 Creating Small Tools ======
+Created Sunday 31 May 2020
+
+““
+You’re using ''scanf()'' and ''printf()'' to read from the keyboard and write to the display. But the truth is, they don’t talk directly to the keyboard and display. Instead, they use the Standard Input and Standard Output. The Standard Input and Standard Output are created by the operating system when the program runs.
+
+The ''scanf()'' and ''printf()'' functions don’t know, or care, where the data comes from or goes to. They just read and write Standard Input and the Standard Output.
+””
+
+fprintf stdin, stdout, stderr
+
+'''
+>
+'''
+ redirects to stdout, ''2>'' redirects to stderr.
+
+
+CONTINUE FROM “TOP SECRET” page 125.
+
