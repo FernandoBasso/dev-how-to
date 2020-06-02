@@ -10,6 +10,7 @@ Created Saturday 28 December 2019
 * Compiling Gtk Stuff ([[https://developer.gnome.org/gtk3/stable/gtk-compiling.html|link]])
 * Application ID like org.gtk.memoapp, how to choose an ID‽ ([[https://wiki.gnome.org/HowDoI/ChooseApplicationID|link]])
 * Some conventions on naming stuff: ([[https://developer.gnome.org/gobject/stable/gtype-conventions.html|link]])
+* [[https://developer.gnome.org/gobject/stable/pt02.html|GObject Tutorial (shared by ebassi)]]
 
 
 ===== Random notes =====

@@ -5,3 +5,13 @@ Creation-Date: 2020-05-24T10:16:01-03:00
 ====== Graphical Tools ======
 Created Sunday 24 May 2020
 
+===== Gtk Themes =====
+
+==== Greybird ====
+
+Xournal looks ugly under Greybird / Xfce4. Running from the terminal, we see complains about missing “murrine” engine. Installing “gtk-engine-murrine” makes Xournal look good.
+
+Look at the “Optional For” entry in ''pacman -Qi gtk-engine-murrine'' and the “Optional Deps” entry in ''pacman -Qi xfce-theme-greybird''.
+
+
+

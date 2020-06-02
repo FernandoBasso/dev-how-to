@@ -28,6 +28,7 @@ Git stores everything in its database not by file name but by the hash value of 
 
 
 ===== 2.2 Git Basics - Recording Changes to the Repository =====
+
 git status --short
 
 git status --help

@@ -12,3 +12,9 @@ $ gcc -std=c99 -Wall -pedantic -o my_program main.c
 '''
 
 
+Errata:
+https://www.oreilly.com/catalog/errata.csp?isbn=0636920015482
+
+The link ''http://oreillyhfc.appspot.com/'' no longer works. Use this instead:
+
+http://dogriffiths.github.io/HeadFirstC/

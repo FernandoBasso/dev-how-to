@@ -16,3 +16,42 @@ s/./=/g
 '''
 
 
+===== prettify json from ed =====
+https://twitter.com/ed1conf/status/1267482552354377729
+
+'''
+$ ed x.json
+e !python -m json.tool < %
+'''
+
+or
+
+'''
+$ ed file.json
+e !jq . %
+'''
+
+From the command line:
+'''
+$ python -m json.tool <<< '{ "id": 1, "title": "Foo Bar" }'
+{
+    "id": 1,
+    "title": "Foo Bar"
+}
+'''
+
+From inside vim:
+
+'''
+%!python -m json.tool
+'''
+
+Replace ''%'' with visual selection or line range. Ex:
+
+'''
+1,5 !python -m json.tool
+'''
+
+
+
+
