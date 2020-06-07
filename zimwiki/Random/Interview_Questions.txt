@@ -21,3 +21,10 @@ https://dev.to/emmabostian/i-passed-the-google-technical-interviews-you-can-too-
 https://gist.github.com/emmabostian/c996c68458dd5eb770529b52dd7bfb00
 
 book Atomic Habits by James Clear
+
+
+
+===== Questions to ask the employer or interviewer =====
+
+* https://github.com/arshbot/software-interview-questions
+

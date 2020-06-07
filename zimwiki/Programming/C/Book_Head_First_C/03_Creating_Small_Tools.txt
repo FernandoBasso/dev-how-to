@@ -2,6 +2,8 @@ Content-Type: text/x-zim-wiki
 Wiki-Format: zim 0.4
 Creation-Date: 2020-05-31T08:10:26-03:00
 
+
+
 ====== 03 Creating Small Tools ======
 Created Sunday 31 May 2020
 
@@ -13,11 +15,20 @@ The ''scanf()'' and ''printf()'' functions don’t know, or care, where the data
 
 fprintf stdin, stdout, stderr
 
-'''
->
-'''
- redirects to stdout, ''2>'' redirects to stderr.
+''>'' redirects to stdout, ''2>'' redirects to stderr.
 
 
-CONTINUE FROM “TOP SECRET” page 125.
+'''
+$ (./bermuda | ./geo2json) < ./spooky.csv > ./output.json
+'''
+
+“<” sends contents to the first process in the pipeline, and “>” will capture stdout from the last process in the pipeline.
+
+FILE, fopen, fprintf, fscanf, fclose
+
+
+CONTINUE FROM PAGE 138.
+
+
+
 

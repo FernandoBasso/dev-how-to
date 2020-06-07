@@ -5,3 +5,5 @@ Creation-Date: 2020-05-24T10:08:54-03:00
 ====== Programming Languages ======
 Created Sunday 24 May 2020
 
+* [[https://clojure.org/about/history|História de Clojure]] e [[https://clojure.org/about/history|discussão]]. (Mário Goulart)
+

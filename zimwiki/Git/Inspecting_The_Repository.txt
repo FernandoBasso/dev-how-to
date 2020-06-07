@@ -1,0 +1,47 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-06-03T12:51:41-03:00
+
+====== Inspecting The Repository ======
+Created Wednesday 03 June 2020
+
+* https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection
+
+What commits are in ''my-feature'' that are not in ''master''?
+
+'''
+$ git log master..my-feature
+'''
+
+What commits are in ''master'' that re not in ''my-feature''?
+
+'''
+$ git log my-feature..master
+'''
+
+What am I about to push to the remote?
+
+'''
+$ git log myfork/master..HEAD
+'''
+
+We can leave off one side of the syntax to have git assume ''HEAD''.
+
+What is in ''HEAD'' that is not in ''myfork/master''?
+
+'''
+$ git log myfork/master..
+'''
+
+What is in ''origin/devel'' that is not in ''HEAD''?
+
+'''
+$ git log ..myfork/master
+'''
+
+
+
+
+
+
+===== The End =====

@@ -26,8 +26,9 @@ Git stores everything in its database not by file name but by the hash value of 
 
 ‘git config --local’: ‘./.git/config’, local to the current project.
 
+===== 2 Git Basics =====
 
-===== 2.2 Git Basics - Recording Changes to the Repository =====
+==== 2.2 Recording Changes to the Repository ====
 
 git status --short
 
@@ -55,7 +56,578 @@ git rm \*~
 
 git mv foo.txt bar.txt
 
-===== 2.3 Git Basics - Viewing the Commit History =====
+==== 2.3 Viewing the Commit History ====
+
+Log last 5 commits, with their patch and stat.
+
+'''
+$ git log --patch-with-stat -5
+'''
+
+''git log'' shows info for the current branch. To show a log for another branch, we need to manually specify the branch:
+
+'''
+$ git log my-feature
+'''
+
+Can also use ''--patch'' and ''--stat''.
+
+We can have [[https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History#pretty_format|customized output format]]:
+
+'''
+$ git log --pretty=format:"%h %s" --graph
+'''
+
+* ''%H'': Commit hash
+* ''%h'': Abbreviated commit hash
+* ''%T'': Tree hash
+* ''%t'': Abbreviated tree hash
+* ''%P'': Parent hashes
+* ''%p'': Abbreviated parent hashes
+* ''%an'': Author name
+* ''%ae'': Author email
+* ''%ad'': Author date (format respects the --date=option)
+* ''%ar'': Author date, relative
+* ''%cn'': Committer name
+* ''%ce'': Committer email
+* ''%cd'': Committer date
+* ''%cr'': Committer date, relative
+* ''%s'': Subject
+
+
+Some [[https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History#log_options|common options to git log]].
+
+* ''-p'': Show the patch introduced with each commit.
+* ''--stat'': Show statistics for files modified in each commit.
+* ''--shortstat'': Display only the changed/insertions/deletions line from the --stat command.
+* ''--name-only'': Show the list of files modified after the commit information.
+* ''--name-status'': Show the list of files affected with added/modified/deleted information as well.
+* ''--abbrev-commit'': Show only the first few characters of the SHA-1 checksum instead of all 40.
+* ''--relative-date'': Display the date in a relative format (for example, “2 weeks ago”) instead of using the full date format.
+* ''--graph'': Display an ASCII graph of the branch and merge history beside the log output.
+* ''--pretty'': Show commits in an alternate format. Options include oneline, short, full, fuller, and format (where you specify your own format).
+* ''--oneline'': Shorthand for ''--pretty=oneline --abbrev-commit'' used together.
+
+'''
+$ git log --since=3.days
+
+$ git log --since=2020-06-01
+
+$ git log '1 year 3 months 5 days 5 minutes ago'
+'''
+
+The ''-S'' option for ''git log'' looks for additions or removals of a specific piece of text (function, variable, whatever):
+
+'''
+$ git log -S my_function
+$ git log -S 'some misterious thing'
+'''
+
+Read more in ''git log --help'' and search for “-S”.
+
+And we can log commits that did work on a specific path. For example, this lists commits that touched ''terminatorlib/themes'' only:
+
+'''
+$ git log --no-merges --stat -- terminatorlib/themes
+'''
+
+Note we use the the “end of options” ''--'' marker to tell git the following arguments are plain files or directories, and not shell command line options. See [[https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html|POSIX spec guideline 10]] and [[https://unix.stackexchange.com/questions/147143/when-and-how-was-the-double-dash-introduced-as-an-end-of-options-delimiter|this]]. ''man bash'' and a search for “end of options” also has some info on ''--''.
+
+'''
+$ git log \
+    --pretty="%h - %s" \
+    --author='Linus Torvalds' \
+    --since="2008-10-01" \
+    --before="2008-11-01" \
+    --no-merges \
+    -- src/libgit2/
+'''
+
+
+==== 2.4 Undoing Things ====
+
+Edit message, or author from the last commit:
+
+'''
+$ git commit \
+    --amend \
+    --author='Fernando Basso <fernando.basso@companny.com>'
+'''
+
+Unstage a file:
+
+'''
+$ git reset HEAD -- config.h
+'''
+
+Unmodify a file (IRREVERSIBLE):
+
+'''
+$ git checkout -- config.h
+'''
+
+
+==== 2.5 Working with Remotes ====
+
+What remotes do I have in this repo?
+
+'''
+$ git remote
+$ git remove -v
+$ git branch --remotes
+'''
+
+Add a remote:
+
+'''
+$ git remote add gl git@gitlab.com:fernandobasso/dotfiles.git
+$ git fetch gl
+$ git push -u gl my-branch
+$ git remote show myfork
+'''
+
+Rename, remove remotes:
+
+'''
+$ git remote rename origin upstream
+$ git remote remove old-trunk
+'''
+
+
+==== 2.6 Tagging ====
+
+List tags (alphabetical order, but order listed has no real importance):
+
+'''
+$ git tag
+'''
+
+List tags in the “v0.9...” series:
+
+'''
+$ git tag --list '0.9*'
+'''
+
+Create an anonated tag:
+
+'''
+$ git tag --annotate v1.0.0 -m 'Finaly fucking one point oh'
+
+$ git tag -a v1.0.1 -m 'Increase minor version'
+'''
+
+Without ''-m'' git launches ''$EDITOR'', just like for git commit.
+
+And see information about annotated (or lightweight) tag:
+
+'''
+$ git show v1.0.0
+'''
+
+Lightweight tags are created by running ''git tag <name>'' without ''-a'', ''-m'' or ''-s'' options.
+
+After a few commits, you decide an earlier commit should have a tag:
+
+'''
+$ git tag -a v1.0-rc1 af921fa -m 'First RC'
+'''
+
+Tags are not pushed by default (but are pulled by default). Do it explicitly.
+
+Push all lightweight and annotated tags:
+
+'''
+$ git push myfork --tags
+'''
+
+Push specific tag:
+
+'''
+$ git push myfork v1.0-rc1
+'''
+
+Push only annotated tags:
+
+'''
+$ git push myfork --follow-tags
+'''
+
+Delete a tag:
+
+'''
+$ git tag --delete v1.0-rc1
+Deleted tag 'v1.0-rc1' (was 9bdc9488)
+'''
+
+Delete a tag from the remote:
+
+'''
+$ git push myfork :refs/tags/v1.0-rc1
+$ git push myfork --delete v1.0-rc1
+'''
+
+Checkout to a tag, the same as to checkout to a commit:
+
+'''
+$ git checkout v1.0-rc1
+'''
+
+We are in “detached HEAD” state, which means if you make changes and then create a commit, the tag will stay the same, but your new commit won’t belong to any branch and will be unreachable, except by the exact commit hash. Thus, if you need to make changes — say you’re fixing a bug on an older version, for instance — you will generally want to create a branch.
+
+==== 2.7 Git Aliases ====
+
+Examples:
+
+'''
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+
+$ git config --global alias.unstage 'reset HEAD --'
+$ git config --global alias.last 'log -1 HEAD'
+'''
+
+To run an external command, use “!” (like in ed or vim):
+
+'''
+$ git config --global alias.visual '!gitk'
+'''
+
+
+===== 3. Git Branching =====
+
+
+==== 3.1 Branches in a Nutshell ====
+
+Git doesn’t store data as a series of changesets or differences, but instead as a series of snapshots.
+
+Very good [[https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell#_git_branches_overview|intro]] to git objects, snapshot, tree, commit, etc.
+
+Create a branch (but does not switch to that branch):
+
+'''
+$ git branch impl-login
+'''
+
+Switch to an existing branch:
+
+'''
+$ git checkout impl-login
+'''
+
+Moves ''HEAD'' pointer to point to ''impl-login'' branch. The ''HEAD'' branch moves ahead when a commit is made.
+
+Create a branch and checkout to in a single command:
+
+'''
+$ git checkout -b logout-impl
+'''
+
+
+==== 3.2 Basic Branching and Merging ====
+
+'''
+$ git checkout hotfix
+$ vim main.c
+$ git commit -m 'Fix bug that could destroy the world'
+$ git checkout master
+$ git merge hotfix
+$ git -d hotfix
+'''
+
+
+When we merge one commit A with a commit B that can be reached by following the commit A history, git simply moves HEAD forward because there is no divergent work to merge together. This is called **fast-forward** merge.
+
+If you are on master, and merge bug-42, but master is not a direct ancestor of bug-42, git has to do a three-way merge using the two snapshots pointed to by the branch tips and the common ancestor of the two. A merge commit is generated, and it contains two parents. This is the **recursive**, **three-way** merge.
+
+When there is a conflict, the part just below ''<<<<<<<< HEAD'' is the stuff on the branch we currently are, and the part between ''======='' and ''>>>>>>> write-docs'' is the incoming change; the thing we are trying to integrate into our current branch. In this case ''write-docs'' is a branch we are trying to merge into ''HEAD'', which whatever branch we are in.
+
+
+Any editor that does not modify git original markers (not by default, at least), like Vim or Emacs:
+{{./vim-conflict-diff.png}}
+
+
+
+VSCode conflict diff:
+{{./vscode-conflict-diff.png}}
+
+In VSCode, “Current Change” is not to be interpreted as something just changed, but rather, the code already commited in the branch are are currently in. Incomming change is what is comming from the “other” branch, in this case, ''write-docs''.
+
+''git mergetools'' shows you a bunch of possible tools to handle the conflicts. Pick one, or just use your editor (most tools are editors anyway).
+
+A merge that caused a conflict is finalized with ''git commit'' and you'll have to type a commit message (or accept the default).
+
+
+==== 3.3 Branch Management ====
+
+'''
+$ git branch
+$ git branch -v
+$ git branch --merged
+$ git branch --no-merged
+$ git branch -d my-merged-branch
+$ git branch -D my-non-merged-which-i-dont-want-anymore-branch
+'''
+
+What branches are merged and not merged into master?
+
+'''
+$ git checkout my-topic-branch
+$ git branch --merged master
+$ git branch --no-merged master
+'''
+
+Many git commands accept a branch to operate on. Above, which branches are or are not merged into master. Git log also acceptes branches as arguments so log logs commits on those branches, not the current one.
+
+
+==== 3.4 Branching Workflows ====
+
+Long-lived branches, like master, or next.
+
+Short-lived branches like idea-poc or bug-42.
+
+==== 3.5 Remote Branches ====
+
+Show branches, tags, etc on a remote:
+
+'''
+$ git ls-remote <remote>
+$ git remote show <remote>
+'''
+
+Remote-tracking branches are references to the state of remote branches. They’re local references that you can’t move; Git moves them for you whenever you do any network communication, to make sure they accurately represent the state of the remote repository.
+
+Remote tracking branches take the form ''<remote>/<branch>''.
+
+'''
+git clone
+'''
+ names the remote as ''origin'' by default.
+
+Clone making the remote have the name ''upstream'' instead of the default name ''origin'':
+
+'''
+$ git clone -o upstream  <url>
+'''
+
+Now ''git remove -v'' will show that the remote is named ''upstream''.
+
+Synchronize the remote:
+
+'''
+$ git fetch <remote>
+$ git fetch upstream
+'''
+
+The above moves, for example, ''upstream/master'' to point to the same reference as ''master'' on the server. The same for all other branches. It doesn't update the //local// branches, just the ''<remote>/<branch>'' branches.
+
+Send branch to remote repo:
+
+'''
+$ git push bugfix:bugfix
+'''
+
+Read as “take my bugfix and make it the remote’s bugfix”, or “update the remote bugfix branch with the stuff from my local bugfix branch.”
+
+Or, a shortcut for the above command:
+
+'''
+$ git push bugfix
+'''
+
+Could even send with a different name, but it may be confusing for you and other people later:
+
+'''
+$ git push bugfix:urgent-fix
+'''
+
+Merge fetched stuff into your local branch:
+
+'''
+$ git merge origin/bugfix
+'''
+
+Create a local bugfix branch based on the remote bugfix:
+
+'''
+$ git checkout -b bugfix upstream/bugfix
+'''
+
+Now ''bugfix'' is a tracking branch of ''upstream/bugfix''.
+
+If you’re on a tracking branch and type git pull, Git automatically knows which server to fetch from and which branch to merge in.
+
+This creates a branch from the remote and automatically makes it a tracking branch:
+
+'''
+$ git checkout -b hotfix origin/hotfix
+Branch 'hotfix' set up to track remote branch 'hotfix' from 'origin'.
+Switched to a new branch 'hotfix'
+'''
+
+And a shortcut for the above:
+
+'''
+$ git checkout --track origin/hotfix
+Branch 'hotfix' set up to track remote branch 'hotfix' from 'origin'.
+Switched to a new branch 'hotfix'
+'''
+
+And a shortcut for the shortcut:
+
+'''
+$ git checkout hotfix
+Branch 'hotfix' set up to track remote branch 'hotfix' from 'origin'.
+Switched to a new branch 'hotfix'
+'''
+
+In this case, Git realizes there is an ''origin/hotfix'' and assumes we want a local ''hotfix'' based on that.
+
+If the branch name you’re trying to checkout (a) doesn’t exist and (b) exactly matches a name on only one remote, Git will create a tracking branch for you.
+
+If a local branch needs a different name from the remote:
+
+'''
+$ git checkout -b myfix upstream/bugfix
+'''
+
+Set or change the remote a local branch is tracking:
+
+'''
+$ git branch --set-upstream myfork/develop
+'''
+
+If a local branch already has a remote (upstream) tracking, ''@{upstream}'' or ''@{u}'' shorthands can be used to refer to it. These two commands mean the same thing:
+
+'''
+$ git merge origin/hotfix
+$ git merge @{u}
+'''
+
+Which tracking branches are set up?
+
+'''
+$ git branch -vv
+'''
+
+“Ahead 2” means we have two commits locally that the remote doesn't have.
+
+“Behind 1” means the remote has one commit we have not integrated locally.
+
+''git branch -vv'' does not reach any servers. These numbers are only from the last time we fetched from the server. To make sure we are dealing with entirely fresh and up to date data, run:
+
+'''
+$ git fetch --all
+$ git branch -vv
+'''
+
+Running ''git fetch'' followed by ''git merge'' can be abbreviated to simply ''git pull'', which does the other two for us automatically.
+
+To delete a remote branch:
+
+'''
+$ git push origin --delete bugfix
+'''
+
+Basically all this does is remove the pointer from the server. The Git server will generally keep the data there for a while until a garbage collection runs, so if it was accidentally deleted, it’s often easy to recover (using reflog).
+
+
+==== 3.6 Rebasing ====
+
+Rebasing ''hotfix'' **onto** ''master'' means to apply the commits from the master branch **below** the commits on ''hotfix''. It means commits from ''hotfix'' are **on top** of the commits from master.
+
+onto = to a position on: “We climbed onto the roof.”
+onto = move to a location and on top/surface of it.
+
+See [[https://git-scm.com/book/en/v2/Git-Branching-Rebasing#_more_interesting_rebases|this]]. It means, “take the ''client'' branch, figure out the patches since it diverged from the ''server'' branch, and replay these patches in the ''client'' branch as if it was based directly off the ''master'' branch instead.”
+
+'''
+$ git rebase --onto master server client
+'''
+
+After you rebase ''client'' onto ''master'', you can then fast-forward merge client into ''master'' with git checkout master && git merge client.''
+
+Replay commits from ''server'' branch **on top of** ''master'' branch. You are on the ''master'' branch, then run:
+
+'''
+$ git rebase <base-branch> <topic-branch>
+$ git rebase master server
+'''
+
+It replays the ''server'' work **on top of** ''master''. Then we can fast-forward the //base// branch (''master''). That is, since now ''master'' is behind ''server'' (''HEAD''), but we moved placed all the ''master'' commits **below** ''server'', whe can now make ''HEAD'' on master point to the same last commit on ''server'':
+
+'''
+$ git checkout master
+$ git merge server
+'''
+
+Do not rebase commits that exist outside your repository and that people may have based work on. When you rebase stuff, you’re abandoning existing commits and creating new ones that are similar but different. See [[https://git-scm.com/book/en/v2/Git-Branching-Rebasing#_rebase_peril|The Perils or Rebasing]].
+
+
+===== 4. Git on the Server =====
+
+
+==== 4.1 The Protocols ====
+
+
+==== 4.2 Getting Git on a Server ====
+
+
+==== 4.3 Generating Your SSH Public Key ====
+
+
+==== 4.4 Setting Up the Server ====
+
+
+==== 4.5 Git Daemon ====
+
+
+==== 4.6 Smart HTTP ====
+
+
+==== 4.7 GitWeb ====
+
+
+=== 4.8 GitLab ===
+
+
+=== 4.9 Third Party Hosted Options ===
+
+
+=== 4.10 Summary ===
+
+
+
+===== The End =====
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

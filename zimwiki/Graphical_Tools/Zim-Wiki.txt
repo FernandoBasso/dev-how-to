@@ -18,3 +18,8 @@ pre {
   font-family: 'SauceCodePro Nerd Font', 'ProFontIIx Nerd Font Mono';
 }
 '''
+
+
+===== Search and Find =====
+Clicking ''Search → Find'' (or ''Ctrl-f'') [[https://github.com/zim-desktop-wiki/zim-desktop-wiki/issues/317|seems to require]] ''Alt-n'' and ''Alt-p'' for “next” and “previous” matches.
+

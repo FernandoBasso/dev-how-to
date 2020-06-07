@@ -32,3 +32,12 @@ https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect
 
 https://stackoverflow.com/questions/12354918/what-does-idl-attribute-mean-in-the-whatwg-html5-standard-document
 
+
+
+===== CSS Animations =====
+
+https://github.com/cssanimation/css-animation-101
+
+
+
+

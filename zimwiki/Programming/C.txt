@@ -26,5 +26,6 @@ From Discord [[https://discord.com/channels/244230771232079873/28749127988831846
 * https://www.learn-c.org/
 * https://gribblelab.org/CBootCamp/
 * (others, check Discord room)
+* [[https://godbolt.org/z/U9NiDk|Compiler Explorer]] amazing tool to see generated assembly for C and other languages.
 
 

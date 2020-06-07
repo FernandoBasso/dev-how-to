@@ -5,6 +5,16 @@ Creation-Date: 2020-03-13T16:19:53-03:00
 ====== Git ======
 Created Friday 13 March 2020
 
+* [[https://www.vogella.com/tutorials/Git/article.html|Vogella Git Tutorial]]
+* [[http://www.paulboxley.com/blog/2011/06/git-caret-and-tilde|Git Caret and Tild]]
+* [[https://stackoverflow.com/questions/2221658/whats-the-difference-between-head-and-head-in-git|What's the difference between HEAD^ and HEAD~ in Git?]]
+* [[https://stackoverflow.com/questions/2304087/what-is-head-in-git|What is HEAD?]]
+* [[https://stackoverflow.com/questions/2221658/whats-the-difference-between-head-and-head-in-git|HEAD^ and HEAD~ (caret vs tilde)]]
+* [[https://mirrors.edge.kernel.org/pub/software/scm/git/docs/gitrevisions.html|Git Revisions Mini Language Docs]] — Got that link after reading “[[https://stackoverflow.com/questions/19474577/what-does-the-argument-u-mean-in-git|What does the argument @{u} mean in Git?]]”.
+* [[http://marklodato.github.io/visual-git-guide/index-en.html|A Visual Git Reference]]
+
+
+
 ===== Commit Message =====
 https://chris.beams.io/posts/git-commit/
 
@@ -55,7 +65,7 @@ To push the current branch and set the remote as upstream, use
     git push --set-upstream origin tasks/XYZ-1234
 '''
 
-But I don't want to type that tedious tasks/XYZ-1234 numberish thing. We can do:
+But I don't want to type that tedious ''tasks/XYZ-1234'' numberish thing. We can do:
 
 '''
 $ git push --set-upstream origin HEAD
@@ -70,6 +80,7 @@ https://stackoverflow.com/questions/14031970/git-push-current-branch-shortcut
 git diff --name-only --staged | xargs npx eslint
 '''
 
+
 ===== log =====
 
 '''
@@ -77,5 +88,12 @@ $ git log --graph --format="%C(auto) %h %s" origin/dev1-global
 '''
 
 
+===== Interactive Rebase =====
 
+* [[https://stackoverflow.com/questions/29094595/git-interactive-rebase-without-opening-the-editor|Git interactive ]][[https://stackoverflow.com/questions/29094595/git-interactive-rebase-without-opening-the-editor|rebase]][[https://stackoverflow.com/questions/29094595/git-interactive-rebase-without-opening-the-editor| without opening the editor]] (I no longer, as of 2020 on Arch Linux, have ''git--rebase--interactive'' shell script mentioned in the answer.)
+
+
+'''
+$ GIT_SEQUENCE_EDITOR='sed -i 5s/pick/squash/' git rebase -i
+'''
 
