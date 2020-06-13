@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-05-31T08:10:26-03:00
 
 
@@ -26,9 +26,27 @@ $ (./bermuda | ./geo2json) < ./spooky.csv > ./output.json
 
 FILE, fopen, fprintf, fscanf, fclose
 
+See [[https://www.man7.org/linux/man-pages/man3/fopen.3.html#RETURN_VALUE|return value for fopen]].
+'''
+----
+FILE *f;
 
-CONTINUE FROM PAGE 138.
+if ((f = fopen ("./file.dat", "w")) == NULL) {
+  fprintf (stderr, "“file.dat” can not be open...\n");
+  return 1;
+}
+----
+'''
 
+Can also compare wit a “''not''” operator, like this:
 
+'''
+----
+if (!(f = fopen ("./file.dat", "r"))) {...}
+----
+'''
 
+There are some things to be aware of regarding ''-std=c99'', ''getopt()'' and ''unistd.h''. See [[https://stackoverflow.com/questions/22575940/getopt-not-included-implicit-declaration-of-function-getopt|this]].
+
+If a param for getopt needs a negative number, rember that “--” means “end of options for most shells (it is POSIX after all).
 

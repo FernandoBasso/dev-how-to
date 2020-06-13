@@ -1,9 +1,12 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-05-26T07:47:24-03:00
 
 ====== C ======
 Created Tuesday 26 May 2020
+
+The [[https://www.kernel.org/doc/man-pages/|Linux Kernel Man Pages Project]] points to [[https://man7.org/linux/man-pages/index.html|man7.org]].
+
 
 ===== GDB Useful Commands =====
 

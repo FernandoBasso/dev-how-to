@@ -1,9 +1,15 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-04-28T16:26:00-03:00
 
 ====== Vim ======
 Created Tuesday 28 April 2020
+
+===== highlight colors =====
+
+229 very light yellow
+255 very light gray
+
 
 ===== webpack alias app src =====
 

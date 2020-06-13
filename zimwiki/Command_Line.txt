@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2019-12-13T11:06:15-03:00
 
 ====== Command Line ======
@@ -40,5 +40,21 @@ Use it by ''Esc+.''. Remember that in Vi/Vim and some other programs, ''Esc'' ca
 * Bash docs on [[https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Command-Line-Editing|Command Line Editing]].
 * Bash docs on [[https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Using-History-Interactively|Using History Interactively]].
 * [[https://stackoverflow.com/questions/3371294/how-can-i-recall-the-argument-of-the-previous-bash-command|How can I recall the argument of the previous bash command?]]
+
+
+===== reset, clear scrollback =====
+
+In tmux, ''C-b a :clear-history''.
+
+https://superuser.com/questions/122911/what-commands-can-i-use-to-reset-and-clear-my-terminal
+
+'''
+----
+rest
+tput clear
+----
+'''
+
+Gnome-Terminator has ''Ctrl-Shift-G''.
 
 

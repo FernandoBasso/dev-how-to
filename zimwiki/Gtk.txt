@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2019-12-28T08:22:02-03:00
 
 ====== Gtk ======
@@ -11,6 +11,7 @@ Created Saturday 28 December 2019
 * Application ID like org.gtk.memoapp, how to choose an ID‽ ([[https://wiki.gnome.org/HowDoI/ChooseApplicationID|link]])
 * Some conventions on naming stuff: ([[https://developer.gnome.org/gobject/stable/gtype-conventions.html|link]])
 * [[https://developer.gnome.org/gobject/stable/pt02.html|GObject Tutorial (shared by ebassi)]]
+* Gtk/Gnome [[https://developer.gnome.org/programming-guidelines/stable/c-coding-style.html.en|C Coding Style Guidelines]].
 
 
 ===== Random notes =====
