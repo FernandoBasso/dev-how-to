@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-06-03T12:51:41-03:00
 
 ====== Inspecting The Repository ======
@@ -7,13 +7,24 @@ Created Wednesday 03 June 2020
 
 * https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection
 
-What commits are in ''my-feature'' that are not in ''master''?
+===== Comparing Brances and Tags =====
+
+* [[https://git-scm.com/docs/user-manual.html#browsing-revisions|Browsing Revisions]] docs.
+
+Q: What commits are in ''topic'' but3 not in ''master''? That is, what commits are reached from ''topic'' but not from ''master''.
 
 '''
-$ git log master..my-feature
+$ git log master..topic
 '''
 
-What commits are in ''master'' that re not in ''my-feature''?
+If we are on ''master'' already, then we can omit branch name on the left:
+
+'''
+$ git log ..topic
+'''
+
+
+What commits are in ''master'' that are not in ''my-feature''?
 
 '''
 $ git log my-feature..master

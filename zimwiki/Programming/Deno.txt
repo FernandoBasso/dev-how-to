@@ -11,4 +11,14 @@ Run using “quiet” output and specifying a tsconfig file.
 $ deno -q -c tsconfig.json main.ts
 '''
 
+how could I create my own global variable while running deno? Something like ''global['foo'] = 'bar';'' would do in nodejs?
 
+(window as any)["foo"] = "bar";
+
+
+'''
+----
+let global: any = window;
+global.foo = "bar";
+----
+'''

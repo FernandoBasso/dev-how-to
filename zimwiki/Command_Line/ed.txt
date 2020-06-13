@@ -53,5 +53,14 @@ Replace ''%'' with visual selection or line range. Ex:
 '''
 
 
+===== insert date in the line =====
+
+https://twitter.com/ed1conf/status/1270359065521160194
+
+In vim, from insert mode, ''C-r=strftime('%c')''.
+
+===== buffer or range to for external command =====
+
+https://twitter.com/ed1conf/status/1271059931911856129
 
 

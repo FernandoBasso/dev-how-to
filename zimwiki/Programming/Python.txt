@@ -1,9 +1,42 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-05-10T10:13:46-03:00
 
 ====== Python ======
 Created Sunday 10 May 2020
 
 https://developers.google.com/edu/python/
+
+===== Doctest =====
+
+Saw this on a piece of code:
+
+'''
+----
+# Terminator by Chris Jones <cmsj@tenshu.net>
+# GPL v2 only
+"""cwd.py - function necessary to get the cwd for a given pid on various OSes
+
+
+>>> cwd = get_pid_cwd(None)
+>>> cwd.__class__.__name__
+'str'
+
+"""
+
+import psutil
+from .util import dbg
+
+def get_pid_cwd(pid = None):
+	"""Determine the cwd of the current process"""
+	psinfo =  psutil.Process(pid).as_dict()
+	dbg('psinfo: %s %s' % (psinfo['cwd'],psinfo['pid']))
+	# return func
+	return psinfo['cwd']
+
+# vim: set expandtab ts=4 sw=4:
+----
+'''
+
+It is a [[https://docs.python.org/3/library/doctest.html|Doctest]] stuff.
 

@@ -5,6 +5,36 @@ Creation-Date: 2020-03-13T16:19:53-03:00
 ====== Git ======
 Created Friday 13 March 2020
 
+===== Docs and Help =====
+
+'''
+----
+$ git help help
+$ git help --web rebase
+----
+'''
+
+If you don't have the HTML docs installed on your Git distro package, do [[https://stackoverflow.com/questions/8709383/installing-git-html-help-on-osx/8957498#8957498|this]] (there is a ''git-htmldocs'' package too):
+
+'''
+----
+$ cd ~/local/projs
+$ git clone git://git.kernel.org/pub/scm/git/git-htmldocs.git
+$ git config --global help.htmlPath "$HOME/local/projs/git-htmldocs
+----
+'''
+
+Now it is possible to read docs in HTML, on any browser you want:
+
+'''
+----
+$ git config --global help.browser opera
+----
+'''
+
+**NOTE**: ''BROWSER'' env var before the command seems to be ignored. That is, ''$BROWSER=opera git help --web rebase'' doesn't work. It opens your system's default browser nonetheless.
+
+
 * [[https://www.vogella.com/tutorials/Git/article.html|Vogella Git Tutorial]]
 * [[http://www.paulboxley.com/blog/2011/06/git-caret-and-tilde|Git Caret and Tild]]
 * [[https://stackoverflow.com/questions/2221658/whats-the-difference-between-head-and-head-in-git|What's the difference between HEAD^ and HEAD~ in Git?]]
@@ -96,4 +126,23 @@ $ git log --graph --format="%C(auto) %h %s" origin/dev1-global
 '''
 $ GIT_SEQUENCE_EDITOR='sed -i 5s/pick/squash/' git rebase -i
 '''
+
+
+===== Merge and Rebase =====
+
+Merge master into devel:
+$ git chekout devel
+$ git merge master
+
+Or, from ''master'' itself, without first chaning to ''devel'':
+$ git merge devel master
+
+Read as “Merge master into devel”, (not “merge devel into master”. Be careful).
+
+
+
+
+
+
+
 

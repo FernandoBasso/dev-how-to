@@ -18,3 +18,27 @@ $ printf '%s\n' $'X\tY\tZ'
 X       Y       Z
 '''
 
+
+
+
+===== Keybindings =====
+
+
+''Esc-.'' (Esc followed by a dot) inserts last argument of the last param, similar to what ''!$'' would do.
+
+See [[https://www.reddit.com/r/vim/comments/r38nd/if_you_use_vimode_under_bash_and_you_miss_escdot/|this]] for ''vi'' mode workarounds.
+
+'''
+$ set -o vi
+$ bind -m vi-command ".":insert-last-argument
+'''
+
+Use it by ''Esc+.''. Remember that in Vi/Vim and some other programs, ''Esc'' can be achieved with ''C-['' as well.
+
+===== Bash History of Commands =====
+
+* Bash docs on [[https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Command-Line-Editing|Command Line Editing]].
+* Bash docs on [[https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Using-History-Interactively|Using History Interactively]].
+* [[https://stackoverflow.com/questions/3371294/how-can-i-recall-the-argument-of-the-previous-bash-command|How can I recall the argument of the previous bash command?]]
+
+

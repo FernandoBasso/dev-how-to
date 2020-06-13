@@ -24,3 +24,7 @@ PS1="\n${blue}\$(curdir) ${cyan}[node:\$(version_node)] $(git_info)\n${normal}$ 
 
 The backslash protects the contents of ‘$()‘ from immediate shell interpretation, so ‘curdir’ and ‘version_node’ are called every time a prompt is generated (after each command).
 
+
+===== return vs exit =====
+
+* See ''return'' under [[https://www.gnu.org/software/bash/manual/bash.html#Bourne-Shell-Builtins|Bourne Shell Builtins]].

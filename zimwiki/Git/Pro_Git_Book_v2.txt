@@ -567,12 +567,40 @@ Do not rebase commits that exist outside your repository and that people may hav
 
 ===== 4. Git on the Server =====
 
-
 ==== 4.1 The Protocols ====
 
+A remote repository is generally a **bare repository** — a Git repository that has no working directory. Because the repository is only used as a collaboration point, there is no reason to have a snapshot checked out on disk; it’s just the Git data. In the simplest terms, a bare repository is the contents of your project’s ''.git'' directory and nothing else.
+
+Local Repo:
+
+'''
+$ git clone /srv/git/proj-x
+$ git clone file:///srv/git/proj-x
+$ git remote add my-local-remote /srv/git/projx
+'''
+
+Using ''file:///'' causes git to trigger stuff it normally uses to transfer data over the network (a bit slower).
+
+HTTP:
+
+Dumb HTTP, prior got git 1.6.6.
+
+Smart HTTP, from git 1.6.6. Smart HTTP operates very similarly to the SSH or Git protocols but runs over standard HTTPS ports and can use various HTTP authentication mechanisms, meaning it’s often easier on the user than something like SSH, since you can use things like username/password authentication rather than having to set up SSH keys.
+
+SSH:
+'''
+$ git clone ssh://[user@]serv/proj.git
+$ git [user@]serv/proj.git
+'''
+
+SSH protocol can't possibly allow for anonymous users (like HTTP can). Users need a password or a pair of ssh pub/priv keys.
+
+GIT:
+Uses ''git://''. Packaged with git, and listens on port 9418. Similar to SSH but with no auth.
 
 ==== 4.2 Getting Git on a Server ====
 
+TODO, TOREAD
 
 ==== 4.3 Generating Your SSH Public Key ====
 
@@ -589,13 +617,13 @@ Do not rebase commits that exist outside your repository and that people may hav
 ==== 4.7 GitWeb ====
 
 
-=== 4.8 GitLab ===
+==== 4.8 GitLab ====
 
 
-=== 4.9 Third Party Hosted Options ===
+==== 4.9 Third Party Hosted Options ====
 
 
-=== 4.10 Summary ===
+==== 4.10 Summary ====
 
 
 

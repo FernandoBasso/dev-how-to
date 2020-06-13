@@ -19,6 +19,11 @@ https://1loc.dev/ (Thanks to Maiquel Melo for sharing this with me)
 https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
 
 
+===== Documenting Code =====
+
+* [[https://stackoverflow.com/questions/6460604/how-to-describe-object-arguments-in-jsdoc|How to Describe Object Args in JSDoc?]]
+
+
 ===== Events =====
 https://javascript.info/bubbling-and-capturing
 

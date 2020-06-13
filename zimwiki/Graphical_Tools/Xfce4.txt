@@ -1,0 +1,15 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-06-13T08:03:10-03:00
+
+====== Xfce4 ======
+Created Saturday 13 June 2020
+
+===== XFDashboard =====
+https://docs.xfce.org/apps/xfdashboard/start
+
+xfscripts (pt-br)
+
+
+[DATETIME: Sat, 2020-06-13 08:14]
+
