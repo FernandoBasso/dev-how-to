@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-05-23T15:37:14-03:00
 
 ====== Find Int That Appears Odd Times ======
@@ -47,8 +47,8 @@ findIt nums = found
         found = case x of
           Nothing -> -1
           Just x  -> x
-'''
 
+'''
 
 === bitwise XOR ===
 

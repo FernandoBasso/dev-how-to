@@ -57,4 +57,14 @@ tput clear
 
 Gnome-Terminator has ''Ctrl-Shift-G''.
 
+===== Symbolic Links =====
+
+Remove/delete ''~/.config/zim'' symbolic link (the file it points to remains intact):
+
+'''
+$ unlink ~/.config/zim
+'''
+
+
+
 

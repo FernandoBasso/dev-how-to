@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-04-05T16:16:08-03:00
 
 ====== Bash ======
@@ -28,3 +28,20 @@ The backslash protects the contents of ‘$()‘ from immediate shell interpreta
 ===== return vs exit =====
 
 * See ''return'' under [[https://www.gnu.org/software/bash/manual/bash.html#Bourne-Shell-Builtins|Bourne Shell Builtins]].
+
+===== multiline commands =====
+
+'''
+$ rsync -aiv \
+  --exclude-from=sync-excl.list \
+  . \
+  /mnt/Disk25GB/Project-X
+'''
+
+But before running the final ''Enter'', you realise your command is wrong and edit it in the ''$EDITOR'' with ''C-x C-e''. When you save the editor and quit, the command runs, but you are left in “''>''” (PS2) because that is where you where when you started editing, and hitting ''Enter'' to exit PS2 causes the same command to run again. Or cancel with ''C-c''.
+
+I guess for these lengthier command which I am bound to make mistakes/want to edit, it is perhaphs better to start in the editor from the start with ''C-x C-e''.
+
+* [[https://superuser.com/questions/409150/how-do-i-edit-previous-lines-in-a-multiple-line-command-in-bash|How do I edit previous lines in a multiple line command in Bash?]]
+* [[https://vi.stackexchange.com/questions/12547/vi-editing-of-bash-command-line-avoid-execution-upon-exit|vi editing of bash command line: Avoid execution upon exit?]]
+

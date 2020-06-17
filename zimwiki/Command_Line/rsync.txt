@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2018-04-03T15:28:29-03:00
 
 ====== rsync ======
@@ -19,6 +19,7 @@ burning fingers since '08 | https://sanitarium.net/rsyncfaq/ | for help with rsy
 
 ===== extremely important =====
 If you want to match/include/transfer only some specific stuff, you have to:
+
 * include those things you want to transfer.
 * include directories leading to them, one by one, or with `''+ */''`.
 * exclude all the rest with `''- *''`.
@@ -464,8 +465,6 @@ risk, R files that match the pattern are not protected.
 [11:20:33] <BasketCase> your -e method does also work.  that is a good idea if you need to make a less protected ssh key that is only allowed to rsync for cron jobs and similar
 
 
-
-
 --------------------
 [18:13:48] <Fernando-Basso> I wonder about permissions for rsync'ing ~/.ssh, ~/.gnupg, ~/.mozilla, and some other directories with sensitive information.
 [18:14:19] <Fernando-Basso> Would --perms be advisable?
@@ -526,4 +525,20 @@ sending incremental file list
 [18:37:07] <BasketCase> then don't use --archive
 
 --------------------
+
+===== sync both directions =====
+
+* [[https://stackoverflow.com/questions/1602324/rsync-how-do-i-synchronize-in-both-directions|How do I sync both directions?]]
+
+
+
+
+
+
+
+
+
+
+
+
 

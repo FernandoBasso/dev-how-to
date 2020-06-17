@@ -1,9 +1,11 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2018-04-12T07:41:32-03:00
 
 ====== permissions ======
 Created Thursday 12 April 2018
+
+* [[https://wiki.archlinux.org/index.php/Umask|Umask Arch Wiki Entry]]
 
 ===== execute binary 774 permission denied =====
 Uploaded `jpegoptim' binary to a `''server:~/bin/''` and although it was owned by me and had had executable permissions for the user and group, couldn't run it:
