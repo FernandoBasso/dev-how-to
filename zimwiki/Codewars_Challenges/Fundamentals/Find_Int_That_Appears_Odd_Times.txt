@@ -18,7 +18,7 @@ Find the int that appears an odd number of times.
 ==== Haskell ====
 
 === find, filter, Maybe ===
-It returns a ‘''Maybe Int''’, which does not pass the challenge tests because they want us to return a ‘''Int''’.
+It returns a ''Maybe Int'', which does not pass the challenge tests because they want us to return a ''Int''.
 
 '''
 import Data.List (find)
@@ -85,7 +85,7 @@ findIt xs =
 
 ==== JavaScript ====
 
-=== lengthy reduce, Object.keys find ===
+=== lengthy reduce, Object.keys, find ===
 
 '''
 /**
@@ -112,7 +112,7 @@ function findOdd(arr) {
 '''
 
 
-=== find filter lenght odd ===
+=== find filter length odd ===
 
 '''
 function findOdd(arr) {
@@ -211,7 +211,12 @@ find_n = lambda { |xs| xs.reduce(:^) }
 ==== Scheme ====
 
 === single function ===
+
+#lisp-br [[https://paste.debian.net/1152000/|pasted snippet]].
+
 '''
+(import srfi-1)
+
 (define find-n
   (lambda (xs)
     (find (lambda (x)
@@ -221,12 +226,25 @@ find_n = lambda { |xs| xs.reduce(:^) }
                         (= x i))
                       xs))))
           xs)))
+
+(define n3 '(1 2 3 1 2 3 3))
+(define nNone '())
+
+(print (find-n n3))
+;; 3
+
+(print (find-n nNone))
+;; #f
 '''
 
 
 === helper functions ===
 
+#lisp-br [[https://paste.debian.net/1152003/|pasted snippet]].
+
 '''
+(import srfi-1)
+
 ;; Collects all ‘val’s from the list ‘xs’.
 (define collect-val
   (lambda (val xs)
@@ -241,9 +259,86 @@ find_n = lambda { |xs| xs.reduce(:^) }
 ;; Using ‘odd-len?’ and ‘collect-val’ helpers.
 (define find-n
   (lambda (xs)
-    (find (lambdx (x)
-            (odd-len? (collect-x x xs)))
+    (find (lambda (x)
+            (odd-len? (collect-val x xs)))
           xs)))
+'''
+
+=== no srfi-1, using car, cdr, helpers ===
+
+A courtesy of Mário Goulart.
+
+'''
+(define (count-occurrences n lst)
+  ;; Shadows ‘lst’ from the outer function.
+  (let loop ((lst lst))
+    (if (null? lst)
+        0
+        (+ (if (= (car lst) n) 1 0)
+           (loop (cdr lst))))))
+
+(define (find-n lst)
+  (let loop ((nums lst))
+    (if (null? nums)
+        #f
+        (let ((cur-num (car nums)))
+          (if (odd? (count-occurrences cur-num lst))
+              cur-num
+              (loop (cdr nums)))))))
+'''
+
+Mário's solutions has an example of [[https://en.wikipedia.org/wiki/Variable_shadowing|Variable Shadowing]].
+
+
+=== partial application of helper function ===
+
+'''
+(import srfi-1)
+
+(define (odd-len? alist)
+  (odd? (length alist)))
+
+;;
+;; Useful to partially-apply ‘x’, and compare it with
+;; ‘e’ in the final application.
+;;
+;; USAGE:
+;;  ((eq-x? 1) 1)
+;;  ;; #t
+;;
+;;  ((eq-x? 1) 2)
+;;  ;; #f
+;;
+(define eq-x?
+  (lambda (x)
+    (lambda (e)
+      (= x e))))
+
+(define (find-n xs)
+  (find (lambda (x)
+          (odd-len?
+           (filter (eq-x? x) xs))) ;; <1>
+        xs))
+
+(define n3 '(1 2 3 1 2 3 3))
+(define nNone '())
+
+(print (find-n n3))
+;; 3
+
+(print (find-n nNone))
+;; #f
+
+;;
+;; <1> Apply ‘x’ and let ‘filter’ apply the final argument
+;; ‘e’ which causes the final execution of the function.
+;;
+'''
+
+An alternate syntax for ''eq-x?'' using [[http://wiki.call-cc.org/man/5/Module%20scheme#definitions|Chicken R5RS extension]] is:
+
+'''
+(define ((eq-x? x) e) (= x e))
 '''
 
 

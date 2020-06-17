@@ -1,9 +1,12 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-05-13T13:13:17-03:00
 
 ====== Chicken Scheme ======
 Created Wednesday 13 May 2020
+
+* [[https://www.more-magic.net/posts/chicken-5.html|What to Expect From Chicken 5]] Peter Bex
+* [[http://wiki.call-cc.org/man/5/Module%20scheme#module-scheme|Chicken Module Scheme]] Syntax docs, curried functions, etc.
 
 http://parenteses.org/mario/misc/installing-chicken.txt
 
@@ -11,7 +14,41 @@ http://parenteses.org/mario/misc/awful-install.txt
 
 Link executables to ‘~/bin’.
 
+'''
 $ ln -sv ~/local/chicken-5.2.0/bin/* ~/bin/
+'''
 
 It is imperative that we provide full paths and not relative paths.
+
+Chicken 4 used ''(use srfi-1)'' syntax. Chicken 5 changed iti to ''(import srfi-1))''.
+
+===== Currying =====
+In Chicken Scheme, we must do manual currying, and application must be partial (unlike Haskell, in which a function can be partially applied, or fully applied in a single invocation.)
+
+Manual currying:
+'''
+(define eq-x?
+  (lambda (x)
+	(lambda (e)
+	  (= x e))))
+'''
+
+MUST be partially applied:
+'''
+((eq-x? 1) 1) ;; #t
+'''
+
+CANNOT do this:
+'''
+(eq-x? 1 1)
+'''
+
+“As an [[http://wiki.call-cc.org/man/5/Module%20scheme#definitions|extension to R5RS]], CHICKEN allows curried definitions”:
+'''
+(define ((eq-n? n) e) (= n e))
+'''
+
+
+
+
 

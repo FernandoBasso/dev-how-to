@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-05-23T16:10:54-03:00
 
 ====== You Are Square ======
@@ -18,22 +18,22 @@ Challenge:
 
 ===== Sample Input =====
 
-- -1: false, negative numbers cannot be square numbers
--  0: true, ‘0 * 0 = 0’.
--  4: true, ‘2 * 2 = 4’.
--  9: true, ‘3 * 3 = 9’.
-- 25: true, ‘5 * 5 = 25’.
-- 26: false, no ‘x * x’ produces 25.
+- ''-1'': false, negative numbers cannot be square numbers
+-  ''0'': true, ‘0 * 0 = 0’.
+-  ''4'': true, ‘2 * 2 = 4’.
+-  ''9'': true, ‘3 * 3 = 9’.
+- ''25'': true, ‘5 * 5 = 25’.
+- ''26'': false, no ‘x * x’ produces 25.
 
 ===== Solution Tips =====
 
-If ‘x * x = n’, then ‘n’ is a perfect square.
+If ''x * x = n'', then ‘n’ is a perfect square.
 
-If the ‘sqrt’ of number produces an integer (no decimal places), then that number is a perfect square. For instance:
+If the ''sqrt'' of number produces an integer (no decimal places), then that number is a perfect square. For instance:
 
-If the ‘sqrt’ of a number produces a value that is not an integer, then it is not a perfect square.
+If the ''sqrt'' of a number produces a value that is not an integer, then it is not a perfect square.
 
-‘parseInt(3.14)’ returns the integer, discarding the decimal.
+''parseInt(3.14)'' returns the integer, discarding the decimal.
 
 '''
 > sqrt(16)
@@ -61,9 +61,8 @@ false
 Zero is false. ‘2 == 1’ returns 0. One is true. ‘2 == 2’ returns 1. BUT exit status 0 means “success”, and any other (positive or negative) number means some sort of failure.
 
 === cast ===
-
 '''
-#+begin_src c
+
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>

@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-05-23T15:36:47-03:00
 
 ====== Codewars Challenges ======
@@ -39,7 +39,8 @@ Ruby has features from OO and Lisp, and is very cool in itself.
 
 Scheme is a smaller dialect of Lisp, is used in SICP, and a good candidate to do lisp-like code.
 
-===== Running The Solutions =====
+===== Tips for each language =====
+
 Most of the time, these insntructions will do. When needed, additional information on how to run the code will be provided with the solution.
 
 ==== C ====
@@ -101,9 +102,14 @@ $ ruby -w file.rb
 
 ==== Scheme ====
 
+Compile:
 '''
 $ csi -q main.scm
 '''
+
+I use Emacs + Geiser + Chicken Scheme (csi) to compile, evaluate and run the programs.
+
+See the [[https://www.nongnu.org/geiser/geiser_5.html|Geiser Cheat Shett]].
 
 
 ==== TypeScript Deno ====

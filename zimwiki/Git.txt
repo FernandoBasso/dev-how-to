@@ -72,8 +72,12 @@ Sometimes we fix a rebase conflict, run ‘git rebase --continue’, and then gi
 ===== diff whitespace =====
 https://stackoverflow.com/questions/5257553/coloring-white-space-in-git-diffs-output
 
+'''
+----
 git diff -R
 git diff -W
+----
+'''
 
 https://git-scm.com/docs/git-config#Documentation/git-config.txt-corewhitespace
 
@@ -84,6 +88,7 @@ https://git-scm.com/docs/git-config#Documentation/git-config.txt-corewhitespace
 '''
 git config --global color.diff.whitespace 'red reverse'
 '''
+
 
 
 ===== Upstream =====

@@ -1,0 +1,22 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-06-13T19:54:00-03:00
+
+====== 0Goals and Planning ======
+Created Saturday 13 June 2020
+
+===== Currently Doing =====
+[DATETIME: Sat, 2020-06-13 19:54]
+
+Follow these steps (simplify stuff):
+
+* Finish one Head First C chapter;
+* Then finish one Codewar challenge in the seven languages.
+* Then Implement one MemoApp feature
+* Repeat.
+
+==== Head First C ====
+* Chapter 3 done [DATETIME: Sat, 2020-06-13 19:52]
+
+==== Codewars Challenges ====
+* [DOING] [[https://www.codewars.com/kata/54da5a58ea159efa38000836|Find Odd Int]].

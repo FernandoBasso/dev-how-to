@@ -12,6 +12,12 @@ Created Saturday 28 December 2019
 * Some conventions on naming stuff: ([[https://developer.gnome.org/gobject/stable/gtype-conventions.html|link]])
 * [[https://developer.gnome.org/gobject/stable/pt02.html|GObject Tutorial (shared by ebassi)]]
 * Gtk/Gnome [[https://developer.gnome.org/programming-guidelines/stable/c-coding-style.html.en|C Coding Style Guidelines]].
+* [[https://people.gnome.org/~swilmet/glib-gtk-dev-platform.pdf|Gtk and Glib Dev Platform]] PDF book by Sebástien Wilmet.
+
+===== gint, gchar, etc =====
+an old message from ebassi: The reason why gint/gdouble/gchar exist is because the original authors of gtk/glib needed the same highlighting on emacs
+
+{{./gtk-gint-gchar.png}}
 
 
 ===== Random notes =====
