@@ -9,6 +9,26 @@ Created Wednesday 13 May 2020
 * [[http://wiki.call-cc.org/man/5/Module%20scheme#module-scheme|Chicken Module Scheme]] Syntax docs, curried functions, etc.
 
 http://parenteses.org/mario/misc/installing-chicken.txt
+'''
+== Fetch, build & install
+
+$ wget http://code.call-cc.org/releases/5.2.0/chicken-5.2.0.tar.gz
+$ tar xzvf chicken-5.2.0.tar.gz
+$ cd chicken-5.2.0
+$ make PLATFORM=linux PREFIX=$HOME/bin/chicken-5.2.0 install
+
+<platform> can be "linux", "macosx" etc.  Run "make" without arguments
+to see the full list.  Also see the the "5. Platform issues" section
+in the README file if you are using other platforms.
+
+If you are on BSD, run "gmake" instead of "make" (CHICKEN requires
+GNU Make).
+
+== Additional optional steps
+
+$ (cd $HOME/local ; rm -f chicken; ln -s chicken-5.2.0 chicken)
+$ export PATH=$PATH:$HOME/local/chicken/bin
+'''
 
 http://parenteses.org/mario/misc/awful-install.txt
 

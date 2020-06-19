@@ -15,6 +15,47 @@ Find the int that appears an odd number of times.
 
 === C ===
 
+== count_xs helper, pointers, arrays ==
+
+'''
+/*
+ * Count how many times ‘x’ appears in ‘xs’.
+ */
+short count_xs (short x, short *nums, short len)
+{
+  short i, count;
+
+  count = 0;
+
+  for (i = 0; i < len; ++i)
+    if (x == *(nums + i))
+      count += 1;
+
+  return count;
+}
+
+/**
+ * Find the number that appears an odd number of times.
+ *
+ * If it is found, store it in the pointer ‘found’ and
+ * return 1; just return 0 otherwise.
+ */
+short find_n (short *nums, short len, short *found)
+{
+  short i, cur;
+
+  for (i = 0; i < len; ++i) {
+    cur = *(nums + i);
+    if (count_xs (cur, nums, len) % 2 == 1) {
+      *found = cur;
+      return 1;
+    }
+  }
+
+  return 0;
+}
+'''
+
 ==== Haskell ====
 
 === find, filter, Maybe ===

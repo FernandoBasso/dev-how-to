@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-05-26T07:47:37-03:00
 
 ====== Arrays and Pointers ======
@@ -14,3 +14,4 @@ Declare and initialize an array of five short integers:
 short nums[5] = {1, 2, 3, 4, 5};
 '''
 
+“In C, array index notation is just shorthand for pointer addition. So ''arr[0]'' becomes ''*(arr + 0)'' and ''0[arr]'' becomes ''*(0 + arr)'', which of course are equivalent.” ([[https://stackoverflow.com/questions/1598773/is-there-a-standard-function-in-c-that-would-return-the-length-of-an-array#comment73338134_1598827|link]]).

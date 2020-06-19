@@ -11,5 +11,8 @@ https://docs.xfce.org/apps/xfdashboard/start
 xfscripts (pt-br)
 
 
-[DATETIME: Sat, 2020-06-13 08:14]
+===== LightDM Gtk Greeter =====
+On Arch Linux, I can set a login screen wallpaper from Lightdm Gtk Greeter Settings, and use a different wallpaper from the normal desktop. On Xubuntu, even if you set a wallpaper for the login screen, it just momentarily shows it, and then defaults back to the same set on the user's desktop.
+
+
 

@@ -11,6 +11,7 @@ https://github.com/progrium/bashstyle
 
 https://soptik.tech/articles/beware-of-shell-globs.html
 
+http://parenteses.org/mario/misc/bash-gotchas.txt
 
 ===== Re-evaluate functions in PS1 =====
 

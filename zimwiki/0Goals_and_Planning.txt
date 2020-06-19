@@ -20,3 +20,10 @@ Follow these steps (simplify stuff):
 
 ==== Codewars Challenges ====
 * [DOING] [[https://www.codewars.com/kata/54da5a58ea159efa38000836|Find Odd Int]].
+
+==== MemoApp Feature ====
+* ???
+
+
+
+

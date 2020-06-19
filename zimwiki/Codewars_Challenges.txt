@@ -109,8 +109,13 @@ $ csi -q main.scm
 
 I use Emacs + Geiser + Chicken Scheme (csi) to compile, evaluate and run the programs.
 
-See the [[https://www.nongnu.org/geiser/geiser_5.html|Geiser Cheat Shett]].
+See the [[https://www.nongnu.org/geiser/geiser_5.html|Geiser Cheat Sheet]]. Also remember that Chicken + Geiser requires some [[https://www.nongnu.org/geiser/geiser_2.html#Chicken-installation|extra steps]].
 
+'''
+$ chicken-install apropos chicken-doc srfi-18 srfi-1
+'''
+
+And do not use “-s” with chicken-install if chicken was installed somewhere in “$HOME” and consequently does not need sudo.
 
 ==== TypeScript Deno ====
 

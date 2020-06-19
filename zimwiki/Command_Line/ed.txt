@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-05-26T06:56:52-03:00
 
 ====== ed ======
@@ -64,3 +64,16 @@ In vim, from insert mode, ''C-r=strftime('%c')''.
 https://twitter.com/ed1conf/status/1271059931911856129
 
 
+===== reverse lines =====
+https://twitter.com/ed1conf/status/1273990236079632385
+To reverse the lines in a file in ed(1)
+
+'''
+g/^/m0
+'''
+
+will do the trick. If you want to reverse an arbitrary range such as lines 5-10, you can use
+
+'''
+5,10g/^/m4
+'''
