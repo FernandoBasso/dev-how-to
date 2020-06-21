@@ -5,6 +5,88 @@ Creation-Date: 2020-06-13T08:27:01-03:00
 ====== 0Notes ======
 Created Saturday 13 June 2020
 
+If ''/mnt/disk1'' belongs to ''myuser:users'' (my user, and the group “users”), I still can't do:
+
+'''
+$ chmod g+s /mnt/disk1
+$ ls -ld /mnt/SONY25GB
+drwxr-xr-x 2 fernando users 4096 Jun 20 08:34 SONY25GB
+'''
+
+Does not display any errors, but does not apply the “setgid” bit (NOTE it does not contain the “s” indication in the permissions column). Looks like we must have admin/root privilges:
+
+'''
+$ sudo chmod g+s /mnt/SONY25GB
+$ ls -ld /mnt/SONY25GB
+drwxr-sr-x 2 fernando users 4096 Jun 20 08:34 SONY25GB
+'''
+
+Here is the entire command line session:
+
+'''
+$ sudo mkdir -v /mnt/SONY25GB
+mkdir: created directory '/mnt/SONY25GB'
+
+$ sudo chown -v fernando:users /mnt/SONY25GB
+changed ownership of '/mnt/SONY25GB' from root:root to fernando:users
+
+$ chmod -v g+s /mnt/SONY25GB
+mode of '/mnt/SONY25GB' retained as 2755 (rwxr-sr-x)
+
+$ ls -ld /mnt/SONY25GB
+drwxr-xr-x 2 fernando users 4096 Jun 20 08:42 /mnt/SONY25GB/
+
+$ sudo chmod -v g+s /mnt/SONY25GB
+mode of '/mnt/SONY25GB' changed from 0755 (rwxr-xr-x) to 2755 (rwxr-sr-x)
+
+$ ls -ld /mnt/SONY25GB
+drwxr-sr-x 2 fernando users 4096 Jun 20 08:42 /mnt/SONY25GB/
+'''
+
+
+'''
+$ sudo groupadd --gid 2001 mystorages
+$ sudo gpasswd -a <someuser> mystorages
+# LOG OUT and IN
+$ sudo mkdir /mnt/usbstick
+$ sudo chown -v <someuser>:mystorages
+$ sudo chmod -v g+s /mnt/usbstick
+'''
+
+Add an entry to ''/etc/fstab'' (find out UUID with ''lsblk -f''):
+
+'''
+#
+# My USB stick, 25GB partition.
+#
+UUID=a276b852-302f-4486-af21-667883b5d2cd	/mnt/usbstick	ext4	rw,users,noauto,relatime	0	2
+
+'''
+Mount (and umount) the usb stick (as normal user, NOT as root):
+
+'''
+$ mount -v /mnt/usbstick
+$ umount -v /mnt/usbstick
+'''
+
+If it already contains data that may belong to other groups, then run:
+
+'''
+$ find /mnt/usbstick -print0 -exec sudo chown -Rv :mystorages {} \;
+'''
+
+If directories can't be written to (create files inside them) by the group, then run:
+
+'''
+$ find /mnt/usbstick -type d -print0 -exec sudo chmod -v g+rwx {} \;
+'''
+
+* ''man groupadd''
+* ''less /etc/login.defs''
+
+
+
+
 
 
 

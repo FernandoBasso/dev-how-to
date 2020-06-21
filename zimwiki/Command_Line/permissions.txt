@@ -20,3 +20,18 @@ Uploaded `jpegoptim' binary to a `''server:~/bin/''` and although it was owned b
 It so happens that the filesystem is mounted with the ‘noexec’ option in ‘/etc/fstab’.
 
 
+===== default group and user IDs =====
+
+There is no standard which defines which groups have which IDs across *nixes, distros, etc.
+
+On Xubunt, the group “users” has an ID of 100; on Arch Linux, 985.
+
+https://unix.stackexchange.com/questions/273144/predefined-group-ids-across-linux-distros
+
+https://docs.fedoraproject.org/en-US/packaging-guidelines/UsersAndGroups/
+
+'''
+$ groupadd --gid <number> mystorages
+'''
+
+
