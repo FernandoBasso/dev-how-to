@@ -13,6 +13,9 @@ Created Saturday 28 December 2019
 * [[https://developer.gnome.org/gobject/stable/pt02.html|GObject Tutorial (shared by ebassi)]]
 * Gtk/Gnome [[https://developer.gnome.org/programming-guidelines/stable/c-coding-style.html.en|C Coding Style Guidelines]].
 * [[https://people.gnome.org/~swilmet/glib-gtk-dev-platform.pdf|Gtk and Glib Dev Platform]] PDF book by Sebástien Wilmet.
+* [[https://developer.gnome.org/gtk4/3.98/migrating.html|Migration to Gtk 4 Guide]]
+* Custom Widgets with Gtk 4, [[https://blog.gtk.org/2020/04/23/custom-widgets-in-gtk-4-introduction/|part 1]], [[https://blog.gtk.org/2020/04/24/custom-widgets-in-gtk-4-drawing/|part 2]], [[https://blog.gtk.org/2020/04/27/custom-widgets-in-gtk-4-layout/|part 3]].
+* [[https://discourse.gnome.org/t/useful-documentation-for-gtk/29|Useful documentation for GTK (ebassi)]]
 
 ===== gint, gchar, etc =====
 an old message from ebassi: The reason why gint/gdouble/gchar exist is because the original authors of gtk/glib needed the same highlighting on emacs
@@ -36,5 +39,31 @@ Reast last paragraph of [[https://developer.gnome.org/gtk3/stable/gtk-getting-st
 ''g_signal_connect_swapped()'' allows you to specify what the callback function should take as parameter by letting you pass it as data. In this case the function being called back is ''gtk_widget_destroy()'' and the window pointer is passed to it. This has the effect that when the button is clicked, the whole GTK window is destroyed. In contrast if a normal ''g_signal_connect()'' were used to connect the "clicked" signal with ''gtk_widget_destroy()'', then the button itself would have been destroyed, not the window.
 ""
 
+===== Gtk4 =====
+
+* [[https://developer.gnome.org/gtk4/stable/gtk-building.html|Compiling the GTK Libraries]]
 
 
+===== gsettings gschema =====
+
+See [[https://askubuntu.com/questions/251712/how-can-i-install-a-gsettings-schema-without-root-privileges|this]].
+
+Compile and save in a directory without needing root access:
+
+'''
+$ glib-compile-schemas .
+# or
+$ glib-compile-schemas ~/.my-gschemas
+'''
+
+Then load it as you develop the app:
+
+'''
+$ GSETTINGS_SCHEMA_DIR=./ ./build/myapp
+# or
+$ GSETTINGS_SHEMA_DIR=~/.my-gschemas/ ./build/myapp
+'''
+
+
+
+g
