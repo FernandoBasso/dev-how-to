@@ -6,6 +6,7 @@ Creation-Date: 2019-12-28T08:22:02-03:00
 Created Saturday 28 December 2019
 
 
+
 * Gtk 3 Getting Started Tutorial in C ([[https://developer.gnome.org/gtk3/stable/gtk-getting-started.html|link]])
 * Compiling Gtk Stuff ([[https://developer.gnome.org/gtk3/stable/gtk-compiling.html|link]])
 * Application ID like org.gtk.memoapp, how to choose an ID‽ ([[https://wiki.gnome.org/HowDoI/ChooseApplicationID|link]])
@@ -16,6 +17,8 @@ Created Saturday 28 December 2019
 * [[https://developer.gnome.org/gtk4/3.98/migrating.html|Migration to Gtk 4 Guide]]
 * Custom Widgets with Gtk 4, [[https://blog.gtk.org/2020/04/23/custom-widgets-in-gtk-4-introduction/|part 1]], [[https://blog.gtk.org/2020/04/24/custom-widgets-in-gtk-4-drawing/|part 2]], [[https://blog.gtk.org/2020/04/27/custom-widgets-in-gtk-4-layout/|part 3]].
 * [[https://discourse.gnome.org/t/useful-documentation-for-gtk/29|Useful documentation for GTK (ebassi)]]
+
+“There are two different kinds of tree in GLib; GTree is your basic balanced binary tree, useful to store key-value pairs sorted by key; GNode stores arbitrary tree-structured data, such as a parse tree or taxonomy.” -- p. 24, Sebástien Wilmet.
 
 ===== gint, gchar, etc =====
 an old message from ebassi: The reason why gint/gdouble/gchar exist is because the original authors of gtk/glib needed the same highlighting on emacs
@@ -39,9 +42,26 @@ Reast last paragraph of [[https://developer.gnome.org/gtk3/stable/gtk-getting-st
 ''g_signal_connect_swapped()'' allows you to specify what the callback function should take as parameter by letting you pass it as data. In this case the function being called back is ''gtk_widget_destroy()'' and the window pointer is passed to it. This has the effect that when the button is clicked, the whole GTK window is destroyed. In contrast if a normal ''g_signal_connect()'' were used to connect the "clicked" signal with ''gtk_widget_destroy()'', then the button itself would have been destroyed, not the window.
 ""
 
-===== Gtk4 =====
+===== Compile Gresources =====
 
-* [[https://developer.gnome.org/gtk4/stable/gtk-building.html|Compiling the GTK Libraries]]
+'''
+$ glib-compile-resources \
+    myapp.gresource.xml \
+    --target=resources.c \
+    --generate-source
+'''
+
+With meson, something like this in ''meson.build'':
+
+'''
+gnome = import('gnome')
+
+expl1_resources = gnome.compile_resources(
+  'expl1_resources',
+  'myapp.gresource.xml',
+  source_dir: '.'
+)
+'''
 
 
 ===== gsettings gschema =====
@@ -65,5 +85,7 @@ $ GSETTINGS_SHEMA_DIR=~/.my-gschemas/ ./build/myapp
 '''
 
 
+===== Gtk4 =====
 
-g
+* [[https://developer.gnome.org/gtk4/stable/gtk-building.html|Compiling the GTK Libraries]]
+

@@ -1,0 +1,33 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-06-22T08:06:57-03:00
+
+====== CCLS ======
+Created Monday 22 June 2020
+
+* https://github.com/MaskRay/ccls
+* [[https://github.com/MaskRay/ccls/wiki/Build|Build]], [[https://github.com/MaskRay/ccls/wiki/Install|install]], [[https://github.com/MaskRay/ccls/wiki/Editor-Configuration|configure editor]].
+
+I prefer not to install, and simply create a shell wrapper and use ccls from the location it is compiled. See install above.
+
+Clone recursively so submodules are handled too:
+
+'''
+$ git clone --recursive https://github.com/MaskRay/ccls
+'''
+
+===== Xubuntu =====
+
+'''
+$ sudo apt install zlib1g-dev libncurses-dev libncurses5
+$ sudo apt install clang llvm libclang-dev
+'''
+
+With clang installed in default locations, from repos, no need the cmake param ‘-DCMAKE_PREFIX_PATH=/path/to/clang+llvm-xxx’.
+
+'''
+$ cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release
+$ cmake --build Release
+'''
+
+

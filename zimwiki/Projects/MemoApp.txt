@@ -1,0 +1,12 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-06-23T07:57:31-03:00
+
+====== MemoApp ======
+Created Tuesday 23 June 2020
+
+https://gitlab.com/fernandobasso/memoapp
+
+Ah, I opened it in Builder, and it is a “meson generated file, do not edit”. Probably something Builder does as the default template for a C/Gtk project.
+
+well it comes from meson.build, possibly with a config.h.in it's a fairly common convention to avoid multiple truths for version numbers etc

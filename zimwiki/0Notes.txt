@@ -49,7 +49,7 @@ $ sudo groupadd --gid 2001 mystorages
 $ sudo gpasswd -a <someuser> mystorages
 # LOG OUT and IN
 $ sudo mkdir /mnt/usbstick
-$ sudo chown -v <someuser>:mystorages
+$ sudo chown -v <someuser>:mystorages /mnt/usbstick
 $ sudo chmod -v g+s /mnt/usbstick
 '''
 
