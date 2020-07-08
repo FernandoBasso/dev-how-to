@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-02-02T07:50:57-03:00
 
 ====== Game Emulators ======
@@ -18,3 +18,10 @@ https://emupedia.net/beta/emuos/
 Ryonagana, archdark
 
 https://tic.computer/
+
+===== Tomb Raider =====
+
+{{./xproger-arsunt-decompile-architectures.png}}
+
+
+

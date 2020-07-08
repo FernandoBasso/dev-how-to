@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-01-28T09:03:52-03:00
 
 ====== NodeJs ======
@@ -16,3 +16,23 @@ https://nodejs.org/en/knowledge
 https://nodejs.dev/
 
 
+===== NVM Node Version Manager =====
+
+Install latest LTS version:
+
+'''
+$ nvm install --lts
+'''
+
+Use the latest installed LTS:
+
+'''
+$ nvm use node --lts
+'''
+
+To make the latest LTS the default (one possible way shown here):
+
+'''
+$ nvm use node --lts
+$ nvm alias default $(node --version)
+'''

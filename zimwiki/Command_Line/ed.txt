@@ -77,3 +77,29 @@ will do the trick. If you want to reverse an arbitrary range such as lines 5-10,
 '''
 5,10g/^/m4
 '''
+
+
+===== save range to file =====
+https://twitter.com/ed1conf/status/1279085771601911811
+
+'''
+3,10 w my-new-file.txt
+'''
+
+Or with marks 'a and 'b:
+
+'''
+'a,'bw my-new-file.txt
+'''
+
+Vim, save from current line and the next four lines (5 lines total) to foo.txt:
+
+'''
+:.,+4 w foo.txt
+'''
+
+
+
+
+
+

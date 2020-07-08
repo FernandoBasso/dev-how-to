@@ -19,3 +19,10 @@ We use a ‘Fragment’ to add a ‘br’ tag between ‘addr1’ and ‘addr2�
 '''
 
 
+===== Make React Create App use NPM =====
+
+See [[https://create-react-app.dev/docs/getting-started#selecting-a-package-manager|CRA docs]] and this [[https://www.learnstorybook.com/intro-to-storybook/react/en/get-started/|Storybook docs]] about using NPM instead of Yarn.
+
+'''
+$ npx create-react-app tdd-todo-app --use-npm
+'''
