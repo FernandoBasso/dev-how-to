@@ -1,7 +1,25 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2019-12-24T15:53:27-03:00
 
 ====== Redux ======
 Created Tuesday 24 December 2019
+
+===== undefined check question =====
+
+https://redux.js.org/basics/reducers
+
+Q: Why typeof state === 'undefined' instead of simply state === undefined?
+
+A: for undeclared variables typeof foo wil lreturn the string literal "undefined" where the check foo === undefined would trigger the error foo is not defined.
+
+A: But in that case, state is a parameter, so it “exists” for sure in that case. So, it is just a to make supper dupper sure thing?
+
+A: it's also historical. In ye old days of non-strict JavaScript, it was possible to define a variable named undefined. So you could do undefined = 5 and suddenly all those checks on == undefined would test for 5 and not for undefined
+
+which is why people to the typeof foo === "undefined" check
+Old habits die hard I guess ^^
+
+Especially since it could happen by accident if you were to do a undefined == foo check somewhere (I mean, there's not fixed rule that you have to write it left-to-right)  and forgot one =, it would break all your other code
+That was before linters where a thing of course ^^
 

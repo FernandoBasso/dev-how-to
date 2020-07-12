@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-05-24T10:16:01-03:00
 
 ====== Graphical Tools ======
@@ -13,5 +13,7 @@ Xournal looks ugly under Greybird / Xfce4. Running from the terminal, we see com
 
 Look at the “Optional For” entry in ''pacman -Qi gtk-engine-murrine'' and the “Optional Deps” entry in ''pacman -Qi xfce-theme-greybird''.
 
-
+===== Color Picker =====
+* gpick — advanced GUI tool.
+* grabc — command line, very easy to use, simple and does the job.
 
