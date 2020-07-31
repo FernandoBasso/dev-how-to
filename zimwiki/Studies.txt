@@ -1,0 +1,14 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-07-29T07:29:52-03:00
+
+====== Studies ======
+Created Wednesday 29 July 2020
+
+**__IMPORTANT__**: Study the thing under the first headline of this file. If work tasks require researching on something, do NOT start studying that thing. Research only enough to get the job done and come back to the current study subject.
+
+===== Generators ExploringJS =====
+[DATETIME: Wed, 2020-07-29 07:40]
+
+https://exploringjs.com/es6/ch_generators.html
+

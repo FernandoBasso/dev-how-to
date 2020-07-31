@@ -39,6 +39,11 @@ $ sudo add-apt-repository --remove ppa:jonathonf/vim
 229 very light yellow
 255 very light gray
 
+===== bold, italic, underline, undercurl =====
+
+* StackOverflow Question with excellent answer
+
+
 
 ===== webpack alias app src =====
 
@@ -53,6 +58,20 @@ It's not the function which is the problem, it's that you're using it in a :set 
 
 -- nickspon at #vim, irc
 ””
+
+For an alias of ''@magento'', I had to NOT use ''@'' in the substitute command. All of these did not work:
+
+'''
+set includeexpr=substitute(v:fname,'@magento','packages','')
+set includeexpr=substitute(v:fname,'\@magento','packages','')
+set includeexpr=substitute(v:fname,'\\@magento','packages','')
+'''
+
+
+Vim would complain about files not found in “magento/...”, like it was not applying the substitution. This worked (even though my JS files import stuff from '''@magento/...''' alias):
+
+''set includeexpr=substitute(v:fname,'magento','packages','')''
+
 
 
 ===== Tabs vs Buffers =====
@@ -73,7 +92,7 @@ https://github.com/changemewtf/no_plugins
 :find *.rb
 
 
-command! [[MakeTags]] !ctags -R .
+command! MakeTags !ctags -R .
 
 ^]
 g^]
@@ -119,7 +138,22 @@ Example with the option ‘listchars’ using the primary selection:
 Now you can middle-click in some other application to paste the contents of the primary selection.
 
 
+===== create file under cursor =====
 
+Running '':edit <cfile>'' creates the file in Vim's PWD, not in the path of the current buffer.
 
+'''
+:help filename-modifiers
+'''
+
+And something like this:
+
+:exe 'edit' fnameescape(join([expand('%:h'), expand('<cfile>:t')], '/'))
+
+you can use c_CTRL-R_CTRL-W and c_CTRL-R_CTRL-F and all that other stuff. You can do c_CTRL-F to open the cmdline-window, which is modal. You can create a command or a mapping that does exactly what I just did.
+
+Also 'acd'.
+
+nnoremap <Leader>cf :execute ':edit ' . fnameescape(join([expand('%:h'), expand('<cfile>:t')], '/'))<CR>
 
 
