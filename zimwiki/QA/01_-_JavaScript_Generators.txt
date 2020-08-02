@@ -1,0 +1,25 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-07-31T07:21:13-03:00
+
+====== 01 - JavaScript Generators ======
+Created Friday 31 July 2020
+
+===== Q1 =====
+
+What is output in <1>? Why?
+
+'''
+function* genFn() {
+  l('First');
+  yield;
+  l('Second');
+}
+
+const genObj = genFn(); // <1>
+'''
+
+
+==== answer ====
+
+Nothing is printed. Invoking a generator function just returns a generator object, but execution is paused before the first line of actual code in the body of the function.

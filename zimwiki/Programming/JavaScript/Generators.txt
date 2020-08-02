@@ -1,0 +1,9 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-07-31T08:13:55-03:00
+
+====== Generators ======
+Created Friday 31 July 2020
+
+===== Intro =====
+
