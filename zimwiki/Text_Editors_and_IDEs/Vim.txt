@@ -157,3 +157,11 @@ Also 'acd'.
 nnoremap <Leader>cf :execute ':edit ' . fnameescape(join([expand('%:h'), expand('<cfile>:t')], '/'))<CR>
 
 
+===== quit =====
+
+I was going to type '':echo 0x00'' and forgot “echo” and just typed '':0x00''. What happened? Vim exited. It so happens that '':x'' quits, and for some reason, it accepts a range, so it became '':0x'' (not the hex “0x00”) and quit vim. See '':help :x''.
+
+
+
+
+

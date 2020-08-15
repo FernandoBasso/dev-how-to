@@ -11,3 +11,6 @@ insert_final_newline = true
 [*.{rb,blade.php,scss}]
 indent_size = 2
 
+[*.{c,cpp,pl}]
+indent_size = 2
+

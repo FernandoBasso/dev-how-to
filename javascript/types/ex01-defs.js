@@ -7,5 +7,5 @@ l(foo);
 l(bar);
 l(baz);
 
-/* vim: set tw=68 ft=text: */
+/* vim: set tw=68 ft=text ai: */
 

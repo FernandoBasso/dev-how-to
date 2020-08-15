@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2019-12-13T09:07:26-03:00
 
 ====== tmux ======
@@ -77,6 +77,12 @@ tmux -f ~/.dotifles/FILEs/tmux-light1.conf new-session \
 ===== ColoUrs =====
 
 https://superuser.com/questions/285381/how-does-the-tmux-color-palette-work/285400
+
+I am scanning through the man page but could not find (so far) if it is possible to customize the colors of the list of sessions from C-b s. Any ideas?
+
+I believe it is, by using the 'choose-tree -Zs -F <format>' option. See the FORMATS section of the man page for all the things (including colours) you can use there...
+
+''choose-tree -Z -F "#[bg=colour11,fg=colour1]#S"''
 
 
 

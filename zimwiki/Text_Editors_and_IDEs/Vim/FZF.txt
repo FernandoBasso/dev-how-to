@@ -1,0 +1,16 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-08-05T18:15:41-03:00
+
+====== FZF ======
+Created Wednesday 05 August 2020
+
+Nice video about vim and fzf:
+https://www.chrisatmachine.com/Neovim/08-fzf/
+
+Ugly colors in preview window:
+https://github.com/junegunn/fzf.vim/issues/969
+
+So, something like
+
+''BAT_THEME=Github THEME=light vim src/main.c''

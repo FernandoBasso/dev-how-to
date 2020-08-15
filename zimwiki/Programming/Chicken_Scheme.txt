@@ -9,6 +9,7 @@ Created Wednesday 13 May 2020
 * [[http://wiki.call-cc.org/man/5/Module%20scheme#module-scheme|Chicken Module Scheme]] Syntax docs, curried functions, etc.
 
 http://parenteses.org/mario/misc/installing-chicken.txt
+
 '''
 == Fetch, build & install
 
@@ -41,6 +42,12 @@ $ ln -sv ~/local/chicken-5.2.0/bin/* ~/bin/
 It is imperative that we provide full paths and not relative paths.
 
 Chicken 4 used ''(use srfi-1)'' syntax. Chicken 5 changed iti to ''(import srfi-1))''.
+
+===== Geiser =====
+* [[https://www.nongnu.org/geiser/geiser_2.html#Chicken-installation|Geiser Site — Chicken Setup]]
+* [[https://wiki.call-cc.org/emacs#geiser|Chicken Site — Geiser Setup]]
+
+$ csi -R chicken.platform -p '(chicken-home)'
 
 ===== Currying =====
 In Chicken Scheme, we must do manual currying, and application must be partial (unlike Haskell, in which a function can be partially applied, or fully applied in a single invocation.)

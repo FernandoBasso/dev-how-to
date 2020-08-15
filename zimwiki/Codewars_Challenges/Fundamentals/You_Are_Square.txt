@@ -199,25 +199,36 @@ end
 === sqrt ===
 
 '''
-(define is-sqr
+(define sqr?
   (lambda (n)
-	(cond
-	 ((< n 0) #f)
-	 (else
-	  (let ((x (sqrt n)))
-		(= (* x x) n))))))
+    (cond
+     ((< n 0) #f)
+     (else
+      (let ((x (sqrt n)))
+        (= (* x x) n))))))
 
 (define nums '(-1 0 9 24 25))
 
 (print nums)
-(print (map is-sqr nums))
+(print (map sqr? nums))
 '''
 
-We check whether ~n~ is less than 0 because in Scheme ~sqrt~ computes the square root of a number as an imaginary number.
+We check whether ''n'' is less than 0 because in Scheme ''sqrt'' computes the square root of a number as an imaginary number. We don't want to mess with that for now.
+
+'''
+(define (sqr? n)
+  (cond
+   ((< n 0) #f)
+   (else
+    (let ((x (sqrt n)))
+      (= (* x x) n)))))
+'''
+
+
 
 ===== The End =====
 
-----
+
 
 
 

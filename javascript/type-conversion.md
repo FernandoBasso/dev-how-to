@@ -30,6 +30,14 @@ In a numeric/arithmetic context, `undefined` is toxic! Any arithmetic operation 
 ```node-session
 > undefined + 1
 NaN
+> undefined - 1
+NaN
+> undefined * 1
+NaN
+> undefined ** 1
+NaN
+> undefined / 1
+NaN
 > undefined % 1
 NaN
 ```
@@ -209,12 +217,13 @@ Examples of casting (explicit):
 
 ## Links and Resources
 
-- [MDN Type Conversion](https://developer.mozilla.org/en-US/docs/Glossary/Type_conversion)
-- [MDN Type Coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)
-- [MDN Comparison Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators)
-- [WikiBooks Type Conversion](https://en.wikibooks.org/wiki/Computer_Programming/Type_conversion)
-- [Wikipedia Type conversion](https://en.wikipedia.org/wiki/Type_conversion)
-- [Stackoverflow Cast vs Coercion](https://stackoverflow.com/questions/8857763/what-is-the-difference-between-casting-and-coercing)
+- [Type Conversion -- MDN](https://developer.mozilla.org/en-US/docs/Glossary/Type_conversion)
+- [Type Coercion -- MDN](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)
+- [Comparison Operators -- MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators)
+- [Type Conversion -- Wikibooks](https://en.wikibooks.org/wiki/Computer_Programming/Type_conversion)
+- [Type conversion -- Wikipedia](https://en.wikipedia.org/wiki/Type_conversion)
+- [Cast vs Coercion -- Stackoverflow](https://stackoverflow.com/questions/8857763/what-is-the-difference-between-casting-and-coercing)
+- [undefined -- MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)
 
 
 
