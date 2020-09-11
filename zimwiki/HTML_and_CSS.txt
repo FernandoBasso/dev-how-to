@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-03-12T12:13:27-03:00
 
 ====== HTML and CSS ======
@@ -39,5 +39,26 @@ https://stackoverflow.com/questions/12354918/what-does-idl-attribute-mean-in-the
 https://github.com/cssanimation/css-animation-101
 
 
+===== full width flex not working =====
+My [[https://stackoverflow.com/questions/48101046/force-flex-item-to-span-full-row-width?rq=1#comment112261435_48101632|comment question]] on StackOverflow.
+
+'''
+.flex-container {
+  flex-wrap: wrap;
+}
+'''
+
+
+And one of these:
+
+'''
+.my-flex-item {
+  width: 100%;
+}
+
+.my-flex-item {
+  flex-basis: 100%;
+}
+'''
 
 

@@ -46,5 +46,9 @@ https://stackoverflow.com/questions/383918/emacs-equivalent-of-vims-command-hist
 (savehist-mode 1)
 '''
 
+===== Show untracked files in directories =====
+(same for Vim Fugitive)
+
+''$ git config --local status.showUntrackedFiles all''
 
 

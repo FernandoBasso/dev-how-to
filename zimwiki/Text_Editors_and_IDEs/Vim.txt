@@ -7,6 +7,8 @@ Created Tuesday 28 April 2020
 
 ===== Installing =====
 
+* romainl [[https://gist.github.com/romainl/4b9f139d2a8694612b924322de1025ce|tips]]
+
 ==== Arch Linux ====
 Always has the lastest version with latest patches:
 
@@ -160,6 +162,45 @@ nnoremap <Leader>cf :execute ':edit ' . fnameescape(join([expand('%:h'), expand(
 ===== quit =====
 
 I was going to type '':echo 0x00'' and forgot “echo” and just typed '':0x00''. What happened? Vim exited. It so happens that '':x'' quits, and for some reason, it accepts a range, so it became '':0x'' (not the hex “0x00”) and quit vim. See '':help :x''.
+
+
+===== Vim Fugitive =====
+
+==== Show untracked files in directories ====
+(same for Magit)
+
+''$ git config --local status.showUntrackedFiles all''
+
+
+===== Search Highlight Current Split Only =====
+
+By **@sunjon** on **#neovim** irc channel.
+
+ autocmd WinEnter * setlocal winhighlight=Search:DiffAdd
+  autocmd WinLeave * setlocal winhighlight=Search:Folded
+
+just set up another hl-group that matches your current Search hl, and another that is less/not visible
+
+
+===== source, colorscheme exprs =====
+
+'''
+let theme_name = 'mytheme'
+colorscheme theme_name
+source '~/.vim/overrides/' . theme_name . '.vim'
+'''
+
+
+The above doesn't work. Some commands do not eval expressions. According to osse@vim-irc, it would be annoying if we had to quote path names all the time, like '':write '~/my-file.txt'''.
+
+===== base16editor, colorizer =====
+
+* https://github.com/norcalli/nvim-base16.lua/tree/theme-editor
+* [[https://youtu.be/78WrSwEKNuM?t=1372|What can't you do in Neovim? VimConf.live 2020]]
+
+
+
+
 
 
 

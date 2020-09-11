@@ -21,3 +21,25 @@ https://www.pling.com/p/1408729/
 * gpick — advanced GUI tool.
 * grabc — command line, very easy to use, simple and does the job.
 
+
+
+===== Gimp =====
+
+Open in screenshot mode:
+
+''$ gimp -b '(plug-in-screenshot 0 FALSE 0 0 0 0 0)'''
+
+===== Screenshots =====
+
+* ksnip
+* shutter (looks dead, tons of old dependencies)
+* flameshot (good, sometimes fail to select on xfce)
+
+
+
+
+
+
+
+
+

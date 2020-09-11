@@ -14,3 +14,8 @@ https://github.com/junegunn/fzf.vim/issues/969
 So, something like
 
 ''BAT_THEME=Github THEME=light vim src/main.c''
+
+
+Also talks about cani to amazingly quickly check caniuse for stuff!
+https://sidneyliebrand.io/blog/how-fzf-and-ripgrep-improved-my-workflow
+

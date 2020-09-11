@@ -1,0 +1,43 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-08-15T20:02:48-03:00
+
+====== TypeScript ======
+Created Saturday 15 August 2020
+
+* [[https://2ality.com/2018/04/type-notation-typescript.html#type-variables-and-generic-types|Parameter Types vs Generic Types (2ality)]]
+
+Setting “noUnusedLocals” in tsconfig.json does NOT make VSCode or Vim + coc-deno and coc-tsserver disable those warnigns.
+
+There is a vscode setting “report style and checking as warnings”, but turning it off produces errors instead (of disabling the warnings).
+
+From inside vim, trying ''CocLocalConfig'' and setting ''"deno.tsconfig": "/path/to/proj/tsconfig.json"'' seems not to work unless I run '':CocInstall coc-deno'' again. Even '':CocRestart'' or closing/opening Vim again doesn't work.
+
+Vim/VSCode may complain about “deno.ns” in the ''lib'' key, but ''deno run -c tsconfig.json'' makes use of it correctly.
+
+'''
+{
+  "compilerOptions": {
+    "lib": ["es2020", "dom", "deno.ns"]
+  }
+}
+'''
+
+
+It is possible to add "target": "es2015" to tsconfig.json and run deno without -c and let it use the defaults, or provide a different config file. This is useful for Vim + coc-tsserver + coc-deno to not complain about some stuff, but then run deno with its own set of configs.
+
+Basarat [[https://basarat.gitbook.io/typescript/project/modules/external-modules#clarification-commonjs-amd-es-modules-others|recommends]]:
+
+{
+  "module": "commonjs",
+  "moduleResolution": "Node"
+}
+
+
+===== Lazy Loading =====
+
+Important notes [[https://basarat.gitbook.io/typescript/project/modules/external-modules#use-case-lazy-loading|here]].
+
+
+
+

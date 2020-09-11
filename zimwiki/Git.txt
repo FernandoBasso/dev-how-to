@@ -148,7 +148,9 @@ $ git merge devel master
 Read as “Merge master into devel”, (not “merge devel into master”. Be careful).
 
 
+===== blame =====
 
+Gblame -c --date=short
 
 
 

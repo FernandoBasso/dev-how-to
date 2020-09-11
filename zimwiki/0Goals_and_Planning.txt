@@ -5,8 +5,13 @@ Creation-Date: 2020-06-13T19:54:00-03:00
 ====== 0Goals and Planning ======
 Created Saturday 13 June 2020
 
+
 ===== Currently Doing =====
 [DATETIME: Sat, 2020-06-13 19:54]
+
+Doing this course:
+[DATETIME: Sat, 2020-08-15 10:15]
+https://thoughtbot.com/upcase/videos/red-green-refactor-by-example
 
 Follow these steps (simplify stuff):
 

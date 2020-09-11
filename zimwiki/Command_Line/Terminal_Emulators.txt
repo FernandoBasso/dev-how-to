@@ -1,11 +1,14 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-03-26T09:08:54-03:00
 
 ====== Terminal Emulators ======
 Created Thursday 26 March 2020
 
 __NOTE__: No matter how much I research or what configs I try, it looks like old shcool terminal emulators like Xterm and URxvt cannot beat new-wave (VTE-based) terminals like mate-terminal or xfce4-terminal when it comes to handling multibyte/unicode chars.
+
+https://github.com/termstandard/colors
+
 
 The X Resources
 http://linuxdocs.org/HOWTOs/XWindow-User-HOWTO-8.html
