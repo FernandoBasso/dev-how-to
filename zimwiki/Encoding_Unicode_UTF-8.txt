@@ -39,6 +39,7 @@ Some texts talking about RegExp sometimes use the Middle Dot to denote a space:
 
 '''
 · u+00b7  MIDDLE DOT
+• u+2022  Bullet Unicode Character
 '''
 
 Example:
@@ -51,6 +52,38 @@ In Vim, you can set this to make tabs, and especially trailing space (which caus
 
 '''
 :set listchars=tab:▸ ,trail:·
+'''
+
+===== Box Drawing Chars =====
+https://en.wikipedia.org/wiki/Box-drawing_character
+
+'''
+─ \u2500 box drawings light horizontal
+│ \u2502 box drawings light verticl
+┌ \u250c box drawings light vertical down and right
+├ \u251c box drawings light vertical and right
+└ \u2514 box drawings light vertical up and right
+┐ \u2510 box drawings light vertical down and left
+┤ \u2524 box drawings light vertical and left
+┘ \u2518 box drawings light vertical up and left
+┬ \u252c box drawings light down and horizontal
+┴ \u2534 box drawings light up and horizontal
+┼ \u253c box drawings light vertical and horizontal
+'''
+
+Depending on the font used, these line segments do get all connect perfectly.
+
+'''
+┌─────────┐   ┌────┬────┐   ┌─────────┐
+│         │   │    │    │   │         │
+│         │   │    │    │   ├─────────┤
+│         │   │    │    │   │         │
+└─────────┘   └────┴────┘   └─────────┘
+┌────┬────┐   ┌────┬────┐   ┌────┬────┐
+│    │    │   │    │    │   │    │    │
+├────┤    │   │    ├────┤   ├────┼────┤
+│    │    │   │    │    │   │    │    │
+└────┴────┘   └────┴────┘   └────┴────┘
 '''
 
 

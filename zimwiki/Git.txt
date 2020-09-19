@@ -7,6 +7,8 @@ Created Friday 13 March 2020
 
 https://git.kernel.org/pub/scm/git/git.git/
 
+https://www.conventionalcommits.org
+
 
 ===== Docs and Help =====
 

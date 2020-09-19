@@ -19,3 +19,35 @@ So, something like
 Also talks about cani to amazingly quickly check caniuse for stuff!
 https://sidneyliebrand.io/blog/how-fzf-and-ripgrep-improved-my-workflow
 
+
+===== Layout popup window =====
+
+I prefer this:
+
+'':let g:fzf_layout { 'window' : { 'width': 0.9, 'height': 0.9, 'highlight': 'Normal' } }''
+
+This commit introduced the use of popup:
+'''
+commit c60ed1758315f0d993fbcbf04459944c87e19a48
+Author: Junegunn Choi <junegunn.c@gmail.com>
+Date:   Sat Sep 12 21:08:05 2020 +0900
+
+    [vim] Change the default layout to use popup window
+    
+    The new default is
+    
+      { 'window' : { 'width': 0.9, 'height': 0.6, 'highlight': 'Normal' } }
+    
+    The default highlight group for the border of the popup window is
+    'Comment', but 'Normal' seems to be a safer choice.
+    
+    If you prefer the previous default, add this to your Vim configuration file:
+    
+      let g:fzf_layout = { 'down': '40%' }
+    
+    (fzf will fall back to this if popup window is not supported)
+'''
+
+
+
+

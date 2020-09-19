@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2018-05-21T10:56:53-03:00
 
 ====== bash quoting rules ======
@@ -39,4 +39,10 @@ Created Monday 21 May 2018
 [07:32:56] <shbot> nai: 'bar\n'
 '''
 
+
+
+===== tmux params from array =====
+why are you involving $(printf…) when you could just write tmux new-session "${required_args [@]}" "${optional_args [@]}"
+
+if you write $(…) without surrounding "", the shell will split on spaces - which gets you back to where you were without printf, except it will split on spaces inside values as well, which usually breaks things.
 

@@ -1,0 +1,11 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-09-16T20:01:01-03:00
+
+====== Oni2 ======
+Created Wednesday 16 September 2020
+
+
+
+oni2 --debug -f
+

@@ -1,0 +1,11 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-09-18T19:39:30-03:00
+
+====== 0Insights ======
+Created Friday 18 September 2020
+
+===== About Zim vs Markdown vs Asciidoctor =====
+[DATETIME: Fri, 2020-09-18 19:41]
+It is not worthwhile to use Markdown or Asciidoctor to write somthing that is not a //real// project. For quick notes, links, solutions, tips, random stuff, it is simply quicker and easier to write in a nice WYSIWYG program like Zim, which has the Tree view and the TOC view (side bars), which makes Zim the most navigable and searcheable program ever for note taking. Only use Markdown or Asciidoctor for real projects, real documentation.
+

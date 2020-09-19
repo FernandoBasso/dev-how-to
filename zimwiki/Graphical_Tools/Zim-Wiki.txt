@@ -1,9 +1,12 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-05-24T10:16:14-03:00
 
 ====== Zim-Wiki ======
 Created Sunday 24 May 2020
+
+My question about wysiwyg editor for Asciidoctor
+https://discuss.asciidoctor.org/Creating-an-in-place-editor-wiki-app-using-Asciidoctor-td6350.html
 
 ===== Handy Keyboard Shortcuts =====
 
