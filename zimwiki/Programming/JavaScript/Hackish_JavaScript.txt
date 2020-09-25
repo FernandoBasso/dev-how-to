@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-03-18T10:27:40-03:00
 
 ====== Hackish JavaScript ======
@@ -7,4 +7,17 @@ Created Wednesday 18 March 2020
 
 Bitwise generating ramdom string. Amzing stuff!
 https://stackoverflow.com/a/56399551/2855955
+
+===== Bit Flags =====
+Idea taken from [[https://basarat.gitbook.io/typescript/type-system/enums#number-enums-as-flags|Basarat]].
+'''
+[0, ...new Array(7).fill(1)].map((n, i) => n << i)
+
+// → [
+// →    0,  2,  4,   8,
+// →   16, 32, 64, 128
+// → ]
+'''
+
+We are using the left shift operator to move 1 around a certain level of bits to come up with bitwise disjoint numbers 0001, 0010, 0100, 1000, etc.
 

@@ -38,8 +38,12 @@ symbol	hex value
 Some texts talking about RegExp sometimes use the Middle Dot to denote a space:
 
 '''
-· u+00b7  MIDDLE DOT
-• u+2022  Bullet Unicode Character
+• u+2022  Bullet Unicode Character (use as list level 1)
+◦ u+25e6  White Bullet             (use as list level 2)
+· u+00b7  MIDDLE DOT               (use as list level 3)
+
+∘ u+2218  Ring Operator
+◘ u+25d8 Inverse Bullet
 '''
 
 Example:

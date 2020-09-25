@@ -5,6 +5,8 @@ Creation-Date: 2020-08-15T20:02:48-03:00
 ====== TypeScript ======
 Created Saturday 15 August 2020
 
+* [[https://basarat.gitbook.io/typescript/type-system/migrating|JS Migration Guide]] — Cool Tips, type and module declartions, *.css, *.html, etc.
+
 * [[https://2ality.com/2018/04/type-notation-typescript.html#type-variables-and-generic-types|Parameter Types vs Generic Types (2ality)]]
 
 Setting “noUnusedLocals” in tsconfig.json does NOT make VSCode or Vim + coc-deno and coc-tsserver disable those warnigns.

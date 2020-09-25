@@ -1,0 +1,20 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-09-20T07:29:03-03:00
+
+====== TDD React Hooks ======
+Created Sunday 20 September 2020
+
+===== TypeScript TDD React Hooks =====
+[DATETIME: Sun, 2020-09-20 06:31]
+* [[http://davecooper.org/sanely-testing-react-hooks|Sanely testing React hooks]]
+
+
+===== Used Before Defined =====
+
+QUESTION: Why is it saying ”used before assigned”? It is assigned inside  act and there is the async/await thing!
+
+{{./ts-used-before-defined-act-async.png?width=760}}
+
+ANSWER: How is typescript supposed to know that act will always immediately call the passed function? That being said, TS would still complain if you didn't have that call to act but instead directly await that async function. I don't know if this is simply a limitation in TS or if there is a good reason for that. I'm sure the Experts here could answer that. -- nw@discord typescript community.
+

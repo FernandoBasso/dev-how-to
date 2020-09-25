@@ -5,8 +5,48 @@ Creation-Date: 2020-06-13T19:54:00-03:00
 ====== 0Goals and Planning ======
 Created Saturday 13 June 2020
 
+===== TODO Ideas =====
 
-===== Currently Doing =====
+
+
+===== [WORKING] TDD TypeScript async renderHook() =====
+[DATETIME: Sun, 2020-09-20 09:18]
+Use renderHook to test async ''useApi()'' custom hook.
+→ [[~/work/SRC/React/react-tdd-ts]]
+
+
+
+
+===== [WORKING] 😎️ Samples PUCRS Demo Project =====
+[DATETIME: Sun, 2020-09-20 10:58]
+[ ] Integrate star wars page into main page?
+[*] Sepparate star wars like poem to separate page.
+	[*] poem.html
+	[*] poem.js
+		[*] Count ''<p>'' and ''<br>'' to know how many “lines” there are in the poem.
+	[*] poem.css 
+
+===== [WORKING] :💻️ Tmuxsitter shell script =====
+[DATETIME: Thu, 2020-09-12 06:04]
+* [[https://gitlab.com/fernandobasso/tmuxsitter|TtmuxSitter repo on Gitlab]]
+
+
+===== [✔] Post about TypeScript Union Types and Type Guards =====
+[DATETIME: Sat, 2020-09-19 15:17]
+Link to the [[https://fernandobasso.dev/typescript/2020-09-19-typescript-union-types-and-type-guards.html|blog post]].
+
+Also improved code highlighting CSS stuff.
+
+
+===== [✗] Basarat TypeScript Guide =====
+[DATETIME: Sat, 2020-09-19 13:52]
+https://basarat.gitbook.io/typescript/
+**NOTE**: This book is not a hands on thing. Sure, it has examples, but it doesn't get you actually “programming” in TypeScript. It is a quick reference. Better to do a project with TypeScript and consult and research things (on this book or on the web).
+
+**NOTE**: I'll not “study” this book. I'll read the parts I need, when I need it, or I'll read it at leisure to know what stuff exists and what can be done.
+
+
+===== [—] paused =====
 [DATETIME: Sat, 2020-06-13 19:54]
 
 Doing this course:

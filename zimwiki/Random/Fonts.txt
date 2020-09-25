@@ -1,0 +1,12 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-09-24T09:40:36-03:00
+
+====== Fonts ======
+Created Thursday 24 September 2020
+
+* Hermit
+* SpaceMono
+* ParaType (pt mono)
+* Cascadia Code — Microsoft
+* Source Code Pro/Variable — Adobe

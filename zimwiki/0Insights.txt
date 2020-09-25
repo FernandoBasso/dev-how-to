@@ -7,5 +7,9 @@ Created Friday 18 September 2020
 
 ===== About Zim vs Markdown vs Asciidoctor =====
 [DATETIME: Fri, 2020-09-18 19:41]
-It is not worthwhile to use Markdown or Asciidoctor to write somthing that is not a //real// project. For quick notes, links, solutions, tips, random stuff, it is simply quicker and easier to write in a nice WYSIWYG program like Zim, which has the Tree view and the TOC view (side bars), which makes Zim the most navigable and searcheable program ever for note taking. Only use Markdown or Asciidoctor for real projects, real documentation.
+It is not worthwhile to use Markdown or Asciidoctor to write something that is not a //real// project. For quick notes, links, solutions, tips, random stuff, it is simply quicker and easier to write in a nice WYSIWYG program like Zim, which has the Tree TOC views (side bars), which makes Zim the most navigable and searchable program ever for note taking. Only use Markdown or Asciidoctor for real projects, real documentation.
+
+**NOTE**: It is easy to write in Markdown and Asciidoctor. That is not the problem. The problem is that you have to handle styles, write in the editor, render, and check in the browser or a preview window, etc. It is much more time consuming than simply jotting down stuff on Zim or even plain text files (because they don't require the step of going back and forth from the “source” to the preview window.) It causes cognitive burden to go from the markup code, and find what changed in the preview window (even when they are synchronized and their scroll is kept in sync).
+
+
 

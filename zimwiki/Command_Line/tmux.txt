@@ -85,6 +85,26 @@ I believe it is, by using the 'choose-tree -Zs -F <format>' option. See the FORM
 ''choose-tree -Z -F "#[bg=colour11,fg=colour1]#S"''
 
 
+===== windows, panes =====
+Several tips on [[https://superuser.com/questions/343572/how-do-i-reorder-tmux-windows|reordering and swapping]] windows.
+
+Make third window became window 2, and 2 become 3:
+'''
+<prefix>:swap-windows -s 3 -t 2
+'''
+
+Move current window to the left, swapping places with the window on the left:
+
+'''
+<prefix>:swap-windows -t -1
+'''
+
+Move current window to the right, swapping places with the window on the right:
+
+'''
+<prefix>:swap-windows -t +1
+'''
+
 
 ===== The End =====
 

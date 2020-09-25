@@ -1,0 +1,45 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-09-25T19:04:42-03:00
+
+====== Front End Problems ======
+Created Friday 25 September 2020
+
+
+===== renderHook() infinite loop =====
+How to mock and spy modules with default exports like this:
+'''
+export default { foo, bar, tux };
+'''
+
+Problem with ''renderHook()'' and infinite loop was a prop that was being recreated inside the renderHook() function:
+
+'''
+const { result, waitForNextUpdate } = renderHook(
+  () => useApiGetPaymentSplitDetails({
+    skuId: undefined,
+    bagTotal: undefined,
+    // 🔥️ CANNOT DO IT HERE, “INLINE” LIKE THIS...
+    currentCnd: { userId: 'ahsoka-tano', gender: 'female' },
+  }),
+);
+'''
+
+
+Have to do it like this:
+
+const currentCnd = { userId: 'ahsoka-tano', gender: 'female' };
+
+'''
+// 👍️ 
+const currentCnd = { userId: 'ahsoka-tano', gender: 'female' };
+
+const { result, waitForNextUpdate } = renderHook(
+  () => useApiGetPaymentSplitDetails({
+    skuId: undefined,
+    bagTotal: undefined,
+    currentCnd, // 👍️
+  }),
+);
+'''
+
