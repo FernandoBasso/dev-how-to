@@ -7,6 +7,7 @@ Created Saturday 13 June 2020
 
 ===== TODO Ideas =====
 
+Study HTDP in the morning and weekends and web related stuff at work and in the evening?
 
 
 ===== [WORKING] TDD TypeScript async renderHook() =====

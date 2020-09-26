@@ -11,5 +11,12 @@ It is not worthwhile to use Markdown or Asciidoctor to write something that is n
 
 **NOTE**: It is easy to write in Markdown and Asciidoctor. That is not the problem. The problem is that you have to handle styles, write in the editor, render, and check in the browser or a preview window, etc. It is much more time consuming than simply jotting down stuff on Zim or even plain text files (because they don't require the step of going back and forth from the “source” to the preview window.) It causes cognitive burden to go from the markup code, and find what changed in the preview window (even when they are synchronized and their scroll is kept in sync).
 
+===== Starting and Stopping stuff =====
+[DATETIME: Sat, 2020-09-26 07:37]
+Why do I start a book, course, project, and then stop and think “later I'll get back to this”?
+
+I have this burning desire to know and learn about EVERYTHING. Ok, I get that, but I must come to terms with myself, my life and understand that time is a very limited resource.
+
+
 
 
