@@ -9,6 +9,11 @@ Created Saturday 13 June 2020
 
 Study HTDP in the morning and weekends and web related stuff at work and in the evening?
 
+===== [WORKING] How to Design Programs 2ed =====
+[DATETIME: Sat, 2020-09-26 06:21]
+Started on part 1.
+
+
 
 ===== [WORKING] TDD TypeScript async renderHook() =====
 [DATETIME: Sun, 2020-09-20 09:18]

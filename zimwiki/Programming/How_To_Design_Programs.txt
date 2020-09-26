@@ -98,6 +98,9 @@ Thanks to lexi-lambada@racket (irc). He refused to change his nick to lexi-λ as
 
 ===== DrRacket =====
 
+* [[https://docs.racket-lang.org/drracket/Keyboard_Shortcuts.html|DrRacket Keyboard Shortcuts]] (Emacs!!! ⭐️)
+''C-x o'' to move from interactions to definition window.
+
 **TIP**: To use ''(bitmap "../images/foo.png")'' make sure the file is saved so the relative path works, otherwise, with an unsaved buffer, DrRacket will try to load images relative to your home directory.
 
 **WARNING**: If you paste/insert images through Racket's UI, or your you set the language through the UI, you end up with unreadable source code files. Use a header like one of these and see the next tip about “Determine language from source”.
