@@ -1,0 +1,21 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-09-27T11:27:50-03:00
+
+====== 0Journal ======
+Created Sunday 27 September 2020
+
+
+
+===== Emacs: pper case next two letters =====
+'''
+C-u 2 M-u
+'''
+
+Emacs: 
+
+===== Lowercase next two words =====
+'''
+C-u 2 M-l
+'''
+

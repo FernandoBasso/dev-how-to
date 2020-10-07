@@ -17,6 +17,20 @@ Why do I start a book, course, project, and then stop and think “later I'll ge
 
 I have this burning desire to know and learn about EVERYTHING. Ok, I get that, but I must come to terms with myself, my life and understand that time is a very limited resource.
 
+===== About using new tools =====
+[DATETIME: Sun, 2020-09-27 10:43]
+
+Just tried to use dired to copy a .rkt file. Spent 20 minutes and couldn't do it. Typing ''C'' in the dired view would say “No files specified”. Heck, the cursor **was** on a file... 💩️ The problem was that I had done ''C-u C-x d'' (instead of plain ''C-x d'') and I did an ''ls -a'' instead of ''ls -al'' and it seems Dired uses a regex to parse filenames from the date, etc.
+
+Moral of the story. Study a tool before trying to use it. Read the manual, or at least some introductory texts about it. Spent time _NOT_ studying the book, but instead researching and asking why the fuck ''C'' didn't work.
+
+
+
+
+
+
+
+
 
 
 

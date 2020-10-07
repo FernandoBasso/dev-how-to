@@ -10,6 +10,10 @@ __NOTE__: No matter how much I research or what configs I try, it looks like old
 https://github.com/termstandard/colors
 
 
+A look at terminal emulators, part 2 (shared by prov@emacs irc channel):
+https://lwn.net/Articles/751763/
+
+
 The X Resources
 http://linuxdocs.org/HOWTOs/XWindow-User-HOWTO-8.html
 

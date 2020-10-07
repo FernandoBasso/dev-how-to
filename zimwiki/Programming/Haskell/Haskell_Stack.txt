@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-04-04T09:59:56-03:00
 
 ====== Haskell Stack ======
@@ -40,4 +40,26 @@ Please see http://docs.haskellstack.org/en/stable/install_and_upgrade/
 Pull requests to add support for this distro would be welcome!
 
 '''
+
+
+===== ghci =====
+
+# stack.yaml
+resolver: lts-12.10
+packages: []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

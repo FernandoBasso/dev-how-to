@@ -1,0 +1,30 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-10-01T07:11:26-03:00
+
+====== React ======
+Created Thursday 01 October 2020
+
+===== Typing Functional Components =====
+
+* [[https://blog.echobind.com/react-with-typescript-components-as-function-declarations-vs-function-expressions-e433ac8d6938|React with TypeScript: Components as Function Declarations vs. Function Expressions]]
+* [[https://www.typescriptlang.org/docs/handbook/jsx.html#function-component|TypeScript docs on JSX/TSX]]
+
+'''
+import React, {
+  FC,
+  ReactElement,
+} from 'react';
+
+
+// Functional component with function expressions.
+const Counter2: FC<{initial?: number}> = ({initial = 0}): ReactElement => {
+  return <div>{initial}</div>;
+};
+
+// Functional component with function declarations.
+function Counter3 ({ initial = 0 }: { initial?: number }): ReactElement {
+  return <span>{initial}</span>;
+}
+'''
+

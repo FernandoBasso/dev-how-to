@@ -10,3 +10,7 @@ Created Thursday 24 September 2020
 * ParaType (pt mono)
 * Cascadia Code — Microsoft
 * Source Code Pro/Variable — Adobe
+* https://github.com/dtinth/comic-mono-font (shared by phao)
+* https://github.com/shannpersand/comic-shanns (shared by phao)
+
+

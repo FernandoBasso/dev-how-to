@@ -51,4 +51,61 @@ https://stackoverflow.com/questions/383918/emacs-equivalent-of-vims-command-hist
 
 ''$ git config --local status.showUntrackedFiles all''
 
+===== Racket Stuff =====
+* https://lisp.sh/switch-to-racket-mode-in-emacs/
+
+
+===== REPLs =====
+If the repl keeps open at the bottom, first do ''C-x 3'' (to open a new split on the right), then run a command the opens the REPL.
+
+===== repl racket-mode trailing whitespace =====
+
+greghendershott@#racket irc
+Fernando-Basso: (setq show-trailing-whitespace nil), for example in a racket-repl-mode-hook.
+Or, since I think it is nil by default, change some hook you have that is doing (set show-trailing-whitespace t).
+show-trailing-whitespace is buffer-local, so it can be on or off for different buffers.
+I usually disable it for magit-mode.
+I enable it in prog-mode-hook, in my personal config, which enables it for racket-mode.
+But racket-repl-mode is not derived from prog-mode.
+In my personal config I don't seem to disable it for racket-repl-mode. I think it's just off by default and I leave it off by default.
+So I think probably you have something that enables it, and, you just want to stop doing that?
+Or leave that thing, and explicitly disable it for racket-repl-mode.
+Up to you, not sure about your config.
+Fernando-Basso
+I have editorconfig.
+greghendershott: Thanks a lot.
+
+
+
+
+===== Emacs Fonts =====
+
+https://medium.com/@pezcoder/how-i-migrated-from-iterm-to-alacritty-c50a04705f95
+
+https://emacshorrors.com/posts/psa-emacs-is-not-a-proper-gtk-application.html
+
+
+{{./emacs-hurmit-glyph-offset-2.png}}
+
+
+
+{{./emacs-hurmit-glyph-offset-1.png}}
+
+
+With Alacritty I got this:
+
+{{./emacs-alacritty-offset-y.png}}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
