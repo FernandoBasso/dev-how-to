@@ -24,21 +24,16 @@ path(['checkout', 'checkoutConfigs', 'promotion_message', state);
 * [[https://overreacted.io/a-complete-guide-to-useeffect|A Complete Guide to useEffect]]
 	[*] [[https://overreacted.io/a-complete-guide-to-useeffect/#each-render-has-its-own-props-and-state|Each Render Has Its Own Props and State]]
 		* [CONCLUDED: Tue, 2020-09-29 07:41]
-	[ ] [[https://overreacted.io/a-complete-guide-to-useeffect/#each-render-has-its-own-event-handlers|Each Render Has Its Own Event Handlers]]
+	[*] [[https://overreacted.io/a-complete-guide-to-useeffect/#each-render-has-its-own-event-handlers|Each Render Has Its Own Event Handlers]]
 		* [STARTED: Tue, 2020-09-29 07:42] [CONCLUDED: Mon, 2020-10-05 07:37]
-	[ ] [[https://overreacted.io/a-complete-guide-to-useeffect/#each-render-has-its-own-effects|Each Render Has Its Own Effects]]
-		* [STARTED: Mon, 2020-10-05 07:38]
+	[*] [[https://overreacted.io/a-complete-guide-to-useeffect/#each-render-has-its-own-effects|Each Render Has Its Own Effects]]
+		* [STARTED: Mon, 2020-10-05 07:38] [CONCLUDED: Wed, 2020-10-07 07:10]
+	[ ] [[https://overreacted.io/a-complete-guide-to-useeffect/#each-render-has-its-own-everything|Each Render Has Its Own… Everything]]
+		* [STARTED: Wed, 2020-10-07 07:11]
 
 
 ===== [WORKING] How to Design Programs 2ed =====
-[DATETIME: Sat, 2020-09-26 06:21] Started on part 1.
-
-[DATETIME: Sun, 2020-09-27 17:46] Started on Fixed Size Data
-
-[STARTED: Wed, 2020-09-30 19:44] Started on Functions
-
-CONTINUE FROM HERE: https://htdp.org/2020-8-1/Book/part_one.html#%28counter._%28exercise._fun1%29%29
-
+Working slowly and carefully through all examples and exercises.
 
 
 ===== [WORKING] TDD TypeScript async renderHook() =====

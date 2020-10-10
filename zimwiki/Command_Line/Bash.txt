@@ -13,6 +13,10 @@ https://soptik.tech/articles/beware-of-shell-globs.html
 
 http://parenteses.org/mario/misc/bash-gotchas.txt
 
+Bash herror handling tips:
+https://twitter.com/b0rk/status/1314345978963648524
+
+
 ===== Re-evaluate functions in PS1 =====
 
 https://askubuntu.com/questions/651871/why-is-my-function-not-re-evaluated-in-ps1

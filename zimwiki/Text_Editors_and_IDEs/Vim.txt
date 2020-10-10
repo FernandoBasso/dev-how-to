@@ -7,10 +7,11 @@ Created Tuesday 28 April 2020
 
 ===== Installing =====
 
-* romainl [[https://gist.github.com/romainl/4b9f139d2a8694612b924322de1025ce|tips]]
+* romainl@vim irc [[https://gist.github.com/romainl/4b9f139d2a8694612b924322de1025ce|tips]]
+* romainl@vim irc on [[https://github.com/romainl/idiomatic-vimrc|Idiomatic vimrc]]
 
 ==== Arch Linux ====
-Always has the lastest version with latest patches:
+Always has the latest version with latest patches:
 
 '''
 $ sudo pacman -S vim
@@ -88,7 +89,9 @@ https://www.youtube.com/watch?v=XA2WjJbmmoM
 
 https://github.com/changemewtf/no_plugins
 
-:set path+=**
+==== Path and find - MINDBLOWING! ====
+Do '':set path+=**'' and then things like ''C-r w'' to find filename(s) with the word under the cursor.
+
 :set wildmenu
 :find foo<Tab>
 :find *.rb

@@ -90,4 +90,30 @@ https://github.com/gnunn1/tilix/issues/99
 https://askubuntu.com/questions/616404/ubuntu-15-04-fresh-install-cant-rename-gnome-terminal-tabs
 
 
+==== nerd fonts ====
+
+They simply don't show up. Edit the profile with dconf-editor and set font there:
+
+Source Code Pro Semi-Bold 14 (copied from mate-terminal profile in dconf-editor).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
