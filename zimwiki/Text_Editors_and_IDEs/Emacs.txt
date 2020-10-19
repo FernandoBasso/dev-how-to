@@ -54,6 +54,10 @@ https://stackoverflow.com/questions/383918/emacs-equivalent-of-vims-command-hist
 ===== Racket Stuff =====
 * https://lisp.sh/switch-to-racket-mode-in-emacs/
 
+===== Escape chars =====
+
+Typing ''"#\"'' followed by Enter produces the ''"#\^M"'' non-printable char to show up.
+
 
 ===== REPLs =====
 If the repl keeps open at the bottom, first do ''C-x 3'' (to open a new split on the right), then run a command the opens the REPL.

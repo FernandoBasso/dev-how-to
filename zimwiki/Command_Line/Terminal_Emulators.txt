@@ -97,6 +97,11 @@ They simply don't show up. Edit the profile with dconf-editor and set font there
 Source Code Pro Semi-Bold 14 (copied from mate-terminal profile in dconf-editor).
 
 
+===== Kitty =====
+
+* [[https://twitter.com/thingskatedid/status/1316074032379248640|Amazing stuff!]]
+
+
 
 
 

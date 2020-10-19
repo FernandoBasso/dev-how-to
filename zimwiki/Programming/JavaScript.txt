@@ -1,5 +1,5 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2019-12-24T15:53:35-03:00
 
 ====== JavaScript ======
@@ -19,13 +19,15 @@ https://1loc.dev/ (Thanks to Maiquel Melo for sharing this with me)
 https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
 
 
+@TODO
+
 ===== Documenting Code =====
 
 * [[https://stackoverflow.com/questions/6460604/how-to-describe-object-arguments-in-jsdoc|How to Describe Object Args in JSDoc?]]
 
 
 ===== Events =====
-https://javascript.info/bubbling-and-capturing
+* [[https://javascript.info/bubbling-and-capturing|Bubbling and Capturing]]
 
 
 ===== Testing =====

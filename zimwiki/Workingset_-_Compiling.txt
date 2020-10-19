@@ -1,0 +1,15 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-10-19T07:12:02-03:00
+
+====== Workingset - Compiling ======
+Created Monday 19 October 2020
+
+#workintset is a nice irc channel about Make and other stuff.
+
+Link shared by wamassa@emacs irc channel:
+https://nullprogram.com/blog/2017/08/20/
+
+pjb@emacs irc channel:
+
+The best you can do, IMO, is to study how makefiles are used by different projects, from kermit to GNUstep (to cite two extreme but good examples), passing thru very bad applications of makefiles…

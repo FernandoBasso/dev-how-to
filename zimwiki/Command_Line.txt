@@ -5,6 +5,7 @@ Creation-Date: 2019-12-13T11:06:15-03:00
 ====== Command Line ======
 Created Friday 13 December 2019
 
+
 * [[http://shellhaters.org/|Shell Haters Links to POSIX/OpenPub important sections]]
 
 https://github.com/learnbyexample/scripting_course/blob/master/Linux_curated_resources.md#shell-scripting
@@ -19,7 +20,6 @@ On most terminals, ‘Ctrl-v’ then Tab inserts a literal tab. With Bash (and s
 $ printf '%s\n' $'X\tY\tZ'
 X       Y       Z
 '''
-
 
 
 

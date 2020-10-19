@@ -5,6 +5,11 @@ Creation-Date: 2020-06-13T19:54:00-03:00
 ====== 0Goals and Planning ======
 Created Saturday 13 June 2020
 
+
+===== TODO =====
+[ ] [[https://github.com/gnome-terminator/gnome-terminator.github.io/issues/3|Use Jekyll custom-head.html in Terminator web site.]]
+[ ] Semaphore with React.
+
 ===== TODO Ideas =====
 
 Study Web/Work related stuff in the morning, before starting to work, and HtDP and other things in the afternoon, evening and weekends.
