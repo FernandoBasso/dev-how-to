@@ -106,5 +106,23 @@ Move current window to the right, swapping places with the window on the right:
 '''
 
 
+==== Upgrade config from 2.8 to 2.9 ====
+
+https://github.com/tmux/tmux/issues/1689#issuecomment-487372439
+
+commit af2c0ac59b93b318575367f0313ad1ca0627a6ba
+Author: Fernando Basso <fernandobasso.br@gmail.com>
+Date:   Sun Apr 28 08:51:01 2019 -0300
+
+	update config for tmux 2.9
+    
+	Resources used:
+    
+	- https://github.com/tmux/tmux/issues/1689
+	- https://github.com/tmux/tmux/wiki/FAQ#how-do-i-translate--fg--bg-and--attr-options-into--style-options
+	- https://man.openbsd.org/tmux.1#STYLES
+	- man tmux
+
+
 ===== The End =====
 

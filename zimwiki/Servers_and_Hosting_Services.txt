@@ -1,0 +1,16 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-10-19T07:56:58-03:00
+
+====== Servers and Hosting Services ======
+Created Monday 19 October 2020
+
+Half the money goes to OpenBSD foundation:
+https://openbsd.amsterdam/
+
+Shared by mario-goulart@lisp-br irc. (half the price of Digital Ocean according to Mário)
+https://www.hetzner.com/
+
+A super unix hosting service, shared by mario-goulart and didi in #lisp-br irc channel:
+https://prgmr.com/xen/
+“We don't assume you are stupid. Since 2005.”

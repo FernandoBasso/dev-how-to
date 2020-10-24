@@ -37,6 +37,14 @@ $ sudo add-apt-repository --remove ppa:jonathonf/vim
 '''
 
 
+===== neovim lua =====
+
+* https://github.com/nanotee/nvim-lua-guide
+* https://github.com/google/vim-maktaba
+
+https://github.com/romgrk/doom-one.vim/blob/master/colors/doom-one.vim#L163-L177
+https://github.com/romgrk/nvim/blob/master/plugin/bufferline.vim
+
 ===== highlight colors =====
 
 229 very light yellow

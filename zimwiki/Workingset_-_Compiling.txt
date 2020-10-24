@@ -8,6 +8,7 @@ Created Monday 19 October 2020
 #workintset is a nice irc channel about Make and other stuff.
 
 Link shared by wamassa@emacs irc channel:
+A Tutorial on Portable Makefiles
 https://nullprogram.com/blog/2017/08/20/
 
 pjb@emacs irc channel:

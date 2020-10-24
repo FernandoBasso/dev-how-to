@@ -5,15 +5,11 @@ Creation-Date: 2020-01-28T09:03:52-03:00
 ====== NodeJs ======
 Created Tuesday 28 January 2020
 
-https://nodeschool.io/
-
-
-https://nodejs.org/en/knowledge/advanced/streams/how-to-use-fs-create-read-stream/
-
-https://nodejs.org/en/knowledge
-
-
-https://nodejs.dev/
+* https://nodeschool.io/
+* https://nodejs.org/en/knowledge/advanced/streams/how-to-use-fs-create-read-stream/
+* https://nodejs.org/en/knowledge
+* https://nodejs.dev/
+* [[https://strongloop.com/strongblog/how-to-generators-node-js-yield-use-cases/|Generators in Node.js: Common Misconceptions and Three Good Use Cases]]
 
 
 ===== NVM Node Version Manager =====
@@ -36,3 +32,4 @@ To make the latest LTS the default (one possible way shown here):
 $ nvm use node --lts
 $ nvm alias default $(node --version)
 '''
+

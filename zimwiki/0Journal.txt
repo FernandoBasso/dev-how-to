@@ -6,6 +6,10 @@ Creation-Date: 2020-09-27T11:27:50-03:00
 Created Sunday 27 September 2020
 
 
+* Falar que estou estudando OpenAPI.
+* Falar que estudo scheme, lisp e haskell, mas não fiz um programa de verdade com essas langs ainda.
+
+
 
 ===== Emacs: pper case next two letters =====
 '''

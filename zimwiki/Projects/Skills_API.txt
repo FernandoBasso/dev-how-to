@@ -1,0 +1,45 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-10-24T15:43:03-03:00
+
+====== Skills API ======
+Created Saturday 24 October 2020
+
+
+RestFULL.
+
+Register:
+* POST /users
+Sessions (login, logout):
+* POST /sessions. POSTing to and endpoint is used to create a resource, so POST to sessions create a new session, that is, produces a login session, returns the token that the user can use to make further authenticated requests to other protected resources.
+
+The paths and baseUrl compiler options don't cause any remapping of imports paths, they only inform TS of existing mappings, which you'll have to setup with some other tool.
+
+{{./typescript-baseUrl-paths-not-working.png}}
+
+
+How to make it work:
+
+'''
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es6",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "rootDir": "./",
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "strict": true
+  }
+}
+'''
+
+
+And then ''NODE_PATH=. nodemon src/index.ts''.
+
+That is, use only **baseUrl** but **do not use paths**.
+https://www.typescriptlang.org/docs/handbook/module-resolution.html#additional-module-resolution-flags
+
+
+
