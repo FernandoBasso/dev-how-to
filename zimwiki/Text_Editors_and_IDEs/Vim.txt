@@ -5,6 +5,25 @@ Creation-Date: 2020-04-28T16:26:00-03:00
 ====== Vim ======
 Created Tuesday 28 April 2020
 
+
+===== Building and Installing NeoVim =====
+https://github.com/neovim/neovim/wiki/Building-Neovim
+
+Build and run without installing:
+
+'''
+$ make CMAKE_BUILD_TYPE=Release
+$ VIMRUNTIME=runtime ./build/bin/nvim
+'''
+
+
+Installing:
+
+'''
+$ make CMAKE_INSTALL_PREFIX=$HOME/local/nvim install
+'''
+
+
 ===== Installing =====
 
 * romainl@vim irc [[https://gist.github.com/romainl/4b9f139d2a8694612b924322de1025ce|tips]]

@@ -13,3 +13,11 @@ Firefox >>> about:config >>> ui.use_standins_for_native_colors >>> true
 (restart after changing)
 
 
+===== Opera ffmpeg Codecs =====
+https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases
+
+/usr/lib/x86_64-linux-gnu/opera/lib_extra 
+ l1
+libffmpeg.so*
+
+/usr/lib/x86_64-linux-gnu/opera/lib_extra 

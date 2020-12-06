@@ -7,6 +7,7 @@ Created Wednesday 13 May 2020
 
 * [[https://www.more-magic.net/posts/chicken-5.html|What to Expect From Chicken 5]] Peter Bex
 * [[http://wiki.call-cc.org/man/5/Module%20scheme#module-scheme|Chicken Module Scheme]] Syntax docs, curried functions, etc.
+* [[https://github.com/azzamsa/awesome-lisp-companies|Companies that use Lisp in their stack]] (mario-goulart@lisp-br)
 
 http://parenteses.org/mario/misc/installing-chicken.txt
 

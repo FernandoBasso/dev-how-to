@@ -5,6 +5,19 @@ Creation-Date: 2020-01-25T10:58:31-03:00
 ====== Emacs ======
 Created Saturday 25 January 2020
 
+===== Installing =====
+
+==== Xubuntu ====
+
+'''
+$ sudo apt build-dep emacs
+$ ./configure
+$ make
+$ sudo make install
+$ sudo make uninstall
+'''
+
+
 
 ===== move through windows =====
 https://emacs.stackexchange.com/questions/3458/how-to-switch-between-windows-quickly

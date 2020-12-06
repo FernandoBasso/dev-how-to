@@ -96,13 +96,13 @@ Make third window became window 2, and 2 become 3:
 Move current window to the left, swapping places with the window on the left:
 
 '''
-<prefix>:swap-windows -t -1
+<prefix>:swap-window -t -1
 '''
 
 Move current window to the right, swapping places with the window on the right:
 
 '''
-<prefix>:swap-windows -t +1
+<prefix>:swap-window -t +1
 '''
 
 

@@ -10,6 +10,16 @@ Created Sunday 27 September 2020
 * Falar que estudo scheme, lisp e haskell, mas não fiz um programa de verdade com essas langs ainda.
 
 
+Perguntas:
+* Qual a stack utilizada;
+* Quantas pessoas tem no projeto e em que áreas atuam;
+* Horário, alguma diferença de fuso horário;
+* OS e computador para dev;
+
+
+
+
+
 
 ===== Emacs: pper case next two letters =====
 '''
@@ -22,4 +32,12 @@ Emacs:
 '''
 C-u 2 M-l
 '''
+
+
+
+
+
+
+
+
 

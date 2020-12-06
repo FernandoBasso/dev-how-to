@@ -24,6 +24,12 @@ Just tried to use dired to copy a .rkt file. Spent 20 minutes and couldn't do it
 
 Moral of the story. Study a tool before trying to use it. Read the manual, or at least some introductory texts about it. Spent time _NOT_ studying the book, but instead researching and asking why the fuck ''C'' didn't work.
 
+===== Understanding The Problem =====
+[DATETIME: Wed, 2020-11-04 09:29]
+When you are dealing with a complex system of components, props from state, redux/vuex/etc and all inter-dependencies between them, components that are used all over the place but different aspects in each case, DON'T immediately jump over to the code, but rather make a graph/diagram/list/whatever of everything. UNDERSTAND the problem well BEFORE focusing on coding.
+
+I have had situations that I was afraid of wasting time, trying to do things quickly without understanding the problem well enough upfront, and ended-up in a mess and wasting even more time.
+
 
 
 

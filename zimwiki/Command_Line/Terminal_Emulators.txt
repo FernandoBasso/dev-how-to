@@ -102,6 +102,31 @@ Source Code Pro Semi-Bold 14 (copied from mate-terminal profile in dconf-editor)
 * [[https://twitter.com/thingskatedid/status/1316074032379248640|Amazing stuff!]]
 
 
+===== Open Terminal in File Manager =====
+
+==== Thunar ====
+
+Original, default “open terminal here” custom action:
+
+'''
+exo-open --working-directory %f --launch TerminalEmulator
+'''
+
+And this works for running Terminator from master:
+
+'''
+python3 /path/to/gnome-terminator/terminator -u --working-directory %f
+'''
+
+
+In Thunar we use “%f”, and in PCManFM we use “%s”.
+
+==== PCManFM ====
+
+'''
+python3 /path/to/gnome-terminator/terminator -u --working-directory %s
+'''
+
 
 
 

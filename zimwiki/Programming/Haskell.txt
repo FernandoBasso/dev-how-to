@@ -1,11 +1,13 @@
 Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
+Wiki-Format: zim 0.6
 Creation-Date: 2020-01-23T10:31:25-03:00
 
 ====== Haskell ======
 Created Thursday 23 January 2020
 
 https://www.fpcomplete.com/blog/2012/09/ten-things-you-should-know-about-haskell-syntax
+
+* [[https://gist.github.com/merijn/8152d561fb8b011f9313c48d876ceb07|The Cabal/Stack Disambiguation Guide - mergin@haskell-beginenrs irc]]
 
 
 ===== Alien and Haskell =====

@@ -7,6 +7,10 @@ Created Tuesday 24 December 2019
 
 https://frontendmasters.com/books/javascript-enlightenment/
 
+* https://humanwhocodes.com/blog/2020/09/creating-javascript-promise-from-scratch-constructor/ — Nicholas C. Zakas.
+
+* Why Are You Still Using Yarn in 2018? NPM vs YARN, by Matt Turnbull (airbnb, typescript, eslint stuff guy)
+
 
 
 ===== My Question do Brendan Eich About JS Influences =====

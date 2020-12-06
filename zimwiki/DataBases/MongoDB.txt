@@ -1,0 +1,58 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-10-25T14:48:42-03:00
+
+====== MongoDB ======
+Created Sunday 25 October 2020
+
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu-tarball/
+
+
+Install:
+
+'''
+$ cd ~/Downloads
+$ tar zxvf mongodb-linux-x86_64-ubuntu1804-4.2.8.tgz
+$ sudo cp -v mongodb-linux-x86_64-ubuntu1804-4.2.8/bin/* /usr/local/bin/
+$ sudo mkdir -pv /var/lib/mongo
+$ sudo mkdir -pv /var/log/mongodb
+$ sudo chown -v $(whoami) /var/lib/mongo
+$ sudo chown -v $(whoami) /var/log/mongodb
+'''
+
+Start and watch logs:
+
+'''
+$ mongod --dbpath /var/lib/mongo --logpath /var/log/mongodb/mongod.log --fork
+$ tail -f /var/log/mongodb/mongod.log
+
+$ mongod --dbpath /var/lib/mongo --shutdown
+'''
+
+Access MongoDB shell:
+
+'''
+$ mongo
+
+> show dbs
+
+> use skillsapi
+switched to db skillsapi
+
+> db.getCollection('users').find().pretty()
+{
+	"_id" : ObjectId("5f958689c6ed505fca9398ce"),
+	"createdAt" : ISODate("2020-10-25T14:06:45.035Z"),
+	"email" : "dev@dev.io",
+	"password" : "$2a$10$62MFieTZLK5p6tYtjU2CSOQQ/tKSWdILem7bR.uQE7Z2BBTEauTxO",
+	"__v" : 0
+}
+{
+	"_id" : ObjectId("5f95b9c7beea0d8495302538"),
+	"createdAt" : ISODate("2020-10-25T17:44:49.043Z"),
+	"email" : "dev2@dev.io",
+	"password" : "$2a$10$tBELGv3RU5zvUrziejTt9u0hqx8plhDTnh0ARoVTf.3CWWtm/BpnW",
+	"__v" : 0
+}
+'''
+

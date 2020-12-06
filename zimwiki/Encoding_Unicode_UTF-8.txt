@@ -19,8 +19,10 @@ symbol	hex value
 ✓       2713
 ✗       717
 💩      0001f4a9
+       u712
 ⊥           22a5		Bottom (used in Lambda and Haskell)
 🦕      0001f995     Deno, Dinosaur
+＼(≧▽≦)／┏━┓┏━┓┏━┓ 🌹 /(^.^/) ¯\_(ツ)_/¯
 '''
 
 
@@ -182,6 +184,10 @@ S9834, Hex 266a, Octal 23152
 Teu amor só me traz alegria
 O teu corpo é minha querência
 O meu céu minha estrela guia ♬ ♪
+
+'''
+♫ ♩ Eu prefiro ser ♭ ♪ essa metamorfose ambulante ♬ ♪ ♭
+'''
 
 ♫ ♩
 As pessoas se convencem, de que a sorte me ajudou

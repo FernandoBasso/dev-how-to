@@ -7,6 +7,7 @@ Created Friday 13 December 2019
 
 
 * [[http://shellhaters.org/|Shell Haters Links to POSIX/OpenPub important sections]]
+* [[https://github.com/termstandard/colors|Terminal Colors]]
 
 https://github.com/learnbyexample/scripting_course/blob/master/Linux_curated_resources.md#shell-scripting
 
