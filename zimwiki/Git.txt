@@ -127,6 +127,11 @@ git diff --name-only --staged | xargs npx eslint
 $ git log --graph --format="%C(auto) %h %s" origin/dev1-global
 '''
 
+Ignore commits containing certain words/strings;
+
+'''
+$ git log --invert-grep --grep='\(diagram\|[Mm]erge\)'
+'''
 
 ===== Interactive Rebase =====
 

@@ -1,0 +1,41 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-12-09T07:14:21-03:00
+
+====== 12 Dec 2020 ======
+Created Wednesday 09 December 2020
+
+===== » 09 Wed =====
+
+
+==== TypeScritpt Abstract Classes ====
+@Diary @TypeScript @AbstractClasses @getters @accessors
+
+'''
+If an implementation of an abstract class uses a getter, the abstract class defines that getter as a simple property.
+
+abstract class Sorter {
+  public abstract length: number;
+}
+
+class Numbers {
+  public constructor(public data: Array<number>) {}
+
+  public get length(): number {
+    return this.data.length;
+  }
+}
+
+const nums = new Numbers([1, -5, 9]);
+console.log(nums.length);
+'''
+
+
+Interfaces promote loose coupling. Use interfaces when very different objects are into play, like User vs Maps.
+
+Abstract classes promote tight coupling, but are useful in cases where we are trying to build up a definition of very similar objects, like a sorting definition of numbers, chars, linked lists, etc.
+
+
+
+
+==== Other... ====

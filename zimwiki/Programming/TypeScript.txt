@@ -85,7 +85,23 @@ Use instanceof with other values that are crated with a constructor function:
 typeof Array, Person, RegExp
 
 
+===== Classes =====
 
+If an implementation of an abstract class uses a getter, the abstract class defines that getter as a simple property.
+
+'''
+abstract class Sorter {
+  public abstract length: number;
+}
+
+class Numbers {
+  public constructor(public data: Array<number>) {}
+
+  public get length(): number {
+    return this.data.length;
+  }
+}
+'''
 
 
 
