@@ -1,9 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.6
-Creation-Date: 2020-11-30T06:40:42-03:00
-
-====== Elm ======
-Created Monday 30 November 2020
-
-* https://elmprogramming.com/
-

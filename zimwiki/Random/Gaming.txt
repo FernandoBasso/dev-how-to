@@ -1,8 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.6
-Creation-Date: 2020-09-30T16:23:24-03:00
-
-====== Gaming ======
-Created Wednesday 30 September 2020
-
-* [[https://www.youtube.com/watch?v=wvB0UIDIhi0&lc=Ugj7lA_DBlbSoHgCoAEC|Alien Main Title - My comment about the game]]

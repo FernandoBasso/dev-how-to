@@ -1,9 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
-Creation-Date: 2020-05-28T07:07:22-03:00
-
-====== awk ======
-Created Thursday 28 May 2020
-
-* [[https://www.digitalocean.com/community/tutorials/how-to-use-the-awk-language-to-manipulate-text-in-linux|How To Use the AWK language to Manipulate Text in Linux (DigitalOcean, Justin Ellingwood and Brian Hogan)]]
-

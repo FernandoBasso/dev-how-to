@@ -1,8 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
-Creation-Date: 2020-05-24T10:09:42-03:00
-
-====== Ruby Aliases ======
-Created Sunday 24 May 2020
-
-NOTE: ‘find’ is an alias for ‘detect’. See more here. ‘detect’ is the original method. The ‘find’ alias was added much later. The same for ‘collect’, which is the original, and the alias ‘

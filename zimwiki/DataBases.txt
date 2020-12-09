@@ -1,7 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.6
-Creation-Date: 2020-10-25T14:48:31-03:00
-
-====== DataBases ======
-Created Sunday 25 October 2020
-

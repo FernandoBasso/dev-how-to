@@ -1,9 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
-Creation-Date: 2020-03-04T10:03:00-03:00
-
-====== Testing Library ======
-Created Wednesday 04 March 2020
-
-https://testing-library.com/docs/react-testing-library/cheatsheet
-
