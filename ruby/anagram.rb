@@ -30,7 +30,7 @@ is_match = -> (normalized_target, word) do
 end
 
 #
-# Makes use of the helper lambdas to do the filtering of
+# Makes use of the helper lambda to do the filtering of
 # the words.
 #
 def anagrams(word, filename, predicate)
@@ -39,23 +39,25 @@ def anagrams(word, filename, predicate)
   file = File.read(filename)
 
   matches = file.lines.select do |line|
-    predicate.call(normalized, line.chop)
+    predicate.call(normalized, line.chomp!)
   end
-
-  p matches
 end
 
 #
 # Make sure to `gem install rspec`.
 #
+# Run:
+#
+#   rspec anagram.rb
+#
 require 'rspec'
 
 describe 'Find anagrams' do
-  expected_result ["heros\n", "horse\n", "shore\n"]
+  expected_result = ["heros", "horse", "shore"]
   it 'produces an array of anagrams' do
     expect(anagrams('horse', './wl.txt', is_match)).to eq expected_result
   end
 end
 
-anagrams('horse', './wl.txt', is_match)
+# anagrams('horse', './wl.txt', is_match)
 
