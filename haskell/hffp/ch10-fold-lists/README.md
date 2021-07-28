@@ -357,22 +357,31 @@ Page 378.
 ### 01
 
 ```haskell
+stops :: [Char]
 stops = "pbtdkg"
+
+vowels :: [Char]
 vowels = "aeiou"
 
-all :: [Char] -> [Char] -> [(Char, Char, Char)]
-all ss vs = [(s1, v, s2) | s1 <- ss, v <- vs, s2 <- ss]
+-- Produces all possible three-tuples of stop-vowel-stop combinations.
+allCombs :: [Char] -> [Char] -> [(Char, Char, Char)]
+allCombs ss vs = [(s, v, s) | s <- ss, v <- vs]
 
-startWithP :: [Char] -> [Char] -> [(Char, Char, Char)]
-startWithP ss vs =
-  [(s1, v, s2) | s1 <- [(head ss)], v <- vs, s2 <- ss]
+-- Checks whether a tuple starts with the given letter.
+startsWith :: Char -> (Char, Char, Char) -> Bool
+startsWith c (e, _, _) = c == e
 
+startsWithAorP :: (Char, Char, Char) -> Bool
+startsWithAorP (x, _, _) = x == 'a' || x == 'p'
 
+nouns :: [[Char]]
 nouns = ["jedi", "padawan", "kitten"]
+
+verbs :: [[Char]]
 verbs = ["fight", "run", "meow"]
 
-allnv :: [[Char]] -> [[Char]] -> [([Char], [Char])]
-allnv ns vs = [(n, v) | n <- ns, v <- vs]
+mkNounVerbNoun :: [[Char]] -> [[Char]] -> [([Char], [Char], [Char])]
+mkNounVerbNoun ns vs = [(n, v, n) | n <- ns, v <- vs]
 ```
 
 ### 02
@@ -390,13 +399,28 @@ avgWordLen str = (/) numWordChars lenWords
     lenWords     = fromIntegral $ length (words str)
 
 -- Using ‘let’.
-avgWLen :: [Char] -> Double
-avgWLen str =
+avgWordLen :: [Char] -> Double
+avgWordLen str =
   let
     numWordChars = fromIntegral $ sum (map length (words str))
     lenWords     = fromIntegral $ length (words str)
   in
     (/) numWordChars lenWords
+
+--
+-- Version I come up during 2021 studies of this book.
+--
+avgWordLen :: String -> Double
+avgWordLen s = (/) numChars numWords
+  where
+    numChars :: Double
+    numChars = fromIntegral $ sum $ map length $ words s
+    numWords :: Double
+    numWords = fromIntegral $ length $ words s
+--
+-- λ> avgWordLen "The force is strong with this one. Most impressive!"
+-- 4.777777777777778
+--
 ```
 
 ### Rewriting functions using folds
