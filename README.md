@@ -39,8 +39,21 @@ ruby: add examples of singletons
 
 The idea is to collect everything I research and study in a single place (the exception to this is my math studies which I store somewhere else) so that I can open an editor or do searches from a single place, instead of trying to remember in which directory I did something.
 
-## Ideas
+## Commit subject tag
 
 One idea is to create a script that collects all “tags” I have used so far in git commits and try to reuse them consistently instead of making a mess. Hard to avoid the mess, though.
 
+Here's the script:
+
+```
+$ git log --format='%s' \
+    | grep '^[a-z]\+:' \
+    | sed 's/:.\+//' \
+    | sort \
+    | uniq
+add
+hffp
+repo
+wip
+```
 
