@@ -70,7 +70,7 @@ Map an if-then-else expressions with the help of a lambda. In this case, we nega
 [2,3,4,5,6]
 
 λ> sum [1..5]
-15 
+15
 ```
 
 By “replacing the cons”, it means replacing with some other function:
@@ -300,7 +300,7 @@ foldr (-) 100 [1, 2, 3]
 -98
 ```
 
-One output was positive and the other negative. 
+One output was positive and the other negative.
 
 ### foldr any lambda
 
@@ -553,7 +553,7 @@ foldr f z (x:xs) = f x (foldr f z xs)
 
 foldr const 0 [1, 2, 3]
 foldr const 1 (foldr const 0 [2, 3])
-              ----------------------
+                
                  rest of the fold
 ```
 

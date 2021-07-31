@@ -26,7 +26,6 @@ True
 ```
 
 
-
 ```
 λ> foldr (\_ _ -> 0) 0 [1, 2, 3]
 0
@@ -43,11 +42,7 @@ True
 *** Exception: Prelude.undefined
 ```
 
-
-
 Why does `foldr const 0 [1..]` return 1 and not zero?
-
-
 
 Because `foldr` takes a function, an initial, default (zero, memo, accumulator) value, and a list of things.
 

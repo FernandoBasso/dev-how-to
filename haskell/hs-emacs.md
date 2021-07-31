@@ -35,3 +35,6 @@ Emacs `simple.el` provides `(next-error)` and `(prev-error)`.
 
 We can do `describe-function` (`M-h f`) and `describe-key` (`M-h k`) to figure if a function is bound to a key, and to what function a key is bound.
 
+## Emacs and LSP
+
+* http://abailly.github.io/posts/a-modern-haskell-env.html
