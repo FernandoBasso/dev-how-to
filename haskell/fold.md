@@ -176,10 +176,7 @@ const 't' (const 'a' (foldr const 0 "cos"))
 ...
 ```
 
-`foldr` needs the type the accumulator to be a number because we passed 0 as
-the initial accumulator. But `const` will try to return its first argument,
-which is the char `'t'`. Yet, the folding function passed to `foldr` is
-expected to return something with the type of the accumulator. It does not typecheck.
+`foldr` needs the type the accumulator to be a number because we passed 0 as the initial accumulator. But `const` will try to return its first argument, which is the char `'t'`. Yet, the folding function passed to `foldr` is expected to return something with the type of the accumulator. It does not typecheck.
 
 ```
 λ> :type foldr
@@ -189,9 +186,7 @@ foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
 const :: a -> b -> a
 ```
 
-If we `flip const`, then it returns something of the type of its second
-argument, and that matches the type expected by `foldr`. But then we get a
-different result. Let's exemplify with a shorter string.
+If we `flip const`, then it returns something of the type of its second argument, and that matches the type expected by `foldr`. But then we get a different result. Let's exemplify with a shorter string.
 
 ```
 f :: flip const
@@ -222,10 +217,7 @@ foldl f z (x:xs) = foldl f (f z x) xs
 foldl f 0 "abc"
 ```
 
-It does not typecheck. f (our flipped const) takes an *a* ast the first
-argument, but the folding function for `foldl` expects a *b* as it first
-argument. The types don't match. It works if we do not `flip const` (contraty
-to `foldr`, with which we **have to** `flip const`.
+It does not typecheck. `f` (our flipped const) takes an *a* as the first argument, but the folding function for `foldl` expects a *b* as it first argument. The types don't match. It works if we do not `flip const` (contrary to `foldr`, with which we **have to** `flip const`.
 
 Both `foldr` with unfliped `const` and `foldl` with flipped `const` do not
 typecheck.
