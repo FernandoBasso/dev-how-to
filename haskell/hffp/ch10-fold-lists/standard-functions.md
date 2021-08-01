@@ -12,6 +12,14 @@
     - [Type checking problem](#type-checking-problem)
     - [Composing with f and map](#composing-with-f-and-map)
     - [Composing (||) and f](#composing-and-f)
+  - [elem](#elem)
+    - [Using fold and a lambda](#using-fold-and-a-lambda)
+    - [Using any](#using-any)
+  - [reverse](#reverse)
+    - [foldr and lambda](#foldr-and-lambda)
+    - [foldl and flip (:)](#foldl-and-flip-)
+  - [map](#map)
+    - [using foldr and lambda](#using-foldr-and-lambda)
 
 ## and
 
@@ -137,15 +145,117 @@ Then, we `(||)` each on the results of the previous operation:
 True
 ```
 
-*EXCEPT THAT BECAUSE OF LAZY EVALUATION, `map f` will only produce values as as needed by `foldr`*. It WILL NOT actually map over the entire input unless `foldr` folding function keeps asking for more values and ends up reaching the base case. As soon as `f` produces `True` for an element, `myAny` returns `True` and no more of the list is processed.
+**EXCEPT THAT BECAUSE OF LAZY EVALUATION, `map f` will only produce values as as needed by `foldr`**. It WILL NOT actually map over the entire input unless `foldr` folding function keeps asking for more values and ends up reaching the base case. As soon as `f` produces `True` for an element, `myAny` returns `True` and no more of the list is processed.
 
 Thanks @konsumlamm for [this answer on Discord](https://discord.com/channels/280033776820813825/796099254937845790/871041627060334632).
 
 ### Composing (||) and f
 
-This is a suggestions from the liter. Easier to understand!
+This is a suggestions from the linter. Easier to understand!
 
 ```
 myAny :: (a -> Bool) -> [] a -> Bool
 myAny f = foldr ((||) . f) False
 ```
+
+## elem
+
+### Using fold and a lambda
+
+```
+myElem :: Eq a => a -> [a] -> Bool
+myElem e = foldr (\x acc -> x == e || acc) False
+```
+
+### Using any
+
+Partially applying `any`. Also partially applying `==`.
+
+```
+myElem :: Eq a => a -> [a] -> Bool
+myElem e = any (e ==)
+```
+
+## reverse
+
+### foldr and lambda
+
+Inside the lambda, we keep concatenating the element to the end of the list. That is what reverses it.
+
+```
+myRev :: [a] -> [a]
+myRev = foldr (\e acc -> acc ++ [e]) []
+```
+
+### foldl and flip (:)
+
+```
+myRev :: [a] -> [a]
+myRev = foldl (flip (:)) []
+```
+
+Let's try to understand what is going on here.
+
+```
+λ> f = flip (:)
+
+λ> :t f
+f :: [a] -> a -> [a]
+
+λ> :t (:)
+(:) :: a -> [a] -> [a]
+
+λ> [] `f` 1
+[1]
+
+λ> 1 : []
+[1]
+```
+Both `:` and `f` add an element to the beginning of the list. But whereas `:` takes an element and a list, `f` takes a list and an element.
+
+Not here that the list comes first, then the infix `f`, then the element:
+
+```
+λ> [1, 2] `f` 3
+[3,1,2]
+```
+
+A simple implementation of `foldl` to help visualize:
+
+```
+foldl :: (b -> a -> b) -> b -> [] a -> b
+foldl _ z [] = z
+foldl f z (x:xs) = foldl f (f z x) xs
+```
+
+And a definition of `myRev` using `foldl` and `f` (which is `flip (:)`):
+
+Here's how evaluation goes:
+
+```
+myRev = foldl f []
+
+myRev [1, 2, 3]
+foldl f ([] `f` 1) [2, 3]
+→ Add 1 to the front of the acc []
+→ acc now is [1]
+
+foldl f ([1] `f` 2) [3]
+→ Add 2 to the front of the acc [1]
+→ acc now is [2, 1]
+
+foldl f ([2, 1] `f` 3) []
+→ Add 3 to the front of the acc [2, 1]
+→ acc now is [3, 2, 1]
+```
+
+## map
+
+### using foldr and lambda
+
+```hs
+myMap :: (a -> b) -> [a] -> [b]
+myMap f = foldr (\e acc -> f e : acc) []
+```
+
+In `f e : acc`, we apply `f` to `e` producing the new value, which is then consed into `acc`.
