@@ -26,6 +26,8 @@
     - [using foldr with if else](#using-foldr-with-if-else)
   - [squish (flatten)](#squish-flatten)
     - [using foldr](#using-foldr)
+  - [squishMap](#squishmap)
+  - [using foldr](#using-foldr-1)
 
 ## and
 
@@ -367,4 +369,34 @@ Can be simplified and shortened to:
 ```hs
 squish :: [[a]] -> [a]
 squish = foldr (++) []
+```
+
+## squishMap
+
+## using foldr
+
+```hs
+--
+-- Maps a function over a list and concatenates the results.
+--
+-- From the example usage in the book, we must make sure our
+-- `f` function takes one element, does whatever it wants with
+-- it, and returns it as a list.
+--
+squishMap :: (a -> [b]) -> [a] -> [b]
+squishMap f = foldr (\e acc -> f e ++ acc) []
+
+f :: Char -> [Char]
+f c = "[ " ++ [c] ++ " ]"
+--
+-- λ> squishMap f "jedi"
+-- "[ j ][ e ][ d ][ i ]"
+--
+
+g :: Int -> [Int]
+g i = [i + 1]
+--
+-- λ> squishMap g [0, 2, 4]
+-- [1,3,5]
+--
 ```
