@@ -23,6 +23,9 @@
   - [filter](#filter)
     - [using foldr and guards](#using-foldr-and-guards)
     - [using foldr and case of](#using-foldr-and-case-of)
+    - [using foldr with if else](#using-foldr-with-if-else)
+  - [squish (flatten)](#squish-flatten)
+    - [using foldr](#using-foldr)
 
 ## and
 
@@ -333,4 +336,35 @@ I still use the run function pattern above. We can also follow the linter sugges
 myFilter :: (a -> Bool) -> [a] -> [a]
 myFilter f =
   foldr(\e acc -> if f e then e : acc else acc) []
+```
+
+## squish (flatten)
+
+`squish` is a function that flattens a list:
+
+```GHCi
+λ> squish [[1], [2], [3]]
+[1,2,3]
+
+λ> concat [[1], [2], [3]]
+[1,2,3]
+
+λ> squish ["Tomb", "Raider", "1996"]
+"TombRaider1996"
+```
+
+The built-in `concat` does the same thing.
+
+### using foldr
+
+```hs
+squish :: [[a]] -> [a]
+squish = foldr (\xs acc -> xs ++ acc) []
+```
+
+Can be simplified and shortened to:
+
+```hs
+squish :: [[a]] -> [a]
+squish = foldr (++) []
 ```
