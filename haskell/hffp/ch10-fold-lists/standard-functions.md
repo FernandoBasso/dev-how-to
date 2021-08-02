@@ -265,3 +265,72 @@ myMap f = foldr (\e acc -> f e : acc) []
 ```
 
 In `f e : acc`, we apply `f` to `e` producing the new value, which is then consed into `acc`.
+
+## filter
+
+### using foldr and guards
+
+```hs
+myFilter :: (a -> Bool) -> [a] -> [a]
+myFilter f = foldr go []
+  where
+    go e acc
+      | f e = e : acc
+      | otherwise = acc
+```
+
+We could replace this line:
+
+```
+myFilter f elems = foldr go [] elems
+```
+
+```
+myFilter f = foldr go []
+```
+
+That is, we partially apply `foldr` to the folding function and the accumulator, but omit the list of elements to be processed. This way, we can also omit the list of elements from `myFilter f xs`, making it just `myFilter f`.
+
+### using foldr and case of
+
+This indentation looks ugly.
+
+```hs
+myFilter :: (a -> Bool) -> [a] -> [a]
+myFilter f =
+  foldr (\e acc
+    -> case f e of
+        True -> e : acc
+        _    -> acc) []
+```
+
+Perhaps, instead of a lambda using a run function looks better?
+
+```hs
+myFilter :: (a -> Bool) -> [a] -> [a]
+myFilter f = foldr run []
+  where
+    run e acc =
+      case f e of
+        True -> e : acc
+        _    -> acc
+```
+
+### using foldr with if else
+
+This is a suggestion from the linter:
+
+```hs
+myFilter :: (a -> Bool) -> [a] -> [a]
+myFilter f = foldr run []
+  where
+    run e acc = if f e then e : acc else acc
+```
+
+I still use the run function pattern above. We can also follow the linter suggestion but use a lambda and not the run function.
+
+```hs
+myFilter :: (a -> Bool) -> [a] -> [a]
+myFilter f =
+  foldr(\e acc -> if f e then e : acc else acc) []
+```
