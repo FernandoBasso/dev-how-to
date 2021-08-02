@@ -28,6 +28,7 @@
     - [using foldr](#using-foldr)
   - [squishMap](#squishmap)
   - [using foldr](#using-foldr-1)
+  - [squishAgain](#squishagain)
 
 ## and
 
@@ -400,3 +401,26 @@ g i = [i + 1]
 -- [1,3,5]
 --
 ```
+
+## squishAgain
+
+Using the previously defined `squishMap`.
+
+```hs
+squishAgain :: [[a]] -> [a]
+squishAgain = squishMap (\e -> e)
+```
+
+```GHCi
+λ> squishAgain [[1], [2], [3]]
+[1,2,3]
+
+λ> squish
+squishAgain  squishMap
+λ> squishAgain ["Tomb", " ", "Raider", " ", "1996"]
+"Tomb Raider 1996"
+```
+
+`squishMap` concatenates the result, which is what we want, but it also applies a function to each element it operates on before concatenation. The problem is that we don't want to do anything with each argument besides concatenating it to the accumulator in order to *flatten* it. That is where the `identity` function comes in. It satisfies `squishMap` requirement for a function argument, but it just returns the element unmodified. This way, we just flatten the list without modifying the inputs.
+
+In short, we need the *id* function to satisfy `squishMap` here. `\e -> e` is the identity function. Could be replaced with `id`.
