@@ -20,19 +20,22 @@
     - [foldl and flip (:)](#foldl-and-flip-)
   - [map](#map)
     - [using foldr and lambda](#using-foldr-and-lambda)
+  - [filter](#filter)
+    - [using foldr and guards](#using-foldr-and-guards)
+    - [using foldr and case of](#using-foldr-and-case-of)
 
 ## and
 
 ### Direct recursion, not point-free
 
-```
+```hs
 myAnd :: [Bool] -> Bool
 myAnd [] = True
 myAnd (x:xs) = x && myAnd_r xs
 ```
 
 Using `foldr`, not point free.
-```
+```hs
 myAnd :: [Bool] -> Bool
 myAnd = foldr (\e acc -> e && acc) True
 ```
@@ -41,7 +44,7 @@ myAnd = foldr (\e acc -> e && acc) True
 
 `(&&)` is the folding function and `True` is the *zero* (initial value for the accumulator). We partially apply `foldr` with the first two params. The remaining one, the list to be operated on is still missing, and it is not defined as a parameter to `myAnd`. There is no `myAnd xs = ...`. That is what makes it *point free*. The type signature denounces that wee need a list of bool, though, and return a bool.
 
-```
+```hs
 myAnd :: [Bool] -> Bool
 myAnd = foldr (&&) True
 ```
@@ -50,7 +53,7 @@ myAnd = foldr (&&) True
 
 ### Direct recursion, not point free
 
-```
+```hs
 myOr :: [Bool] -> Bool
 myOr [] = False
 myOr (x:xs) = x || myOr xs
@@ -60,7 +63,7 @@ myOr (x:xs) = x || myOr xs
 
 To me, this is point-free.
 
-```
+```hs
 myOr :: [Bool] -> Bool
 myOr = foldr (\e acc -> e || acc) False
 ```
@@ -68,7 +71,8 @@ myOr = foldr (\e acc -> e || acc) False
 Or, the folding function is not point-free, because it takes explicit params `e` and `acc`.
 
 This is not point free because we are explicitly declaring the param `xs`.
-```
+
+```hs
 myOr :: [Bool] -> Bool
 myOr xs = foldr (\e acc -> e || acc) False xs
 ```
@@ -76,7 +80,8 @@ myOr xs = foldr (\e acc -> e || acc) False xs
 ### Direct recursion, point-free
 
 And the fully point-free version using folds.
-```
+
+```hs
 myOr :: [Bool] -> Bool
 myOr = foldr (||) False
 ```
@@ -87,7 +92,7 @@ myOr = foldr (||) False
 
 ### Direct recursion, not point-free
 
-```
+```hs
 myAny :: (a -> Bool) -> [a] -> Bool
 myAny _ [] = False
 myAny f (x:xs) = f x || myAny f xs
@@ -97,7 +102,7 @@ myAny f (x:xs) = f x || myAny f xs
 
 This version works if we comment the type signature for the inner function `g`. That type definition seems totally OK but it doesn't type check.
 
-```
+```hs
 myAny :: (a -> Bool) -> [a] -> Bool
 myAny f = foldr g False
   where
@@ -109,7 +114,7 @@ In the  definition of `g` we reference a variable that appears in the signature 
 
 Also, we see a compiler error mentioning `a1`, which is the name to compiler gives to the `a` polymorphic type variable in `g` to differentiate it from the `a` polymorphic type variable in `myAny`. This works:
 
-```
+```hs
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE ExplicitForAll #-}
 
@@ -124,7 +129,7 @@ Thanks @infixl-1 (Izuzu#5593) for the [help on Discord](https://discord.com/chan
 
 ### Composing with f and map
 
-```
+```hs
 myAny :: (a -> Bool) -> [] a -> Bool
 myAny f = foldr (||) False . map f
 ```
@@ -133,14 +138,14 @@ We can think of it like this:
 
 We first `map f` over the list of values. Ex:
 
-```
+```hs
 λ> map even [0, 2, 3]
 [True,True,False]
 ```
 
 Then, we `(||)` each on the results of the previous operation:
 
-```
+```GHCi
 λ> foldr (||) False [True, True, False]
 True
 ```
@@ -153,7 +158,7 @@ Thanks @konsumlamm for [this answer on Discord](https://discord.com/channels/280
 
 This is a suggestions from the linter. Easier to understand!
 
-```
+```hs
 myAny :: (a -> Bool) -> [] a -> Bool
 myAny f = foldr ((||) . f) False
 ```
@@ -162,7 +167,7 @@ myAny f = foldr ((||) . f) False
 
 ### Using fold and a lambda
 
-```
+```hs
 myElem :: Eq a => a -> [a] -> Bool
 myElem e = foldr (\x acc -> x == e || acc) False
 ```
@@ -171,7 +176,7 @@ myElem e = foldr (\x acc -> x == e || acc) False
 
 Partially applying `any`. Also partially applying `==`.
 
-```
+```hs
 myElem :: Eq a => a -> [a] -> Bool
 myElem e = any (e ==)
 ```
@@ -182,21 +187,21 @@ myElem e = any (e ==)
 
 Inside the lambda, we keep concatenating the element to the end of the list. That is what reverses it.
 
-```
+```hs
 myRev :: [a] -> [a]
 myRev = foldr (\e acc -> acc ++ [e]) []
 ```
 
 ### foldl and flip (:)
 
-```
+```hs
 myRev :: [a] -> [a]
 myRev = foldl (flip (:)) []
 ```
 
 Let's try to understand what is going on here.
 
-```
+```GHCi
 λ> f = flip (:)
 
 λ> :t f
@@ -211,18 +216,19 @@ f :: [a] -> a -> [a]
 λ> 1 : []
 [1]
 ```
+
 Both `:` and `f` add an element to the beginning of the list. But whereas `:` takes an element and a list, `f` takes a list and an element.
 
 Not here that the list comes first, then the infix `f`, then the element:
 
-```
+```GHCi
 λ> [1, 2] `f` 3
 [3,1,2]
 ```
 
 A simple implementation of `foldl` to help visualize:
 
-```
+```hs
 foldl :: (b -> a -> b) -> b -> [] a -> b
 foldl _ z [] = z
 foldl f z (x:xs) = foldl f (f z x) xs
@@ -232,7 +238,7 @@ And a definition of `myRev` using `foldl` and `f` (which is `flip (:)`):
 
 Here's how evaluation goes:
 
-```
+```GHCi
 myRev = foldl f []
 
 myRev [1, 2, 3]
