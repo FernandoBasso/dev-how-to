@@ -1,27 +1,28 @@
 # Folding Lists - Chapter 10
 
-* [01](#01)
-* [02](#02)
-* [03](#03)
-* [04](#04)
-* [05](#05)
-  * [a](#a)
-  * [b](#b)
-  * [c](#c)
-  * [d](#d)
-  * [e](#e)
-  * [f](#f)
-  * [g](#g)
-  * [h](#h)
-  * [i](#i)
-  * [Exercises: Database processing](#exercises:-database-processing)
-  * [Scans exercises](#scans-exercises)
-  * [Warm-up and review](#warm-up-and-review)
-* [01](#01)
-* [02](#02)
-* [03](#03)
-* [Rewriting functions using folds](#rewriting-functions-using-folds)
-* [The End](#the-end)
+- [Folding Lists - Chapter 10](#folding-lists-chapter-10)
+    - [01](#anchor-01)
+    - [02](#anchor-02)
+    - [03](#anchor-03)
+    - [04](#anchor-04)
+    - [05](#anchor-05)
+      - [a](#a)
+      - [b](#b)
+      - [c](#c)
+      - [d](#d)
+      - [e](#e)
+      - [f](#f)
+      - [g](#g)
+      - [h](#h)
+      - [i](#i)
+  - [Exercises: Database processing](#exercises-database-processing)
+  - [Scans exercises](#scans-exercises)
+  - [Warm-up and review](#warm-up-and-review)
+    - [01](#anchor-01-1)
+    - [02](#anchor-02-1)
+    - [03](#anchor-03-1)
+    - [Old Versions](#old-versions)
+    - [The End](#the-end)
 
 Page 365.
 
@@ -148,7 +149,7 @@ foldr (||) False [False, True]
 
 Or flipping `((++) . show)`, although the result is in reverse order:
 
-```ghci
+```GHCi
 λ> foldl (flip ((++) . show)) "" [1, 2, 3]
 "321"
 ```
@@ -423,7 +424,8 @@ avgWordLen s = (/) numChars numWords
 --
 ```
 
-### Rewriting functions using folds
+----
+### Old Versions
 
 ```haskell
 -- Direct recursion, not using ‘&&’.
