@@ -29,6 +29,9 @@
   - [squishMap](#squishmap)
   - [using foldr](#using-foldr-1)
   - [squishAgain](#squishagain)
+  - [myMinimumBy, myMaximumBy](#myminimumby-mymaximumby)
+    - [foldr and if else](#foldr-and-if-else)
+    - [foldr and case of](#foldr-and-case-of)
 
 ## and
 
@@ -424,3 +427,57 @@ squishAgain  squishMap
 `squishMap` concatenates the result, which is what we want, but it also applies a function to each element it operates on before concatenation. The problem is that we don't want to do anything with each argument besides concatenating it to the accumulator in order to *flatten* it. That is where the `identity` function comes in. It satisfies `squishMap` requirement for a function argument, but it just returns the element unmodified. This way, we just flatten the list without modifying the inputs.
 
 In short, we need the *id* function to satisfy `squishMap` here. `\e -> e` is the identity function. Could be replaced with `id`.
+
+## myMinimumBy, myMaximumBy
+### foldr and if else
+
+```hs
+myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
+myMaximumBy p xs = foldr (\x acc ->
+                          if p x acc == GT
+                          then x
+                          else acc) (last xs) xs
+
+myMininumBy :: (a -> a -> Ordering) -> [a] -> a
+myMininumBy p xs = foldr (\x acc ->
+                            if p x acc == LT
+                            then x
+                            else acc) (last xs) xs
+```
+
+### foldr and case of
+
+```hs
+myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
+myMaximumBy f xs = foldr fn (last xs) xs
+  where
+    fn e acc =
+      case f e acc of
+        GT -> e
+        _  -> acc
+
+myMinimumBy :: (a -> a -> Ordering) -> [a] -> a
+myMinimumBy f xs = foldr fn (last xs) xs
+  where
+    fn e acc =
+      case f e acc of
+        LT -> e
+        _  -> acc
+```
+
+Here, our comparison function (the lambda) always says `LT`, so, never mind that 1 is actually less than 2 😅. We are forcing the function to lie.
+
+```GHCi
+λ> myMinimumBy (\_ _ -> LT) [1..5]
+5
+```
+
+But if we use a proper comparison function, then all is fine:
+
+```GHCi
+λ> myMinimumBy compare [1..5]
+1
+
+λ> myMaximumBy compare [1..5]
+5
+```
