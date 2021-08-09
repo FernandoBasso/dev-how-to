@@ -1,22 +1,21 @@
 # HackerRank Shell
+
 [TOC]
 
 ## Intro
+
 Unless otherwise noted, assume all scripts contain the following shebang:
 
 ```
 #!/usr/bin/env bash
 ```
 
-
-
 ## Easy Challenges
 
 https://www.hackerrank.com/domains/shell
 
-
-
 ### Let's Echo
+
 Tags: #cmdline #shell #bash #echo #printf
 Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials-lets-echo)
 
@@ -25,8 +24,6 @@ $ echo HELLO
 
 $ printf '%s\n' HELLO
 ```
-
-
 
 ### Looping With Numbers
 
@@ -40,14 +37,11 @@ do
 done
 ```
 
-
 Or using ranges:
 
 ```shell-session
 $ printf '%d\n' {1..50}
 ```
-
-
 
 ### Looping And Skipping
 
@@ -64,6 +58,7 @@ do
   echo "$i"
 done
 ```
+
 ```shell-session
 $ bash script.sh
 1
@@ -73,22 +68,22 @@ $ bash script.sh
 9
 ```
 
-
 Could also use ''echo:''
+
 ```shell-session
 $ echo -ne {1..9..2} '\n'
 ```
 
-
 The `-e` option is to enable some escapes. `help echo` for more.
 
 Or using `seq`:
+
 ```shell-session
 $ seq -s ' ' 1 2 9
 ```
 
-
 ### A Personalized Echo
+
 * Tags: #cmdline #read #echo
 * Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---a-personalized-echo)
 
@@ -96,8 +91,6 @@ $ seq -s ' ' 1 2 9
 $ read -r name
 $ printf 'Welcome %s\n' "$name"
 ```
-
-
 
 ### The World of Numbers
 
@@ -170,8 +163,6 @@ printf '%d\n' $(( x / y ))
 
 NOTE: The challenge wants integer division, so, we simply omit `bc`'s scale special variable.
 
-
-
 ```shell
 read -r answer
 
@@ -206,9 +197,8 @@ lol
 What the poop‽ 💩
 ```
 
-
-
 ### Getting started with conditionals
+
 * Tags: #cmdline #shell #bash #conditionals
 * Links: [challenge](https://www.hackerrank.com/challenges/bash-tutorials---getting-started-with-conditionals)
 
@@ -246,8 +236,6 @@ lol
 What the poop‽ 💩
 ```
 
-
-
 ### More on Conditionals
 
 * Tags: #cmdline #shell #bash #conditionals #math
@@ -268,8 +256,6 @@ read -r z
 [[ "$x" != "$y" ]] && [[ "$y" != "$z" ]] && [[ "$z" != "$x" ]] && echo SCALENE && exit 0
 echo ISOSCELES && exit 0
 ```
-
-
 
 ### Arithmetic Operations
 
@@ -298,8 +284,6 @@ $ printf '%.3f\n' 1.2586
 
 Only when the number after 8 passes 5, that is, 6 and above, is that the number is rounded up to 1.259. If one uses `scale=3` in `bc`, then it truncates (does not round) to three decimal places and `printf` has no way to round up, making the solution to the exercise incorrect. Therefore, we use `bc -l` without scale, or use `scale=4` at least.
 
-
-
 ### Compute the Average
 
 * Tags: #cmdline #shell #bash #math
@@ -326,8 +310,6 @@ printf '%.3f\n' "$(echo "scale=4; $sum / $n" | bc -l)"
 
 We used `scale=4` by the same reasons described earlier about truncating and rounding.
 
-
-
 ### cut Challenges
 
 * Tags: #cmdline #shell #bash #cut
@@ -352,17 +334,13 @@ $ cut -d ' ' -f 1,2,3 -
 $ cut -d $'\t' -f 2- -
 ```
 
-
-
-### Head of Text File Challenges	
+### Head of Text File Challenges
 
 ```shell-session
 $ head -n 20
 
 $ head -c 20
 ```
-
-
 
 ### Middle of a Text File
 
@@ -372,8 +350,6 @@ $ head -c 20
 ```shell-session
 $ sed -n '12,22 p'
 ```
-
-
 
 ### Tail of a Text File 1 and 2
 
@@ -385,8 +361,6 @@ $ tail -n 20 -
 
 $ tail -c 20 -
 ```
-
-
 
 ### tr Command 1
 
@@ -413,8 +387,6 @@ int res = [23 + i] * 2;
 
 A [Here Document](https://www.gnu.org/software/bash/manual/bash.html#Here-Documents) is used to assign lines of text to the variable `input`.
 
-
-
 ### tr Command 2
 
 * Tags: #cmdline #shell #bash #tr
@@ -424,8 +396,6 @@ A [Here Document](https://www.gnu.org/software/bash/manual/bash.html#Here-Docume
 $ tr -d 'a-z'
 ```
 
-
-
 ### tr Command 3
 
 * Tags: #cmdline #shell #bash #tr
@@ -434,8 +404,6 @@ $ tr -d 'a-z'
 ```shell-session
 $ tr -s ' '
 ```
-
-
 
 ### sort Lines Challenges
 
@@ -481,8 +449,6 @@ $ sort -t $'\t' -n -k 2 -
 $ sort -t '|' -nr -k 2 -
 ```
 
-
-
 ### uniq Challenges
 
 * Tags: #cmdline #shell #bash #uniq
@@ -491,7 +457,6 @@ $ sort -t '|' -nr -k 2 -
 ```shell-session
 $ uniq -
 ​```
-
 ```
 
 Display the count of lines that were uniqfied and the uniqfied lines without leading whitespace/tabs:
@@ -555,8 +520,6 @@ $ echo "$lines" | uniq -u -
 TUX
 ```
 
-
-
 ### Read In An Array
 
 * Tags: #cmdline #shell #bash #arrays
@@ -567,8 +530,6 @@ $ arr=()
 $ while read -r line ; do arr+=("$line") ; done < /dev/stdin
 $ echo "${#arr[*]}"
 ```
-
-
 
 ### Display an Element of an Array
 
@@ -582,8 +543,6 @@ echo "${countries[3]}"
 
 `-t` in `mapfile` removes the trailing delimiter so the array elements are “clean”.
 
-
-
 ### Count Elements in an Array
 
 * Tags: #cmdline #shell #bash #arrays
@@ -593,8 +552,6 @@ echo "${countries[3]}"
 mapfile -t countries
 echo "${#countries[@]}"
 ```
-
-
 
 ### Slice An Array
 
@@ -635,8 +592,6 @@ and:
 head -8 | tail -5 | paste -s -d ' ' -
 ```
 
-
-
 ### Concatenate Array With Itself
 
 * Tags: #cmdline #shell #bash #arrays
@@ -650,8 +605,6 @@ countries+=("${countries[@]}" "${countries[@]}")
 echo "${countries[*]}"
 ```
 
-
-
 ### grep A
 
 * Tags: #cmdline #shell #sed
@@ -660,8 +613,6 @@ echo "${countries[*]}"
 ```shell-session
 $ grep -iw 'th\(e\|at\|en\|ose\)'
 ```
-
-
 
 ### grep B
 
@@ -680,8 +631,6 @@ This works locally and on HackerRank:
 $ grep '\(.\) \?\1'
 ```
 
-
-
 ### sed 3
 
 * Tags: #cmdline #shell  #sed
@@ -690,8 +639,6 @@ $ grep '\(.\) \?\1'
 ```shell-session
 $ sed 's/[Tt][Hh][Yy]/{&}/g'
 ```
-
-
 
 ### sed 4
 
@@ -708,8 +655,6 @@ Or
 $ sed 's/[0-9]\+ /**** /g'
 ```
 
-
-
 ## Medium Challenges
 
 ### Paste 1
@@ -721,8 +666,6 @@ $ sed 's/[0-9]\+ /**** /g'
 $ paste -s -d ';' -
 ```
 
-
-
 ### paste 2
 
 * Tags: #cmdline #shell #paste
@@ -731,8 +674,6 @@ $ paste -s -d ';' -
 ```shell-session
 paste -d ';' - - -
 ```
-
-
 
 ### paste 3
 
@@ -743,8 +684,6 @@ paste -d ';' - - -
 $ paste -s -
 ```
 
-
-
 ### paste 4
 
 * Tags: #cmdline #shell #paste
@@ -753,8 +692,6 @@ $ paste -s -
 ```
 $ paste - - -
 ```
-
-
 
 ### sed 1
 
@@ -765,13 +702,10 @@ $ paste - - -
 $ sed 's/\<the\>/this/'
 ```
 
-
-
 ### sed 2
+
 * Tags: #cmdline #shell #sed
 * Links: [challenge](https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-2)
-
-
 
 ### grep challenges
 
@@ -786,22 +720,16 @@ $ grep -i '\<the\>'
 $ grep -iv '\<that\>'
 ```
 
-
-
 ### awk challenges
 
 * Tags: #cmdline #shell #awk
 * Links: [challenge 1](https://www.hackerrank.com/challenges/awk-1), [challenge 2](https://www.hackerrank.com/challenges/awk-2), [challenge 3](https://www.hackerrank.com/challenges/awk-3), [challenge 4](https://www.hackerrank.com/challenges/awk-4)
-
-
 
 Challenge 1:
 
 ```shell-session
 $ awk '{ if ($4 == "") print "Not all scores are available for " $1 }'
 ```
-
-
 
 Challenge 2:
 
@@ -812,8 +740,6 @@ awk '{
   print $1, ":", answer[$2 >= 50 && $3 >= 50 && $4 >= 50];
 }'
 ```
-
-
 
 Challenge 3:
 
@@ -829,15 +755,11 @@ awk '{
 }'
 ```
 
-
-
 Challenge 4:
 
 ```shell-session
 awk 'ORS=NR % 2 ? ";" : "\n"'
 ```
-
-
 
 ### Filter an Array With Patterns
 
@@ -852,8 +774,6 @@ while read -r line ; do
   fi
 done
 ```
-
-
 
 ### Remove First Capital Letter From Each Array Element
 
@@ -870,8 +790,6 @@ done
 echo "${arr[*]}"
 ```
 
-
-
 ## Hard Challenges
 
 ### sed 5
@@ -884,8 +802,6 @@ sed 's/\([0-9]\+\) \([0-9]\+\) \([0-9]\+\) \([0-9]\+\)/\4 \3 \2 \1/'
 ```
 
 NOTE: Backreferences in the search pattern mean they match the same chars, not the same general regex. That is, `(.)o(.)` matches “bob” or “bob”, for instance, but not “bop”. If `(.)` matched “x”, then `\1` in the search must also match an “x”. That is why we can't do `s/\([0-9]\+\) \1 \1 \1`, because it would only match if all four fields of the number were the same thing, like "1234 1234 1234 1234".
-
-
 
 ### Lonely Integer
 
@@ -937,14 +853,10 @@ do
 done
 ```
 
-
-
 ### Fractal Tree
 
 * Tags: #cmdline #shell #bash
 * Links: [challenge](https://www.hackerrank.com/challenges/fractal-trees-all)
-
-
 
 ```bash
 #!/usr/bin/env bash
@@ -1031,10 +943,4 @@ else
 fi
 ```
 
-
-
-
-
-
 ## The End
-

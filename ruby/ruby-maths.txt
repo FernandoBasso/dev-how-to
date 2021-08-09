@@ -2,17 +2,12 @@
                                RUBY MATH
                               ━━━━━━━━━━━
 
-
 Table of Contents
 ─────────────────
 
 1 round
 2 Some Math Tricks
 3 Classes
-
-
-
-
 
 1 round
 ═══════
@@ -34,7 +29,6 @@ Table of Contents
   │ 7.1234(1)
   │ # --> 7.1
   └────
-
 
 2 Some Math Tricks
 ══════════════════
@@ -126,7 +120,6 @@ Table of Contents
   │ # --> 0.5, because 5.3 / 2.1 is 2.5.
   └────
 
-
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    id  name            email
     1  Yoda            yoda@theforce.io
@@ -138,7 +131,6 @@ Table of Contents
   │   puts "--> #{num}"
   │ end
   └────
-
 
 3 Classes
 ═════════
