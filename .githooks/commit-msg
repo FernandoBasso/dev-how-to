@@ -67,7 +67,14 @@ subject="$(sed --silent 1p < "$commit_editmsg_file")"
 #
 for t in "${commit_types[@]}"
 do
-  if printf %s "$subject" | grep --silent "^${t}: "
+  ##
+  # This grep regex matches a commit type with or without a scope:
+  #
+  # • bash: msg here
+  # • bash(heredocs): msg here
+  # • bash(heredocs, redrects): msg here
+  #
+  if printf %s "$subject" | grep --silent "^${t}\(([^)]\+)\)\?: "
   then
     exit 0
   fi
