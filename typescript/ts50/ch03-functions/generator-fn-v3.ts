@@ -1,6 +1,13 @@
-export const NAME = "generator functions v2";
+export const NAME = "generator functions v3";
 
 const log: Console["log"] = console.log.bind(console);
+
+//
+// This version adds a new ‘count’ variable so that we
+// fetch more results either until the server tells us
+// no more results exist, OR we reach a certain number
+// of results already displayed.
+//
 
 type Result = {
   url: string;
@@ -12,6 +19,8 @@ type PollingResults = {
   results: Result[];
   done: boolean;
 };
+
+const MAX_RESULTS_TO_DISPLAY = 5;
 
 //
 // This is not actually polling. It will be used
@@ -36,11 +45,11 @@ function append(result: Result) {
 //   AsyncGenerator<
 //     Result[], // We yield Result[].
 //     void,     // We return nothing.
-//     unknown   // We don't pass in anything.
+//     boolean   // We pass a boolean.
 //   >;
 //
 
-type GetResultsGenFn = AsyncGenerator<Result[], void, unknown>;
+type GetResultsGenFn = AsyncGenerator<Result[], void, boolean>;
 
 //
 // The generator function uses ‘polling()’ and keeps yielding
@@ -48,25 +57,26 @@ type GetResultsGenFn = AsyncGenerator<Result[], void, unknown>;
 //
 async function* getResults(term: string): GetResultsGenFn {
   let state: PollingResults | undefined = undefined;
+  let stop = false;
 
   //
   // This ‘do/while’ is what actually does the polling.
   //
   do {
     state = await polling(term);
-    yield state.results;
-  } while (!state.done);
+    stop = yield state.results;
+  } while (!state.done || stop);
 }
 
 async function handleChange(this: HTMLElement, _ev: Event): Promise<void> {
   if (!(this instanceof HTMLInputElement)) return;
 
   let resultsGen: GetResultsGenFn = getResults(this.value);
-
   let next: IteratorResult<Result[], void>;
+  let count = 0;
 
   do {
-    next = await resultsGen.next();
+    next = await resultsGen.next(count >= MAX_RESULTS_TO_DISPLAY);
 
     if (typeof next.value === "undefined") break;
 
@@ -75,6 +85,8 @@ async function handleChange(this: HTMLElement, _ev: Event): Promise<void> {
     // of ‘Result[]’ and append it as as ‘<li><a> ...’ on the DOM.
     //
     next.value.map(append);
+
+    count += next.value.length;
   } while (!next.done);
 }
 
