@@ -1,4 +1,4 @@
-export const NAME = "e03 tech events";
+export const NAME = "e06 tech events";
 
 const log: Console["log"] = console.log.bind(console);
 
