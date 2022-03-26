@@ -6,6 +6,12 @@ https://livebook.manning.com/book/programming-with-types/about-this-book/
 
 
 
+What Is an RSVP?
+
+The term "RSVP" comes from the French expression répondez s'il vous plaît, meaning "please respond." If RSVP is written on an invitation, it means the host has requested that the guest respond to say if they plan to attend the party.
+
+
+
 type:
 
 - classification of data

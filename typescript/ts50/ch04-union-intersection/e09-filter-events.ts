@@ -56,7 +56,7 @@ type Webinar = TechEventBase & {
 };
 
 type Hackaton = TechEventBase & {
-  kind: "hackaton";
+  kind: "hackathon";
   url: string;
   price?: number;
 }
@@ -93,5 +93,10 @@ declare const events: TechEvent[];
 filterByKind(events, "conference");
 filterByKind(events, "webinar");
 filterByKind(events, "meetup");
-filterByKind(events, "hackaton");
+filterByKind(events, "hackathon");
+
+//
+// "concert" is not part of EventKind
+//
+filterByKind(eventList, "concert");
 
