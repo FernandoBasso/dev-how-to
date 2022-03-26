@@ -1,12 +1,9 @@
-export const NAME = "e08 filter events";
+export const NAME = "e09 filter events";
 
 const log: Console["log"] = console.log.bind(console);
 
 //
-// The ‘&’ means we are making an intersection between
-// ‘TechEventBase’ and the literal type on the right.
-//
-// The ‘|’ means we are creating a union type.
+// INDEX ACCESS TYPES or LOOKUP TYPES
 //
 
 type Talk = {
@@ -14,8 +11,6 @@ type Talk = {
   abstract: string;
   speaker: string;
 };
-
-type EventKind = "webinar" | "conference" | "meetup";
 
 type TechEventBase = {
   title: string;
@@ -60,7 +55,31 @@ type Webinar = TechEventBase & {
   talks: Talk; // Why plural in the book?
 };
 
-type TechEvent = Conference | Meetup | Webinar;
+type Hackaton = TechEventBase & {
+  kind: "hackaton";
+  url: string;
+  price?: number;
+}
+
+//
+// We have a new ‘TechEvent’: ‘Hackaton’.
+//
+type TechEvent = Conference | Meetup | Webinar | Hackaton;
+
+//
+// But would have to also add a new kind here... Also, we
+// now have to change this stuff in two places, leading to
+// multiple “sources of truth”.
+//
+//   type EventKind = "conference" | "meetup" | "webinar" ...;
+//
+// But we can do this:
+//
+type EventKind = TechEvent["kind"];
+//
+// Here, we used INDEX ACCESS TYPES (sometimes a.k.a.
+// LOOKUP TYPES).
+//
 
 function filterByKind(
   events: TechEvent[],
@@ -69,14 +88,10 @@ function filterByKind(
   return events.filter(event => event.kind === kind);
 }
 
-declare const eventList: TechEvent[]
+declare const events: TechEvent[];
 
-filterByKind(eventList, "conference");
-filterByKind(eventList, "webinar");
-filterByKind(eventList, "meetup");
-
-//
-// "concert" is not part of EventKind
-//
-filterByKind(eventList, "concert");
+filterByKind(events, "conference");
+filterByKind(events, "webinar");
+filterByKind(events, "meetup");
+filterByKind(events, "hackaton");
 
