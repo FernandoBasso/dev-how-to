@@ -1,4 +1,4 @@
-export const NAME = "e15 event teaser";
+export const NAME = "e13 event tracking";
 
 const log: Console["log"] = console.log.bind(console);
 
@@ -79,41 +79,28 @@ function isUserEventListCategory(
 // <1> We turned this function into a proper type guard.
 //
 
-function getEventTeaser(event: TechEvent): string | never {
-  switch(event.kind) {
-    case "conference":
-      return `${event.title} (Conference), ` +
-        `priced at ${event.price} USD`;
-    case "meetup":
-      return `${event.title} (Meetup), ` +
-       `hosted at ${event.location}`
-    // case "webinar":
-    //   return `${event.title} (Webinar), ` +
-    //   `available online at ${event.url}`
-    // case "hackathon":
-    //   return `${event.title} (Hackathon)`
-    default:
-      //
-      // 👀👀👀👀👀👀👀👀👀👀👀
-      // 👀 THIS IS IMPORTANT 👀
-      // 👀👀👀👀👀👀👀👀👀👀👀
-      //
-      // If we handle all cases, ‘event’ is ‘never’.
-      // If we comment one or two of the above cases,
-      // ‘event’ is one of the above.
-      //
-      event // webinar | hackaton.
-      throw new Error("Not sure what to do with that!")
+//
+// ‘category’ is a simple string now.
+//
+function filterUserEvent(
+  list: UserEvents,
+  category: string,
+  filterKind?: EventKind
+) {
+  if (isUserEventListCategory(list, category)) {
+    const filteredList = list[category];
+
+    if (filterKind) {
+      return filteredList.filter((event) => event.kind === filterKind);
+    }
+
+    return filteredList;
   }
+
+  return list;
 }
 
-
-declare var tev: TechEvent;
-var result = getEventTeaser(tev);
 //
-// NOTE that result is ‘string’, and not
-// ‘string | never’. We will never have result be
-// assigned anything if we throw an exception at the
-// default case for the switch.
+// This is correct regarding runtime checks, but the type
+// checker is unhappy.
 //
-
