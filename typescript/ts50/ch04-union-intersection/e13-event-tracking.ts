@@ -1,6 +1,10 @@
-export const NAME = "e12 event tracking";
+export const NAME = "e13 event tracking";
 
 const log: Console["log"] = console.log.bind(console);
+
+//
+// keyof
+//
 
 type Talk = {
   title: string;
@@ -61,14 +65,15 @@ type UserEvents = {
 // 2. ...we would also need to update this one (and
 // vice-versa).
 //
-type UserEventCategory =
-  "watching" | "rsvp" | "attended" | "signedout";
+// type UserEventCategory =
+//   "watching" | "rsvp" | "attended" | "signedout";
+//
 
 function filterUserEvent(
   userEventList: UserEvents,
-  category: UserEventCategory,
+  category: keyof UserEvents, // 🚀 We do this instead! 🚀
   filterKind?: EventKind
-) {
+): TechEvent[] {
   const filteredList = userEventList[category];
 
   if (filterKind) {
@@ -78,3 +83,8 @@ function filterUserEvent(
   return filteredList;
 }
 
+//
+// Check this:
+//
+// • https://www.notion.so/devhowto/keyof-80fe169c2ecf437a9b40cea65ae4b1e9
+//
