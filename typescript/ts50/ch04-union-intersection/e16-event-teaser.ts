@@ -1,4 +1,4 @@
-export const NAME = "e13 event tracking";
+export const NAME = "e16 event tracking";
 
 const log: Console["log"] = console.log.bind(console);
 

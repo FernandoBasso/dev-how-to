@@ -61,10 +61,6 @@ type UserEvents = {
   signedout: TechEvent[];
 };
 
-//
-// This is checking for the existence of a certain category,
-// but it is not a full type guard/assertion yet.
-//
 function isUserEventListCategory(
   list: UserEvents,
   category: string,
@@ -75,13 +71,11 @@ function isUserEventListCategory(
   //
   return Object.keys(list).includes(category);
 }
-//
-// <1> We turned this function into a proper type guard.
-//
 
-//
-// ‘category’ is a simple string now.
-//
+function neverError(message: string, token: never): Error {
+  return new Error(`${message}. ${token} should not exist.`);
+}
+
 function filterUserEvent(
   list: UserEvents,
   category: string,
@@ -100,7 +94,33 @@ function filterUserEvent(
   return list;
 }
 
+function getEventTeaser(event: TechEvent): string {
+  switch(event.kind) {
+    case "conference":
+      return `${event.title} (Conference), ` +
+        `priced at ${event.price} USD`;
+    case "meetup":
+      return `${event.title} (Meetup), ` +
+        `hosted at ${event.location}`;
+    case "webinar":
+      return "${event.title} (Webinar), " +
+        `available online at ${event.url}`
+    default:
+      throw neverError(
+        "Not sure what to do with that",
+        event, // <1> ‘hackathon’ instead of ‘never’.
+      );
+  }
+}
 //
-// This is correct regarding runtime checks, but the type
-// checker is unhappy.
+// ‘event’ should be ‘never’, but it is ‘hackathon’ because
+// the type checker verifies we have not handled it yet.
+//
+// By using the ‘neverError()’ function, we have to pass the
+// ‘event’, and that helps us catch potential failures in
+// handling all the case possibilities.
+//
+// Using ‘never’ with a function like ‘neverError()’ is a good
+// means to safeguard against situations that could occur, but
+// shouldn't.
 //
