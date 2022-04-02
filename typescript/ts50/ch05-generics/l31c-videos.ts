@@ -1,4 +1,4 @@
-export const NAME = "l30c Index Types";
+export const NAME = "l31c Related Type Operators";
 
 const log: Console["log"] = console.log.bind(console);
 
@@ -38,25 +38,34 @@ type Groups = {
   [key in PossibleKeys]: unknown;
 };
 
-type URLList = {
+type URLObject = {
   [key in string]: URL;
 };
 
-//
-// ‘extends’ indicates a constraint here. It means ‘Formats’
-// must contain keys whose values are of the type ‘URL’.
-//
-declare function loadFile<Formats extends URLList>(
+type Loaded<Key> = {
+  format: Key,
+  loaded: boolean,
+};
+
+async function loadFile<
+  Formats extends URLObject,
+  Key extends keyof Formats,
+>(
   fileFormats: Formats,
-  format: string,
-): void;
+  format: Key,
+): Promise<Loaded<Key>> {
+  const data = await fetch(fileFormats[format].href);
 
-//
-// ‘videos’ is an object with the certain string keys whose
-// type is ‘URL’. That is OK.
-//
-// "foo", however, is not one of the possible formats, but
-// no red squiggles. Let's fix that next.
-//
-loadFile(videos, "foo");
+  return {
+    format,
+    loaded: data.status === 200,
+  };
+};
 
+const r1 = await loadFile(videos, "format720p");
+const r2 = await loadFile(videos, "format1080p");
+
+var foo: Loaded<"hey"> = {
+  loaded: !!1,
+  format: "Hey",
+};
