@@ -51,3 +51,12 @@ declare function loadFile<Formats extends URLList>(
   format: string,
 ): void;
 
+//
+// ‘videos’ is an object with the certain string keys whose
+// type is ‘URL’. That is OK.
+//
+// "foo", however, is not one of the possible formats, but
+// no red squiggles. Let's fix that next.
+//
+loadFile(videos, "foo");
+
