@@ -1,4 +1,4 @@
-export const NAME = "e02 tech events";
+export const NAME = "l32b Modeling Data - Intersection Types";
 
 const log: Console["log"] = console.log.bind(console);
 
@@ -51,9 +51,10 @@ type Meetup = TechEventBase & {
 type Webinar = TechEventBase & {
   url: string;
   price?: string;
-  talks: Talk; // Why plural in the book?
+  talks: Talk;
 };
 
 //
-// Note how many properties are repeated.
+// ‘T1 & T2’ creates a type containing keys from both
+// ‘T1’ and ‘T2’.
 //

@@ -1,4 +1,4 @@
-export const NAME = "e01 tech events";
+export const NAME = "l22a Modeling Data";
 
 const log: Console["log"] = console.log.bind(console);
 
@@ -49,9 +49,14 @@ type Webinar = {
   kind: string;
   url: string;
   price?: string;
-  talks: Talk; // Why plural in the book?
+  talks: Talk; // <1>
 };
 
 //
 // Note how many properties are repeated.
+//
+
+//
+// Why plural in the book? Why ‘talks’ if the type is
+// not ‘Talk[]’, but simply ‘Talk’?
 //
