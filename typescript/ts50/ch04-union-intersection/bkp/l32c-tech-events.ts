@@ -1,4 +1,4 @@
-export const NAME = "e03 tech events";
+export const NAME = "l32c Modeling Data";
 
 const log: Console["log"] = console.log.bind(console);
 
@@ -24,41 +24,30 @@ type TechEventBase = {
   kind: string;
 }
 
-//
-// Let's use intersection types to combine the base
-// type with the few other properties that change
-// from type to type of event.
-//
-
 type Conference = TechEventBase & {
   location: string;
   price: number;
   talks: Talk[];
 };
 
-//
-// Pretty much the same as ‘Conference’, except that ‘price’ is
-// a string ("free") instead of a number.
-//
 type Meetup = TechEventBase & {
   location: string;
   price: string;
   talks: Talk[];
 };
 
-//
-// ‘Webinar’ has only one talk, and a URL instead of a
-// physical location. ‘price’ is optional.
-//
 type Webinar = TechEventBase & {
   url: string;
   price?: string;
-  talks: Talk; // Why plural in the book?
+  talks: Talk;
 };
 
 type TechEvent = Conference | Meetup | Webinar;
 
-
+//
+// There is type narrowing going on here. Our conditions act like
+// type guards to narrow down types.
+//
 function printEvent(event: TechEvent) {
   if (event.price) {
     //
@@ -68,26 +57,27 @@ function printEvent(event: TechEvent) {
       //
       // We know that price is a number
       //
-      console.log('Price in EUR: ', event.price)
+      log('Price in EUR: ', event.price);
     } else {
       //
       // We know that price is a string, so the
       // event is free!
       //
-      console.log('It is free!')
+      log('It is free!');
     }
   }
   if (Array.isArray(event.talks)) {
     //
-    // talks is an array
+    // Talks is an array. The type guard guarantees that.
     //
     event.talks.forEach(talk => {
-      console.log(talk.title)
+      log(talk.title);
     })
   } else {
     //
-    // It's just a single talk
+    // It's just a single talk. If not an array, then
+    // it must be a single talk.
     //
-    console.log(event.talks.title)
+    log(event.talks.title);
   }
 }
