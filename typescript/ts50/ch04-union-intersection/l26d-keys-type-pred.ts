@@ -61,8 +61,8 @@ type UserEventCategory = keyof UserEvents;
 // Type predicates are a way to add more information to
 // control flow analysis.
 //
-// What makes the type predicte work is the ‘is some type’ in
-// the return type annotation.
+// What makes the type predicate work is the ‘is some type’
+// in the return type annotation.
 //
 // Note that ‘category’ parameter is still ‘string’.
 //
