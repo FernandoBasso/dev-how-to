@@ -52,9 +52,6 @@ function neverError(
   return new Error(`${message}. ${token} should not exist`);
 }
 
-/**
-  *
- */
 function getEventTeaser(event: TechEvent): string | never {
   switch (event.kind) {
     case "conference":
