@@ -48,6 +48,16 @@ commit_types=(
   # For general TypeScript stuff.
   #
   typescript
+
+  ##
+  # For general PureScript stuff.
+  #
+  # For Functional Programming Made Easier book, use the prefix
+  # ‘purs’ with the type 'FPME', e.g.:
+  #
+  #   $ git commit -m 'purs(FPME): Add hello world example'
+  #
+  purescript
 )
 
 ##
