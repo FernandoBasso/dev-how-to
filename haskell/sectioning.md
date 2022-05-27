@@ -9,8 +9,6 @@ When using sectioning with commutative functions, the side in which the operator
 5
 ```
 
-
-
 But when the function is not commutative, like `(^)`, then it does change the results.
 
 ```ghci
@@ -29,7 +27,4 @@ But when the function is not commutative, like `(^)`, then it does change the re
 2.0
 ```
 
-
-
 ## Subtraction vs Negation
-

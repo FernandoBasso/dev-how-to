@@ -2,10 +2,6 @@
 description: Tips and examples on Gnome Terminal
 ---
 
-
-
-
-
 ## Set Title
 
 Since gnome-terminal 3.14, it is no longer possible to set the tittle using the UI. It has to be done from the command line using a escape sequence.
@@ -27,6 +23,3 @@ Works if bash is running in sh/posix mode:
 ```shell-session
 printf "\e]2;λ Always Be Awesome! λ\a"
 ```
-
-
-

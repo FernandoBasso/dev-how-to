@@ -133,7 +133,9 @@ NOTE: It doesn't make any difference if the trailing slash is used on the destin
 
 If you have "$dryrun" on the command, the empty string "" causes rsync to copy everything and ignore any filters you have, it seems.
 
-rsync "$dryrun" --archive --relative .mozilla/ .config/ .ssh/ .gnupg/ /path/to/backup/
+
+
+
 
 
 Example _without_ trailing slash on source directory

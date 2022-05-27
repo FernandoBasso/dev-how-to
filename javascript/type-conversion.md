@@ -141,8 +141,6 @@ Remember: `false` becomes 0, `true` becomes 1.
 0.25
 ```
 
-
-
 ## Plus operator “+”
 
 The `+` operator is overloaded to do both addition of numbers and concatenation of strings. If both operands are numbers, it adds the values. If both are strings, it concatenates them. If one operand is a string and the other is a number, it first converts the number to a string and then concatenates the strings.
@@ -183,8 +181,6 @@ Note that when handling a numeric string and a number, or even only numeric stri
 2
 ```
 
-
-
 ## Conversion, Coercion, Casting
 
 **Cast** implies an _explicit_ type conversion. **Coercion** implies an _implicit_ type conversion.
@@ -213,8 +209,6 @@ Examples of casting (explicit):
 -5
 ```
 
-
-
 ## Links and Resources
 
 - [Type Conversion -- MDN](https://developer.mozilla.org/en-US/docs/Glossary/Type_conversion)
@@ -224,41 +218,5 @@ Examples of casting (explicit):
 - [Type conversion -- Wikipedia](https://en.wikipedia.org/wiki/Type_conversion)
 - [Cast vs Coercion -- Stackoverflow](https://stackoverflow.com/questions/8857763/what-is-the-difference-between-casting-and-coercing)
 - [undefined -- MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## The End
