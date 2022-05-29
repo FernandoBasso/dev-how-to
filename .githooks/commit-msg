@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ##
-# Go to the root directory of this repository and run this command:
+# Check README.md, and don't forget to run:
 #
 #   $ git config --local core.hooksPath .githooks
 ##
@@ -12,52 +12,62 @@
 # Update manually when a new type needs to be added.
 #
 commit_types=(
-  ##
-  # Type for cleaning up stuff, updating dependencies, etc.
-  #
-  chore
+	##
+	# Type for cleaning up stuff, updating dependencies, etc.
+	#
+	chore
 
-  ##
-  # Commits for stuff related to the awesome Emacs editor.
-  #
-  emacs
+	##
+	# Configs to the repository.
+	#
+	config
 
-  ##
-  # Commits for stuff related to the awesome Vim editor.
-  #
-  vim
+	##
+	# For updating docs like README or LICENSE, etc.
+	#
+	docs
 
-  ##
-  # Any thing related to command line, bash, sh,
-  # zsh, and a combination of them.
-  #
-  cmdline
+	##
+	# Commits for stuff related to the awesome Emacs editor.
+	#
+	emacs
 
-  ##
-  # Commits for stuff related to the awesome Emacs editor.
-  #
-  emacs
+	##
+	# Commits for stuff related to the awesome Vim editor.
+	#
+	vim
 
-  ##
-  # Notes from the book TypeScript in 50 Lessons
-  # by Stefan Baumgartner.
-  #
-  ts50
+	##
+	# Any thing related to command line, bash, sh,
+	# zsh, and a combination of them.
+	#
+	cmdline
 
-  ##
-  # For general TypeScript stuff.
-  #
-  typescript
+	##
+	# Commits for stuff related to the awesome Emacs editor.
+	#
+	emacs
 
-  ##
-  # For general PureScript stuff.
-  #
-  # For Functional Programming Made Easier book, use the prefix
-  # ‘purs’ with the type 'FPME', e.g.:
-  #
-  #   $ git commit -m 'purs(FPME): Add hello world example'
-  #
-  purescript
+	##
+	# Notes from the book TypeScript in 50 Lessons
+	# by Stefan Baumgartner.
+	#
+	ts50
+
+	##
+	# For general TypeScript stuff.
+	#
+	ts
+
+	##
+	# For general PureScript stuff.
+	#
+	# For Functional Programming Made Easier book, use the prefix
+	# ‘purs’ with the type 'FPME', e.g.:
+	#
+	#   $ git commit -m 'purs(FPME): Add hello world example'
+	#
+	purs
 )
 
 ##
@@ -77,17 +87,17 @@ subject="$(sed --silent 1p < "$commit_editmsg_file")"
 #
 for t in "${commit_types[@]}"
 do
-  ##
-  # This grep regex matches a commit type with or without a scope:
-  #
-  # • bash: msg here
-  # • bash(heredocs): msg here
-  # • bash(heredocs, redrects): msg here
-  #
-  if printf %s "$subject" | grep --silent "^${t}\(([^)]\+)\)\?: "
-  then
-    exit 0
-  fi
+	##
+	# This grep regex matches a commit type with or without a scope:
+	#
+	# • bash: msg here
+	# • bash(heredocs): msg here
+	# • bash(heredocs, redirects): msg here
+	#
+	if printf %s "$subject" | grep --silent "^${t}\(([^)]\+)\)\?: "
+	then
+		exit 0
+	fi
 done
 
 #
@@ -108,5 +118,5 @@ printf '  • %s\n' "${commit_types[@]}"
 exit 1
 
 #
-# vim: set tw=72:
+# vim: set tw=72 noexpandtab shiftwidth=2 tabstop=2:
 #
