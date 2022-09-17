@@ -13,3 +13,17 @@
 
 This is where I store solutions and notes for JavaScript algorithms and data structures.
 
+include::./02-big-O-notation/02-big-O-notation.adoc[]
+
+++++
+<style>
+/**
+ * tok-c1: single-line comments.
+ * tok-cm: multiline comments.
+ */
+pre.highlight .tok-c1,
+pre.highlight .tok-cm {
+  font-style: normal;
+}
+</style>
+++++
