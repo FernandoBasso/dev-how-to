@@ -13,12 +13,12 @@ const CHAR_CODE_0 = "0".charCodeAt(0); // 48
 const CHAR_CODE_9 = "9".charCodeAt(0); // 57
 
 /**
- * Verifies if a character is a letter or digit.
+ * Checks whether a character is a letter or digit.
  *
- * @param {string} chr A 1 character string.
- * @return {boolean}
+ * @param chr A 1 character string to check for alphanumericness.
+ * @return {boolean} `true` if `chr` is alphanumeric; `false` otherwise.
  */
-function isAlphaNum(chr) {
+function isAlphaNum(chr: string): boolean {
   const code = chr.charCodeAt(0);
 
   return (code >= CHAR_CODE_a && code <= CHAR_CODE_z) ||

@@ -1,5 +1,5 @@
 import { assertEquals } from "/deps.ts";
-import { countAlphaNum } from "./countAlphaNum-v1.ts";
+import { countAlphaNum } from "./countAlphaNum-v2.ts";
 
 Deno.test("countAlphaNum()", async (t) => {
   await t.step("should return an empty object for empty string input", () => {

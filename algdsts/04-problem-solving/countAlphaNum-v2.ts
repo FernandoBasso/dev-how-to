@@ -1,10 +1,10 @@
 /**
- * Solution by Colt Steele.
+ * Solution by Colt Steele. I just added the types.
  */
-function countAlphaNum(str) {
+function countAlphaNum(str: string): Record<string, number> {
   if (str.length === 0) return {};
 
-  let freq = {};
+  const freq: Record<string, number> = {};
 
   for (let chr of str) {
     chr = chr.toLowerCase();
