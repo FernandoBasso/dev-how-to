@@ -68,6 +68,13 @@ commit_types=(
 	#   $ git commit -m 'purs(FPME): Add hello world example'
 	#
 	purs
+
+	##
+	# Notes for the course JavaScript Algorithms and Data Structures
+	# Masterclass by Colt Stele on Udemy with my own notes, solutions,
+	# ideas and further content.
+	#
+	jsalgds
 )
 
 ##
