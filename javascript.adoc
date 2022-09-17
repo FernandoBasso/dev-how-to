@@ -1,0 +1,31 @@
+= JavaScript
+
+== hasOwnProperty()
+
+[source,js]
+----
+if (obj.hasOwnProperty(key))
+  obj[key] += 1;
+else
+  obj[key] = 1;
+----
+
+If `obj` has a `null` prototype, that condition with throw an exception like “Uncaught TypeError: obj.hasOwnProperty is not a function”.
+
+We can write it as of of these:
+
+[source,js]
+----
+if (Object.prototype.hasOwnProperty.call(obj, key))
+----
+
+Or
+
+[source,js]
+----
+if (key in obj)
+----
+
+=== References
+
+https://lint.deno.land/?q=no-prototype-builtins#no-prototype-builtins

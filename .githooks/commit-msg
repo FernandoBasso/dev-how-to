@@ -72,9 +72,9 @@ commit_types=(
 	##
 	# Notes for the course JavaScript Algorithms and Data Structures
 	# Masterclass by Colt Stele on Udemy with my own notes, solutions,
-	# ideas and further content.
+	# ideas and further content. Except I write in TypeScript.
 	#
-	jsalgds
+	algdsts
 )
 
 ##

@@ -14,6 +14,7 @@
 This is where I store solutions and notes for JavaScript algorithms and data structures.
 
 include::./02-big-O-notation/02-big-O-notation.adoc[]
+include::./04-problem-solving/04-problem-solving.adoc[]
 
 ++++
 <style>

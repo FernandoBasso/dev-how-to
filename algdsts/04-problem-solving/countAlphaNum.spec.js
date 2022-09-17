@@ -1,4 +1,12 @@
-import { countAlphaNum } from './countAlphaNum-v3';
+import { assertEquals } from "/deps.ts";
+import { countAlphaNum } from './countAlphaNum-v1.ts';
+
+Deno.test("countAlphaNum()", async (t) => {
+  await t.step("should return an empty object if input is empty string", () => {
+    assertEquals(countAlphaNum(""), {});
+    assertEquals(countAlphaNum(new String("")), {});
+  });
+});
 
 describe("countAlphaNum()", () => {
   it("should return an empty object if input is empty string", () => {

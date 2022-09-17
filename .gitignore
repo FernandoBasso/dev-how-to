@@ -34,3 +34,8 @@ pygments-default.css
 # It feels limited, dumb, non-customizable and slow.
 #
 .DS_Store
+
+##
+# Damn node_modules everywhere...
+#
+node_modules
