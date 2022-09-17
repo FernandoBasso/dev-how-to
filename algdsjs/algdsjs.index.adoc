@@ -1,4 +1,4 @@
-= Command Line
+= Algorithms and Data Structures in JavaScript
 :linkcss!:
 :webfonts!:
 :icons!: font
@@ -10,12 +10,4 @@
 :toclevels: 6
 :toc: left
 :favicon: ./cmdline.png
-
-include::command-line/intro.adoc[]
-
-include::command-line/man-info-help.adoc[]
-
-include::command-line/links-resources.adoc[]
-
-include::asciidoctor-styles-overrides.adoc[]
 
