@@ -9,22 +9,28 @@ We want to return an object containing only the count of the alphanumeric charac
 The input string may contain uppercase characters but we count uppercase and lowercase characters as being the same.
 E.g. “e” and “E” are to be considered the same.
 
+==== Unit Tests
 [source,js]
 ----
 include::./countAlphaNum.test.ts[]
 ----
+
+==== v1, reduce, regex
 
 [source,js]
 ----
 include::./countAlphaNum-v1.ts[]
 ----
 
-[source,js]
-----
-include::./countAlphaNum-v2.js[]
-----
+==== v2, regex, for ... of loop
 
 [source,js]
 ----
-include::./countAlphaNum-v3.js[]
+include::./countAlphaNum-v2.ts[]
+----
+
+==== v3, isAlphaNum() helper with for ... of loop
+[source,js]
+----
+include::./countAlphaNum-v3.ts[]
 ----

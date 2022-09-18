@@ -7,8 +7,8 @@
  * chars we count (alphanumeric), so, the produced accumulator object
  * never gets larger than that. We can consider it constant space.
  *
- * @param str The string to count the chars from.
- * @returns A map-like object with the char counts.
+ * @param str The string to count the frequencies from.
+ * @returns A map-like object with the char frequencies.
  */
 function countAlphaNum(str: string): Record<string, number> {
   if (str.length === 0) return {};

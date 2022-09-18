@@ -1,8 +1,8 @@
 ////////////////////////////////////////////////////////////////////////
-// My solution based on K&R C book which mentions numerical values for
-// characters. Unlike in C, chars (strings of one char) do not
+// This solution based on K&R C book which mentions numerical values
+// for characters. Unlike in C, chars (strings of one char) do not
 // automatically get an integer representation, so, we use
-// `charCodeAt()` to help us out.
+// `charCodeAt()` to get the integer value of the character.
 //
 
 const CHAR_CODE_a = "a".charCodeAt(0); // 97
@@ -15,7 +15,7 @@ const CHAR_CODE_9 = "9".charCodeAt(0); // 57
 /**
  * Checks whether a character is a letter or digit.
  *
- * @param chr A 1 character string to check for alphanumericness.
+ * @param chr A 1 character string.
  * @return {boolean} `true` if `chr` is alphanumeric; `false` otherwise.
  */
 function isAlphaNum(chr: string): boolean {
@@ -27,7 +27,7 @@ function isAlphaNum(chr: string): boolean {
 }
 
 /**
- * Count the number of alphanumeric characters in the input string.
+ * Count the frequencies of alphanumeric characters in the input string.
  *
  * **TIME COMPLEXITY**: `O(n)`. We iterate over every element in `str`.
  *
@@ -35,18 +35,18 @@ function isAlphaNum(chr: string): boolean {
  * chars we count (alphanumeric), so, the produced accumulator object
  * never gets larger than that. We can consider it constant space.
  *
- * @param {string}
- * @return {object}
+ * @param str The string to count the frequencies from.
+ * @returns A map-like object with the char frequencies.
  */
-function countAlphaNum(str) {
+function countAlphaNum(str: string): Record<string, number> {
   if (str.length === 0) return {};
 
-  let freq = {};
+  const freq: Record<string,number> = {};
 
-  for (let chr of str) {
-    if (isAlphaNum(chr)) {
-      const k = chr.toLowerCase();
-      freq[k] = ++freq[k] || 1;
+  for (const c of str) {
+    if (isAlphaNum(c)) {
+      const chr = c.toLowerCase();
+      freq[chr] = ++freq[chr] || 1;
     }
   }
 
