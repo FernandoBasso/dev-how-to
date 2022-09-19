@@ -1,7 +1,5 @@
 {
   "deno.enable": true,
-  "deno.importMap": "./import-map.json",
-  "deno.lint": true,
-  "vim.textwidth": 72,
   "editor.rulers": [72, 80],
+  "vim.textwidth": 72,
 }

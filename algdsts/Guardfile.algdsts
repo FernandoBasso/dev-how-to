@@ -6,7 +6,7 @@ require 'awesome_print'
 file = 'algdsjs.index.adoc'
 
 guard 'shell' do
-  watch(/(\.adoc$)/) { |m|
+  watch(/\.(adoc|ts)$/) { |m|
     puts '-' * 80
     ap m
     puts '-' * 80
