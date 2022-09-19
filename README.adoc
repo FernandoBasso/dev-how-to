@@ -1,4 +1,8 @@
 = Programming How To
+:toc: left
+:sectlinks:
+:sectnums:
+:toclevels: 6
 
 == Intro
 
