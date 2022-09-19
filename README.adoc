@@ -66,6 +66,7 @@ One idea is to create a script that collects all “tags” I have used so far i
 Here's the script:
 
 [source,shell-session]
+----
 $ git log --format='%s' \
     | grep '^[a-z]\+:' \
     | sed 's/:.\+//' \
