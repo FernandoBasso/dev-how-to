@@ -56,6 +56,7 @@ vim(fzf): Add fzf text search key binding
 Make sure you properly set the githooks path:
 
 [source,shell-session]
+----
 $ git config --local core.hooksPath .githooks
 ----
 
