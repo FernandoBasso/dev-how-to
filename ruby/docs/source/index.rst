@@ -24,12 +24,3 @@ See here fore the `Code on Gitlab`_.
    symbols.rst
 
    :caption: Contents:
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

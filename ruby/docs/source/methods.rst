@@ -230,12 +230,15 @@ except the last one, and ``last`` binds to the last argument::
 ruby method return gotchas
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Produces the warning “unused literal ignored”. Returns ‘Hello.’ and the string above it is not even used.::
+Produces the warning “unused literal ignored”.
+Returns ‘Hello.’ and the string above it is not even used.
 
-    def greet
-      'This is useless...' # <1>
-      'Hello.' # <2>
-    end
+----
+def greet
+  'This is useless...' # <1>
+  'Hello.' # <2>
+end
+----
 
 Same with this, which uses a heredocument (heredocs are strings)::
 

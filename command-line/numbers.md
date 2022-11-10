@@ -2,8 +2,6 @@
 
 Some tips on how to deal with numbers in the command line.
 
-
-
 ## Print Numbers from N to M
 
 Using Bash loop:
@@ -28,7 +26,7 @@ done
 ```
 
 ```shell-session
-$ bash script.sh 
+$ bash script.sh
 123456789
 ```
 
@@ -101,7 +99,7 @@ done
 ```
 
 ```shell-session
-$ bash script.sh 
+$ bash script.sh
 1 3 5 7 9
 ```
 

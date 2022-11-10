@@ -1,7 +1,6 @@
 = Factorial
 :linkcss!:
 :stylesheet: asciidoctor-original-with-overrides.css
-:stylesdir: {user-home}/Projects/proghowto
 :webfonts!:
 :icons!: font
 :source-highlighter: pygments
