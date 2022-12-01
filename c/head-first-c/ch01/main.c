@@ -26,10 +26,6 @@ int main ()
 
   go_south_east (latitude, longitude);
 
-  fprintf (stdout,
-           "Avast! Now at: ["%i, %i\n"
-           latitude, longitude);
-
   return 0;
 }
 

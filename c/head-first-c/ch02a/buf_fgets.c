@@ -13,9 +13,8 @@ int main ()
 }
 
 /*
- * ‘fgets’ ignore any further input beyond the limit imposed
- * by the limit/size param. But it can read onto only one
- * pointer at a time.
+ * ‘fgets’ ignore any further input beyond the limit imposed by the
+ * limit/size param. But it can read onto only one pointer at a time.
  *
  *   man 3 fgets
  */

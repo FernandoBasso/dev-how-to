@@ -25,7 +25,6 @@ int main () {
     val = atoi (card_name);
   }
 
-
   if (3 <= val && val <= 6) {
     puts ("Count has gone up.");
   }
