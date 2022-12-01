@@ -34,6 +34,3 @@ int main ()
 // And use ‘const char *cards’ to have the compiler abort with
 // an error so you can catch the mistake.
 //
-
-/* vim: set syn=off ft=text ai: */
-

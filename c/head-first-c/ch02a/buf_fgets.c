@@ -19,5 +19,3 @@ int main ()
  *   man 3 fgets
  */
 
-/* vim: set syn=off ft=text ai: */
-

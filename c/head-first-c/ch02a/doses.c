@@ -19,5 +19,3 @@ int main ()
 //   *(3 + doses)
 //
 
-/* vim: set syn=off ft=text ai: */
-

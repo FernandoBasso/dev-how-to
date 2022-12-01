@@ -14,6 +14,3 @@ int main ()
   return 0;
 }
 
-/* vim: set syn=off ft=text ai: */
-
-
