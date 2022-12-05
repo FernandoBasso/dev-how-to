@@ -25,21 +25,17 @@ int main ()
   short longitude =   0;
 
   //
-  // We are passing only a copy of the values. So, when
-  // the function changes the values of the copies, the
-  // original values remain the same.
+  // We are passing a copy of the values (not a reference to their
+  // addresses). So, when the function changes the values of the copies,
+  // the original values in main() remain untouched.
   //
   go_south_east (latitude, longitude);
 
   fprintf (stdout,
            "Avast! Now at: [%i, %i]\n",
-           latitude, longitude);
+           latitude,
+           longitude);
 
   return 0;
 }
-
-
-
-
-/* vim: set syntax=off filetype=text autoindent: */
 
