@@ -1,0 +1,4 @@
+= React Things
+
+Debugging React re-renders, momos, hooks, etc.
+
