@@ -2,11 +2,29 @@ import { useState } from 'react';
 
 var log = console.log.bind(console);
 
+//
+// When state changes, component re-renders, and all its children,
+// even if their props DO NOT change.
+//
+// It is not only prop changes that cause re-renders.
+//
+
 var cntChild = 0;
+
+var cntSubChild = 0;
+
+//
+// If any ancestor parent re-renders, the deeply nested child
+// components re-render too!
+//
+function SubChild() {
+  log('<SubChild />', ++cntSubChild);
+  return <div />;
+}
 
 //
 // Not receiving any props, but when the parent <App />
-// state changes, <Child /> will re-render too!
+// state changes, <Child /> will re-render too! And also
 //
 function Child() {
   const [cnt, setCnt] = useState(0);
@@ -18,6 +36,8 @@ function Child() {
       <button onClick={() => setCnt(n => 1 + n)}>
         Child click!
       </button>
+
+      <SubChild />
     </div>
   );
 }
