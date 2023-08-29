@@ -19,9 +19,10 @@
 
 == Introduction to Bash Arrays
 
-=== Create And Use An Array
+=== Create and Use An Array
 
-Create an array of numbers. Use `()`, and, unlike in many other languages, separate elements with spaces, not commas:
+Create an array of numbers.
+Use `()`, and, unlike in many other languages, separate elements with spaces, not commas:
 
 [source,shell-session]
 ----
@@ -64,12 +65,18 @@ $ echo "${nums[@]}"
 
 `man bash` (link:https://www.gnu.org/software/bash/manual/bash.html#Arrays[man bash on arrays^]):
 
-[quote, man bash]
-Any element of an array may be referenced using ${name[subscript]}. If the subscript is `@' or `{asterisk}', the word expands to all members of the array name. These subscripts differ only when the word appears within double quotes. If the word is double-quoted, ${name[*]} expands to a single word with the value of each array member separated by the first character of the IFS variable, and ${name[@]} expands each element of name to a separate word.
+[quote, attribution, cite title]
+____
+Any element of an array may be referenced using `${name[subscript]}``.
+If the subscript is `@` or `{asterisk}`, the word expands to all members of the array name.
+These subscripts differ only when the word appears within double quotes.
+If the word is double-quoted, `${name[*]}`` expands to a single word with the value of each array member separated by the first character of the `IFS` variable, and `${name[@]}` expands each element of name to a separate word.
+____
 
-By default the value of `IFS` is ‘`{nbsp}\t\n`’, that is, a space, a tab, and a newline. Let’s apply what we just discussed to convert an array to a string.
+By default the value of `IFS` is ‘`{nbsp}\t\n`’, that is, a space, a tab, and a newline.
+Let’s apply what we just discussed to convert an array to a string.
 
-First, create an array with four letters, then, to see the difference between `[*]` and `[@]`, let’s use `printf '%s\n'`, since the specifier `%s` is reused as necessary to consume all given parameters:
+First, create an array with four letters, then, to see the difference between `[*]` and `[@]`, let’s use `printf '%s\n'`, since the specifier `%s` is reused as necessary to consume all given arguments:
 
 [source,shell-session]
 ----

@@ -15,7 +15,7 @@
 
 * copy output of command
 
-** How Do I Copy The Output ofi an M-x `command'
+** How Do I Copy The Output of an M-x `command'
 
 Just copy it from the “*Messages*” buffer. Example:
 
