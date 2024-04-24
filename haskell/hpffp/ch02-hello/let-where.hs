@@ -1,5 +1,3 @@
-
-
 f n = print plus2
   where plus2 = (+) n 2
 
@@ -18,14 +16,18 @@ let3 = let x = 5
            y = 6
        in x * y
 
+----
 -- ‘y’ is a throw-away value. It is not used.
+--
 let4 = let x = 3
            y = 1000
        in x + 3
 
 
 
+----
 -- let x = 3; y = 1000 in x * 3 + y
+--
 where1 = result
   where
     x      = 3
@@ -33,7 +35,9 @@ where1 = result
     result = x * 3 + y
 
 
+----
 -- let y = 10; x = 10 * 5 + y in x * 5
+--
 where2 = result
   where
     y      = 10

@@ -1,48 +1,47 @@
 # Hello Haskell, chapter 02
 
-
 <!-- vim-markdown-toc GitLab -->
 
-* [Exercises: Comprehension Check](#exercises-comprehension-check)
-  * [01, playing with exprs](#01-playing-with-exprs)
-  * [02 writing a function](#02-writing-a-function)
-  * [03 function using `pi'](#03-function-using-pi)
-* [Exercises: Parentheses and Association](#exercises-parentheses-and-association)
-  * [01 add, multiply](#01-add-multiply)
-  * [02 perimeter, multiply and add](#02-perimeter-multiply-and-add)
-  * [03 divide and add](#03-divide-and-add)
-* [Exercises: Heal the Sick](#exercises-heal-the-sick)
-  * [01 area space after dot](#01-area-space-after-dot)
-  * [02 unbound variable, unused variable](#02-unbound-variable-unused-variable)
-  * [03 indentation mishap](#03-indentation-mishap)
-* [Exercises: A Head Code](#exercises-a-head-code)
-  * [let expressions](#let-expressions)
-    * [01 let](#01-let)
-    * [02 let](#02-let)
-    * [03 let](#03-let)
-    * [04 let](#04-let)
-  * [Rewrite to where](#rewrite-to-where)
-    * [01 where](#01-where)
-    * [02 where](#02-where)
-    * [03 where](#03-where)
-* [Chapter Exercises](#chapter-exercises)
-  * [Parenthesization](#parenthesization)
-    * [01](#01)
-    * [02](#02)
-    * [04](#04)
-  * [Equivalent expressions](#equivalent-expressions)
-    * [01](#01-1)
-    * [02](#02-1)
-    * [03](#03)
-    * [04](#04-1)
-    * [05](#05)
-  * [More fun with functions](#more-fun-with-functions)
-    * [01 waxOn](#01-waxon)
-    * [02, 03](#02-03)
-    * [04 let waxOn](#04-let-waxon)
-    * [05 waxOn and triple](#05-waxon-and-triple)
-    * [waxOff](#waxoff)
-* [The End](#the-end)
+- [Hello Haskell, chapter 02](#hello-haskell-chapter-02)
+  - [Exercises: Comprehension Check](#exercises-comprehension-check)
+    - [01, playing with exprs](#01-playing-with-exprs)
+    - [02 writing a function](#02-writing-a-function)
+    - [03 function using \`pi'](#03-function-using-pi)
+  - [Exercises: Parentheses and Association](#exercises-parentheses-and-association)
+    - [01 add, multiply](#01-add-multiply)
+    - [02 perimeter, multiply and add](#02-perimeter-multiply-and-add)
+    - [03 divide and add](#03-divide-and-add)
+  - [Exercises: Heal the Sick](#exercises-heal-the-sick)
+    - [01 area space after dot](#01-area-space-after-dot)
+    - [02 unbound variable, unused variable](#02-unbound-variable-unused-variable)
+    - [03 indentation mishap](#03-indentation-mishap)
+  - [Exercises: A Head Code](#exercises-a-head-code)
+    - [let expressions](#let-expressions)
+      - [01 let](#01-let)
+      - [02 let](#02-let)
+      - [03 let](#03-let)
+      - [04 let](#04-let)
+    - [Rewrite to where](#rewrite-to-where)
+      - [01 where](#01-where)
+      - [02 where](#02-where)
+      - [03 where](#03-where)
+  - [Chapter Exercises](#chapter-exercises)
+    - [Parenthesization](#parenthesization)
+      - [01](#anchor-01)
+      - [02](#anchor-02)
+      - [04](#anchor-04)
+    - [Equivalent expressions](#equivalent-expressions)
+      - [01](#anchor-01-1)
+      - [02](#anchor-02-1)
+      - [03](#anchor-03)
+      - [04](#anchor-04-1)
+      - [05](#anchor-05)
+    - [More fun with functions](#more-fun-with-functions)
+      - [01 waxOn](#01-waxon)
+      - [02, 03](#02-03)
+      - [04 let waxOn](#04-let-waxon)
+      - [05 waxOn and triple](#05-waxon-and-triple)
+      - [waxOff](#waxoff)
 
 <!-- vim-markdown-toc -->
 
@@ -60,8 +59,6 @@ Page 35.
 2.25
 ```
 
-
-
 ### 02 writing a function
 
 ```ghci
@@ -76,7 +73,9 @@ Page 35.
 50.24
 ```
 
-3.14 does not change. That value is hardcoded inside the function body. The value that is multiplied inside parentheses do change, so, we make it a parameter.
+3.14 does not change.
+That value is hardcoded inside the function body.
+The value that is multiplied inside parentheses do change, so, we make it a parameter.
 
 ### 03 function using `pi'
 
@@ -326,8 +325,3 @@ triple n = n * 3
 
 waxOf n = triple n
 ```
-
-
-
-## The End
-
