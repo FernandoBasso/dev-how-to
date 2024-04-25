@@ -1,0 +1,24 @@
+= Gradle Java/JVM build tool
+:toc: left
+
+== Installing gradle
+
+After installing link:./sdkman.adoc[sdkman], run something like this:
+
+[source,text]
+----
+$ sdk install gradle 8.7
+
+Downloading: gradle 8.7
+
+In progress...
+
+##################################### 100.0%
+##################################### 100.0%
+
+Installing: gradle 8.7
+Done installing!
+
+Setting gradle 8.7 as default.
+----
+
