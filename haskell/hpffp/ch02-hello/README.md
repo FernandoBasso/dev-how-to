@@ -1,7 +1,5 @@
 # Hello Haskell, chapter 02
 
-<!-- vim-markdown-toc GitLab -->
-
 - [Hello Haskell, chapter 02](#hello-haskell-chapter-02)
   - [Exercises: Comprehension Check](#exercises-comprehension-check)
     - [01, playing with exprs](#01-playing-with-exprs)
@@ -43,11 +41,8 @@
       - [05 waxOn and triple](#05-waxon-and-triple)
       - [waxOff](#waxoff)
 
-<!-- vim-markdown-toc -->
 
 ## Exercises: Comprehension Check
-
-Page 35.
 
 ### 01, playing with exprs
 
@@ -93,15 +88,18 @@ Page 39.
 
 ### 01 add, multiply
 
-a and b produce different results. Parentheses here does make a difference.
+`a` and `b` produce different results.
+Parentheses here does make a difference.
 
 ### 02 perimeter, multiply and add
 
-No change. Parenthesizing multiplication around an addition does not change anything. The multiplication would have been performed first anyway.
+No change.
+Parenthesizing multiplication around an addition does not change anything.
+The multiplication would have been performed first anyway.
 
 ### 03 divide and add
 
-Here, doing 2 + 9 before the division does change the result.
+Here, doing 2 + 9 before the division **does** change the result.
 
 ## Exercises: Heal the Sick
 
@@ -117,7 +115,8 @@ area x = 3.14 * (x * x)
 
 ### 02 unbound variable, unused variable
 
-The function bounds `x` but attempts to use `b`, which is not in scope. Fix: use `x` inside the body of the function:
+The function binds `x` but attempts to use `b`, which is not in scope.
+The fix is to use `x` inside the body of the function:
 
 ```haskell
 double x = x * 2
@@ -133,16 +132,6 @@ y = 10
 f = x + y
 ```
 
-
-
-
-
-https://www.quora.com/How-do-I-use-the-dollar-sign-separator-in-Haskell
-
-https://stackoverflow.com/questions/940382/what-is-the-difference-between-dot-and-dollar-sign
-
-
-
 ## Exercises: A Head Code
 
 Page 59.
@@ -151,19 +140,25 @@ Page 59.
 
 #### 01 let
 
-`let x = 5 in x` produces 5. The `in x` is like a return statement in this case. We bind 5 to `x` and “return” x.
+`let x = 5 in x` produces 5.
+The `in x` is like a return statement in this case.
+We bind $5$ to `x` and “return” x.
 
 #### 02 let
 
-Similar to the previous one. Produce `x * x`, which is 25.
+Similar to the previous one.
+`let x = 5 in x * x`.
+Bind `x` to $5$ then return `x * x` which is $25$.
 
 #### 03 let
 
-Produces 30. We use `let` to bind two values for `x` and `y`, and both are in scope for the `in` clause.
+Produces $30$.
+We use `let` to bind two values for `x` and `y`, and both are in scope for the `in` clause.
 
 #### 04 let
 
-Similar to the previous one. Just that the `in` clause ignores `y`, and the result is 6.
+Similar to the previous one.
+Just that the `in` clause ignores `y`, and the result is 6.
 
 ### Rewrite to where
 
