@@ -1,0 +1,26 @@
+=  JVM Java Virtual Machine
+:toc: left
+:icons: font
+
+== Install JDKs
+
+* https://sdkman.io/
+
+[source,text]
+----
+$ curl -s "https://get.sdkman.io" | bash
+
+All done!
+
+You are subscribed to the STABLE channel.
+
+Please open a new terminal, or run the following in the existing one:
+
+    source "/Users/fernando/.sdkman/bin/sdkman-init.sh"
+
+Then issue the following command:
+
+    sdk help
+
+Enjoy!!!
+----
