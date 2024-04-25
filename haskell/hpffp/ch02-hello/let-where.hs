@@ -1,3 +1,7 @@
+--
+-- tags: let where print
+--
+
 f n = print plus2
   where plus2 = (+) n 2
 
