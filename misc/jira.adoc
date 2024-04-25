@@ -1,0 +1,23 @@
+# Jira
+:toc: left
+:imagesdir: __assets
+
+== Copy ID + Title + Link
+
+=== Jira Copy Issue Title Browser Extension
+
+- https://addons.mozilla.org/en-US/firefox/addon/jira-copy-issue-title/
+
+Copies the ID + Title + URL.
+Allows for template to make it AsciiDoc or Markdown link.
+
+[source,text]
+----
+[<key>: <title>](<url>)
+----
+
+image::jira-copy-issue-title-browser-extension[Jira Copy Issue Title Browser Extension setup]
+
+=== Jira Snippet Browser Extension
+
+- https://github.com/daemonLibra/Jira-Snippet
