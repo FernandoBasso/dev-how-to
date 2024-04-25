@@ -10,5 +10,6 @@
     "tok",
     "unshift",
     "webfonts"
-  ]
+  ],
+  "asciidoc.antora.enableAntoraSupport": false
 }
