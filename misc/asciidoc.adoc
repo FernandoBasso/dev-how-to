@@ -1,15 +1,22 @@
 = AsciiDoc
+:toc: right
+:icons: font
+:experimental:
+:latexmath:
 
 == Introduction
 
 AsciiDoc is the best markup language which is simple as Markdown for the simple things, while also offering way more useful and advanced features if one needs them.
-
 
 == Preview
 
 One can preview AsciiDoc rendered document in many ways, including editors, browser extensions, or on Gitlab, Github, and probably other services as well.
 
 * link:https://addons.mozilla.org/en-US/firefox/addon/asciidoctorjs-live-preview/[Asciidoctor.js live preview addon for Firefox^].
+
+== Writing Best  Practices
+
+Do follow the link:https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[one sentence per line^] approach.
 
 == Convert AsciiDoc to Markdown
 
