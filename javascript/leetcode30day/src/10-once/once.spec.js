@@ -1,4 +1,4 @@
-import { once } from "./once_v3";
+import { once } from "./once_v4";
 
 describe("once()", () => {
   it("should call only once", () => {
@@ -13,7 +13,7 @@ describe("once()", () => {
     const add1 = n => n + 1;
     const incrementOnce = once(add1);
 
-    expect(incrementOnce(0)).toEqual(1);
+    expect(incrementOnce(3)).toEqual(4);
     expect(incrementOnce(0)).toBe(undefined);
     expect(incrementOnce(42)).toBe(undefined);
   });
