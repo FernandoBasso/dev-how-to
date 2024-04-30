@@ -4,11 +4,6 @@
 // Solution using old-school approach when rest and spread
 // were not yet part of the language.
 //
-// More examples, explanations and solutions on my Gitlab repo:
-//
-// https://gitlab.com/fernandobasso/dev-how-to/-/tree/devel/javascript/leetcode30day
-//
-//
 
 /**
  * Allows invoking `fn` only once. Returns undefined on subsequent calls
