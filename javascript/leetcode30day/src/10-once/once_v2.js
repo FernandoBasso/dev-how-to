@@ -1,5 +1,5 @@
 //
-// tags: leetcode 30dayjs javascript once spread
+// tags: leetcode 30dayjs javascript once apply
 //
 // Solution using Array.prototype.apply().
 //
@@ -26,8 +26,8 @@ function once(fn) {
 
     ++called;
 
-    return fn(...args);
-  }
+    return fn.apply(undefined, args);
+  };
 }
 
 export { once };
