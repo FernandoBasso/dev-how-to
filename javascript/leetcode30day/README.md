@@ -8,7 +8,7 @@ Check the full source code, **including unit tests** in the [Gitlab repository f
 
 ## Performance
 
-In general, using some new ECMAScript features will result in less performant results (both in terms of execution time and memory footprint).
+Sometimes using some new ECMAScript features will result in less performant results (both in terms of execution time and memory footprint).
 
 For example, using [...spread is orders of magnitude more computationally costly](../performance.md) than good old `Array.prototype.push()` to add elements an array, or copy an array.
 
@@ -19,13 +19,13 @@ Using helper functions, immutable data structures and the best coding practices 
 That is why some of the problems are implemented in a few different ways.
 Some approach to make it more performant, and some other approaches to use a more functional programming style, immutable data structures, or some other thing we might find fun and/or useful to explore.
 
-
+## LeetCode comment snippet
 
 Snippet to paste on top of every solution:
 
 ```text
 //
-// More examples, explanations and solutions on my Gitlab repo:
+// More explanations, examples and solutions on my Gitlab repo:
 //
 // https://gitlab.com/fernandobasso/dev-how-to/-/tree/devel/javascript/leetcode30day
 //
