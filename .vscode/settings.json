@@ -11,5 +11,7 @@
     "unshift",
     "webfonts"
   ],
-  "asciidoc.antora.enableAntoraSupport": false
+  "files.watcherExclude": {
+    "**/target": true
+  }
 }
