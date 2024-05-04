@@ -12,7 +12,7 @@ function memoize(fn) {
   const memo = {};
 
   return function memoizedFn(...args) {
-    const key = JSON.stringify(...args);
+    const key = JSON.stringify(args);
 
     if (key in memo)
       return memo[key];
@@ -33,4 +33,6 @@ export { memoize };
 //
 // We used a single line compute, assign and return, which
 // works just fine.
+//
+// Note we stringify args, not spreading it as ...args.
 //
