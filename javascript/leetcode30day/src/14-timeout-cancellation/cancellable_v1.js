@@ -1,4 +1,3 @@
-const log = console.log.bind(console);
 /**
  * @param {Function} fn
  * @param {unknown[]} args
@@ -6,9 +5,7 @@ const log = console.log.bind(console);
  * @returns {Function}
  */
 function cancellable(fn, args, millis) {
-  log({ millis });
   const timeoutId = setTimeout(function timedOut() {
-    log('before timeout');
     fn(...args);
   }, millis);
 
@@ -16,10 +13,5 @@ function cancellable(fn, args, millis) {
     clearTimeout(timeoutId);
   };
 }
-
-const cancelFn = cancellable(x => x * 2, [2], 40);
-
-setTimeout(cancelFn, 30);
-
 
 export { cancellable };
