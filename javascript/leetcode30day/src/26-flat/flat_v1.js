@@ -1,23 +1,27 @@
-const isArray = Array.isArray.bind(null);
 const log = console.log.bind(console);
 
-function flat(xs, n) {
-  let d = n;
+const isArray = Array.isArray.bind(null);
 
-  if (n === 0)
+function flat(xs, n) {
+  let d = 1;
+
+  if (n === 0 || !xs.length)
     return xs;
 
-  function go(ys) {
-    var acc = [];
-    ++d;
+  let acc = [];
 
+  function go(ys) {
     for (const y of ys) {
       if (isArray(y)) {
-        log("array:", y);
-        acc = acc.concat(y);
+        if (n >= d) {
+          ++d;
+          go(y);
+        }
+        else
+          // acc = acc.concat(y);
+        acc.push(y);
       }
       else {
-        log("primitive:", y);
         acc.push(y);
       }
     }
@@ -26,7 +30,6 @@ function flat(xs, n) {
   }
 
   const res = go(xs);
-  log({ res });
   return res;
 }
 
