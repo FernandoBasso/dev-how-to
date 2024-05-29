@@ -1,4 +1,5 @@
 // @ts-check
+
 /** @typedef { import ("./types.d").ShipStorage } ShipStorage */
 /** @typedef { import ("./types.d").StorageItem } StorageItem */
 
@@ -30,7 +31,7 @@ function storageUsed() {
 
 /**
  * Add an item to the storage.
- * 
+ *
  * @param {StorageItem} item
  */
 function add(item) {
