@@ -17,7 +17,19 @@ val alice = Contact("Alice", "alice@example.dev", List())
 val bob = Contact("Bob", "bob@example.dev", List("+5512341234"))
 val addrBook = AddressBook(List(alice, bob))
 
+val numberOfContacts = addrBook.contacts.size
+val isAliceInContacts = addrBook.contacts.contains(alice)
+val contactsWithPhone = addrBook.contacts.filter(c => c.phoneNumbers.nonEmpty)
+
 @main def main: Unit =
+  println()
+
   println(addrBook.contacts.map(_.name))
   println(addrBook.contacts.map(_.email))
   println(addrBook.contacts.map(c => List(c.name, c.email)))
+
+  println()
+
+  println(numberOfContacts)
+  println(isAliceInContacts)
+  println(contactsWithPhone)
