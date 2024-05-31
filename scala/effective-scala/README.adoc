@@ -1,0 +1,6 @@
+= Effective Scala
+:imagesdir: __assets
+
+image:2024-05-24T12-03-24-826Z.png[Course Commitment 😅]
+
+https://www.coursera.org/learn/effective-scala
