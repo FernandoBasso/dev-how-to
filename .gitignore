@@ -39,3 +39,9 @@ pygments-default.css
 # Damn node_modules everywhere...
 #
 node_modules
+
+##
+# Scala.
+#
+.scala-build
+cs

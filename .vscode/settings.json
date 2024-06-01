@@ -13,5 +13,6 @@
   ],
   "files.watcherExclude": {
     "**/target": true
-  }
+  },
+  "asciidoc.antora.enableAntoraSupport": false
 }
