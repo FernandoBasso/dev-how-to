@@ -1,11 +1,8 @@
 package VideoFootprintV2
 
-//
-// Renaming some types and values.
-//
-
 type Seconds = Int
 type MegabytesPerSecond = Double
+
 enum Network:
   case Mobile, Fixed
 
@@ -33,7 +30,7 @@ def networkEnergy(network: Network): Double =
   network match
     case Network.Mobile => 0.00088
     case Network.Fixed  => 0.00043
-  
+
 def footprint(experience: Experience): Double =
   val energy    = dataCenterEnergyKwh + networkEnergy(experience.network)
   val megabytes = experience.duration * experience.definition
