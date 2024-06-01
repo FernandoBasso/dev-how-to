@@ -1,3 +1,5 @@
+package functions2
+
 //
 // This time with explicitly type annotations for everything.
 //
@@ -19,3 +21,12 @@ val mult: (x: Int, y: Int) => Int =
   println(add(1, 1))
   println(inc(0))
   println(add(2, inc(1)))
+
+//
+// Functions are *values* (methods are not). Functions can be passed
+// as arguments, returned from methods and/or other functions, stored
+// in variables, arrays, etc.
+//
+// In Scala, are values are objects. Since functions are values, they
+// are also objects.
+//
