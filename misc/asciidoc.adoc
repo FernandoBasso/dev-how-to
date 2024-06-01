@@ -1,22 +1,36 @@
 = AsciiDoc
+:page-tags: asciidoc asciidoctor markup markdown
+:imagesdir: __assets
 :toc: right
 :icons: font
-:experimental:
 :latexmath:
+:toc: left
+:icons: font
+:experimental:
 
 == Introduction
 
-AsciiDoc is the best markup language which is simple as Markdown for the simple things, while also offering way more useful and advanced features if one needs them.
+AsciiDoc is the best markup language. It is simpler as Markdown for the simple things, while also offering way more useful, powerful and advanced features if when they are needed.
 
 == Preview
 
-One can preview AsciiDoc rendered document in many ways, including editors, browser extensions, or on Gitlab, Github, and probably other services as well.
+== Markdown to Asciidoc
 
-* link:https://addons.mozilla.org/en-US/firefox/addon/asciidoctorjs-live-preview/[Asciidoctor.js live preview addon for Firefox^].
+Use kramdown, which is better suited than pandoc as it has more AsciiDoc-sensible options.
 
-== Writing Best  Practices
+[source,shell-session]
+----
+$ gem install kramdown kramdown-asciidoc
 
-Do follow the link:https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[one sentence per line^] approach.
+$ for file in ./*.md ; do
+    kramdoc \
+      --format=GFM \
+      --output="${file%.md}.adoc" \
+      --wrap=ventilate "$file"
+  done
+
+$ rm -vi ./*.md
+----
 
 == Convert AsciiDoc to Markdown
 
@@ -28,3 +42,60 @@ In short:
 ----
 $ npx downdoc -o ./intro.md ./intro.adoc
 ----
+
+== Source Highlighter
+
+Add this attribute to the document:
+
+[source,text]
+----
+= My Title
+:toc: left
+...
+:source-highlighter: <which highlighter to use>
+----
+
+As of 2023, the docs currently say for pygments we simply write `pygments`.
+
+image::asciidoctor-source-highlighter-pygments.rb-2023-11-11T14-33-05-612Z.png[Asciidoctor Source Highlighter pygments.rb]
+
+but I got an error with this:
+
+[source,text]
+----
+= My Title
+:toc: left
+...
+:source-highlighter: pygments
+----
+
+[source,shell-session]
+----
+$ asciidoctor ./algds/other/prime_factors/README.adoc
+asciidoctor: WARNING: optional gem 'pygments.rb' is not available (reason: cannot load 'pygments'). Functionality disabled.
+----
+
+But if I changing to `pygments.rb` works:
+
+[source,text]
+----
+= My Title
+:toc: left
+...
+:source-highlighter: pygments.rb
+----
+
+=== Source Highlighter Not Working
+
+We have observed at times that if `asciidoctor` is installed from a `Gemfile` and `pygments.rb` is installed with `gem install`, it may fail (with no errors) to add the tags around the code tokens.
+
+Installing everything from `Gemfile` and then running `bundle exec asciidoctor file.adoc` worked.
+
+
+One can preview AsciiDoc rendered document in many ways, including editors, browser extensions, or on Gitlab, Github, and probably other services as well.
+
+* link:https://addons.mozilla.org/en-US/firefox/addon/asciidoctorjs-live-preview/[Asciidoctor.js live preview addon for Firefox^].
+
+== Writing Best  Practices
+
+Do follow the link:https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[one sentence per line^] approach.
