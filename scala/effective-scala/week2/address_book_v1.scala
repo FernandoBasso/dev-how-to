@@ -1,7 +1,7 @@
 package address_book_v1
 
 //
-// Lists can store zero or more of a particular type of item.
+// Lists can store zero or more of a particular type of value.
 // Order is maintained.
 //
 
