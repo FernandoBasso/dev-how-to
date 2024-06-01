@@ -32,3 +32,7 @@ thirtyMinutesInSeconds = 30 * 60
 megabytesTransferredLowRes = thirtyMinutesInSeconds * 0.3
 megabytesTransferredHighRes = thirtyMinutesInSeconds * 0.6
 ```
+
+## Solution
+
+Open [video-footprint-v2.scala](./video-footprint-v2.scala) to see one possible implementation of the whole solution.
