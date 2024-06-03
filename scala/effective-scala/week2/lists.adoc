@@ -1,0 +1,42 @@
+= Lists
+:page-subtitle: Scala
+
+== 001 empty list of String
+
+Create an empty list of strings with explicit type annotation.
+
+.Answer
+[%collapsible]
+====
+[source,scala]
+----
+val strs: List[string] = List.empty[String]
+----
+====
+
+
+== 002 empty list Int
+
+Create an empty list of `Int` with explicit type annotation.
+
+
+.Answer
+[%collapsible]
+====
+[source,scala]
+----
+val ints: List[Int] = List.empty[Int]
+----
+====
+
+
+== 003 add to list of string or int
+
+.Answer
+[%collapsible]
+====
+[source,scala]
+----
+val strs: List[String] = List.empty[String]
+----
+====
