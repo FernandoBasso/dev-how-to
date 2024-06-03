@@ -1,5 +1,9 @@
 = Lists
 :page-subtitle: Scala
+:sectlinks:
+:setclevels: 6
+:icons: font
+:source-highlighter: highlight.js
 
 == 001 empty list of String
 
