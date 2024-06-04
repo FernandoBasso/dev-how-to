@@ -1,0 +1,30 @@
+= Functional Programming With TypeScript
+:toc: right
+:icons: font
+:sectlevels: 6
+:sectlinks:
+:experimental:
+:imagesdir: __assets
+
+Unless otherwise noted, run the programs with:
+
+Install node:
+
+[source,shell-session]
+----
+$ nvm install $(cat ./.nvmrc)
+----
+
+Then, on any new shell session:
+
+[source,shell-session]
+----
+$ nvm use
+----
+
+Then, for any example to run (type “yes” the first time):
+
+[source,shell-session]
+----
+$ npx ts-node ./src/example.ts
+----
