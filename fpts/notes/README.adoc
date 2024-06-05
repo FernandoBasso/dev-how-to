@@ -6,7 +6,7 @@
 :experimental:
 :imagesdir: __assets
 
-Unless otherwise noted, run the programs with:
+== Setup and Running
 
 Install node:
 
@@ -28,3 +28,29 @@ Then, for any example to run (type “yes” the first time):
 ----
 $ npx ts-node ./src/example.ts
 ----
+
+== Notes
+
+Functions should be *total* _and_ *deterministic*.
+
+Immutable data: create new values from old ones.
+
+Referential transparency.
+
+== Commits
+
+Commit changes in this directory with the type “fpts” and a “scope” if it makes sense. Examples:
+
+[source,shell-session]
+----
+$ git commit -m 'type: Subject text'
+$ git commit -m 'type(scope): Subject text'
+
+$ git commit -m 'ftps: Add first function example'
+$ git commit -m 'fpts(docs): Improve readme '
+----
+
+[NOTE]
+====
+Of course, write the body of the commit messages as well if it makes sense for that commit.
+====
