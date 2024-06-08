@@ -1,0 +1,28 @@
+= ts-node Tips
+:page-subtitle: Running TypeScript Samples with ts-node
+:page-tags: typescript node repl
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: right
+:source-highlighter: highlight.js
+:experimental:
+:imagesdir: __assets
+
+== type module in package.json causes error
+
+Last updated on 2024-06-08 10:54:49.
+
+With node 18.20.3 and ts-node 10.9.2, got this error:
+
+[source,text]
+----
+$ npx ts-node ./hello.ts
+
+TypeError [ERR_UNKNOWN_FILE_EXTENSION]: Unknown file extension ".ts"
+----
+
+In my case, the problem was `"type": "module"` in `package.json`.
+Simply deleting that line or changing to `"type": "commonjs"` solved the issue for running one-off modules with individual code samples.
