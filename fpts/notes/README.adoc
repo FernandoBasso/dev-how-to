@@ -134,8 +134,9 @@ log(res2, typeof res2 });
 
 == Compose with improved types
 
-Notice our `g()` takes a takes some type `T`, and returns some type `U` (`T` and `U` can be the same type, but they _don't have to_).
+Notice our `g()` takes some type `T`, and returns some type `U` (`T` and `U` can be the same type, but they _don't have to_).
 Then, `f` takes that type `U` and returns some type `R`.
+What matters is that the return type of `g()` matches the input type of `f()` so that that the output of one function can be fed as the input of the other function.
 
 With that in mind, we can refactor `compose()` to take generic types instead of the hard-coded `string` and `number`:
 
@@ -154,7 +155,7 @@ function compose<T, U, R>(
 }
 ----
 
-And our examples from erlier still work just the same.
+And our examples from earlier still work just the same.
 Neat!
 
 // // // // // // // // // // // // // // // // // // // // // // // //
