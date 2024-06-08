@@ -132,7 +132,30 @@ log(res2, typeof res2 });
 //=> 14   string
 ----
 
+== Compose with improved types
 
+Notice our `g()` takes a takes some type `T`, and returns some type `U` (`T` and `U` can be the same type, but they _don't have to_).
+Then, `f` takes that type `U` and returns some type `R`.
+
+With that in mind, we can refactor `compose()` to take generic types instead of the hard-coded `string` and `number`:
+
+[source,typescript]
+----
+/**
+ * Applies the functions right-to left, that is, first `g`, then `f`.
+ */
+function compose<T, U, R>(
+  f: (x: U) => R,
+  g: (x: T) => U,
+): (x: T) => R {
+  return function composed(x: T): R {
+    return f(g(x));
+  };
+}
+----
+
+And our examples from erlier still work just the same.
+Neat!
 
 // // // // // // // // // // // // // // // // // // // // // // // //
 // End of text. Configs from this point on.

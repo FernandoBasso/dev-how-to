@@ -13,11 +13,11 @@ function inc(x: number): number {
 /**
  * Applies the functions right-to left, that is, first `g`, then `f`.
  */
-function compose(
-  f: (x: number) => string,
-  g: (x: number) => number,
-): (x: number) => string {
-  return function composed(x: number): string {
+function compose<T, U, R>(
+  f: (x: U) => R,
+  g: (x: T) => U,
+): (x: T) => R {
+  return function composed(x: T): R {
     return f(g(x));
   };
 }
