@@ -3,8 +3,9 @@
 :icons: font
 :sectlevels: 6
 :sectlinks:
-:experimental:
+:source-highlighter: highlight.js
 :imagesdir: __assets
+:experimental:
 
 == Setup and Running
 
@@ -26,6 +27,7 @@ Then, for any example to run (type “yes” the first time):
 
 [source,shell-session]
 ----
+$ npm install
 $ npx ts-node ./src/example.ts
 ----
 
@@ -57,6 +59,27 @@ Of course, write the body of the commit messages as well if it makes sense for t
 
 == Compose
 
+Compose a function that increments a number then turns it into a string.
+
+[source,typescript]
+----
+function inc(x: number): number {
+  return x + 1;
+}
+
+function toStr(x: number): string {
+  return x.toString();
+}
+
+function incThenToStr(x: number) {
+  return toStr(inc(x));
+}
+----
+
+But the functions composition is hard-coded.
+It will always apply those two functions.
+It is not _that_ helpful or reusable.
+Ideally, we want a generic `compose` function.
 
 == Compose v2
 
@@ -72,6 +95,9 @@ function inc(x: number): number {
   return x + 1;
 }
 
+/**
+ * Applies the functions right-to left.
+ */
 function compose(
   g: (x: number) => string,
   f: (x: number) => number,
@@ -81,9 +107,41 @@ function compose(
   };
 }
 
+/**
+ * Increments `x` then returns it as a string.
+ */
 const incThenStr = compose(toStr, inc);
 
 const res1: string = incThenStr(0);
 log(res1, typeof res1);
 //=> 1    string
 ----
+
+It is still not very generic, but now at least `f` and `g` can be _any_ function at least match the expected type contracts.
+For example:
+
+[source,typescript]
+----
+/**
+ * Doubles `x` then returns it as a string.
+ */
+const doubleThenStr: (x: number) => string = compose(toStr, double);
+
+const res2: string = doubleThenStr(7);
+log(res2, typeof res2 });
+//=> 14   string
+----
+
+
+
+// // // // // // // // // // // // // // // // // // // // // // // //
+// End of text. Configs from this point on.
+//
+
+++++
+<style type="text/css">
+.hljs-comment {
+  font-style: normal;
+}
+</style>
+++++
