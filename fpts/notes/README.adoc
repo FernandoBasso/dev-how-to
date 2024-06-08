@@ -7,6 +7,10 @@
 :imagesdir: __assets
 :experimental:
 
+== Intro
+
+We'll try avoid relying on type inference most of the time and instead write explicitly type annotations for documentation purpose and also to improve our practice with types in general.
+
 == Setup and Running
 
 Install node:
@@ -76,25 +80,18 @@ function incThenToStr(x: number) {
 }
 ----
 
-But the functions composition is hard-coded.
-It will always apply those two functions.
+But the function composition is hard-coded.
+It will always apply those two specific functions.
 It is not _that_ helpful or reusable.
 Ideally, we want a generic `compose` function.
 
 == Compose v2
 
 A very simple implementation where we hard-code the types `number` and `string`.
+This is an initial implementation in which always exactly two functions can be composed.
 
 [source,typescript]
 ----
-function toStr(v: number): string {
-  return v.toString();
-}
-
-function inc(x: number): number {
-  return x + 1;
-}
-
 /**
  * Applies the functions right-to left, that is, first `g`, then `f`.
  */
@@ -110,7 +107,7 @@ function compose(
 /**
  * Increments `x` then returns it as a string.
  */
-const incThenStr = compose(toStr, inc);
+const incThenStr: (x: number) => string = compose(toStr, inc);
 
 const res1: string = incThenStr(0);
 log(res1, typeof res1);
