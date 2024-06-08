@@ -2,7 +2,7 @@
   "name": "fptsnotes",
   "version": "0.0.1",
   "main": "",
-  "type": "module",
+  "type": "commonjs",
   "keywords": [],
   "author": "",
   "license": "ISC",
