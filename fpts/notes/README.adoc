@@ -96,14 +96,14 @@ function inc(x: number): number {
 }
 
 /**
- * Applies the functions right-to left.
+ * Applies the functions right-to left, that is, first `g`, then `f`.
  */
 function compose(
-  g: (x: number) => string,
-  f: (x: number) => number,
+  f: (x: number) => string,
+  g: (x: number) => number,
 ): (x: number) => string {
   return function composed(x: number): string {
-    return g(f(x));
+    return f(g(x));
   };
 }
 
