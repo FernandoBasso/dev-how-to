@@ -155,6 +155,23 @@ function compose<T, U, R>(
 And our examples from earlier still work just the same.
 Neat!
 
+== Currying
+
+In functional programming, functions receive _one_ input and produce _one_ return value (even if it is a collection being returned, we consider it to be _one_ thing).
+Functions that take one argument are the so called _unary_ functions, and their _arity_ is _one_.
+
+Considering _referential transparency_, one could say that functions are aliases for their body definitions.
+
+This next `add` function is _not_ unary.
+It takes two input parameters:
+
+[source,typescript]
+----
+function add(x: number, y: number): number {
+  return x + y;
+}
+----
+
 // // // // // // // // // // // // // // // // // // // // // // // //
 // End of text. Configs from this point on.
 //
