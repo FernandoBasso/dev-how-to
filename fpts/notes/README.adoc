@@ -46,7 +46,7 @@ Commit changes in this directory with the type “fpts” and a “scope” if i
 $ git commit -m 'type: Subject text'
 $ git commit -m 'type(scope): Subject text'
 
-$ git commit -m 'ftps: Add first function example'
+$ git commit -m 'fpts: Add first function example'
 $ git commit -m 'fpts(docs): Improve readme '
 ----
 
@@ -54,3 +54,36 @@ $ git commit -m 'fpts(docs): Improve readme '
 ====
 Of course, write the body of the commit messages as well if it makes sense for that commit.
 ====
+
+== Compose
+
+
+== Compose v2
+
+A very simple implementation where we hard-code the types `number` and `string`.
+
+[source,typescript]
+----
+function toStr(v: number): string {
+  return v.toString();
+}
+
+function inc(x: number): number {
+  return x + 1;
+}
+
+function compose(
+  g: (x: number) => string,
+  f: (x: number) => number,
+): (x: number) => string {
+  return function composed(x: number): string {
+    return g(f(x));
+  };
+}
+
+const incThenStr = compose(toStr, inc);
+
+const res1: string = incThenStr(0);
+log(res1, typeof res1);
+//=> 1    string
+----
