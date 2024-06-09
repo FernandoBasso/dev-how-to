@@ -170,7 +170,86 @@ It takes two input parameters:
 function add(x: number, y: number): number {
   return x + y;
 }
+
+log(add(1, 2));
+//=> 3
 ----
+
+Note to use this function we pass both parameters at once.
+This is the normal, standard way in almost all non functional programming languages, or languages that don't support currying.
+The above `add()` function takes two parameters.
+
+But then, contrast with this:
+
+[source,typescript]
+----
+function add(x: number): (y: number) => number {
+  return function addY(y: number): number {
+    return x + y;
+  };
+}
+
+const res: number = add(1)(2);
+//                  ---------
+//                       \
+//                        \
+//                         v
+//           Note the way we call add() now!
+////
+
+log(res);
+//=> 3
+----
+
+Note that with this approach we first take an `x`, and return a function that takes an `y`, and finally compute and return the result.
+This approach is possible thanks to ECMAScript _closures_.
+
+Each function now takes a single parameter at a time, and returns another function that returns the next parameter.
+
+We could call this “_manual currying_”, as we need to use the syntax `fn(a)(b)` which forces us to call functions in the `()()` fashion.
+
+[NOTE]
+====
+We'll study a more interesting and currying implementation later which will make curried functions more practical to use.
+====
+
+But we already have some ways to make more specialized functions from our generic, curried `add()` function.
+For example, in Haskell, we have `succ` and `pred`:
+
+[source,text]
+----
+$ ghci
+
+λ> succ 10
+11
+
+λ> pred 10
+9
+----
+
+We can use `add()` to create similar implementations of `succ` and `pred` in ECMAScript:
+
+[source,typescript]
+----
+/**
+ * Like Haskell succ and pred functions!
+ */
+const succ: (n: number) => number = add(1);
+const pred: (n: number) => number = add(-1);
+
+log(succ(10));
+//=> 11
+
+log(pred(10));
+//=> 9
+----
+
+We call `add()` with one parameter, which causes it to return another function that is waiting for the final argument.
+
+We call this _partial application_.
+We define a _curried function_, and then we can _partially apply_ it to only some of its arguments, causing it to return yet another function.
+When all the expected arguments have been provided by successively calling each function in turn with its expected argument (remember our functions are _unary_ when talking about curring), then it returns the final result!
+
 
 // // // // // // // // // // // // // // // // // // // // // // // //
 // End of text. Configs from this point on.
