@@ -250,6 +250,39 @@ We call this _partial application_.
 We define a _curried function_, and then we can _partially apply_ it to only some of its arguments, causing it to return yet another function.
 When all the expected arguments have been provided by successively calling each function in turn with its expected argument (remember our functions are _unary_ when talking about curring), then it returns the final result!
 
+== curry2 utility
+
+Instead of creating `add()` with manual currying, let's create a `curry2()` function that takes a function of arity 2 (two arguments), and returns a curried version of that function.
+
+Initially, let's consider a non-generic typed function that takes and returns numbers:
+
+[source,typescript]
+----
+//
+// A type alias just for fun.
+//
+type Num = number;
+
+/**
+ * A utility that knows how to curry a function of arity 2.
+ */
+function curry2(f: (x: Num, y: Num) => Num) {
+  return function withArg1(a: Num): (b: Num) => Num {
+    return function withArg2(b: Num): Num {
+      return f(a, b);
+    };
+  };
+}
+
+const add2 = curry2(add);
+
+//
+// Call add2 with one param, which returns a function that takes
+// the other param, which in turn returns the final result.
+//
+log(add2(1)(2));
+//=> 3
+----
 
 // // // // // // // // // // // // // // // // // // // // // // // //
 // End of text. Configs from this point on.
