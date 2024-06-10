@@ -11,6 +11,8 @@
 
 We'll try avoid relying on type inference most of the time and instead write explicitly type annotations for documentation purpose and also to improve our practice with types in general.
 
+There are many reasons to avoid relying on type inference, but we'll leave that to be discussed elsewhere.
+
 == Setup and Running
 
 Install node:
@@ -326,6 +328,23 @@ log(concat2("ECMA")("Script"));
 
 In the examples, we are able to curry functions of arity two of numbers and strings, but it would work with any other type.
 
+For the sake of exemplifying a different implementation (which yields the same result), we could define the type separately and then use it to implement `curry2()` with an arrow function:
+
+[source,typescript]
+----
+type Curry2 = <T, U, R>(f: (t: T, u: U) => R)
+  => (t: T)
+  => (u: U)
+  => R;
+
+const curry2: Curry2 = f => x => y => f(x, y);
+----
+
+[NOTE]
+====
+Arrow functions are neither better nor were they created to deprecate or replace standard function statements or function expressions created with the `function` keyword.
+They were created to address specific use cases, that's all.
+====
 
 // // // // // // // // // // // // // // // // // // // // // // // //
 // End of text. Configs from this point on.
