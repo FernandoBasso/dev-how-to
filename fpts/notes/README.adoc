@@ -9,9 +9,11 @@
 
 == Intro
 
-We'll try avoid relying on type inference most of the time and instead write explicitly type annotations for documentation purpose and also to improve our practice with types in general.
+These are some notes, concepts and examples on functional programming with TypeScript.
 
-There are many reasons to avoid relying on type inference, but we'll leave that to be discussed elsewhere.
+We'll try avoid relying on type inference most of the time and instead write explicit type annotations for documentation purpose and also to improve our practice with types in general.
+
+There are many reasons to avoid relying on type inference as a default approach, but we'll leave that to be discussed elsewhere.
 
 == Setup and Running
 
