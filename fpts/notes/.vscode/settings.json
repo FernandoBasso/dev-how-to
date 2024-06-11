@@ -1,3 +1,9 @@
 {
-  "asciidoc.antora.enableAntoraSupport": false
+  "asciidoc.antora.enableAntoraSupport": false,
+    "editor.parameterHints.enabled": true,
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false,
+    },
 }
