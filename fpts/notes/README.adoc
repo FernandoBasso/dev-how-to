@@ -18,6 +18,8 @@ We'll try avoid relying on type inference most of the time and instead write exp
 
 There are many reasons to avoid relying on type inference as a default approach, but we'll leave that to be discussed elsewhere.
 
+We'll occasionally show some examples with vanilla JavaScript when we are explaining a concept where types are not part of the main point.
+
 == Setup and Running
 
 Install node:
@@ -57,11 +59,79 @@ $ asciidoctor-pdf -a source-highlighter=pygments ./README.adoc
 
 Then open `README.html` or `README.pdf`.
 
-== Notes
+== Concepts
 
-Functions should be *total* _and_ *deterministic*.
+=== Total and partial functions
+
+In good functional programming, functions should be *total*
+But what is a partial function?
+It is a function that does not work for all set of its possible inputs.
+
+Consider this `isEven()` function:
+
+[source,javascript]
+----
+function isEven(x) {
+  if (x === 0) return true;
+  if (x === 1) return false;
+  if (x === 2) return true;
+}
+
+[0, 1, 2, 3, 4].forEach(n => log(isEven(n)));
+//=> true
+//=> false
+//=> true
+//=> undefined
+//=> undefined
+----
+
+The way `isEven()` is defined, the function only handles three inputs, even though there is an infinite number of integers in the set of integer numbers.
+
+We say (this implementation) of `isEven()` _is not defined for all of its possible inputs_.
+In this case, it is defined only for the inputs `0`, `1` and `2`, and returns the appropriate boolean accordingly
+For the other possible inputs, the function does nothing (which in JavaScript it means it returns `undefined`).
+
+[NOTE]
+====
+Some languages like Haskell and Scala are able to warn developers when their function is partial.
+See what link:https://downloads.haskell.org/ghc/latest/docs/users_guide/ghci.html[GHCi^] tells us for the same `isEven` implementation in Haskell:
+
+[source,haskell]
+----
+isEven :: Int -> Bool
+isEven 0 = True
+isEven 1 = False
+isEven 2 = True
+----
+
+Then load that code in `ghci`:
+
+[source,shell-session]
+----
+$ ghci
+GHCi, version 9.4.8: https://www.haskell.org/ghc/  :? for help
+
+λ> :load ./src/even.hs
+[1 of 2] Compiling Main             ( src/even.hs, interpreted )
+
+src/_scratch1.hs:3:1: warning: [-Wincomplete-patterns]
+    Pattern match(es) are non-exhaustive
+    In an equation for ‘isEven’:
+        Patterns of type ‘Int’ not matched:
+            p where p is not one of {2, 0, 1}
+  |
+3 | isEven 0 = True
+  | ^^^^^^^^^^^^^^^...
+----
+====
+
+=== Deterministic functions
+
+=== Immutable data structures
 
 Immutable data: create new values from old ones.
+
+=== Referential Transparency
 
 Referential transparency.
 
