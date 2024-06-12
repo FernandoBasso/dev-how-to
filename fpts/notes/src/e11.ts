@@ -1,5 +1,3 @@
-export {};
-
 const log: Console["log"] = console.log.bind(console);
 
 function sum(xs: number[]): number {
@@ -8,3 +6,6 @@ function sum(xs: number[]): number {
     return go(acc + ys[0], ys.slice(1));
   })(0, xs);
 }
+
+log(sum([]));
+log(sum([-1, -2, -3]));
