@@ -1,3 +1,7 @@
+//
+// WIP
+//
+
 const log: Console["log"] = console.log.bind(console);
 
 import type { Nullable } from "./types";
