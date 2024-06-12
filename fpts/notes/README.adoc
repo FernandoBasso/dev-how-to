@@ -4,7 +4,10 @@
 :sectlevels: 6
 :sectlinks:
 :source-highlighter: highlight.js
+// :source-highlighter: pygments
+// :source-highlighter: rouge
 :imagesdir: __assets
+:stem: latexmath
 :experimental:
 
 == Intro
@@ -38,6 +41,21 @@ Then, for any example to run (type “yes” the first time):
 $ npm install
 $ npx ts-node ./src/example.ts
 ----
+
+== AsciiDoc
+
+On Firefox, install the extension link:https://addons.mozilla.org/en-US/firefox/addon/asciidoctorjs-live-preview/[Asciidoctor.js Live Preview Extension^] then simply open `README.adoc` on Firefox.
+
+Alternatively, install `asciidoctor` and a few other ruby gems and generate the HTML and PDF files:
+
+[source,shell-session]
+----
+$ gem install asciidoctor asciidoctor-pdf pygments.rb
+$ asciidoctor -a source-highlighter=pygments ./README.adoc
+$ asciidoctor-pdf -a source-highlighter=pygments ./README.adoc
+----
+
+Then open `README.html` or `README.pdf`.
 
 == Notes
 
@@ -390,8 +408,8 @@ log(sum([-1, -2, -3]));
 === Approach 3 with go pattern and tail call syntax
 
 Or using the _go pattern_, which is a nested function that then handles an accumulator.
-This approach would be conform to the _tail call_ recursion.
-Except ECMAScript (at least as of 2024) does not support tail call optimization so even though the syntax of the next example _looks_ like tail call, it doesn't actually result in any performance benefits and the call stack keeps growing as if not tail call style had been used.
+This approach would conform to the _tail call_ recursion idea.
+*Except* ECMAScript (at least as of 2024) does not support tail call optimization so even though the syntax of the next example _looks_ like tail call, it doesn't actually result in any performance benefits and the call stack keeps growing as if no tail call style had been used.
 
 [source,typescript]
 ----
@@ -423,6 +441,8 @@ With tail call, no frames are added to the stack (so no stack overflows) and the
 
 The `sum()` function returns 0 (zero) for the empty array input because 0 (zero) is the identify for addition and subtraction (1 is the identity for multiplication and division).
 Adding or subtracting 0 from a stem:[x] produces stem:[x], the same as multiplying or dividing stem:[x] also produces stem:[x].
+
+
 
 // // // // // // // // // // // // // // // // // // // // // // // //
 // End of text. Configs from this point on.
