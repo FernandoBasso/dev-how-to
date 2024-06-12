@@ -348,6 +348,29 @@ Arrow functions are neither better nor were they created to deprecate or replace
 They were created to address specific use cases, that's all.
 ====
 
+== Recursion
+
+An example `sum()` function implemented with recursion:
+
+[source,typescript]
+----
+function sum(xs: number[]): number {
+  return (function go(acc: number, ys: number[]): number {
+    if (ys.length === 0) return acc;
+    return go(acc + ys[0], ys.slice(1));
+  })(0, xs);
+}
+
+log(sum([]));
+//=> 0
+
+log(sum([-1, -2, -3]));
+//=>
+----
+
+The `sum()` function returns 0 (zero) for the empty array input because 0 (zero) is the identify for addition and subtraction (1 is the identity for multiplication and division).
+Adding or subtracting 0 from a stem:[x] produces stem:[x], the same as multiplying or dividing stem:[x] also produces stem:[x].
+
 // // // // // // // // // // // // // // // // // // // // // // // //
 // End of text. Configs from this point on.
 //
