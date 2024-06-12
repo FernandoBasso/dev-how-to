@@ -125,15 +125,51 @@ src/_scratch1.hs:3:1: warning: [-Wincomplete-patterns]
 ----
 ====
 
+Partial functions are hard or impossible to compose, difficult to reason about, and cause unexpected and/or incorrect behavior on the applications that use them.
+
 === Deterministic functions
+
+TODO
 
 === Immutable data structures
 
 Immutable data: create new values from old ones.
 
+TODO
+
 === Referential Transparency
 
-Referential transparency.
+TODO
+
+=== Types
+
+Think of types as sets.
+
+If we create a type like this:
+
+[source,typescript]
+----
+type Privilege = "Viewer" | "Editor" | "Admin";
+----
+
+Then the only values that can be assigned to a variable of type `Privilege` are "Viewer", "Editor" and "Admin".
+No other string will be allowed:
+
+[source,typescript]
+----
+const p: Privilege = "Commenter";
+//    ~
+// ~ Type '"Commenter"' is not assignable to type 'Privilege'.
+----
+
+A type like `number` is a set where the infinite set of numbers can be assigned to.
+Similarly, the type `string` means that all possible strings on the infinite set of all strings can be assigned to a variable of type `string`.
+
+And operations can be applied to values depending on the type of those values.
+A value of type `string' or `Array` can be _split_, because strings and arrays provide the _split_ operation.
+A type `number` does not, so we cannot _split_ a number in the same sense we can split a string or an array.
+
+So in short, a type is like a set of all possible values that can inhabit that type, and it also tells us which operations can be performed on those values.
 
 == Commits
 
