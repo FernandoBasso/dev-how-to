@@ -171,6 +171,21 @@ A type `number` does not, so we cannot _split_ a number in the same sense we can
 
 So in short, a type is like a set of all possible values that can inhabit that type, and it also tells us which operations can be performed on those values.
 
+=== Type cardinality
+
+The cardinality of a type tells us the number of possible values that can be assigned to that type.
+
+In the example above, the type `Privilege` has cardinality 3.
+A type like `boolean` has cardinality 2, as there exists only two boolean values.
+
+The cardinality of type `T` is represented a `|T|`.
+
+If a function `isEven()` returns a boolean and it is a _total_ function, then the return type has cardinality 2, because the function is guaranteed to return either `true` or `false` and nothing else (because the function is _total_), and we would write the cardinality of the _total_ function `isEven` as `|boolean|`.
+
+
+However, if that function is _partial_, then its return type has cardinality of 2 + 1, which means `true`, `false` and some other return “value” (like `null` or `undefined`) when the function is given an input it does not handle.
+Therefore, we would write the cardinality of the _partial_ function `isEven` as `|boolean| + 1`.
+
 == Commits
 
 Commit changes in this directory with the type “fpts” and a “scope” if it makes sense. Examples:
