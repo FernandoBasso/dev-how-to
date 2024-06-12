@@ -350,23 +350,76 @@ They were created to address specific use cases, that's all.
 
 == Recursion
 
+=== Approach 1
+
 An example `sum()` function implemented with recursion:
 
 [source,typescript]
 ----
 function sum(xs: number[]): number {
-  return (function go(acc: number, ys: number[]): number {
-    if (ys.length === 0) return acc;
-    return go(acc + ys[0], ys.slice(1));
-  })(0, xs);
+  if (xs.length === 0) return 0;
+  return xs[0] + sum(xs.slice(1));
 }
 
 log(sum([]));
 //=> 0
 
 log(sum([-1, -2, -3]));
-//=>
+//=> -6
 ----
+
+=== Approach 2 with destructuring
+
+A more idiomatic way of implementing it could be with destructuring the first element and the rest first before recursing:
+
+[source,typescript]
+----
+function sum(xs: number[]): number {
+  if (xs.length === 0) return 0;
+  const [head, ...rest] = xs;
+  return head + sum(rest);
+}
+
+log(sum([]));
+//=> 0
+
+log(sum([-1, -2, -3]));
+//=> -6
+----
+
+=== Approach 3 with go pattern and tail call syntax
+
+Or using the _go pattern_, which is a nested function that then handles an accumulator.
+This approach would be conform to the _tail call_ recursion.
+Except ECMAScript (at least as of 2024) does not support tail call optimization so even though the syntax of the next example _looks_ like tail call, it doesn't actually result in any performance benefits and the call stack keeps growing as if not tail call style had been used.
+
+[source,typescript]
+----
+function sum(nums: number[]): number {
+  return (function go(acc: number, xs: number[]): number {
+    if (xs.length === 0) return acc;
+    const [x, ...restOfXs] = xs;
+    return go(acc + x, restOfXs);
+    //        <1>
+  })(0, nums);
+}
+
+log(sum([]));
+//=> 0
+
+log(sum([-1, -2, -3]));
+//=> -6
+----
+
+<1> Here, `acc + x` means we are immediately computing the next value of the accumulator, without enqueueing that computation and and next recursion call as a new frame (but as mentioned, it doesn't do any good in ECMAScript any way).
+
+[NOTE]
+====
+Tail call happens when the recursion call is the last thing executed in the body of the function, which allows language compilers to optimize and return the new computed value immediately for the next recursive call instead of keeping adding frames to the call stack until the base case is reached.
+
+Without tail call, frames keep being added to the stack, and there is an _unwinding_ phase where the final computation of the values is performed.
+With tail call, no frames are added to the stack (so no stack overflows) and there is no need for the _unwinding_ phase.
+====
 
 The `sum()` function returns 0 (zero) for the empty array input because 0 (zero) is the identify for addition and subtraction (1 is the identity for multiplication and division).
 Adding or subtracting 0 from a stem:[x] produces stem:[x], the same as multiplying or dividing stem:[x] also produces stem:[x].
