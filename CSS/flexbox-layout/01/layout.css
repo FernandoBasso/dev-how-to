@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fafafa;
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+.header-top ul {
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  display: flex;
+}
+
+.content .main,
+.content .sidebar {
+  padding: 1em;
+}
+
+.content .main {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  background-color: lightyellow;
+}
+
+.content .sidebar {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  max-width: 320px;
+  min-width: 280px;
+  background-color: lightgoldenrodyellow;
+}

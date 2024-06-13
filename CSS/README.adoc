@@ -1,0 +1,16 @@
+= Cascading Style Sheets
+:page-subtitle: CSS
+:page-tags: css web
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: right
+:source-highlighter: highlight.js
+:experimental:
+:imagesdir: __assets
+
+== Flexbox
+
+- link:https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Controlling_ratios_of_flex_items_along_the_main_axis[Controlling ratios of flex items along the main axis (MDN)^]
