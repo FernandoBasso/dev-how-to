@@ -748,11 +748,51 @@ const div = curry2(
 const divPriceBy: (x: number) => Option<number> = div(6);
 ----
 
-The return type reads a little more FPish, but we are still just returning `null` if the divisor is 0, and will have the same problems as before if `compose2(inc, divPriceBy)` to calculate the price for each person plus the 1-dollar tip.
+The return type reads a little more FPish, but we are still just returning `null` if the divisor is 0, and will have the same problems as before if we `compose2(inc, divPriceBy)` to calculate the price for each person plus the 1-dollar tip.
 
-== Data Constructors Some and None
+== Data Constructors Some and None v1
 
+One way we could define the data constructors `Some` and `None`, and functions to produce such values:
 
+[source,typescript]
+----
+const none = Symbol('None');
+type None = typeof none;
+
+function some<T>(val: T): { val: T } {
+  return { val };
+}
+
+type Some<V> = { val: V };
+
+type Option<T> = Some<T> | None;
+
+function inc(x: number): number {
+  return x + 1;
+}
+
+function div(dividend: number, divisor: number): Option<number> {
+  if (divisor === 0) return none;
+  return some(dividend / divisor);
+}
+
+log(div(8, 2));
+//=> { val: 4 }
+
+log(div(8, 0));
+//=> Symbol(None)
+----
+
+Note `div` returns `none` or `some(value)`.
+Also observe that `some()` is a function that knows how to produce a `Some<T>` value.
+How to handle the returned value will be covered later on.
+
+[NOTE]
+====
+Using `none` and `some()` in lowercase for the values doesn't look very natural and FPish for people used to some other FP languages.
+
+Let's leave it like that for now and keep improving our understanding and code little by little.
+====
 
 // // // // // // // // // // // // // // // // // // // // // // // //
 // End of text. Configs from this point on.
