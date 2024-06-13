@@ -63,9 +63,9 @@ Then open `README.html` or `README.pdf`.
 
 === Total and partial functions
 
-In good functional programming, functions should be *total*
+In good functional programming, functions should be *total*, not *partial*.
 But what is a partial function?
-It is a function that does not work for all set of its possible inputs.
+It is a function that is not defined for all set of its possible inputs.
 
 Consider this `isEven()` function:
 
@@ -85,7 +85,7 @@ function isEven(x) {
 //=> undefined
 ----
 
-The way `isEven()` is defined, the function only handles three inputs, even though there is an infinite number of integers in the set of integer numbers.
+The way `isEven()` above was implemented, it only handles three inputs, even though there is an infinite number of integers in the set of integer numbers.
 
 We say (this implementation) of `isEven()` _is not defined for all of its possible inputs_.
 In this case, it is defined only for the inputs `0`, `1` and `2`, and returns the appropriate boolean accordingly
@@ -93,8 +93,8 @@ For the other possible inputs, the function does nothing (which in JavaScript it
 
 [NOTE]
 ====
-Some languages like Haskell and Scala are able to warn developers when their function is partial.
-See what link:https://downloads.haskell.org/ghc/latest/docs/users_guide/ghci.html[GHCi^] tells us for the same `isEven` implementation in Haskell:
+Some languages like Haskell and Scala are able to warn us about partial functions.
+For example, let's see what link:https://downloads.haskell.org/ghc/latest/docs/users_guide/ghci.html[GHCi^] tells us for the same `isEven` implementation in Haskell:
 
 [source,haskell]
 ----
@@ -106,7 +106,7 @@ isEven 2 = True
 
 Then load that code in `ghci`:
 
-[source,shell-session]
+[source,text]
 ----
 $ ghci
 GHCi, version 9.4.8: https://www.haskell.org/ghc/  :? for help
@@ -153,6 +153,7 @@ type Privilege = "Viewer" | "Editor" | "Admin";
 ----
 
 Then the only values that can be assigned to a variable of type `Privilege` are "Viewer", "Editor" and "Admin".
+So we can think of the type `Privilege` as a _set_, and only those three very specific strings can be members of that set.
 No other string will be allowed:
 
 [source,typescript]
@@ -162,11 +163,11 @@ const p: Privilege = "Commenter";
 // ~ Type '"Commenter"' is not assignable to type 'Privilege'.
 ----
 
-A type like `number` is a set where the infinite set of numbers can be assigned to.
+A type like `number` can be thought of as a the infinite set of numbers.
 Similarly, the type `string` means that all possible strings on the infinite set of all strings can be assigned to a variable of type `string`.
 
-And operations can be applied to values depending on the type of those values.
-A value of type `string' or `Array` can be _split_, because strings and arrays provide the _split_ operation.
+And, *very importantly, operations can be applied to values depending on the type of those values*.
+A value of type `string` or `Array` can be _split_, because strings and arrays provide the _split_ operation.
 A type `number` does not, so we cannot _split_ a number in the same sense we can split a string or an array.
 
 So in short, a type is like a set of all possible values that can inhabit that type, and it also tells us which operations can be performed on those values.
