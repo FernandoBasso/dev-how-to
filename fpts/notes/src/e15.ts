@@ -26,7 +26,7 @@ log(calcPriceWithTip(6));
 
 //
 // But if we divide by zero, it returns Infinity, and incrementing
-// Infinity by 1 is still Infinity. This is simply wrong.
+// Infinity by 1 is still Infinity. This is simply wrong ❌.
 //
 log(calcPriceWithTip(0));
 //=> Infinity

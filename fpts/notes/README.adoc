@@ -650,7 +650,7 @@ log(calcPriceWithTip(6));
 
 //
 // But if we divide by zero, it returns Infinity, and incrementing
-// Infinity by 1 is still Infinity. This is simply wrong.
+// Infinity by 1 is still Infinity. This is simply wrong ❌.
 //
 log(calcPriceWithTip(0));
 //=> Infinity
@@ -663,7 +663,45 @@ image::yoda-no-try.png[Yoda, do or do not, there is no try]
 In functional programming, try/catch approach is neither idiomatic nor the preferred way to handle adverse conditions .
 Instead, a value (or absence of it) is returned the signals some sort of erroneous condition and the caller handles it as appropriate.
 
-To get started with handling division by zero (which could extend to other erroneous conditions we'd want to signal) et's update `div` to return `null`
+To get started with handling division by zero (which could extend to other erroneous conditions we'd want to signal) let's update `div` to return `null`.
+
+[source,typescript]
+----
+const div = curry2(
+  function div(dividend: number, divisor: number): number | null {
+    if (divisor === 0) return null;
+    return dividend / divisor;
+  }
+);
+----
+
+But then we get type problems with the composition.
+As `inc` _requires_ a `number`, but `div` can now potentially return `null`, we can't compose `inc` and `div` any longer.
+
+[source,typescript]
+----
+const calcPriceWithTip = compose2(inc, divPriceBy);
+//                                     ~~~~~~~~~~
+//                                         /
+//                                        /
+//                                       /
+//                                      v
+// Argument of type '(x: number) => number | null' is not assignable
+// to parameter of type '(v: number) => number'.
+//   Type 'number | null' is not assignable to type 'number'.
+//     Type 'null' is not assignable to type 'number'.
+////
+----
+
+But now, in the case of `divPriceBy(0)`, which returns `null`, the `null` result is piped into `inc`, and it becomes `null + 1`, which in this case first converts `null` to 0 (zero), then adds 1 to it, making the result 1.
+We get 1, which seems OK but, but it is wrong.
+We are returning `null` to signal some sort of problem, which should be handled in some way, but instead we get a meaningless number back for the given input of 0.
+
+If we update `div` to return `undefined` when the input is 0, then `divPriceBy(0)` returns `undefined`, which when fed into `inc` produces `NaN`, as `undefined + 1` results in `NaN`.
+At least we don't get a normal number, but we are still not properly signaling adversity with our code.
+But worry not.
+We are getting there.
+
 
 
 // // // // // // // // // // // // // // // // // // // // // // // //
