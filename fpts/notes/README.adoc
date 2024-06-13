@@ -794,6 +794,61 @@ Using `none` and `some()` in lowercase for the values doesn't look very natural 
 Let's leave it like that for now and keep improving our understanding and code little by little.
 ====
 
+== Data Constructors Some and None v2
+
+We can also use _branded types_ to define our data and value constructors.
+
+[source,typescript]
+----
+type None = {
+  readonly __tag: 'None';
+};
+
+const none: Option<never> = {
+  __tag: 'None',
+};
+
+type Some<V> = {
+  readonly __tag: 'Some';
+  readonly val: V;
+};
+
+function some<V>(v: V): Option<V> {
+  return {
+    __tag: 'Some',
+    val: v,
+  };
+}
+
+type Option<T> = Some<T> | None;
+
+function inc(x: number): number {
+  return x + 1;
+}
+
+function div(dividend: number, divisor: number): Option<number> {
+  if (divisor === 0) return none;
+  return some(dividend / divisor);
+}
+
+log(div(8, 2));
+//=> { __tag: 'Some', val: 4 }
+
+log(div(8, 0));
+//=> { __tag: 'None' }
+----
+
+Because of TypeScript's structural type, our lowercase `none` and `some()` match the uppercase types `None` `Some`.
+
+The function `div()` has a return type of `Option<number>`, which ends up being the union type `Some<T> | None`, and our `some()` and `none` produce values whose types structurally match that return type, so the type checker is happy with the implementation body of `div()` which conditionally returns one or the other type of value.
+
+[NOTE]
+====
+Remember that TypeScript features a _structural type system_ (not a nominal type system like most mainstream languages).
+====
+
+
+
 // // // // // // // // // // // // // // // // // // // // // // // //
 // End of text. Configs from this point on.
 //
