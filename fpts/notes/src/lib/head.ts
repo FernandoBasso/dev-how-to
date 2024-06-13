@@ -12,9 +12,9 @@ function head<T>(xs: string | T[]): T | string | undefined {
   return xs[0];
 }
 
-const a: Nullable<number> = head([1, 2, 3]);
-const b: Nullable<string> = head(["may", "the", "force"]);
+// const a: Nullable<number> = head([1, 2, 3]);
+// const b: Nullable<string> = head(["may", "the", "force"]);
 
-log({ a, b });
+// log({ a, b });
 
 export { head };

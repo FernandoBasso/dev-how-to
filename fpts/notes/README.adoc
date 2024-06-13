@@ -44,6 +44,24 @@ $ npm install
 $ npx ts-node ./src/example.ts
 ----
 
+== Commits
+
+Commit changes in this directory with the type “fpts” and a “scope” if it makes sense. Examples:
+
+[source,shell-session]
+----
+$ git commit -m 'type: Subject text'
+$ git commit -m 'type(scope): Subject text'
+
+$ git commit -m 'fpts: Add first function example'
+$ git commit -m 'fpts(docs): Improve readme '
+----
+
+[NOTE]
+====
+Of course, write the body of the commit messages as well if it makes sense for that commit.
+====
+
 == AsciiDoc
 
 On Firefox, install the extension link:https://addons.mozilla.org/en-US/firefox/addon/asciidoctorjs-live-preview/[Asciidoctor.js Live Preview Extension^] then simply open `README.adoc` on Firefox.
@@ -174,7 +192,8 @@ So in short, a type is like a set of all possible values that can inhabit that t
 
 === Type cardinality
 
-The cardinality of a type tells us the number of possible values that can be assigned to that type.
+The cardinality of a type tells us the number of possible members that can inhabit that type (_set_).
+In other words, the number of values that can be assigned to that type.
 
 In the example above, the type `Privilege` has cardinality 3.
 A type like `boolean` has cardinality 2, as there exists only two boolean values.
@@ -183,27 +202,8 @@ The cardinality of type `T` is represented a `|T|`.
 
 If a function `isEven()` returns a boolean and it is a _total_ function, then the return type has cardinality 2, because the function is guaranteed to return either `true` or `false` and nothing else (because the function is _total_), and we would write the cardinality of the _total_ function `isEven` as `|boolean|`.
 
-
 However, if that function is _partial_, then its return type has cardinality of 2 + 1, which means `true`, `false` and some other return “value” (like `null` or `undefined`) when the function is given an input it does not handle.
 Therefore, we would write the cardinality of the _partial_ function `isEven` as `|boolean| + 1`.
-
-== Commits
-
-Commit changes in this directory with the type “fpts” and a “scope” if it makes sense. Examples:
-
-[source,shell-session]
-----
-$ git commit -m 'type: Subject text'
-$ git commit -m 'type(scope): Subject text'
-
-$ git commit -m 'fpts: Add first function example'
-$ git commit -m 'fpts(docs): Improve readme '
-----
-
-[NOTE]
-====
-Of course, write the body of the commit messages as well if it makes sense for that commit.
-====
 
 == Compose
 
@@ -564,6 +564,106 @@ With tail call, no frames are added to the stack (so no stack overflows) and the
 The `sum()` function returns 0 (zero) for the empty array input because 0 (zero) is the identify for addition and subtraction (1 is the identity for multiplication and division).
 Adding or subtracting 0 from a stem:[x] produces stem:[x], the same as multiplying or dividing stem:[x] also produces stem:[x].
 
+== Option and Maybe
+
+Let's consider a scenario where we have a price and its payment will be divided between a certain amount of people.
+We know the price beforehand, but not how many people will share its payment (not everyone will show up for the pizza party).
+
+First, study this code carefully:
+
+[source,typescript]
+----
+import { curry2 } from "./lib";
+
+const div = curry2(
+  function div(dividend: number, divisor: number): number {
+    return dividend / divisor;
+  }
+);
+
+//
+// We know the price.
+//
+const price: number = 42
+
+//
+// And the price is to be paid by a few people, but we yet don't know
+// how many people will help pay it. Partially apply the more generic
+// `div` function to the `price`, and store the returned function in a
+// more specific-named identifier.
+//
+const divPriceBy: (x: number) => number = div(price);
+
+//
+// Divide the price between two people.
+//
+log(divPriceBy(2));
+//=> 21
+
+//
+// Divide the price between six people.
+//
+log(divPriceBy(6));
+//=> 7
+
+//
+// Divide the price between zero people.
+//
+log(divPriceBy(0));
+//=> Infinity
+// Oops! This is not good. No division by zero should occur.
+////
+----
+
+First thing to note is that we can create a more specific `divPriceBy` function from the more generic `div`.
+
+Second thing to note is that it might be possible that due some unfortunate reason, division by zero could be attempted.
+
+But then suppose each person paying the price will also give a 1-dollar tip to the person delivering the pizza, that means we would get the result of `divPriceBy` and increment by 1.
+So we complement our code with one more function, and compose `inc` and `divPriceBy`:
+
+[source,typescript]
+----
+import { curry2, compose2 } from "./lib";
+
+function inc(x: number): number {
+  return x + 1;
+}
+
+const div = curry2(
+  function div(dividend: number, divisor: number): number {
+    return dividend / divisor;
+  }
+);
+
+const price: number = 42
+
+const divPriceBy: (x: number) => number = div(price);
+
+const calcPriceWithTip = compose2(inc, divPriceBy);
+
+log(calcPriceWithTip(6));
+//=> 8
+//
+// 42 / 6 = 7, + 1 for tip is 8. This is correct ✅.
+////
+
+//
+// But if we divide by zero, it returns Infinity, and incrementing
+// Infinity by 1 is still Infinity. This is simply wrong.
+//
+log(calcPriceWithTip(0));
+//=> Infinity
+----
+
+=== Do or do not, there is no try
+
+image::yoda-no-try.png[Yoda, do or do not, there is no try]
+
+In functional programming, try/catch approach is neither idiomatic nor the preferred way to handle adverse conditions .
+Instead, a value (or absence of it) is returned the signals some sort of erroneous condition and the caller handles it as appropriate.
+
+To get started with handling division by zero (which could extend to other erroneous conditions we'd want to signal) et's update `div` to return `null`
 
 
 // // // // // // // // // // // // // // // // // // // // // // // //
