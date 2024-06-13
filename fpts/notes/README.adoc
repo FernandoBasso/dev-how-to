@@ -720,6 +720,39 @@ The function returns an `Option` type constructor, which produces `Some` and `No
 Some languages use an alternative name `Maybe` type constructor, which produces the `Just` and `Nothing` data types.
 ====
 
+Let's start working out our `Option` type constructor.
+
+[source,typescript]
+----
+type Option<T> = T | null;
+type MaybeNum = Option<number>;
+type MaybeStr = Option<string>;
+----
+
+What are the types of `MaybeNum` and `MaybeStr`?
+The types are `number | null` and `string | null` respectively.
+
+We could update our `div` to return an `Option<number>`:
+
+[source,typescript]
+----
+type MaybeNum = Option<number>;
+
+const div = curry2(
+  function div(dividend: number, divisor: number): Option<number> {
+    if (divisor === 0) return null;
+    return dividend / divisor;
+  }
+);
+
+const divPriceBy: (x: number) => Option<number> = div(6);
+----
+
+The return type reads a little more FPish, but we are still just returning `null` if the divisor is 0, and will have the same problems as before if `compose2(inc, divPriceBy)` to calculate the price for each person plus the 1-dollar tip.
+
+== Data Constructors Some and None
+
+
 
 // // // // // // // // // // // // // // // // // // // // // // // //
 // End of text. Configs from this point on.
