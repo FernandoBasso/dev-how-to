@@ -44,6 +44,13 @@ $ npm install
 $ npx ts-node ./src/example.ts
 ----
 
+`ts-node` type-checks the code and refuses to run it if there is type errors, so use the `--transpileOnly`, or `-T` to run the code anyway even it contains non type-checking code.
+
+[source,typescript]
+----
+$ npx ts-node -T ./src/example_with_type_error.ts
+----
+
 == Commits
 
 Commit changes in this directory with the type “fpts” and a “scope” if it makes sense. Examples:
@@ -564,7 +571,7 @@ With tail call, no frames are added to the stack (so no stack overflows) and the
 The `sum()` function returns 0 (zero) for the empty array input because 0 (zero) is the identify for addition and subtraction (1 is the identity for multiplication and division).
 Adding or subtracting 0 from a stem:[x] produces stem:[x], the same as multiplying or dividing stem:[x] also produces stem:[x].
 
-== Option and Maybe
+== Divide and Increment Composition Example
 
 Let's consider a scenario where we have a price and its payment will be divided between a certain amount of people.
 We know the price beforehand, but not how many people will share its payment (not everyone will show up for the pizza party).
@@ -588,7 +595,7 @@ const price: number = 42
 
 //
 // And the price is to be paid by a few people, but we yet don't know
-// how many people will help pay it. Partially apply the more generic
+// how many people will help paying it. Partially apply the more generic
 // `div` function to the `price`, and store the returned function in a
 // more specific-named identifier.
 //
@@ -619,7 +626,8 @@ First thing to note is that we can create a more specific `divPriceBy` function 
 
 Second thing to note is that it might be possible that due some unfortunate reason, division by zero could be attempted.
 
-But then suppose each person paying the price will also give a 1-dollar tip to the person delivering the pizza, that means we would get the result of `divPriceBy` and increment by 1.
+But then suppose each person dividing the the price will also give a 1-dollar tip to the person delivering the pizza.
+That means we would get the result of `divPriceBy` and increment by 1.
 So we complement our code with one more function, and compose `inc` and `divPriceBy`:
 
 [source,typescript]
@@ -656,7 +664,7 @@ log(calcPriceWithTip(0));
 //=> Infinity
 ----
 
-=== Do or do not, there is no try
+== Do or do not, there is no try
 
 image::yoda-no-try.png[Yoda, do or do not, there is no try]
 
@@ -702,6 +710,15 @@ At least we don't get a normal number, but we are still not properly signaling a
 But worry not.
 We are getting there.
 
+== Signaling Adversity with Option (Maybe)
+
+In functional programming, there is a type called `Option` which can be used for situations where it is known a function may fail to produce a useful result.
+The function returns an `Option` type constructor, which produces `Some` and `None` data types, `Some` meaning we got some value, and `None` meaning the function produced no useful value result.
+
+[NOTE]
+====
+Some languages use an alternative name `Maybe` type constructor, which produces the `Just` and `Nothing` data types.
+====
 
 
 // // // // // // // // // // // // // // // // // // // // // // // //
