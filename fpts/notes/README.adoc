@@ -710,7 +710,7 @@ At least we don't get a normal number, but we are still not properly signaling a
 But worry not.
 We are getting there.
 
-== Signaling Adversity with Option (Maybe)
+== Signaling Absence of a Value
 
 In functional programming, there is a type called `Option` which can be used for situations where it is known a function may fail to produce a useful result.
 The function returns an `Option` type constructor, which produces `Some` and `None` data types, `Some` meaning we got some value, and `None` meaning the function produced no useful value result.
@@ -847,7 +847,10 @@ The function `div()` has a return type of `Option<number>`, which ends up being 
 Remember that TypeScript features a _structural type system_ (not a nominal type system like most mainstream languages).
 ====
 
+== Signaling Erroneous Conditions
 
+`Option` (or `Maybe`) is used to signal that a value might be absent.
+There is also the `Either` is similar, but used to provide useful information on _why_ a useful value was absent.
 
 // // // // // // // // // // // // // // // // // // // // // // // //
 // End of text. Configs from this point on.
