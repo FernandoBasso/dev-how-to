@@ -1,4 +1,12 @@
-import { curry2, compose2 } from "./lib";
+//
+// tags: option maybe
+//
+
+//
+// Initial Option implementation relying on `null`.
+//
+
+import { curry2, compose2 } from "../lib";
 
 const log: Console["log"] = console.log.bind(console);
 
@@ -23,3 +31,5 @@ const calcPriceWithTip: (x: number) => number = compose2(inc, divPriceBy);
 //
 // The type is still not fixed. Keep on with next examples.
 ////
+
+export {};

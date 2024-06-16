@@ -14,5 +14,5 @@
 * 02 Currying and partial application
 * 03 Recursion
 * 04 Problems in composition with partial functions
-* 05 Maybe (aka Option) to signal absence of a useful value
+* 05 Option (aka Maybe) to signal absence of a useful value
 * 06 Either to indicate reason for absence of a useful value

@@ -1,4 +1,10 @@
-import { curry2, compose2 } from "./lib";
+//
+// tags: option maybe some none
+//
+
+//
+// Option with Some and None data constructors.
+//
 
 const log: Console["log"] = console.log.bind(console);
 
@@ -27,3 +33,5 @@ log(div(8, 2));
 
 log(div(8, 0));
 //=> Symbol(None)
+
+export {};

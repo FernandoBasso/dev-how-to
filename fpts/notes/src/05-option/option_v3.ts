@@ -1,4 +1,10 @@
-import { curry2, compose2 } from "./lib";
+//
+// tags: option maybe some none branded-type
+//
+
+//
+// Option implementation with branded types.
+//
 
 const log: Console["log"] = console.log.bind(console);
 
