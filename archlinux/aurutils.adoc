@@ -1,0 +1,42 @@
+= aurutils
+:page-subtitle: Arch Linux
+:page-tags: linux archlinux aur package
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: right
+:source-highlighter: highlight.js
+:experimental:
+:imagesdir: __assets
+
+[source,shell-session]
+----
+$ aur sync -c xfce-theme-greybird
+Error:
+    aur-chroot could not find a pacman.conf(5) file for container usage. Before
+    using aur-chroot, make sure this file is created and valid. See OPTIONS in
+    aur-chroot(1) for configuration details.
+
+    The following file paths were checked:
+        '/etc/aurutils/pacman-x86_64.conf'
+        '/usr/share/devtools/pacman.conf.d/aurutils-x86_64.conf'
+----
+
+
+See this link:https://aur.archlinux.org/packages/aurutils#comment-915960[comment by Alad on aur.archlinux.org/packages/aurutils^]:
+
+[quote]
+____
+$ sudo cp -v \
+    /usr/share/devtools/pacman.conf.d/extra.conf \
+    /etc/aurutils/pacman-x86_64.conf
+
+$ vim /etc/aurutils/pacman-x86_64.conf
+(then add local repo to the conf)
+____
+
+----
+==> ERROR: '/var/lib/aurbuild/x86_64/root' does not appear to be an Arch chroot.
+----
