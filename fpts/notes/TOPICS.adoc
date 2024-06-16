@@ -1,0 +1,18 @@
+= Functional Programming Topics
+:page-tags:
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: right
+:source-highlighter: highlight.js
+:experimental:
+:imagesdir: __assets
+
+* 01 Composition
+* 02 Currying and partial application
+* 03 Recursion
+* 04 Problems in composition with partial functions
+* 05 Maybe (aka Option) to signal absence of a useful value
+* 06 Either to indicate reason for absence of a useful value
