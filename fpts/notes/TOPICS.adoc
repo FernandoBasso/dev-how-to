@@ -10,9 +10,9 @@
 :experimental:
 :imagesdir: __assets
 
-* 01 Composition
-* 02 Currying and partial application
-* 03 Recursion
-* 04 Problems in composition with partial functions
-* 05 Option (aka Maybe) to signal absence of a useful value
-* 06 Either to indicate reason for absence of a useful value
+* 01 Composition.
+* 02 Currying and partial application.
+* 03 Recursion.
+* 04 Problems in composition with partial functions.
+* 05 Option (aka Maybe) to signal absence of a useful value.
+* 06 Either to indicate reason for absence of a useful value.
