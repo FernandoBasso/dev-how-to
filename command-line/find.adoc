@@ -1,0 +1,27 @@
+= find
+:page-subtitle: GNU coreutils
+:page-tags: find cmdline coreutils
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: right
+:source-highlighter: highlight.js
+:experimental:
+:imagesdir: __assets
+
+
+== Remove node_modules
+
+Remove `node_modules` directories from current directory and any further nested directory.
+
+Useful for monorepos where each package contains their own `node_modules` directory, or before archiving the code to share with someone else or for backup purposes.
+
+[source,shell-session]
+----
+$ find . \
+    -type d \
+    -name node_modules \
+    -exec rm -rf '{}' \;
+----
