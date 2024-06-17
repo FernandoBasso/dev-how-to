@@ -16,3 +16,4 @@
 * 04 Problems in composition with partial functions.
 * 05 Option (aka Maybe) to signal absence of a useful value.
 * 06 Either to indicate reason for absence of a useful value.
+* 07 Linked list.
