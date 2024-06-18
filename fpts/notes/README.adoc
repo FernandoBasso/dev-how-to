@@ -221,6 +221,9 @@ Imagine these two types:
 * stem:[U = \{A, B, C \}]
 
 One way to compose the values is to pair them.
+
+==== Product types
+
 Pair 1 with A, B and C, then pair 2 with A, B and C.
 Which results in something like:
 
@@ -252,6 +255,16 @@ type JediTuple = [
   skills: string[],
 ];
 ----
+
+==== Sum type
+
+If instead of making pairs, where we have _both_ `T` *AND* `U`, we group ``T``s and ``U``s and use those groups in an _either_ `T` *OR* `U`, we end up with a _sum type_, and noted as stem:[T + U] because the cardinality of the resulting sum type is the cardinality of the sum of the members of each type.
+
+So if compute the cardinality of the union (_sum_) stem:[\{1, 2 \} \cup \{A, B, C\}], we end up with the cardinality of five, because stem:[2 + 3 = 5].
+
+Each group is then called a _variant_.
+
+Sum type is also called _coproduct_, _tagged union_, _disjoint_ and a link:https://en.wikipedia.org/wiki/Tagged_union[few other names^].
 
 == Compose
 
