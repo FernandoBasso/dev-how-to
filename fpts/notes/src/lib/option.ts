@@ -26,12 +26,17 @@ function some<V>(v: V): Option<V> {
   };
 }
 
+function isNone<T>(val: Option<T>): val is None {
+  return val.__tag === "None";
+}
+
 type Option<T> = Some<T> | None;
 
 export {
   type Option,
   type None,
   type Some,
+  isNone,
   none,
   some,
 };

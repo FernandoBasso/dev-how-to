@@ -266,6 +266,9 @@ Each group is then called a _variant_.
 
 Sum type is also called _coproduct_, _tagged union_, _disjoint_ and a link:https://en.wikipedia.org/wiki/Tagged_union[few other names^].
 
+The types `Option` (aka `Maybe`) and `Either` are algebraic data types, in these two cases, _sum_ types, because they return either one thing, _or_ the other thing.
+
+
 == Compose
 
 Compose a function that increments a number then turns it into a string.
