@@ -17,3 +17,4 @@
 * 05 Option (aka Maybe) to signal absence of a useful value.
 * 06 Either to indicate reason for absence of a useful value.
 * 07 Linked list.
+* 08 Algebraic Data Types (ADT) pattern matching.

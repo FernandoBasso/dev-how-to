@@ -162,7 +162,7 @@ Immutable data: create new values from old ones.
 
 TODO
 
-=== Referential Transparency
+=== Referential transparency
 
 TODO
 
@@ -211,6 +211,47 @@ If a function `isEven()` returns a boolean and it is a _total_ function, then th
 
 However, if that function is _partial_, then its return type has cardinality of 2 + 1, which means `true`, `false` and some other return “value” (like `null` or `undefined`) when the function is given an input it does not handle.
 Therefore, we would write the cardinality of the _partial_ function `isEven` as `|boolean| + 1`.
+
+=== Algebraic data types (ADT)
+
+From two or more types, it is possible to create composite types.
+Imagine these two types:
+
+* stem:[T = \{1, 2\}]
+* stem:[U = \{A, B, C \}]
+
+One way to compose the values is to pair them.
+Pair 1 with A, B and C, then pair 2 with A, B and C.
+Which results in something like:
+
+* stem:[TU = \{1A, 1B, 1C, 2A, 2B, 2C\}]
+
+We say that each value inside the composite type is a _field_.
+
+The resulting type is called a _product type_ and is represented by the notation stem:[T \times U], as the number of values possible in the resulting composite type is the multiplication of the cardinalities of the types involved.
+
+The cardinality of the type stem:[T] is 2.
+The cardinality of the type stem:[U] is 3.
+Therefore, the cardinality of the resulting composite type is stem:[2 \times 3 = 6].
+
+In TypeScript, types can be composed with _record_ or _tuple_ types.
+
+An example of modeling a type for a jedi using records and tuples:
+
+[source,typescript]
+----
+type JediRecord = {
+  name: string;
+  level: number;
+  skills: string[];
+};
+
+type JediTuple = [
+  string,
+  number,
+  skills: string[],
+];
+----
 
 == Compose
 
