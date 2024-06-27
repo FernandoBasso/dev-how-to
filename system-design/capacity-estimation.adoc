@@ -1,0 +1,78 @@
+= Capacity Estimation
+:page-subtitle: System Design Tips
+:page-tags:
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: right
+:source-highlighter: highlight.js
+:experimental:
+:imagesdir: __assets
+
+== Intro
+
+This topic is known as _back of the napkin/envelope_ estimation.
+
+== Powers of 2
+
+Remember the powers of 2 up to at least 12 or 14.
+
+[source,text]
+----
+ 1² = 2
+ 2² = 4
+ 3² = 8
+ 4² = 16
+ 5² = 32
+ 6² = 64
+ 7² = 128
+ 8² = 256
+ 9² = 512
+10² = 1024
+11² = 2048
+12² = 4096
+13² = 8192
+14² = 16384
+15² = 32768
+----
+
+=== Other resources
+
+* link:https://en.wikipedia.org/wiki/Power_of_two[Power_of_two on Wikipedia^].
+
+== Metric System
+
+Remember millions, billions and these very large numbers.
+
+TODO: There is some confusion on the user of lowercase vs uppercase letters.
+Posts, texts, tutorials and videos use different casing to mean the same thing somethings.
+Research more on this.
+
+[source,text]
+----
+B → Byte → Ten         → 10
+K → Kilo → Thousand    → 10³  → 1000
+M → Mega → Million     → 10⁶  → 1000 0000
+G → Giga → Billion     → 10⁹  → 1000 000 000
+T → Tera → Trillion    → 10¹² → 1000 000 000 000
+P → Peta → Quadrillion → 10¹⁵ → 1000 000 000 000 000
+
+k * K = M (k * k = m)
+M * K = G (m * k = g)
+G * K = T
+T * K = P
+----
+
+== Storage
+
+[source,text]
+----
+1 B       = 8 bits
+1 kB      = 1024 B
+1 mB      = 1024 kB
+1 gB      = 1024 mB
+1 tB      = 1024 gB
+----
+
