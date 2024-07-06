@@ -1,0 +1,28 @@
+= HackerRank Algorithms and Problem Solving
+:page-subtitle: HackerRank
+:page-tags: hackerrank algds algorithm data-structure challenge
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:experimental:
+:imagesdir: __assets
+
+== Intro
+
+HackerRank has a track called _problem solving_ which is about algorithms:
+
+* link:https://www.hackerrank.com/domains/algorithms[HackerRank algorithms and problem solving track^].
+
+The page features many kinds of filters, like types of problems or difficulty.
+We have chosen to group the solutions by difficulty:
+
+* easy
+* medium
+* hard
+
+The notes and source code contains tags (for grepping or searching somehow) which mentions the kind of topic covered in each challenge.
+For example _array_, _collection_, _sort_, etc.

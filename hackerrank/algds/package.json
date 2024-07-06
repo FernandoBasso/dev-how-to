@@ -1,0 +1,17 @@
+{
+  "name": "hackerrank-algds",
+  "version": "0.0.1",
+  "description": "Solutions for HackerRank challenges",
+  "type": "module",
+  "main": "none.js",
+  "scripts": {
+    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --verbose",
+    "test:watch": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --watchAll --verbose"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "typescript": "^5.5.3"
+  }
+}

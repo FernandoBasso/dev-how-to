@@ -1,0 +1,42 @@
+= Number Line Jumps (Kangaroo)
+:page-subtitle: HackerRank
+:page-tags: hackerrank algorithm
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+
+tags: hackerrank algorithm
+
+* link:https://www.hackerrank.com/challenges/kangaroo/problem[Number Line Jumps (Kangaroo) challenge on HackerRank^].
+
+At after some number of jumps, they either get to the same location (return "YES"), or they exceed the number of jumps and never get to the same location together (return "NO").
+
+== JavaScript
+
+=== Solution 1
+
+This solution involves looping through the jumps to test if we can arrive at the same location at some point.
+
+[source,javascript]
+----
+const MAX_POSITION_DEFAULT = 1e4;
+
+function kangaroo(x1, v1, x2, v2, MAX_POS = MAX_POSITION_DEFAULT) {
+  let p1 = x1 + v1,
+      p2 = x2 + v2;
+
+  while (p1 <= MAX_POS && p2 <= MAX_POS) {
+    if (p1 === p2) return "YES";
+
+    p1 += v1;
+    p2 += v2;
+  }
+
+  return "NO";
+}
+----
