@@ -21,6 +21,7 @@ Remember the powers of 2 up to at least 12 or 14.
 
 [source,text]
 ----
+ 1⁰ = 1
  1² = 2
  2² = 4
  3² = 8
