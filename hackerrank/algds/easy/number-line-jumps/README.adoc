@@ -9,12 +9,25 @@
 :toc: left
 :source-highlighter: highlight.js
 :imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
-tags: hackerrank algorithm
+tags: hackerrank algorithm number loop
 
 * link:https://www.hackerrank.com/challenges/kangaroo/problem[Number Line Jumps (Kangaroo) challenge on HackerRank^].
 
 At after some number of jumps, they either get to the same location (return "YES"), or they exceed the number of jumps and never get to the same location together (return "NO").
+
+The kangaroos will both perform the same number of jumps.
+One kangaroo cannot perform more or less jumps than the other.
+
+One of the constraints states that the second kangaroos start position will always be greater than the first kangaroo.
+That is, the first kangaroo always starts behind the second, and the second kangaroo always starts ahead of the first.
 
 == JavaScript
 
@@ -24,13 +37,26 @@ This solution involves looping through the jumps to test if we can arrive at the
 
 [source,javascript]
 ----
-const MAX_POSITION_DEFAULT = 1e4;
+const MAX_ITERATIONS = 1e4;
 
-function kangaroo(x1, v1, x2, v2, MAX_POS = MAX_POSITION_DEFAULT) {
-  let p1 = x1 + v1,
-      p2 = x2 + v2;
+/**
+ * Checks whether the two kangaroos can reach the same point or not.
+ *
+ * - T.C: O(n).
+ * - S.C: O(1).
+ *
+ * @param {number} x1 The position of kangaroo 1.
+ * @param {number} v1 The jump veolcity of kangaroo 1.
+ * @param {number} x2 The position of kangaroo 2.
+ * @param {number} v2 The jump veolcity of kangaroo 2.
+ * @returns {"YES" | "NO"}
+ */
+function kangaroo(x1, v1, x2, v2) {
+  let p1 = x1,
+      p2 = x2,
+      i = 0;
 
-  while (p1 <= MAX_POS && p2 <= MAX_POS) {
+  while (i++ < MAX_ITERATIONS) {
     if (p1 === p2) return "YES";
 
     p1 += v1;
