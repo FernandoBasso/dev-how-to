@@ -1,6 +1,6 @@
 = Number Line Jumps (Kangaroo)
 :page-subtitle: HackerRank
-:page-tags: hackerrank algorithm
+:page-tags: hackerrank algorithm loop math
 :favicon: https://fernandobasso.dev/cmdline.png
 :icons: font
 :sectlinks:
@@ -9,6 +9,7 @@
 :toc: left
 :source-highlighter: highlight.js
 :imagesdir: __assets
+:stem: latexmath
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -17,7 +18,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-tags: hackerrank algorithm number loop
+tags: hackerrank algorithm number loop math formula
 
 * link:https://www.hackerrank.com/challenges/kangaroo/problem[Number Line Jumps (Kangaroo) challenge on HackerRank^].
 
@@ -31,9 +32,11 @@ That is, the first kangaroo always starts behind the second, and the second kang
 
 == JavaScript
 
-=== Solution 1
+=== Solution 1 with a loop
 
 This solution involves looping through the jumps to test if we can arrive at the same location at some point.
+
+Because it uses a loop, it has T.C stem:[O(1)].
 
 [source,javascript]
 ----
@@ -66,3 +69,39 @@ function kangaroo(x1, v1, x2, v2) {
   return "NO";
 }
 ----
+
+=== Solution 2 with a math formula
+
+Let's say kangaroo 1 starts at position stem:[p1], with a velocity of v1, and will make stem:[j] jumps.
+
+[source,javascript]
+----
+/**
+ * Checks whether the two kangaroos can reach the same point or not.
+ *
+ * - T.C: O(1).
+ * - S.C: O(1).
+ *
+ * @param {number} x1 The position of kangaroo 1.
+ * @param {number} v1 The jump veolcity of kangaroo 1.
+ * @param {number} x2 The position of kangaroo 2.
+ * @param {number} v2 The jump veolcity of kangaroo 2.
+ * @returns {"YES" | "NO"}
+ */
+function kangaroo(x1, v1, x2, v2) {
+  if (v1 <= v2)
+    return "NO";
+
+  if ((x2 - x1) % (v1 - v2) === 0)
+    return "YES";
+
+  return "NO";
+}
+----
+
+Because kangaroo 2 always starts ahead of kangaroo 1, if kangaroo's 1 jump velocity is <= kangaroo's 2 jump velocity, then kangaroo's 1 will never to be able to catch up with kangaroo 2.
+That is the case we handle with the first `if` condition.
+
+The second `if` condition applies the formula to check if it would result in a remainder of 0 (zero), which means the both kangaroos can reach the same point after a certain number of jumps.
+
+Else, the remainder was not zero, so return "NO".

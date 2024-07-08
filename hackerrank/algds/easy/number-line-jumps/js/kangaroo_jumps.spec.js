@@ -1,4 +1,4 @@
-import { kangaroo } from './kangaroo_jumps_v1';
+import { kangaroo } from './kangaroo_jumps_v2';
 
 describe("kangaroo()", () => {
   it("cases for NO", () => {

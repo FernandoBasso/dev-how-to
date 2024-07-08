@@ -1,13 +1,11 @@
 //
-// tags: hackerrank algorithm math formula kangaroo
+// tags: hackerrank algorithm math formula
 //
-
-const MAX_ITERATIONS = 1e4;
 
 /**
  * Checks whether the two kangaroos can reach the same point or not.
  *
- * - T.C: O(n).
+ * - T.C: O(1).
  * - S.C: O(1).
  *
  * @param {number} x1 The position of kangaroo 1.
@@ -17,16 +15,11 @@ const MAX_ITERATIONS = 1e4;
  * @returns {"YES" | "NO"}
  */
 function kangaroo(x1, v1, x2, v2) {
-  let p1 = x1,
-      p2 = x2,
-      i = 0;
+  if (v1 <= v2)
+    return "NO";
 
-  while (i++ < MAX_ITERATIONS) {
-    if (p1 === p2) return "YES";
-
-    p1 += v1;
-    p2 += v2;
-  }
+  if ((x2 - x1) % (v1 - v2) === 0)
+    return "YES";
 
   return "NO";
 }
