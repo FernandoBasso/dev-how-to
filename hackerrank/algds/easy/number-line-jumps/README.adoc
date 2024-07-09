@@ -72,7 +72,91 @@ function kangaroo(x1, v1, x2, v2) {
 
 === Solution 2 with a math formula
 
-Let's say kangaroo 1 starts at position stem:[p1], with a velocity of v1, and will make stem:[j] jumps.
+Let’s say kangaroo 1 starts at position stem:[p₁] with a velocity of stem:[v₁].
+After stem:[j] jumps, it will have reached a certain distance.
+
+[stem]
+++++
+d = v * j
+++++
+
+That is, the distance is the velocity times the number of jumps.
+This is the formula for the distance.
+We are replacing time with jumps because we can assume stem:[j] jumps to be like the number of seconds, like if the kangaroos perform a jump for seconds.
+
+So their position after a certain number of jumps is their start position plus velocity times number of jumps.
+This reasoning gives us this formula:
+
+[source,text]
+====
+end_position = start_position + jump_velocity * number_of_jumps
+====
+
+Or
+
+[stem]
+++++
+e = s + v * j
+++++
+
+Where stem:[e] is the _end position_, stem:[s] is the start position, stem:[v] is the jump velocity and stem:[j] is the number of jumps.
+
+Of course, we want to prove that if we apply that formula for both kangaroos, we’ll get the same result.
+
+[stem]
+++++
+s₁ + (v₁ * j) = s₂ + (v₂ * j)
+++++
+
+We want to isolate stem:[j] as we want to prove that after stem:[j] jumps, both kangaroos have travelled to the same point.
+
+Subtract stem:[s₁] from both sides:
+
+[stem]
+++++
+\displaylines{
+-s₁ + s₁ + (v₁ * j) = s₂ - s₁ + (v₂ * j)\\
+v₁ * j = s₂ - s₁ + v₂ * j
+}
+++++
+
+Then subtract stem:[v₂ * j] from both sides as a means to move stem:[j] to the left side of the equation:
+
+[stem]
+++++
+\displaylines{
+v₁ * j - (v₂ * j) = s₂ - s₁ + v₂ * j - (v₂ * j)\\
+v₁ * j - (v₂ * j) = s₂ - s₁
+}
+++++
+
+Now we can distribute stem:[j]:
+[stem]
+++++
+j * (v₂ - v₁) = s₂ - s₁
+++++
+
+Finally, divide both sides by stem:[v₂ - v₁]:
+
+[stem]
+++++
+\displaylines{
+j * \frac{v₂ - v₁}{v₂ - v₁} = \frac{s₂ - s₁}{v₂ - v₁}\\
+j = \frac{s₂ - s₁}{v₂ - v₁}
+}
+++++
+
+Because the problem statement deals with whole jumps which map to whole integers (there is no 3.5 jump, for instance), we want to make sure that the _remainder_ of the division is zero.
+That is, that the difference between their travelled distance is zero.
+So, instead of the standard division, we want _modulo_ division:
+
+[stem]
+++++
+j = s₂ - s₁\text{ }\%\text{ }v₂ - v₁
+++++
+
+But because we already know the start position and the jump velocity of both kangaroos, we can simply plug those in and check the remainder.
+If it is zero, it means we can answer "YES" to the question asked in the problem statement.
 
 [source,javascript]
 ----
@@ -83,25 +167,25 @@ Let's say kangaroo 1 starts at position stem:[p1], with a velocity of v1, and wi
  * - S.C: O(1).
  *
  * @param {number} x1 The position of kangaroo 1.
- * @param {number} v1 The jump veolcity of kangaroo 1.
+ * @param {number} v1 The jump velocity of kangaroo 1.
  * @param {number} x2 The position of kangaroo 2.
- * @param {number} v2 The jump veolcity of kangaroo 2.
+ * @param {number} v2 The jump velocity of kangaroo 2.
  * @returns {"YES" | "NO"}
  */
 function kangaroo(x1, v1, x2, v2) {
-  if (v1 <= v2)
+  if (v1 <= v2) // <1>
     return "NO";
 
-  if ((x2 - x1) % (v1 - v2) === 0)
+  if ((x2 - x1) % (v1 - v2) === 0) // <2>
     return "YES";
 
-  return "NO";
+  return "NO"; // <3>
 }
 ----
 
-Because kangaroo 2 always starts ahead of kangaroo 1, if kangaroo's 1 jump velocity is <= kangaroo's 2 jump velocity, then kangaroo's 1 will never to be able to catch up with kangaroo 2.
+<1> Because kangaroo 2 always starts ahead of kangaroo 1, if kangaroo’s 1 jump velocity is <= kangaroo’s 2 jump velocity, then kangaroo’s 1 will never to be able to catch up with kangaroo 2.
 That is the case we handle with the first `if` condition.
 
-The second `if` condition applies the formula to check if it would result in a remainder of 0 (zero), which means the both kangaroos can reach the same point after a certain number of jumps.
+<2> The second `if` condition applies the formula to check if it would result in a remainder of 0 (zero), which means the both kangaroos can reach the same point after a certain number of jumps.
 
-Else, the remainder was not zero, so return "NO".
+<3> Else, the remainder was not zero, so return "NO".
