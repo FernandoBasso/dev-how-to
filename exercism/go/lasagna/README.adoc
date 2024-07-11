@@ -285,7 +285,6 @@ func TestElapsedTime(t *testing.T) {
 .lasagna.go
 [source,go]
 ----
-
 package lasagna
 
 // Define the 'OvenTime' constant.

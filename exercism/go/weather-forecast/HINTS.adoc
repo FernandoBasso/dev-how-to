@@ -1,0 +1,17 @@
+= Hints
+
+== General
+
+* A https://golang.org/doc/effective_go.html#commentary[documentation comment] should be written directly before the entity that it is describing, start with the name of what it is describing, take the form of a sentence, and end with a period.
+
+== 1. Document package weather
+
+* The https://golang.org/doc/effective_go.html#commentary[package comment] should be written directly before the package, start with `Package x`, and end with a period.
+
+== 2. Document the CurrentCondition and CurrentLocation variables
+
+* The https://dave.cheney.net/practical-go/presentations/qcon-china.html#_comments[variable comment] should be written right before the variable that it is describing, start with its name, and end with a period.
+
+== 3. Document the Forecast() function
+
+* The https://golang.org/doc/effective_go.html#commentary[function comment] should come directly before the function, start with the name of the function and end with a period.
