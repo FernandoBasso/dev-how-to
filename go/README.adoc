@@ -25,3 +25,44 @@ tags: go
 * https://go.dev/
 * https://wiki.archlinux.org/title/Go
 
+== Unit tests
+
+Go ships with the 'testing' package.
+Example:
+
+.hello_test.go
+[source,go]
+----
+package 'hello'
+
+import 'testing'
+
+func TestHelloWorld(t *testing.T) {
+	expected := "Hello, World!"
+	if observed := HelloWorld(); observed != expected {
+		t.Fatalf("HelloWorld() = %v, want %v", observed, expected)
+	}
+}
+----
+
+Then run with:
+
+[source,shell-session]
+----
+$ go test
+----
+
+Or test a specific package:
+
+[source,shell-session]
+----
+$ go test hello
+----
+
+Or using the `-v` flag to also the list of tests descriptors:
+
+[source,shell-session]
+----
+$ go test -v
+$ go test -v hello
+----
