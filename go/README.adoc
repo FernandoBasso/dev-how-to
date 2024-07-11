@@ -45,6 +45,12 @@ func TestHelloWorld(t *testing.T) {
 }
 ----
 
+[NOTE]
+====
+Make sure to end your file name with `_test.go`.
+Read `go help test` for details.
+====
+
 Then run with:
 
 [source,shell-session]
