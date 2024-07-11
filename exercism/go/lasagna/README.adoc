@@ -1,8 +1,26 @@
 = Gopher's Gorgeous Lasagna
+:page-subtitle: Exercism
+:page-tags: exercism go
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 Welcome to Gopher's Gorgeous Lasagna on Exercism's Go Track.
-If you need help running the tests or submitting your code, check out `HELP.md`.
-If you get stuck on the exercise, check out `HINTS.md`, but try and solve it without using those first :)
+If you need help running the tests or submitting your code, check out `HELP.adoc`.
+If you get stuck on the exercise, check out `HINTS.adoc`, but try and solve it without using those first :)
 
 == Introduction
 
@@ -160,3 +178,135 @@ ElapsedTime(3, 20)
 * @ekingery
 * @andrerfcsantos
 * @bobtfish
+
+== Solution 1
+
+.lasagna_test.go
+[source,go]
+----
+package lasagna
+
+import "testing"
+
+type lasagnaTests struct {
+	name                   string
+	layers, time, expected int
+}
+
+func TestOvenTime(t *testing.T) {
+	tests := []lasagnaTests{
+		{
+			name:     "Calculates how many minutes the lasagna should be in the oven",
+			layers:   0,
+			time:     40,
+			expected: 40,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := OvenTime; got != tt.expected {
+				t.Errorf("OvenTime(%d)  = %d; want %d", tt.expected, got, tt.expected)
+			}
+		})
+	}
+}
+
+func TestRemainingOvenTime(t *testing.T) {
+	tests := []lasagnaTests{
+		{
+			name:     "Remaining minutes in oven",
+			layers:   0,
+			time:     15,
+			expected: 25,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := RemainingOvenTime(tt.time); got != tt.expected {
+				t.Errorf("RemainingOvenTime(%d) = %d; want %d", tt.time, got, tt.expected)
+			}
+		})
+	}
+}
+
+func TestPreparationTime(t *testing.T) {
+	tests := []lasagnaTests{
+		{
+			name:     "Preparation time in minutes for one layer",
+			layers:   1,
+			time:     0,
+			expected: 2,
+		},
+		{
+			name:     "Preparation time in minutes for multiple layers",
+			layers:   4,
+			time:     0,
+			expected: 8,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := PreparationTime(tt.layers); got != tt.expected {
+				t.Errorf("PreparationTime(%d) = %d; want %d", tt.layers, got, tt.expected)
+			}
+		})
+	}
+}
+
+func TestElapsedTime(t *testing.T) {
+	tests := []lasagnaTests{
+		{
+			name:     "Total time in minutes for one layer",
+			layers:   1,
+			time:     30,
+			expected: 32,
+		},
+		{
+			name:     "Total time in minutes for multiple layers",
+			layers:   4,
+			time:     8,
+			expected: 16,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ElapsedTime(tt.layers, tt.time); got != tt.expected {
+				t.Errorf("ElapsedTime(%d, %d) = %d; want %d", tt.layers, tt.time, got, tt.expected)
+			}
+		})
+	}
+}
+----
+
+.lasagna.go
+[source,go]
+----
+
+package lasagna
+
+// Define the 'OvenTime' constant.
+var OvenTime int = 40
+
+// RemainingOvenTime returns the remaining minutes based on the `actual`
+// minutes already in the oven.
+func RemainingOvenTime(actualMinutesInOven int) int {
+	return 40 - actualMinutesInOven
+}
+
+// PreparationTime calculates the time needed to prepare the lasagna based on
+// the amount of layers.
+func PreparationTime(numberOfLayers int) int {
+	return numberOfLayers * 2
+}
+
+// ElapsedTime calculates the time elapsed cooking the lasagna. This time
+// includes the preparation time and the time the lasagna is baking in the
+// oven.
+func ElapsedTime(numberOfLayers, actualMinutesInOven int) int {
+	return PreparationTime(numberOfLayers) + actualMinutesInOven
+}
+----
