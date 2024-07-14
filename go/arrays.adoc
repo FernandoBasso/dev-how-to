@@ -1,0 +1,74 @@
+= Arrays
+:page-subtitle: go
+:page-tags: go programming-language array
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Basic
+
+An array is a numbered sequence of elements of a specific length.
+That is, the type of the array encodes the type of the array constituents _and_ the length.
+In other words, the array's length is part of the type of the array (like tuples Haskell or TypeScript).
+
+Declare an array of two `int` elements:
+
+[source,go]
+----
+var xs [2]int
+
+fmt.Println(len(xs))
+//=> 2
+
+fmt.Println(xs)
+//=> [0 0]
+----
+
+`xs` above was not initialized to any values, so it is _zero-valued_, which of `int` means ``0``s.
+
+[NOTE]
+====
+Note the array is printed inside a pair of square brackets.
+====
+
+And then we can assign values by using indexes:
+
+[source,go]
+----
+var xs [2]int
+fmt.Println(len(xs))
+//=> 2
+
+xs[0] = 10
+xs[1] = 20
+
+fmt.Println(xs)
+//=> [10, 20]
+----
+
+And it is an error trying to assign or read out bounds of the array indexes:
+
+[source,go]
+----
+var xs [2]int
+xs[3] = 1
+// Error:
+// invalid argument: index 3 out of bounds [0:2]
+
+fmt.Println(xs[5])
+// Error:
+// invalid argument: index 5 out of bounds [0:2]
+----
