@@ -72,3 +72,25 @@ fmt.Println(xs[5])
 // Error:
 // invalid argument: index 5 out of bounds [0:2]
 ----
+
+It is possible to let the compiler count the number of elements when declaring and initializing:
+
+[source,go]
+----
+var xs = [...]int{10, 20}
+var ys = [...]int{10, 20, 30}
+----
+
+And even if we type the array variables on the left side of the assignment operator, it is still required to type the “braces composite literal” initialization on the right side too!
+
+[source,go]
+----
+var xs [2]int = [...]int{10, 20}
+var ys [3]int = [...]int{10, 20, 30}
+
+// Same as:
+var xs [2]int = [2]int{10, 20}
+var ys [3]int = [3]int{10, 20, 30}
+----
+
+And make sure the number of elements on the left (inside `[]`) matches the actual number of elements on the right.
