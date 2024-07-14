@@ -94,3 +94,29 @@ var ys [3]int = [3]int{10, 20, 30}
 ----
 
 And make sure the number of elements on the left (inside `[]`) matches the actual number of elements on the right.
+
+== The index: syntax
+
+If specifics indexes are assigned values with the `idx:` syntax, elements in between are zeroed:
+
+[source,go]
+----
+var xs [5]int = [...]int{100, 3: 400, 500}
+fmt.Println(xs)
+//=> [100 0 0 400 500]
+----
+
+But after the `idx:` syntax, we have to fill in the rest to match the length or we'll get an error:
+
+[source,go]
+----
+var xs [5]int = [...]int{100, 3: 400 }
+fmt.Println(xs)
+// Error: cannot use [...]int{…} (value of type [4]int) as [5]int
+// value in variable declaration
+----
+
+Here we have 100 for index 0, index 1 and 2 get zeroed, and we explicitly use the `idx:` syntax to assign the value 400 to index 3.
+But the compiler *does NOT* apply the zero-value to index 4 and thus we get an error.
+When using the `idx:` syntax, we must make sure all the remaining positions (if any) are correctly provided the expected values.
+Only values _in between_ get zero-valued.
