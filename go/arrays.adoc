@@ -120,3 +120,43 @@ Here we have 100 for index 0, index 1 and 2 get zeroed, and we explicitly use th
 But the compiler *does NOT* apply the zero-value to index 4 and thus we get an error.
 When using the `idx:` syntax, we must make sure all the remaining positions (if any) are correctly provided the expected values.
 Only values _in between_ get zero-valued.
+
+== Multi-dimensional
+
+By composing types, it is possible to nest arrays, thus achieveing _multi-dimensional_ arrays 😎!
+
+[source,go]
+----
+var matrix [2][3]int = [2][3]int{
+	{10, 20, 30},
+	{40, 50, 60},
+}
+
+fmt.Println(matrix)
+//=> [[10 20 30] [40 50 60]]
+----
+
+Of courses the sizes of the arrays types on the left and right hand side of the assignment operator must match.
+Still, the left hand side can be omitted and the compiler infers it from the right hand side type:
+
+[source,go]
+----
+var matrix = [2][3]int{
+  {10, 20, 30},
+  {40, 50, 60},
+}
+----
+
+And while we can use the `[...]` syntax for one array, we cannot use that syntax to create multi-dimensional arrays:
+
+[source,go]
+----
+var xs [2]int = [...]int{1, 2}
+// OK
+
+var ys [2][3]int = [...][...]int{{1, 2, 3}, {4, 5, 6}}
+// Error: invalid use of [...] array (outside a composite literal).
+----
+
+TODO: Research more on the error and the syntax.
+Some say `[...][...]int` is not valid syntax for a type.
