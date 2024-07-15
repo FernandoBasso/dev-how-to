@@ -145,7 +145,15 @@ var matrix = [2][3]int{
   {10, 20, 30},
   {40, 50, 60},
 }
+
+fmt.Println(matrix)
+//=> [[10 20 30] [40 50 60]]
 ----
+
+[NOTE]
+====
+While the syntax to _create_ the nested arrays uses curly braces `{{}, {}}`, it prints in square brackets.
+====
 
 And while we can use the `[...]` syntax for one array, we cannot use that syntax to create multi-dimensional arrays:
 
@@ -160,3 +168,4 @@ var ys [2][3]int = [...][...]int{{1, 2, 3}, {4, 5, 6}}
 
 TODO: Research more on the error and the syntax.
 Some say `[...][...]int` is not valid syntax for a type.
+
