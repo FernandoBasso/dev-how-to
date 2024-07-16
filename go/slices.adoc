@@ -1,0 +1,105 @@
+= Slices
+:page-subtitle: go
+:page-tags: go programming-language slice
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Intro
+
+Unlike arrays, slices do not encode the length as part of the type.
+Only the elements are part of the type.
+
+An empty slice is the same as `nil` and has the length of 0 (zero):
+
+[source,go]
+----
+var s []string
+
+fmt.Printf("%T", s)
+//=> []string
+
+fmt.Println(s == nil)
+//=> true
+
+fmt.Println(len(s))
+//=> 0
+----
+
+//
+// https://discord.com/channels/118456055842734083/1262533385180418058/1262533385180418058
+//
+
+It is possible to use `make(type, initialLength)` to create slices of an initial specific storage capacity.
+A slice's capacity is the same as its initial length:
+
+[source,go]
+----
+var s []string = make([]string, 3)
+fmt.Print(len(s))
+//=> 3
+----
+
+Printing with `fmt.Println()`:
+
+[source,go]
+----
+fmt.Println(s)
+//=> [  ]
+----
+
+It prints two spaces inside the square brackets, that is, two 0x0020 chars.
+
+And let's inspect that with `od`:
+
+[source,go]
+----
+$ go run ./gobyexample/scratch.go | od -cax
+0000000   [           ]  \n
+          [  sp  sp   ]  nl
+           205b    5d20    000a
+0000005
+----
+
+Why two spaces?
+Because it is three zero-valued values separated by spaces.
+It prints separated by spaces like Lisp lists which contains space-separated elements (instead of comma-separated elements).
+Why Go decided to require commas to create such collections, but by default prints those collections with those elements separated by spaces is a mystery that remains to be solved.
+
+Empty strings are the zero-value of strings, which is not so easy to see.
+Compare with a slice of size 3 for ints:
+
+[source,go]
+----
+var xs []int = make([]int, 3)
+fmt.Println(xs)
+//=> [0 0 0]
+----
+
+Three zero-valued values (for ints this time) separated by two spaces.
+
+We can make use of ``fmt``’s `#v` formatting verb to print in Go-like syntax:
+
+[source,go]
+----
+var s []string = make([]string, 3)
+fmt.Printf("%#v\n", s)
+//=> []string{"", "", ""}
+
+var xs []int = make([]int, 3)
+fmt.Printf("%#v\n", xs)
+//=> []int{0, 0, 0}
+----
