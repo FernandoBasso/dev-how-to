@@ -79,7 +79,7 @@ Because it is three zero-valued values separated by spaces.
 It prints separated by spaces like Lisp lists which contains space-separated elements (instead of comma-separated elements).
 Why Go decided to require commas to create such collections, but by default prints those collections with those elements separated by spaces is a mystery that remains to be solved.
 
-Empty strings are the zero-value of strings, which is not so easy to see.
+Empty strings are the zero-value of strings, which is not easy to see.
 Compare with a slice of size 3 for ints:
 
 [source,go]
@@ -91,7 +91,7 @@ fmt.Println(xs)
 
 Three zero-valued values (for ints this time) separated by two spaces.
 
-We can make use of ``fmt``’s `#v` formatting verb to print in Go-like syntax:
+We can make use of ``fmt``’s `#v` formatting verb to display values in Go-like syntax:
 
 [source,go]
 ----
@@ -103,3 +103,17 @@ var xs []int = make([]int, 3)
 fmt.Printf("%#v\n", xs)
 //=> []int{0, 0, 0}
 ----
+
+== Operations on slices
+
+[source,go]
+----
+var xs []int = make([]int, 3)
+fmt.Println(len(xs))
+//=> 3
+----
+
+== References
+
+* https://pkg.go.dev/slices
+* https://gobyexample.com/slices
