@@ -129,6 +129,22 @@ fmt.Printf("%#v\n", ys)
 
 Even though it says _append_, it does not really append to the existing slice, but instead returns a new slice without touching the existing slice, which still contains its original elements.
 
+=== copy()
+
+It is also possible to copy a slice:
+
+[source,go]
+----
+var xs = []int{1, 2, 3}
+var ys = make([]int, len(xs))
+
+copy(ys, xs)
+
+fmt.Printf("%#v\n", ys)
+//=> []int{1, 2, 3}
+----
+
+
 == References
 
 * https://pkg.go.dev/slices
