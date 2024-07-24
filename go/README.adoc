@@ -23,6 +23,7 @@ tags: go
 == Resources
 
 * https://go.dev/
+* https://go.dev/wiki/
 * https://wiki.archlinux.org/title/Go
 
 == Unit tests
