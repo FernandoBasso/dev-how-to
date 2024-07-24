@@ -149,3 +149,12 @@ fmt.Printf("%#v\n", ys)
 
 * https://pkg.go.dev/slices
 * https://gobyexample.com/slices
+
+++++
+<style type="text/css" rel="stylesheet">
+.hljs-comment,
+pre.pygments .tok-c1 {
+  font-style: normal;
+}
+</style>
+++++

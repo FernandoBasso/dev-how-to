@@ -169,3 +169,11 @@ var ys [2][3]int = [...][...]int{{1, 2, 3}, {4, 5, 6}}
 TODO: Research more on the error and the syntax.
 Some say `[...][...]int` is not valid syntax for a type.
 
+++++
+<style type="text/css" rel="stylesheet">
+.hljs-comment,
+pre.pygments .tok-c1 {
+  font-style: normal;
+}
+</style>
+++++

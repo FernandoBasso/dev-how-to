@@ -73,3 +73,12 @@ Or using the `-v` flag to also the list of tests descriptors:
 $ go test -v
 $ go test -v hello
 ----
+
+++++
+<style type="text/css" rel="stylesheet">
+.hljs-comment,
+pre.pygments .tok-c1 {
+  font-style: normal;
+}
+</style>
+++++
