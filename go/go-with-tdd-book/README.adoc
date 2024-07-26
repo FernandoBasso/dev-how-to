@@ -1,0 +1,37 @@
+= Notes Learn Go With Tests
+:page-subtitle: 
+:page-tags: 
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Introduction
+
+I love TDD and almost always write code guided by tests.
+I think of, and use unit tests as:
+
+* A design tool.
+* Specification and documentation.
+* Regression test.
+* Test the current feature I am implementing.
+
+Recently, a coworker and dear friend of mine, Bijay, recommended the book link:https://quii.gitbook.io/learn-go-with-tests[Learn Go With Tests^].
+
+After skimming through it, I decided I loved the book.
+The main reason is that it is full of real life tips and ideas on the mental process of doing TDD (and not only showing syntax).
+
+I live by many of those ideas already, and try to always share them with other developers, and as I am currently learning go (July 2024), I thought it would be an awesome book for me to follow!
+It will strengthen my TDD skills and allow me to learn more Go in a more professional, TDD-based approach.
