@@ -74,6 +74,15 @@ $ go test -v
 $ go test -v hello
 ----
 
+== Editors and Tools
+
+=== golangci-lint
+
+* https://golangci-lint.run/
+
+`golangci-lint` can be installed from link:https://aur.archlinux.org/packages?K=golangci[AUR on Arch Linux^], or from the command line as per the link:https://golangci-lint.run/welcome/install/#binaries[install docs^].
+
+
 ++++
 <style type="text/css" rel="stylesheet">
 .hljs-comment,
