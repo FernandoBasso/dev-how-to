@@ -180,8 +180,9 @@ fmt.Println(ys)
 
 == References
 
-* https://pkg.go.dev/slices
+* https://go.dev/blog/slices-intro
 * https://gobyexample.com/slices
+* https://pkg.go.dev/slices
 
 ++++
 <style type="text/css" rel="stylesheet">
