@@ -1,6 +1,6 @@
 = Notes Learn Go With Tests
-:page-subtitle: 
-:page-tags: 
+:page-subtitle:
+:page-tags:
 :favicon: https://fernandobasso.dev/cmdline.png
 :icons: font
 :sectlinks:
@@ -35,3 +35,25 @@ The main reason is that it is full of real life tips and ideas on the mental pro
 
 I live by many of those ideas already, and try to always share them with other developers, and as I am currently learning go (July 2024), I thought it would be an awesome book for me to follow!
 It will strengthen my TDD skills and allow me to learn more Go in a more professional, TDD-based approach.
+
+
+== Getting Started
+
+[source,bash]
+----
+$ go help
+$ go help mod
+$ go help mod init
+
+$ mkdir -pv ./getting-started
+$ cd !$
+
+$ go mod init getting-started
+go: creating new go.mod: module getting-started
+
+00-getting-started [go-1.22.5]
+$ cat ./go.mod 
+module getting-started
+
+go 1.22.5
+----
