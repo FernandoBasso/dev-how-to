@@ -178,6 +178,43 @@ fmt.Println(ys)
 //=> [1 2 3]
 ----
 
+== Multi-dimensional slices
+
+Unlike arrays, inner slices do not need to be all of the same length:
+
+[source,go]
+----
+var twoD = [][]int{{1}, {2, 3}, {4, 5, 6}}
+
+fmt.Println(twoD)
+//=> [[1] [2 3] [4 5 6]]
+
+fmt.Printf("%#v\n", twoD)
+//=> [][]int{[]int{1}, []int{2, 3}, []int{4, 5, 6}}
+----
+
+Or creating it dynamically with loops:
+
+[source,go]
+----
+var twoD = make([][]int, 3)
+
+for i := 0; i < 3; i++ {
+  innerLen := i + 1
+  twoD[i] = make([]int, innerLen)
+
+  for j := 0; j < innerLen; j++ {
+    twoD[i][j] = i + j
+  }
+}
+
+fmt.Println(twoD)
+// => [[0] [1 2] [2 3 4]]
+
+fmt.Printf("%#v\n", twoD)
+// => [][]int{[]int{0}, []int{1, 2}, []int{2, 3, 4}}
+----
+
 == References
 
 * https://go.dev/blog/slices-intro
