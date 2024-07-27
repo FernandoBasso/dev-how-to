@@ -144,6 +144,39 @@ fmt.Printf("%#v\n", ys)
 //=> []int{1, 2, 3}
 ----
 
+=== slice operator ‘ini:end’
+
+Using the `[ini:end]` syntax, it is possible to retrieve a slice from index `ini` up to, but not including, index `end`:
+
+[source,go]
+----
+var xs = []int{1, 2, 3, 4, 5}
+ys := xs[1:4]
+fmt.Println(ys)
+//=> [2 3 4]
+----
+
+Either side of the slice can be omitted.
+
+Selects from index 2 to the end:
+
+[source,go]
+----
+var xs = []int{1, 2, 3, 4, 5}
+ys := xs[2:]
+fmt.Println(ys)
+//=> [3 4 5]
+----
+
+Select from index zero up to, but not including index 3:
+
+[source,go]
+----
+var xs = []int{1, 2, 3, 4, 5}
+ys := xs[:3]
+fmt.Println(ys)
+//=> [1 2 3]
+----
 
 == References
 
