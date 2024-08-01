@@ -1,6 +1,6 @@
 = Notes Learn Go With Tests
-:page-subtitle:
-:page-tags:
+:page-subtitle: Go
+:page-tags: go tdd test unit
 :favicon: https://fernandobasso.dev/cmdline.png
 :icons: font
 :sectlinks:
