@@ -22,3 +22,7 @@ endif::[]
 
 Sometimes, it is useful to group tests around a “thing” and then have subtests describing different scenarios.
 Each scenario can also be thought of as a use case.
+
+It is important that your tests are clear specifications of what the code needs to do.
+
+When tests are passing, we can and should refactor the tests themselves if we can think of any improvements, including the test descriptions.
