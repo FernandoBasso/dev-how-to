@@ -1,0 +1,24 @@
+= TDD
+:page-subtitle: Test Driven Development
+:page-tags: tdd unit-test test
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Random Notes
+
+Sometimes, it is useful to group tests around a “thing” and then have subtests describing different scenarios.
+Each scenario can also be thought of as a use case.
