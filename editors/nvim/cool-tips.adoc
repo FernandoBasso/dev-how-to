@@ -1,0 +1,52 @@
+= Cool Tips
+:page-subtitle: nvim
+:page-tags: nvim vim editor
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Format current buffer
+
+=== Format Go buffers with gofmt
+
+Go provides the link:https://pkg.go.dev/cmd/gofmt[gofmt^] tool for formatting files:
+
+.gofmt help
+[source,text]
+----
+$ gofmt --help
+usage: gofmt [flags] [path ...]
+  -cpuprofile string
+    	write cpu profile to this file
+  -d	display diffs instead of rewriting files
+  -e	report all errors (not just the first 10 on different lines)
+  -l	list files whose formatting differs from gofmt's
+  -r string
+    	rewrite rule (e.g., 'a[b:len(a)] -> a[b:]')
+  -s	simplify code
+  -w	write result to (source) file instead of stdout
+----
+
+From vim or nvim, we can format the contents of the current buffer with this:
+
+.vim cmdline
+[source,text]
+----
+:!gofmt -w %
+----
+
+// === Format JS/TS files buffers with prettier
+
