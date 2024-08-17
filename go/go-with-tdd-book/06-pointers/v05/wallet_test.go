@@ -4,12 +4,12 @@ import "testing"
 
 func TestWallet(t *testing.T) {
 	assertBalance := func(t testing.TB, wallet Wallet, want Bitcoin) {
-	  t.Helper()
+		t.Helper()
 
 		got := wallet.Balance()
 
 		if got != want {
-		  t.Errorf("got %s, want %s", got, want)
+			t.Errorf("got %s, want %s", got, want)
 		}
 	}
 
@@ -17,7 +17,7 @@ func TestWallet(t *testing.T) {
 		t.Helper()
 
 		if err == nil {
-		  t.Error("wanted an error but didn't get one")
+			t.Error("wanted an error but didn't get one")
 		}
 	}
 
