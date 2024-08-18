@@ -1,8 +1,8 @@
 package integers
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func TestAdder(t *testing.T) {
