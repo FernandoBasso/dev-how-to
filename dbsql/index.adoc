@@ -75,14 +75,14 @@ We say “the WHERE clause”, or “the SELECT clause”, etc.
 
 == Data Definition Language
 
-The most used DDL involve `CREATE`, `ALTER` and `DROP` clauses.
+The most used DDL keywords involve `CREATE`, `ALTER` and `DROP` clauses.
 
 Let's create a new database in PostgreSQL:
 
 [source,sql]
 ----
 CREATE DATABASE starwars_dev
-    WITH
+  WITH
     OWNER = devel
     ENCODING = 'UTF8'
     LC_COLLATE = 'en_US.UTF-8'
