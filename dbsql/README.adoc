@@ -19,11 +19,19 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+[NOTE]
+====
+I use mostly PostgreSQL and MariaDB, so expect most examples to work on those.
+====
+
 SQL stands for Structured Query Language.
 No mater which (relational) database vendor being used (PostgreSQL, MariaDB, etc.), the language to work with the data and other aspects is the SQL language.
 SQL does much more than just _query_ data, though.
 
-It is common to pronounce SQL as three letters S Q L (and not as the word "`sequel`"), which means we say “_an_ SQL statement” rather than “_a_ SQL (sequel) statement”.
+[TIP]
+====
+It is common to pronounce SQL as three letters S-Q-L (and not as the word “sequel”), which means we say “_an_ SQL statement” rather than “_a_ SQL (sequel) statement”.
+====
 
 Here you'll find some notes, concepts, ideas, examples and guides on how to do work with:
 
@@ -32,15 +40,13 @@ Here you'll find some notes, concepts, ideas, examples and guides on how to do w
 * Data Control Language (DCL).
 * A few other types of queries.
 
-All of the above are different kinds of S/clauQL statements, but all SQL statements nonetheless.
+All of the above are different kinds of SQL statements, but all SQL statements nonetheless.
 DDL is about the structure of the database structure, while DML operates on the data.
-
-I use mostly PostgreSQL and MariaDB, so expect most examples to work on those.
 
 SQL is a standardized language (even though each vendor adds their own features, commands and other facilities) on top of the standard language.
 The standard is *NOT* free (like HTML, CSS or ECMAScript, among others).
 One has to purchase it on https://www.iso.org/standard/63555.html[their website].
-Thankfully, we can be learn for free on the web by reading DB vendors documentation, tutorials and by doing SQL challenges on some online platforms, and of course, a lot of research.
+Thankfully, we can learn for free on the web by reading DB vendors documentation, tutorials and by doing SQL challenges on some online platforms, and of course, a lot of research.
 Some resources:
 
 * https://www.postgresql.org/docs/current/index.html[PostgreSQL docs].
@@ -64,13 +70,13 @@ WHERE power >= 78
 ;
 ----
 
-We wrote the keywords in UPPERCASE (common practice).
+Note we wrote the keywords in UPPERCASE, as it is common, accepted practice.
 The identifiers are `jedis` (table name) and `id`, `name`, `skill` and `power` (column names).
 78 is a numeric constant.
 
 `>=` is an operator, which is a special kind of keyword.
 
-`SELECT`, `FROM` and `WHERE` (among many others) are also _clauses_.
+`SELECT`, `FROM` and `WHERE` (among many others) are also known as _clauses_.
 We say “the WHERE clause”, or “the SELECT clause”, etc.
 
 == Data Definition Language
