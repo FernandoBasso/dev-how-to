@@ -18,6 +18,8 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+== Challenge
+
 * link:https://www.codewars.com/kata/54ff3102c1bad923760001f3[Count Vowels :: Codewars 7kyu Challenge^]
 
 == Intro
@@ -136,6 +138,30 @@ func CountVowels(str string) (count int) {
 
 	for _, c := range str {
 		if strings.Contains(VOWELS, string(c)) {
+			count++
+		}
+	}
+
+	return count
+}
+----
+
+=== Solution 2 with switch case
+
+This approach uses no package besides vanilla language features.
+
+[source,go]
+----
+// CountVowels counts the number of uppercase and lowercase vowels from
+// the English alphabet.
+//
+// ASSUME: "y" is not considered a vowel for this exercise.
+func CountVowels(str string) (count int) {
+	count = 0
+
+	for _, chr := range str {
+		switch chr {
+		case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U':
 			count++
 		}
 	}
