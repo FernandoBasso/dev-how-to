@@ -1,0 +1,74 @@
+= Count Vowels
+:page-subtitle: 7kyu Codewars Challenge
+:page-tags: codewars algorithm
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+* link:https://www.codewars.com/kata/54ff3102c1bad923760001f3[Count Vowels :: Codewars 7kyu Challenge^]
+
+== Intro
+
+Considering the English alphabet, count the number of vowels in a string.
+The input string can a mix of uppercase and lowercase characters.
+
+== Scheme
+
+=== Solution 1
+
+Using string functions from srfi-13.
+We use an `or` to check for both uppercase and lowercase vowels.
+
+[source,scheme]
+----
+(import (only srfi-13 string-fold string-index))
+
+;;;;
+;; Count the number of vowels in s.
+;;
+(define (count-vowels s)
+  (string-fold (lambda (c acc)
+                 (if (or (string-index "aeiou" c)
+                         (string-index "AEIOU" c))
+                     (+ acc 1)
+                     acc))
+               0
+               s))
+----
+
+The `string-fold` function passes a type char (not a type string) to the callback, and `string-index` takes a string and a char.
+
+=== Solution 2
+
+To avoid the `or` used earlier with `string-index`, we can try `string-contains-ci`.
+But because `string-fold` passes chars (not strings) to the callback, we first need to convert the char to a string before comparing.
+
+[source,scheme]
+----
+(import (only srfi-13 string-fold string-contains-ci))
+
+;;;;
+;; Count the number of vowels in s.
+;;
+(define (count-vowels s)
+  (string-fold (lambda (c acc)
+                 (if (string-contains-ci "aeiou" (string c))
+                     (+ acc 1)
+                     acc))
+               0
+               s))
+----
+
