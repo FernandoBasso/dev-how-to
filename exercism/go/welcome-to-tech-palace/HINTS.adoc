@@ -1,0 +1,22 @@
+= Hints
+
+== General
+
+* The https://pkg.go.dev/strings[strings package] contains many useful `string` functions.
+* The `strings` package needs to be imported before it can be used.
+* To call functions within the `strings` package, prefix them with `strings.`.
+
+== 1. Create the welcome message
+
+* Strings can be concatenated using the `+` operator.
+* There is a function to https://pkg.go.dev/strings#ToUpper[convert a `string` to upper case].
+
+== 2. Add a fancy border
+
+* There is a function to https://pkg.go.dev/strings#Repeat[create a `string` with a specific character repeated a number of times].
+* A newline is a special https://yourbasic.org/golang/multiline-string/#all-escape-characters[escape character].
+
+== 3. Clean up old marketing messages
+
+* There is a function to https://pkg.go.dev/strings#ReplaceAll[replace strings within a `string`].
+* There is a function to https://pkg.go.dev/strings#TrimSpace[trim leading and trailing spaces from a `string`].
