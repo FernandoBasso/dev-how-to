@@ -1,4 +1,22 @@
 = Annalyn's Infiltration
+:page-subtitle: Exercism Go
+:page-tags: exercism go boolean
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 Welcome to Annalyn's Infiltration on Exercism's Go Track.
 If you need help running the tests or submitting your code, check out `HELP.adoc`.
@@ -121,3 +139,43 @@ fmt.Println(CanFreePrisoner(knightIsAwake, archerIsAwake, prisonerIsAwake, petDo
 === Created by
 
 * @oanaOM
+
+== Solution
+
+[source,go]
+----
+package annalyn
+
+// CanFastAttack can be executed only when the knight is sleeping.
+func CanFastAttack(knightIsAwake bool) bool {
+	return !knightIsAwake
+}
+
+// CanSpy can be executed if at least one of the characters is awake.
+func CanSpy(knightIsAwake, archerIsAwake, prisonerIsAwake bool) bool {
+	return knightIsAwake || archerIsAwake || prisonerIsAwake
+}
+
+// CanSignalPrisoner can be executed if the prisoner is awake and the archer is sleeping.
+func CanSignalPrisoner(archerIsAwake, prisonerIsAwake bool) bool {
+	return prisonerIsAwake && !archerIsAwake
+}
+
+// CanFreePrisoner can be executed if the prisoner is awake and the other 2 characters are asleep
+// or if Annalyn's pet dog is with her and the archer is sleeping.
+func CanFreePrisoner(knightIsAwake, archerIsAwake, prisonerIsAwake, petDogIsPresent bool) bool {
+	if prisonerIsAwake && !knightIsAwake && !archerIsAwake {
+		return true
+	}
+
+	// OR
+
+	if petDogIsPresent && !archerIsAwake {
+		return true
+	}
+
+	return false
+}
+----
+
+We could have used `||` but we felt doing two `it` conditions separately helped with readability.
