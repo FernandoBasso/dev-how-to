@@ -179,3 +179,11 @@ func CanFreePrisoner(knightIsAwake, archerIsAwake, prisonerIsAwake, petDogIsPres
 ----
 
 We could have used `||` but we felt doing two `it` conditions separately helped with readability.
+In short, this would work too:
+
+[source,go]
+----
+func CanFreePrisoner(knightIsAwake, archerIsAwake, prisonerIsAwake, petDogIsPresent bool) bool {
+  return prisonerIsAwake && !knightIsAwake && !archerIsAwake || petDogIsPresent && !archerIsAwake
+}
+----
