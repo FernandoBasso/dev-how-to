@@ -1,0 +1,20 @@
+= Hints
+
+== General
+
+* The `fmt` package of the standard library has some https://golang.org/pkg/fmt/[formatting functionality for strings].
+* There is a way to https://golang.org/ref/spec#String_concatenation[concatenate strings].
+
+== 1. Welcome a new guest to the party
+
+* `fmt.Sprintf` lets you use a https://pkg.go.dev/fmt#Sprintf[template to create a string].
+
+== 2. Welcome a new guest to the party whose birthday is today
+
+* `fmt.Sprintf` can interpolate https://www.geeksforgeeks.org/fmt-sprintf-function-in-golang-with-examples/[more than one value into your string]!
+
+== 3. Give directions
+
+* You can use https://yourbasic.org/golang/multiline-string/#interpreted-string-literals[newline characters in your string].
+* Padding with zeroes could be achieved with one of the https://yourbasic.org/golang/fmt-printf-reference-cheat-sheet/#cheat-sheet[formatting verbs].
+* The shorthand assignment operator `+=` can help you build up your result via string concatenation.
