@@ -1,8 +1,26 @@
 = Card Tricks
+:page-subtitle: Exercism Go
+:page-tags: exercism go slice
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 Welcome to Card Tricks on Exercism's Go Track.
-If you need help running the tests or submitting your code, check out `HELP.md`.
-If you get stuck on the exercise, check out `HINTS.md`, but try and solve it without using those first :)
+If you need help running the tests or submitting your code, check out `HELP.adoc`.
+If you get stuck on the exercise, check out `HINTS.adoc`, but try and solve it without using those first :)
 
 == Introduction
 
@@ -274,3 +292,66 @@ fmt.Println(cards)
 === Contributed to by
 
 * @norbs57
+
+== Solution
+
+[source,go]
+----
+// isValidIndex checks if the given index is a valid index
+// and within the bounds of the passed slice.
+func isValidIndex(slice []int, idx int) bool {
+	if idx < 0 || idx >= len(slice) {
+		return false
+	}
+
+	return true
+}
+
+// FavoriteCards returns a slice with the cards 2, 6 and 9 in that order.
+func FavoriteCards() []int {
+	return []int{2, 6, 9}
+}
+
+// GetItem retrieves an item from a slice at given position.
+// If the index is out of range, we want it to return -1.
+func GetItem(slice []int, index int) int {
+	if !isValidIndex(slice, index) {
+		return -1
+	}
+
+	return slice[index]
+}
+
+// SetItem writes an item to a slice at given position overwriting an existing value.
+// If the index is out of range the value needs to be appended.
+func SetItem(slice []int, index, value int) []int {
+	newSlice := slice[:]
+
+	if isValidIndex(newSlice, index) {
+		newSlice[index] = value
+	} else {
+		newSlice = append(newSlice, value)
+	}
+
+	return newSlice
+}
+
+// PrependItems adds an arbitrary number of values at the front of a slice.
+func PrependItems(slice []int, values ...int) []int {
+	newSlice := append(values[:], slice...)
+	return newSlice
+}
+
+// RemoveItem removes an item from a slice by modifying the existing slice.
+func RemoveItem(slice []int, index int) []int {
+	if !isValidIndex(slice, index) {
+		return slice
+	}
+
+	newSlice := append(slice[:index], slice[index+1:]...)
+
+	return newSlice
+}
+----
+
+In this solution I have decided to never modify the slices passed as parameters, but instead create new ones, operate on them, and then return them.
