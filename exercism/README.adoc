@@ -1,0 +1,111 @@
+= Exercism Solutions
+:toc: left
+:icons: font
+
+== Notes on multiple solutions
+
+I like to try multiple solutions and multiple approaches when solving a particular problem.
+For this reason, I like to name my solution files with suffixes like _v1 and _v2, etc.
+
+When submitting solutions, one must edit `.exercism/config.json` and correctly set the `files.solution` property to point to the latest solution we want to submit.
+
+== Scheme
+
+**NOTE**: This is a work in progress.
+
+Exercism Scheme challenges are supposed to work with Chez or Guile.
+To make them work with Chicken Scheme, a few changes are necessary:
+
+* Replace `(import (rnrs)) ...` `(import (scheme))...`.
+
+== Titles, Subtitles and Links
+
+Exercism has two basic types of exercises:
+
+* Learning exercises (which don't provide or refer to a difficulty level).
+* Challenges, which can be of difficulty level _easy_, _medium_ or _hard_.
+
+The page title should contain the main exercise or challenge type.
+The `page-subtitle` attribute shall be of the form “Exercism [Easy|Medium|Hard] <type> :: <language>”.
+Note that the difficulty level is used only if the type is challenge.
+
+The link for the learning or exercise should be a single list element of the form:
+
+[source,text]
+----
+* link:<URL>[<name> Exercism [easy|medium|hard] <language> <challenge | learning exercise>.
+----
+
+Example for a learning exercise:
+
+[source,text]
+----
+= Amusement Park
+:page-subtitle: Exercism Learning Exercise :: Ruby
+
+* link:<url>[Amusement Park Exercism Ruby learning exercise].
+----
+
+Example for a challenge:
+
+[source,text]
+----
+= Meetup
+:page-subtitle: Exercism Easy Challenge :: Ruby
+
+* link:<url>[Meetup Exercism easy Ruby challenge].
+----
+
+These command line oneliners can help us see the links that follow the pattern described above:
+
+[source,shell-session]
+----
+$ grep --color -r '\* link.*' | sed 's/^[^[]\+//g'
+
+[Amusement Park Improvements Ruby learning exercise^].
+[Microwave Exercism easy Ruby challenge^].
+[Lasagna Exercism Ruby learning exercise^].
+[Amusement Park Exercism Ruby learning exercise^].
+[Meetup Exercism easy Ruby challenge^].
+[Acronym Exercism easy Ruby challenge^].
+[Resistor Color Duo Exercism easy Ruby challenge^].
+
+$ grep --color -r '\* link.*' | sed 's/^[^[]\+//g' | grep 'Exercism.*learning'
+
+[Amusement Park Improvements Exercism Ruby learning exercise^].
+[Lasagna Exercism Ruby learning exercise^].
+[Amusement Park Exercism Ruby learning exercise^].
+
+$ grep --color -r '\* link.*' \
+    | sed 's/^[^[]\+//g' \
+    | grep 'Exercism \(easy\|medium\|hard\).*challenge'
+
+[Microwave Exercism easy Ruby challenge^].
+[Meetup Exercism easy Ruby challenge^].
+[Acronym Exercism easy Ruby challenge^].
+[Resistor Color Duo Exercism easy Ruby challenge^].
+----
+
+=== VSCode Snippets
+
+A VSCode snippet for a learning exercise:
+
+[source,json]
+----
+	"Exercism learning exercise": {
+		"prefix": "exercismle",
+		"body": [
+			"= $1",
+			":page-subtitle: Exercism Learning Exercise :: ${2:language}",
+			":page-tags: ${5:tags}"
+			":favicon: https://fernandobasso.dev/cmdline.png",
+			":icons: font",
+			":sectlinks:",
+			":sectnums!:",
+			":toclevels: 6",
+			":toc: left",
+			"\n",
+			"* link:${3}[$1 Exercism ${4:difficulty} ${2:language} learning exercise^]",
+		]
+	},
+----

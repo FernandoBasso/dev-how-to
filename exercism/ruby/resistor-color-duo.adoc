@@ -1,0 +1,91 @@
+= Resistor Color Duo
+:page-subtitle: Exercism Easy Challenge :: Ruby
+:page-tags: ruby hash
+:icons: font
+:toc: left
+:sectlinks:
+:stem: latexmath
+
+* link:https://exercism.org/tracks/ruby/exercises/resistor-color-duo[Resistor Color Duo Exercism easy Ruby challenge^].
+
+== Solution 1
+
+[source,ruby]
+----
+class ResistorColorDuo
+  @color_names = [
+    'black',
+    'brown',
+    'red',
+    'orange',
+    'yellow',
+    'green',
+    'blue',
+    'violet',
+    'grey',
+    'white',
+  ]
+
+  class << self
+    ##
+    # Return an array of indexes from the color names. Example:
+    #
+    # ['black', 'red', 'grey'] -> [0, 2]
+    #
+    # At most two colors are taken into consideration. Excess
+    # colors are simply ignored.
+    #
+    def to_index_array(colors)
+      colors.take(2).collect do |color|
+        @color_names.index(color)
+      end
+    end
+
+    ##
+    # Get the color values for the given pair (two-element array)
+    # of color names.
+    #
+    # @param color_names '{Array<String>} An array of two color
+    #   name string.
+    # @return String A string with the two color values.
+    #
+    def value(colors)
+      to_index_array(colors).join('').to_i
+    end
+  end
+end
+----
+
+== Solution 2
+
+[source,ruby]
+----
+class ResistorColorDuo
+   COLORS = {
+    'black' => 0,
+    'brown' => 1,
+    'red' => 2,
+    'orange' => 3,
+    'yellow' => 4,
+    'green' => 5,
+    'blue' => 6,
+    'violet' => 7,
+    'grey' => 8,
+    'white' => 9,
+  }
+
+  class << self
+    ##
+    # Get the color values for the given pair (two-element array) of
+    # color names.
+    #
+    # @param color_names '{Array<String>} An array of two color
+    #   name string.
+    # @return String A string with the two color values.
+    #
+    def value(color_names)
+      color_names.take(2).map(&COLORS).join('').to_i
+    end
+  end
+end
+----

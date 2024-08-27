@@ -1,0 +1,10 @@
+= Locomotive Engineer
+:page-subtitle: Exercism Learning Exercise :: Ruby
+:page-tags: ruby assignment decomposition splat
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+
+* link:https://exercism.org/tracks/ruby/exercises/locomotive-engineer[Locomotive Engineer Exercism Ruby learning exercise^]

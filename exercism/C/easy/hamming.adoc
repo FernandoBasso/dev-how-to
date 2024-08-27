@@ -1,0 +1,61 @@
+= Hammnig
+:page-subtitle: Exercism Easy Challenge
+:icons: font
+:toc: left
+:sectlinks:
+
+* link:https://exercism.org/tracks/c/exercises/hamming[Hamming Exercism Challenge^].
+
+== C
+
+=== Solution 1
+
+[source,c]
+----
+int compute(const char *lhs, const char *rhs) {
+  int d = 0;
+  char p, q;
+
+  while (lhs && rhs) {
+    p = *lhs++;
+    q = *rhs++;
+
+    if (p == '\0' && q == '\0') return d;
+
+    if ((p == '\0' && q != '\0') || (q == '\0' && p != '\0'))
+      return -1;
+
+    if (p != q)
+      ++d;
+  }
+
+  return d;
+}
+----
+
+=== Solution 2
+
+This solution does all the computation using the pointers themselves, without the help of helper variables except one for the distance.
+Mostly a implementation of the example on the link:https://exercism.org/tracks/c/exercises/hamming/dig_deeper[dig deeper^] with some changes I find more interesting.
+
+[source,c]
+----
+#include "hamming.h"
+
+/**
+ * Compute DNS hamming distance.
+ *
+ * - T.C: O(n)
+ * - S.C: O(1)
+ */
+int compute(const char *lhs, const char *rhs) {
+  int d = 0;
+
+  if (!lhs || !rhs) return -1;
+
+  for (; *lhs && *rhs; ++lhs, ++rhs)
+    if (*lhs != *rhs) ++d;
+
+  return *lhs == *rhs ? d : -1;
+}
+----

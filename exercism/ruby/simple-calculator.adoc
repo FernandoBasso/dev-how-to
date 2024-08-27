@@ -1,0 +1,224 @@
+= Simple Calculator
+:page-subtitle: Exercism Learning Exercise :: Ruby
+:page-tags: exception error-handling
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+
+* link:https://exercism.org/tracks/ruby/exercises/simple-calculator[Smiple Calculator Exercism Ruby learning exercise^]
+
+== Solution 1
+
+[source,ruby]
+----
+class SimpleCalculator
+  ALLOWED_OPS = ['+', '/', '*'].freeze
+
+  OPS = {
+    '+' => proc { |a, b| a + b },
+    '*' => proc { |a, b| a * b },
+    '/' => proc { |a, b| a / b },
+  }
+
+  class UnsupportedOperation < StandardError; end
+
+  def self.calculate(a, b, op)
+    raise ArgumentError.new('Operands must be integers.') unless
+      [a, b].all? { |v| v.is_a?(Integer) }
+
+    raise UnsupportedOperation.new unless
+      OPS.member?(op)
+
+    begin
+      '%s %s %s = %s' % [a, op, b, OPS[op].call(a, b)]
+    rescue ZeroDivisionError => err
+      'Division by zero is not allowed.'
+    end
+  end
+end
+----
+
+== Solution 2
+
+This solution uses more meaningful naming for parameters and variables.
+It also creates a better error class for unsupported operations which extends from `ArgumentError`, since the operation is an parameter to the method.
+
+It also provides some aliases like `OPS` and `OP` but based on more lengthy, descriptive names.
+`OP` abbreviation is made private so consumers don't use at will (but they can use the non-abbreviated name).
+
+The `String#%` format uses annotated specifiers for clarity.
+
+[source,ruby]
+----
+module SimpleCalculatorExceptions
+  class UnsupportedOperation < ArgumentError
+    def initialize(msg = 'A valid operation must be provided.')
+      super
+    end
+  end
+end
+
+class SimpleCalculator
+  include SimpleCalculatorExceptions
+
+  OPS = ALLOWED_OPERATIONS = ['+', '/', '*'].freeze
+
+  OP = OPERATION = {
+    '+' => ->(a, b) { a + b },
+    '*' => ->(a, b) { a * b },
+    '/' => ->(a, b) { a / b },
+  }
+
+  private_constant :OP
+
+  def self.calculate(left_operand, right_operand, operator)
+    raise ArgumentError.new('Operands must be integers.') unless
+      [left_operand, right_operand].all? { |operand| operand.is_a?(Integer) }
+
+    raise UnsupportedOperation unless ALLOWED_OPERATIONS.member?(operator)
+
+    begin
+      '%{left_operand} %{operator} %{right_operand} = %{result}' %
+        {
+          left_operand: left_operand,
+          operator: operator,
+          right_operand: right_operand,
+          result: OP[operator].call(left_operand, right_operand),
+        }
+    rescue ZeroDivisionError => err
+      'Division by zero is not allowed.'
+    end
+  end
+end
+----
+
+== Solution 3
+
+[source,ruby]
+----
+##
+# Improvements made from code review and mentoring from the @kotp.
+##
+
+module CalculatorExceptions
+  class UnsupportedOperationError < ArgumentError
+    def initialize(message = 'A valid operation must be provided.')
+      super
+    end
+  end
+
+  UnsupportedOperation = UnsupportedOperationError
+end
+
+module SimpleCalculatorExceptions
+  class IntegerOperandError < ArgumentError
+    def initialize(message = 'Operands must be integers.')
+      super
+    end
+  end
+end
+
+class SimpleCalculator
+  include CalculatorExceptions, SimpleCalculatorExceptions
+
+  OPERATE = {
+    '+' => ->(operand1, operand2) { operand1 + operand2 },
+    '*' => ->(operand1, operand2) { operand1 * operand2 },
+    '/' => ->(dividend, divisor) { dividend / divisor },
+  }
+
+  REPORT = '%<operand1>i %<operator>s %<operand2>i = %<result>i'
+
+  def self.operation_allowed?(operator)
+    OPERATE.keys.member?(operator)
+  end
+
+  private_class_method :operation_allowed?
+
+  ##
+  # Applies the operator to the operands and returns a string
+  # representing the entire expression with the answer or an
+  # error message if some invalid input is provided.
+  #
+  # @param operand1 [Integer]
+  # @param operand2 [Integer]
+  # @param operator ['+', '*', '/']
+  #
+  def self.calculate(operand1, operand2, operator)
+    raise UnsupportedOperation unless operation_allowed?(operator)
+    raise IntegerOperandError unless
+      [operand1, operand2].all? { |operand| operand.is_a?(Integer) }
+
+    new(operand1, operand2, operator).to_s
+  rescue ZeroDivisionError
+    'Division by zero is not allowed.'
+  end
+
+  private
+
+  attr_reader :operand1, :operand2, :operator, :report
+
+  def initialize(operand1, operand2, operator, report: REPORT)
+    @operand1 = operand1
+    @operand2 = operand2
+    @operator = operator
+    @report = report
+  end
+
+  def operate
+    OPERATE[operator].call(operand1, operand2)
+  end
+
+  public
+
+  def to_s
+    report % { operand1:, operator:, operand2:, result: operate }
+  end
+end
+
+
+if $PROGRAM_NAME == __FILE__
+
+  # expected normal use
+  puts SimpleCalculator.calculate(1, 2, '+')
+  puts SimpleCalculator.new(1, 2, '+')
+
+  puts
+
+  # examination as a debugging example
+  p SimpleCalculator.new(1, 2, '+').to_s
+  p SimpleCalculator.new(1, 2, '+')
+
+  puts
+
+  # additions from outside the class as a user of the library!
+  SimpleCalculator::OPERATE.merge!({'**' => ->(base, power) { base ** power }})
+
+  puts SimpleCalculator.calculate(2, 8, '**')
+
+  puts
+
+  # an example of a custom report string provided by user
+  # an example of "single quote heredoc"
+  my_report = <<~eos
+    %<operand1>4i
+    ———— = %<result>s
+    %<operand2>4i
+  eos
+
+  puts SimpleCalculator.new(1024, 4, '/', report: my_report)
+
+  puts
+
+  # another example of adding operation from outside of the class as
+  # a user of the library
+  SimpleCalculator::OPERATE.merge!(
+    {'-' => ->(operand1, operand2) { operand1 - operand2 }}
+  )
+
+  puts SimpleCalculator.calculate(3, 2, '-')
+
+end
+----

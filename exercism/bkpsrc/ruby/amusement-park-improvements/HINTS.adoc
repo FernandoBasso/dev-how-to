@@ -1,0 +1,20 @@
+= Hints
+
+== General
+
+* http://ruby-for-beginners.rubymonstas.org/conditionals/nothing_and_truth.html[Ruby for beginners: Nothingness and the truth]
+
+== 1. Check if an attendee has a ride pass
+
+* Convert the pass_id to a boolean object.
+* Look at the https://docs.ruby-lang.org/en/master/BasicObject.html[`BasicObject`] class, it contains methods which most classes inherit.
+
+== 2. Check if an attendee fits a ride
+
+* Compare the ride's minimum height to the attendee's height.
+* Look at the https://docs.ruby-lang.org/en/master/Comparable.html[`Comparable`] module, it contains methods for comparing objects which can be used when they are included.
+ ** The https://docs.ruby-lang.org/en/master/Integer.html[Integer] class includes the https://docs.ruby-lang.org/en/master/Comparable.html[`Comparable`] module.
+
+== 3. Check if an attendee is allowed to ride
+
+* Combine the instance methods you've created using a https://ruby-doc.com/docs/ProgrammingRuby/html/tut_expressions.html#UG[boolean operator] to return the result.

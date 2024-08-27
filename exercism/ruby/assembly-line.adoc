@@ -1,0 +1,165 @@
+= Assembly Line
+:page-subtitle: Exercism Learning Exercise :: Ruby
+:page-tags: ruby number integer float
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+
+* link:https://exercism.org/tracks/ruby/exercises/assembly-line[Assembly Line Exercism Ruby learning exercise^]
+
+The skeleton of the class is provided to us with the methods named by whoever created this challenge.
+The tests themselves check on those specific methods.
+Yet, `production_rate_per_hour` doesn't sound like the best name as it actually calculates the _success_ production rate per hour.
+
+== Solution 1
+
+Using _if/elsif/else_ like explained on the exercise page.
+
+[source,ruby]
+----
+class AssemblyLine
+  CARS_PER_HOUR = 221
+
+  def initialize(speed)
+    @speed = speed
+  end
+
+  def production_rate_per_hour
+    if @speed <= 4
+      @speed * AssemblyLine::CARS_PER_HOUR * 1.0
+    elsif 5 <= @speed && @speed <= 8
+      @speed * AssemblyLine::CARS_PER_HOUR * 0.9
+    elsif @speed == 9
+      @speed * AssemblyLine::CARS_PER_HOUR * 0.8
+    else
+      @speed * AssemblyLine::CARS_PER_HOUR * 0.77
+    end
+  end
+
+  def working_items_per_minute
+    (production_rate_per_hour / 60).to_i
+  end
+end
+----
+
+== Solution 2
+
+This approach uses some procs provided through a module which are then tested against on the `when` clases.
+Maybe a bit overkill but just to try another approach.
+
+[source,ruby]
+----
+module RANGES
+  FOR_ONE_HUNDRED_PERCENT = proc { |speed| speed <= 4 }
+  FOR_NINETY_PERCENT = proc { |speed| 5 <= speed && speed <= 8 }
+  FOR_EIGHTY_PERCENT = proc { |speed| speed == 9 }
+  FOR_SEVENTY_SEVEN_PERCENT = proc { |speed| speed > 9 }
+end
+
+class AssemblyLine
+  include RANGES
+
+  CARS_PER_HOUR = 221
+
+  def initialize(speed)
+    @speed = speed
+  end
+
+  def production_rate_per_hour
+    case @speed
+    when FOR_ONE_HUNDRED_PERCENT
+      @speed * AssemblyLine::CARS_PER_HOUR * 1.0
+    when FOR_NINETY_PERCENT
+      @speed * AssemblyLine::CARS_PER_HOUR * 0.9
+    when FOR_EIGHTY_PERCENT
+      @speed * AssemblyLine::CARS_PER_HOUR * 0.8
+    when FOR_SEVENTY_SEVEN_PERCENT
+      @speed * AssemblyLine::CARS_PER_HOUR * 0.77
+    end
+  end
+
+  def working_items_per_minute
+    (production_rate_per_hour / 60).to_i
+  end
+end
+----
+
+== Solution 3
+
+Using ranges instead of procs.
+
+[source,ruby]
+----
+class AssemblyLine
+  CARS_PER_HOUR = 221
+
+  def initialize(speed)
+    @speed = speed
+  end
+
+  def production_rate_per_hour
+    case @speed
+    when 1..4
+      @speed * CARS_PER_HOUR * 1.0
+    when 5..8
+      @speed * CARS_PER_HOUR * 0.9
+    when 9
+      @speed * CARS_PER_HOUR * 0.8
+    when 10
+      @speed * CARS_PER_HOUR * 0.77
+    else
+      raise "Speed ‘#{@speed}’ is out of the range 1..10."
+    end
+  end
+
+  def working_items_per_minute
+    (production_rate_per_hour / 60).to_i
+  end
+end
+----
+
+== Solution 4
+
+Using ranges.
+As in Ruby almost everything is an expression that returns a value, we case use the _case/when_ to return the percentage in decimal and avoid repeating the similar calculation four times.
+
+[source,ruby]
+----
+class AssemblyLine
+  CARS_PER_HOUR = 221
+
+  def initialize(speed)
+    @speed = speed
+  end
+
+  def production_rate_per_hour
+    @speed * CARS_PER_HOUR *
+      case @speed
+      when 1..4
+        1.0
+      when 5..8
+        0.9
+      when 9
+        0.8
+      when 10
+        0.77
+      end
+  end
+
+  def working_items_per_minute
+    (production_rate_per_hour / 60).to_i
+  end
+end
+----
+
+== Solution 5
+
+Idea from link:https://discord.com/channels/518658712081268738/788748516352458752/1195710182353797201[Lapizistik on Ruby Discord server^]
+
+[quote, Lapizistik]
+____
+I like it that I can read in _one_ line how the `production_rate_per_hour` is computed and which part of this formula changes depending on the speed.
+The other solution requires me to check four different formulas and figure out how they differ.
+____

@@ -1,0 +1,38 @@
+= Port Palermo
+:page-subtitle: Exercism Learning Exercise :: Ruby
+:page-tags: ruby symbol
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+
+* link:https://exercism.org/tracks/ruby/exercises/port-palermo[Port Palermo Exercism Ruby learning exercise^]
+
+== Solution
+
+[source,ruby]
+----
+module Port
+  IDENTIFIER = :PALE
+
+  def self.get_identifier(city)
+    city[0..3].upcase.to_sym
+  end
+
+  def self.get_terminal(ship_identifier)
+    # <1>
+    ship_identifier.to_s.match(/^(OIL|GAS)/) ? :A : :B
+  end
+end
+----
+
+<1> Could be replaced with something like this:
++
+[source,irb]
+----
+>> ship = 'GAS123'
+=> "GAS123"
+>> %w[OIL GAS].member?(ship[0..2].upcase)
+=> true
+----

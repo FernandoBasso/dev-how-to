@@ -1,0 +1,30 @@
+= Hints
+
+== General
+
+* https://www.rubyguides.com/2019/01/ruby-initialize-method/[Ruby Guides: Initialize Method]
+* http://ruby-for-beginners.rubymonstas.org/writing_classes/instance_variables.html[Ruby For Beginners: Instance variables]
+* https://www.rubyguides.com/2019/07/ruby-instance-variables/[Ruby Guides: Instance variables]
+* https://ruby-doc.org/docs/ruby-doc-bundle/UsersGuide/rg/instancevars.html[Ruby User's Guide: Instance variables]
+* https://www.geeksforgeeks.org/ruby-getters-and-setters-method/[Geeks for Geeks: Ruby Getters and Setters Methods]
+
+== 1. Make new attendees
+
+* Using the references, complete the initialize method to save the height to the object's state.
+
+== 2. How tall is the attendee
+
+* Create a getter for the saved height state.
+
+== 3. What is the ride pass id
+
+* Create a getter for the pass id.
+* It is okay and expected to return `nil` before a pass is issued to the `Attendee`.
+
+== 4. Allow people to buy a pass
+
+* In the `Attendee#issue_pass!` method, set the instance's state to the argument.
+
+== 5. Revoke the pass
+
+* In the `Attendee#revoke_pass!` setter method set the instance's state so that no pass exists.

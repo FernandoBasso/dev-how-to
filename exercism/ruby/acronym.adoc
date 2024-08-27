@@ -1,0 +1,74 @@
+= Acronym
+:page-subtitle: Exercism Easy Challenge :: Ruby
+:icons: font
+:toc: left
+:sectlinks:
+
+* link:https://exercism.org/tracks/ruby/exercises/acronym[Acronym Exercism easy Ruby challenge^].
+
+== Solution 1
+
+[source,ruby]
+----
+class Acronym
+  class << self
+    #
+    # Given a string, produces an acronym.
+    # @param s [String]
+    # @return [String]
+    #
+    def abbreviate(s)
+      to_acronym = ->(acc, w) { acc << w[0].upcase }
+
+      #
+      # • Substitute any non-ascii with a space.
+      # • Split words on spaces or ‘-’.
+      # • Extract the first letter and uppercase it.
+      #
+      s
+        .sub(/\W+/, ' ')
+        .split(/ |-/)
+        .inject('', &to_acronym)
+    end
+  end
+end
+----
+
+== Solution 2
+
+[source,ruby]
+----
+class Acronym
+  class << self
+    #
+    # Given a string, produces an acronym.
+    #
+    # @param s [String]
+    # @return [String]
+    #
+    def abbreviate(s)
+      ##
+      # `scan` will more or less do what `split` and
+      # `map` would do if used in combination.
+      #
+      s.scan(/\b\w/).join.upcase
+      #       ----   ----
+      #         |      \
+      #         |       \
+      #         |        +--> Same as `join('')`.
+      #         v
+      # Matches a char at the beginning
+      # of a word boundary.
+      ##
+    end
+  end
+end
+
+##
+# >> 'ab cd ef'.split(/ |-/).map { |s| s[0] }
+# => ["a", "c", "e"]
+#
+# >> 'ab cd ef'.scan(/\b\w/)
+# => ["a", "c", "e"]
+##
+----

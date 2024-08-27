@@ -1,0 +1,17 @@
+= Hints
+
+== 1. Create the ports identifier
+
+* You need to define a https://www.rubyguides.com/2017/07/ruby-constants/[constant] that should contain the symbol value specified in the instructions.
+
+== 2. Get identifiers for other ports
+
+* A string can be https://ruby-doc.org/core/String.html#class-String-label-String+Slices[slice] to get parts of it.
+* `Strings` have a https://ruby-doc.org/core/String.html#method-i-upcase[method] to upcase the letters.
+* `Strings` have a https://rubyapi.org/string#method-i-to_sym[method] to convert a string to a symbol.
+
+== 3. Determine which terminal a ship should dock at
+
+* Symbol has a https://rubyapi.org/symbol#method-i-to_s[method] to convert a symbol to a string.
+* A string can be https://ruby-doc.org/core/String.html#class-String-label-String+Slices[slice] to get parts of it.
+* Use conditional https://ruby-doc.org/core/syntax/control_expressions_rdoc.html#label-if+Expression[`if`], to check if the ship is carrying `"OIL"` or `"GAS"`.

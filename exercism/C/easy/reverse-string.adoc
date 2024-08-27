@@ -1,0 +1,140 @@
+= Reverse String
+:page-subtitle: Exercism Easy Challenge
+:icons: font
+:toc: left
+:sectlinks:
+:stem: latexmath
+
+* link:https://exercism.org/tracks/c/exercises/reverse-string[Reverse String Exercism Challenge^].
+
+== C
+
+=== Solution 1
+
+[source,c]
+----
+#include <string.h>
+#include <stdlib.h>
+#include "reverse_string.h"
+
+/**
+ * Reverses an ASCII string.
+ *
+ * Uses a j variable to help move from end to beginning of dst.
+ */
+char *reverse(const char *src) {
+  int len = strlen(src);
+  char *dst = malloc(len + 1);
+  char c;
+  int j = len - 1;
+
+  while ((c = *src++) != '\0')
+    *(dst + j--) = c;
+
+  *(dst + len) = '\0';
+
+  return dst;
+}
+----
+
+=== Solution 2
+
+This solution looks a little more involved than the previous one due to the fact that we manipulate `dst` pointer itself without the use of a `j` variable.
+
+[source,c]
+----
+/**
+ * Reverse an ASCII string.
+ */
+char *reverse(const char *src) {
+  int len = strlen(src);
+  char *dst = malloc(len);
+  char c;
+
+  /* Point to last char just before before
+   * where '\0' will later be added */
+  dst += len - 1;
+
+  while ((c = *src++) != '\0')
+    *dst-- = c;
+
+  /* At this point, dst is pointing to memory position on less than
+   * its correct initial place. Advance it once so it correctly
+   * points to the beginning of its allotted memory. */
+  dst++;
+
+  /* Add the string terminator at last position. */
+  *(dst + len) = '\0';
+
+  return dst;
+}
+----
+
+=== Solution 3
+
+Compute the string length internally without relying in `string.h` `strlen()`.
+
+Interesting use of `len` and `j` to start copying from the end of the original string.
+As `j` is incremented, we copy chars further to the left of the original string and place them further to the right of the destination string.
+
+[source,c]
+----
+#include <stdio.h>
+#include <stdlib.h>
+#include "reverse_string.h"
+
+/**
+ * Reverse an ASCII string.
+ *
+ * Computes string length internally without requiring
+ * strlen() from string.h.
+ */
+char *reverse(const char *s) {
+  size_t len = 0;
+  size_t j = 0;
+  char *dst;
+
+  while (*(s + len) != '\0')
+    ++len;
+
+  dst = malloc(len + 1);
+
+  while (*(s + j) != '\0') {
+    *(dst + j) = *(s + len - 1 - j);
+    ++j; /* <1> */
+  }
+
+  *(dst + len) = '\0';
+
+  return dst;
+}
+----
+
+If an int is incremented, it can be used to move something to the right, but also to the left if we subtract it from some other numeric value!
+It is an interesting approach that can be put to good use from time to time.
+
+
+I remember having applied it to the link:https://www.hackerrank.com/challenges/diagonal-difference[Diagonal Difference HackerRank challenge^]:
+
+[source,javascript]
+----
+/**
+ * Calculates the diagonal difference of the square matrix.
+ *
+ * @sig [Number] -> Number
+ */
+function diagDiff(xs) {
+  let ltrDiag = 0;
+  let rtlDiag = 0;
+  const lastPos = xs.length - 1;
+
+  for (let i = 0; i <= lastPos; ++i) {
+    ltrDiag += xs[i][i];
+    rtlDiag += xs[i][lastPos - i];
+  }
+
+  return Math.abs(ltrDiag - rtlDiag);
+}
+----
+
+Here, `i` increases each time, but because we use it in a subtraction (`lastPos - i`), it causes the second subscript to actually decrease, instead of increase.

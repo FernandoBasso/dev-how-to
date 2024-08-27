@@ -1,0 +1,4 @@
+= C Exercism Challenges
+
+Because of the way the Makefiles are set up, to try new solutions and not having trouble with types, duplicate and/or conflicting declarations, move previous/old solution to a name with a `_v1.c.bkp` extension and run `make test`.
+After the solution is OK and submitted to Exercism, keep the `_v1.c` suffix extension and drop the `.bkp` extension.

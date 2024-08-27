@@ -1,0 +1,219 @@
+= List Operations
+:page-subtitle: Exercism Easy Challenge
+:icons: font
+:toc: left
+:sectlinks:
+
+* link:https://exercism.org/tracks/c/exercises/list-ops[List Operations Exercism Challenge^].
+
+== C
+
+[NOTE]
+====
+From the test cases and the way memory is freed, it seems they always wanted a new list to be generated rather than modifying the lists in place.
+
+Therefore, operations like `append` don't really append the second list to the first, but instead copies the first list onto a new list, then copies the second list right after the elements already copied from the first list.
+
+Similarly, `reverse` does not modify the existing list, but creates a new list where the elements are in reverse order.
+
+In short, we never modified anything _in-place_ in this implementation.
+====
+
+I have something to say about the naming convention of the operations.
+They were created with this style:
+
+* new_list
+* append_list
+* reverse_list
+* etc.
+
+We understand there is another style which may sound a bit backwards when reading, but greatly standardize the names by always start with `list_`, similarly to how Gtk does:
+
+* list_new
+* list_append
+* list_reverse
+* etc.
+
+Even when doing search and replace, or using auto-completion tools in the editor, this style helps a lot as there is a more clear, predictable pattern: we know it always starts with `list_`.
+Also, always starting with `list_` works as a kind of namespace.
+
+=== Solution
+
+[source,c]
+----
+#include <stdio.h>
+#include "list_ops.h"
+
+/*
+ * All operations always return a new list without modifying the
+ * input list.
+ */
+
+list_t *new_list(size_t len, list_element_t elmts[]) {
+  list_t *list = malloc(sizeof(list_t) + sizeof(list_element_t) * len);
+  list->length = len;
+
+  /* Sometimes we'll have a length > 0 but will add elements later
+   * by some other means, like concatenating two lists. It means
+   * length will be > 0 but elmts will be empty or NULL. */
+  if (!elmts)
+    return list;
+
+  for (size_t i = 0; i < len; ++i)
+    list->elements[i] = elmts[i];
+
+  return list;
+}
+
+void delete_list(list_t *list) {
+  free(list);
+}
+
+/**
+ * Appends the second list to the first.
+ *
+ * • T.C: O(n).
+ * • S.C: O(n).
+ */
+list_t *append_list(list_t *xs, list_t *ys) {
+  size_t new_list_len = xs->length + ys->length;
+
+  list_t *list = new_list(new_list_len, NULL);
+
+  size_t i,
+         j = 0;
+
+  if (xs->length > 0)
+    for (i = 0; i < xs->length; ++i, ++j)
+      list->elements[j] = xs->elements[i];
+
+  /* j is not reset to 0 as we want to keep adding elements from ys
+   * right after the elements from xs. */
+
+  if (ys->length > 0)
+    for (i = 0 ; i < ys->length; ++i, ++j)
+      list->elements[j] = ys->elements[i];
+
+  return list;
+}
+
+/**
+ * Returns a new list containing only elements that satisfy the
+ * predicate.
+ *
+ * Loops over all elements twice.
+ *
+ * • T.C: O(n * 2).
+ * • S.C: O(n).
+ */
+list_t *filter_list(list_t *list, bool (*filter)(list_element_t)) {
+  list_t *filtered;
+
+  size_t i,
+         len = 0,
+         j = 0;
+
+  /* Count how many elements will pass the predicate so we can
+   * allocate the correct amount of memory to the new list which
+   * will contain the filtered elements. */
+  for (i = 0; i < list->length; ++i)
+    if(filter(list->elements[i]))
+      ++len;
+
+  filtered = new_list(len, NULL);
+
+  for (i = 0; i < list->length; ++i)
+    if (filter(list->elements[i]))
+      filtered->elements[j++] = list->elements[i];
+
+  return filtered;
+}
+
+/**
+ * Returns the length of the list.
+ *
+ * • T.C: O(1).
+ * • S.C: O(1).
+ */
+size_t length_list(list_t *list) {
+  return list->length;
+}
+
+/**
+ * Returns a new list with each element transformed by the map function.
+ *
+ * • T.C: O(n).
+ * • S.C: O(n).
+ */
+list_t *map_list(list_t *list, list_element_t (*map)(list_element_t)) {
+  list_t *mapped = new_list(list->length, NULL);
+  size_t i;
+
+  for (i = 0; i < list->length; ++i)
+    mapped->elements[i] = map(list->elements[i]);
+
+  return mapped;
+}
+
+/**
+ * Folds (reduces) the given list from the left with a function.
+ *
+ * • T.C: O(n).
+ * • S.C: O(n).
+ */
+list_element_t foldl_list(list_t *list, list_element_t initial,
+                          list_element_t (*foldl)(list_element_t,
+                                                  list_element_t)) {
+  list_element_t acc = initial;
+  size_t i;
+
+  for (i = 0; i < list->length; ++i)
+    acc = foldl(list->elements[i], acc);
+
+  return acc;
+}
+
+/**
+ * Folds (reduces) the given list from the right with a function.
+ *
+ * • T.C: O(n).
+ * • S.C: O(n).
+ */
+list_element_t foldr_list(list_t *list, list_element_t initial,
+                          list_element_t (*foldr)(list_element_t,
+                                                  list_element_t)) {
+
+  list_element_t acc = initial;
+  size_t i;
+
+  /* FIXME: Because we are using size_t (which means i cannot possibly
+   * be negative), i >= 0 will always be true. Thus, we do i >= 1 and
+   * index the elements with i - 1 to work around the problem. Maybe
+   * there is a better way to solve this. */
+  for (i = list->length; i >= 1; --i)
+    acc = foldr(list->elements[i - 1], acc);
+
+  return acc;
+}
+
+/**
+ * Returns a new list with the reversed elements of the input list.
+ *
+ * • T.C: O(n).
+ * • S.C: O(n).
+ */
+list_t *reverse_list(list_t *list) {
+  list_t *reversed = new_list(list->length, NULL);
+  size_t i,
+         j = 0;
+
+  /* FIXME: Same as the fixme above. Because i is size_t (non-negative),
+   * comparing >= 0 is always true. Thus the i - 1 thing and i starts
+   * one past the end of the list, instead if i = list->length - 1,
+   * which would be the normal way of doing it and avoid the i - 1. */
+  for (i = list->length; i >= 1; --i, ++j)
+    reversed->elements[j] = list->elements[i - 1];
+
+  return reversed;
+}
+----

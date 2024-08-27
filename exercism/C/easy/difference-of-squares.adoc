@@ -1,0 +1,105 @@
+= Difference of Squares
+:page-subtitle: Exercism Easy Challenge
+:icons: font
+:toc: left
+:sectlinks:
+:stem: latexmath
+
+* link:https://exercism.org/tracks/c/exercises/difference-of-squares[Difference of Squares Exercism Challenge^].
+
+== C
+
+=== Solution 1, looping
+
+[source,c]
+----
+#include <stdlib.h>
+#include "difference_of_squares.h"
+
+/**
+ * Computes the sum of 1 to num then squares it.
+ *
+ * - T.C: O(n).
+ * - S.C: O(1).
+ */
+unsigned int square_of_sum(unsigned int num) {
+  unsigned int r = 0;
+  size_t i;
+
+  for (i = 1; i <= num; ++i)
+    r += i;
+
+  return r * r;
+}
+
+/**
+ * Computes the sum of the squares of num.
+ *
+ * - T.C: O(n).
+ * - S.C: O(1).
+ */
+unsigned int sum_of_squares(unsigned int num) {
+  unsigned int r = 0;
+  size_t i;
+
+  for (i = 1; i <= num; ++i)
+    r += i * i;
+
+  return r;
+}
+
+unsigned int difference_of_squares(unsigned int num) {
+  return square_of_sum(num) - sum_of_squares(num);
+}
+----
+
+=== Solution 2, math formula
+
+There are a few formulas that are useful here, which allows both time and space complexity to be stem:[O(1)].
+
+Sum all numbers from 1 to n:
+
+[stem]
+++++
+\frac{n \times (n + 1)}{2}
+++++
+
+Then simply get that result and multiply by itself to have the “square of sum” solution.
+
+Sum of squares of numbers from 1 to n:
+
+[stem]
+++++
+\frac{n \times (n + 1) \times (n \times 2 + 1)}{6}
+++++
+
+[source,c]
+----
+#include <stdlib.h>
+#include "difference_of_squares.h"
+
+/**
+ * Computes the sum of 1 to num then squares it.
+ *
+ * - T.C: O(1).
+ * - S.C: O(1).
+ */
+unsigned int square_of_sum(unsigned int n) {
+  unsigned int sum = n * (n + 1) / 2;
+  return sum * sum;
+}
+
+/**
+ * Computes the sum of the squares of num.
+ *
+ * - T.C: O(1).
+ * - S.C: O(1).
+ */
+unsigned int sum_of_squares(unsigned int n) {
+  return n * (n + 1) * (n * 2 + 1) / 6;
+}
+
+unsigned int difference_of_squares(unsigned int num) {
+  return square_of_sum(num) - sum_of_squares(num);
+}
+----

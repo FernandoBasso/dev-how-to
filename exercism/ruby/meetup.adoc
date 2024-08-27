@@ -1,0 +1,235 @@
+= Meetup
+:page-subtitle: Exercism Easy Challenge
+:page-tags: ruby date range
+:icons: font
+:toc: left
+:sectlinks:
+:stem: latexmath
+
+* link:https://exercism.org/tracks/ruby/exercises/meetup[Meetup Exercism easy Ruby challenge^].
+
+This exercise is categorized as _easy_, but it involves some date stuff which is not easy unless one is versed in date stuff in general and dates in ruby specifically.
+
+== Solution 1
+
+[source,ruby]
+----
+require 'date'
+
+class Meetup
+  DAYS_OF_WEEK = {
+    sunday: 0,
+    monday: 1,
+    tuesday: 2,
+    wednesday: 3,
+    thursday: 4,
+    friday: 5,
+    saturday: 6,
+  }.freeze
+
+  START_DAYS = {
+    first: 1,
+    second: 8,
+    teenth: 13,
+    third: 15,
+    fourth: 22,
+    #
+    # We don't know when last starts. Last day of the month
+    # could be one of 28, 29, 30, or 31. We use `last_start_day`
+    # to help figure this out.
+    #
+  }.freeze
+
+  def initialize(month, year)
+    @month = month
+    @year = year
+  end
+
+  ##
+  # @param day_of_week [Symbol]
+  # @param nth [Integer]
+  #
+  def day(day_of_week, which)
+    date = Date.new(@year, @month, start_day(which))
+
+    6.times do
+      break if date.wday == DAYS_OF_WEEK[day_of_week]
+
+      date = date.next_day
+    end
+
+    date
+  end
+
+  private
+
+  def last_start_day
+    Date.new(@year, @month).next_month - 7
+  end
+
+  def start_day(which)
+    return last_start_day.mday if which == :last
+
+    START_DAYS[which]
+  end
+end
+----
+
+== Solution 2
+
+[source,ruby]
+----
+require 'date'
+
+class Meetup
+  VERSION = 3
+
+  DAYS_OF_WEEK = {
+    0 => :sunday,
+    1 => :monday,
+    2 => :tuesday,
+    3 => :wednesday,
+    4 => :thursday,
+    5 => :friday,
+    6 => :saturday,
+  }.freeze
+
+  def initialize(month, year)
+    @month = month
+    @year = year
+    @days_in_month = (Date.new(year, 12, 31) << (12 - month)).day
+
+    @calendar = {
+      first: [*1..7],
+      second: [*8..14],
+      third: [*15..21],
+      fourth: [*22..28],
+      teenth: [*13..19],
+      last: [*(@days_in_month - 6)..@days_in_month],
+    }
+  end
+
+  def day(weekday, schedule)
+    section_of_month = @calendar[schedule]
+
+    is_weekday = lambda do |n|
+      DAYS_OF_WEEK[Date.new(@year, @month, n).wday] == weekday
+    end
+
+    Date.new(@year, @month, section_of_month.find(&is_weekday))
+  end
+end
+
+----
+
+== Solution 3
+
+Solution by link:https://discord.com/channels/518658712081268738/650031651845308419/1080239306356035705[Lapizistik on Ruby Discord server^].
+
+[source,ruby]
+----
+require 'date'
+
+class Meetup
+  ##
+  # Map the symbols to the week numbers.
+  #
+  DAYS_OF_WEEK = %i[
+    sunday monday tuesday wednesday thursday friday saturday
+  ].map.with_index { |d, i| [d, i] }.to_h
+
+  def initialize(month, year)
+    @month = month
+    @year = year
+    days_in_month = (Date.new(year, month).next_month - 1).day
+
+    @schedules = {
+      first: 1,
+      second: 8,
+      third: 15,
+      fourth: 22,
+      teenth: 13,
+      last: days_in_month - 6,
+    }
+  end
+
+  def day(weekday, schedule)
+    start = @schedules[schedule]
+    wday = DAYS_OF_WEEK[weekday]
+
+    d = Date.new(@year, @month, start)
+
+    d + (wday - d.wday) + (wday < d.wday ? 7 : 0)
+  end
+end
+----
+
+Lap
+
+[quote, Lapizistik]
+____
+If the day of week targeted is after the start day of the schedule then I just use it.
+So if my schedule starts with Tuesday (2) and I want a Wednesday (3) I just need to add one day (3 - 1).
+But if my schedule starts on Friday (5) and I want a Monday (1) I would need to
+go back 4 days (5 - 1) but then I would end up before my start day, so
+I just add a full week (7) to get the next Monday.
+____
+
+== Solution 4
+
+link:https://discord.com/channels/518658712081268738/650031651845308419/1080239306356035705[ Another solution by Lapizistik on Ruby Discord server^].
+
+[source,ruby]
+----
+require 'date'
+
+class Meetup
+  VERSION = 5
+
+  CALENDAR_SCHEDULES = {
+    first: 1,
+    second: 8,
+    third: 15,
+    fourth: 22,
+    teenth: 13,
+  }.freeze
+
+  DAYS_OF_WEEK = %i[
+    sunday monday tuesday wednesday thursday friday saturday
+  ].map.with_index { |d, i| [d, i] }.to_h
+
+  def initialize(month, year)
+    @month = month
+    @year = year
+
+    ##
+    # The last schedule is month-specific.
+    #
+    days_in_month = (Date.new(year, month).next_month - 1).day
+    @last_schedule = days_in_month - 6
+  end
+
+  # 2024, 2, :second
+  # 2024, 2,
+  def day(weekday, schedule)
+    date_schedule_starts = Date.new(@year, @month, schedule_start(schedule))
+    wday = DAYS_OF_WEEK[weekday]
+
+    # <1>
+    wday += 7 if wday < date_schedule_starts.wday
+    date_schedule_starts + (wday - date_schedule_starts.wday)
+  end
+
+  def schedule_start(schedule)
+    return @last_schedule if schedule == :last
+
+    CALENDAR_SCHEDULES[schedule] or
+      raise "Unknown schedule: “#{schedule.inspect}”"
+  end
+end
+----
+
+<1> If the day of week we target is stem:[\ge] the start day of our schedule then I just use it.
+So if the schedule starts with Tuesday (2) and we want a Wednesday (3) I just need to add one day stem:[3 - 1].
+
+But if our schedule starts on Friday (5) and we want a Monday (1), we would need to go back 4 days stem:[5 - 1], but then we would end up before our start day, so we just add a full week (7) to get the next Monday.

@@ -1,0 +1,164 @@
+= Isogram
+:page-subtitle: Exercism Easy Challenge
+:icons: font
+:toc: left
+:sectlinks:
+
+* link:https://exercism.org/tracks/c/exercises/isogram[Isogram Exercism Challenge^].
+
+== C
+
+=== Solution 1
+
+Using a few library string and related functions, store seen characters in a `seen` array, where each position corresponds to the positions from ‘a’ to ‘z’
+
+[source,c]
+----
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdbool.h>
+#include "isogram.h"
+
+/* The English alphabet contains 26 letters. */
+#define ALPHABET_LEN 26
+
+/**
+ * Check whether s is an isogram.
+ *
+ * ASSUME: Lowercase chars only. Spaces and hyphens can show
+ * up multiple times.
+ */
+bool is_isogram(const char s[]) {
+  short i = 0,
+        j = 0;
+  char c,
+       seen[ALPHABET_LEN] = { '\0' };
+
+  if (s == NULL) return 0;
+  if (strlen(s) == 0) return 1;
+
+  while ((c = *(s + i++)) != '\0')
+    if (c == ' ' || c == '-')
+      continue;
+    else if (strchr(seen, tolower(c)) != NULL)
+      return 0;
+    else
+      seen[j++] = tolower(c);
+
+  return 1;
+}
+----
+
+=== Solution 2
+
+Use a bit field and some bitwise operators to turn on the flag for chars that have been seen.
+
+[NOTE]
+====
+This solution is based on link:https://github.com/exercism/c/blob/main/exercises/practice/isogram/.approaches/bitfield/content.md[Bit field approach^] suggested in the Dig Deeper section of the Isogram challenge.
+====
+
+If we consider that ‘a’ is the right most position in the bit field, then as soon as the first bit from the right is 1, we know ‘a’ has been seen before.
+
+Imagine a bit field like this:
+
+[source,text]
+----
+0 0 0 0
+----
+
+We want to check if the ‘c’ (which falls in the third right-to-left position) flag has been set.
+We would do something like `1 << 3`, which means “I am moving the bit `1` three steps to the left, which would become `0 1 0 0`.
+Then we check, “in the existing flags, has that position already been set to 1?”:
+
+[source,text]
+----
+(flags & (1 << 3) != 0)
+----
+
+Initially, it has not been set, and `(flags & (1 << 3)) != 0` is false.
+Therefore, we proceed and set that bit:
+
+[source,]
+----
+flags |= (1 << 3)
+----
+
+At this point, our bit field will look like this:
+
+[source,text]
+----
+0 1 0 0
+----
+
+The next time a char ‘c’ appears, the initial check will result in true, at which time we know that ‘c’ has been seen before, and we return false from the function, meaning the current word/string is not an isogram.
+
+[source,text]
+----
+flags = 0 (0b00000000)
+
+  00000000
+& 00000100
+  --------
+  00000000
+
+flags = 1 << 3
+flags is now 00000100
+
+flags & 1 << 3 is the same as
+
+  00000100
+& 00000100
+  --------
+  00000100
+----
+
+When the `&` bitwise operator returns anything that is not 0, it means the flag (or bit in that position) has been set before, which means the given char has been seen before.
+
+To compute the position in the bit field, we use the good old trick in which we subtract (or add) one char from another using their internal numerical representation.
+For example, since ‘a’ is 0x61 (97 in decimal) in ASCII and UTF-8, doing `'a' - 'a'` in C produces 0 (zero), and `'z' - 'a'` yields 25 in decimal.
+Well, the English alphabet contains 26 lowercase letters, so from 0 to 25 we have room for the 26 letters.
+
+This sort of stuff can be used to signify positions of letters in relation to the alphabet or something else, like rot13 ciphers.
+
+Just for kicks, see these Node.js and GHCi REPL sessions:
+
+.node.js repl
+[source,text]
+----
+> var ord = c => c.charCodeAt(0)
+
+> ord('z')
+122
+
+> ord('a').toString(16)
+'61'
+> ord('z') - ord('a')
+25
+----
+
+Or Haskell GHCi session:
+
+.GHCi repl
+[source,text]
+----
+λ> import Data.Char (ord)
+
+λ> ord 'a'
+97
+
+λ> ord 'z'
+122
+
+λ> ord 'a' - ord 'a'
+0
+
+λ> ord 'z' - ord 'a'
+25
+----
+
+[TIP]
+====
+I learned about this ideas of adding or subtracting from a char in the book The C Programming Language by Brian Kernighan and Dennis Ritchie (also informally known as the KR C book)`.
+====

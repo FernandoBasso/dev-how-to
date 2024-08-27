@@ -1,0 +1,155 @@
+= Grains
+:page-subtitle: Exercism Easy Challenge
+:icons: font
+:toc: left
+:sectlinks:
+
+- link:https://exercism.org/tracks/c/exercises/grains[Grains Exercism Challenge^].
+
+== C
+
+=== Solution 1
+
+This solution is not very optimized.
+Some sort of memoization is probably possible.
+
+[source,c]
+----
+#include <stdint.h>
+#include "grains.h"
+
+/**
+ * Counts how many grains there are in square idx.
+ *
+ * - T.C: O(n)
+ * - S.C: O(1)
+ */
+uint64_t square(uint8_t idx) {
+  uint64_t sq = 1;
+  uint8_t i;
+
+  if (idx < 1) return 0ull;
+
+  for (i = 1; i < idx; ++i)
+    sq += sq;
+
+  return sq;
+}
+
+/**
+ * Counts the total grains in a 64 square board.
+ *
+ * - T.C: O(n²). To compute square 3, we recompute square 1 and 2.
+ *               To compute square 4, we recompute square 3, 2 and 1.
+ *               There is probably a way to memoize this.
+ * - S.C: O(1)
+ */
+uint64_t total(void) {
+  uint64_t t = 0ull;
+  uint8_t i;
+
+  for (i = 1; i <= 64; ++i)
+    t += square(i);
+
+  return t;
+}
+----
+
+=== Solution 2 with memoization
+
+[source,c]
+----
+#include <stdio.h>
+#include <stdint.h>
+#include "grains.h"
+
+#define NUM_SQUARES 64
+
+/**
+ * Doubles the squares n times. Recursive.
+ *
+ * ASSUME: i < n.
+ *
+ * - T.C: O(n)
+ * - S.C: O(1)
+ */
+uint64_t for_square(uint8_t n, uint8_t i, uint64_t acc) {
+  if (n < 1) return 0ull;
+
+  if (n == i) return acc;
+
+  return for_square(n, i + 1, acc * 2);
+}
+
+/**
+ * Simply calls for_square() to do the job.
+ */
+uint64_t square(uint8_t idx) {
+  return for_square(idx, 1, 1);
+}
+
+/**
+ * Memoize previously computed solutions and reuse them.
+ *
+ * Computes each new square based on the memoized computation
+ * of the previous squares.
+ *
+ * - T.C: O(n).
+ * - S.C: O(n).
+ */
+uint64_t for_total(uint8_t i, uint64_t memo[], uint64_t acc) {
+  if (i == 1) {
+    memo[1] = 1;
+    return for_total(i + 1, memo, acc + memo[1]);
+  }
+
+  if (i == NUM_SQUARES) {
+    memo[i] = memo[i - 1] * 2;
+    return acc + memo[NUM_SQUARES];
+  }
+
+  memo[i] = memo[i - 1] * 2;
+
+  return for_total(i + 1, memo, acc + memo[i]);
+}
+
+/**
+ * Counts the total grains in a NUM_SQUARES square board.
+ */
+uint64_t total(void) {
+  uint64_t memo[NUM_SQUARES];
+
+  return for_total(1, memo, 0ull);
+}
+----
+
+=== Solution 3 bit shifting
+
+Base on link:https://github.com/exercism/c/blob/main/exercises/practice/grains/.approaches/bit-shifting/content.md[Bit shiftting approach^].
+
+[source,c]
+----
+#include <stdint.h>
+#include "grains.h"
+
+#define MIN 1ull
+#define MAX 64ull
+
+/**
+ * Count the number of grains in a given square.
+ *
+ * Using bitwise operators and avoiding loops.
+ *
+ * - T.C: O(1).
+ * - S.C: O(1).
+ */
+uint64_t square(uint8_t idx) {
+  return (idx >= MIN && idx <= MAX)
+    ? 1ull << (idx - 1)
+    : 0ull;
+}
+
+uint64_t total(void) {
+  return (((1ull << 63ull) - 1) << 1) + 1;
+}
+----

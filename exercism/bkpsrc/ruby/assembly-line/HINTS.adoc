@@ -1,0 +1,15 @@
+= Hints
+
+== General
+
+== 1. Calculate the production rate per hour
+
+* Determining the success rate can be done through a https://www.w3resource.com/ruby/ruby-if-else-unless.php[conditional statement].
+* Multiplication can be done between instances of `Integer` and `Float`.
+The result will always be an instance of `Float`.
+* Numbers can be compared using the built-in https://www.w3resource.com/ruby/ruby-comparison-operators.php[comparison-operators].
+
+== 2. Calculate the number of working items produced per minute
+
+* The `Float` class implements a https://apidock.com/ruby/Float/to_i[method] to return an instance of `Integer`.
+* The `Integer` class implements a https://apidock.com/ruby/v2_6_3/Integer/to_f[method] to return an instance of `Float`.
