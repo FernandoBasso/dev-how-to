@@ -129,6 +129,7 @@ import (
 // RollADie returns a random int d with 1 <= d <= 20.
 func RollADie() int {
 	n := rand.Intn(20)
+
 	if n == 0 {
 		return n + 1
 	}

@@ -83,19 +83,25 @@ func TestShuffleAnimals(t *testing.T) {
 	foundDifferent := false
 	var last []string
 	var got []string
+
 	for i := 0; i < tests; i++ {
 		got = ShuffleAnimals()
 		gotSorted := make([]string, len(got))
+
 		copy(gotSorted, got)
 		sort.Strings(gotSorted)
+
 		if !slicesEqual(gotSorted, animals) {
 			t.Fatalf("ShuffleAnimals() returns incorrect slice: %v", got)
 		}
+
 		if i > 0 && !foundDifferent && !slicesEqual(last, got) {
 			foundDifferent = true
 		}
+
 		last = got
 	}
+
 	if !foundDifferent {
 		t.Errorf("ShuffleAnimals() always generates the same slice: %v", got)
 	}
@@ -105,14 +111,18 @@ func slicesEqual(a, b []string) bool {
 	if len(a) != len(b) {
 		return false
 	}
+
 	if len(a) == 0 {
 		return true
 	}
+
 	size := len(a)
+
 	for i := 0; i < size; i++ {
 		if a[i] != b[i] {
 			return false
 		}
 	}
+
 	return true
 }
