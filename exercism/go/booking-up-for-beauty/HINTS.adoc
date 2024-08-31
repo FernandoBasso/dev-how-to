@@ -1,0 +1,26 @@
+= Hints
+
+== General
+
+* https://golang.org/pkg/time/#pkg-index[Use the methods found in the time package.]
+
+== 1. Parse appointment date
+
+* There is a https://golang.org/pkg/time/#Parse[method] for parsing a `string` into a `Time`.
+* Additional information for formatting parts of a date can be found in the constants section of the https://pkg.go.dev/time#pkg-constants[time package documentation].
+
+== 2. Check if an appointment has already passed
+
+* There are https://golang.org/pkg/time/#Time.Before[methods] for https://golang.org/pkg/time/#Time.After[comparing] `Times` and https://golang.org/pkg/time/#Now[getting] the current date and time.
+
+== 3. Check if appointment is in the afternoon
+
+* There is a https://golang.org/pkg/time/#Time.Hour[method] for getting the hour of a `Time`.
+
+== 4. Describe the time and date of the appointment
+
+* Convert the given string to a `Time` then format the answer string accordingly, using the appropriate https://golang.org/pkg/time/#pkg-index[methods] to extract the needed constituents.
+
+== 5. Return the anniversary date of the salon's opening
+
+* Create a `Time` of the anniversary date of the salon's opening for the current year.
