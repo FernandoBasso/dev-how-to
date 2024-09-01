@@ -3,6 +3,8 @@ package booking
 import "time"
 
 // Schedule returns a time.Time from a string containing a date.
+//
+// Example input: 7/13/2020 20:32:00
 func Schedule(date string) time.Time {
 	t, err := time.Parse("1/2/2006 15:04:05", date)
 
@@ -14,6 +16,8 @@ func Schedule(date string) time.Time {
 }
 
 // HasPassed returns whether a date has passed.
+//
+// Example input: October 3, 2019 20:32:00
 func HasPassed(date string) bool {
 	t, err := time.Parse("January 2, 2006 15:04:05", date)
 
@@ -25,6 +29,8 @@ func HasPassed(date string) bool {
 }
 
 // IsAfternoonAppointment returns whether a time is in the afternoon.
+//
+// Example input: Thursday, May 13, 2010 20:32:00
 func IsAfternoonAppointment(date string) bool {
 	// Thursday, May 13, 2010 20:32:00
 	t, err := time.Parse("Monday, January 2, 2006 15:04:05", date)
@@ -39,11 +45,11 @@ func IsAfternoonAppointment(date string) bool {
 }
 
 // Description returns a formatted string of the appointment time.
+//
+// Example input: 6/6/2005 10:30:00
 func Description(date string) string {
-	// "You have an appointment on Thursday, July 25, 2019, at 13:45."
-	// "7/25/2019 13:45:00"
-	parsed := Schedule(date).Format("Monday, January 2, 2006, at 15:04.")
-	return "You have an appointment on " + parsed
+	formatted := Schedule(date).Format("Monday, January 2, 2006, at 15:04.")
+	return "You have an appointment on " + formatted
 }
 
 // AnniversaryDate returns a Time with this year's anniversary.
