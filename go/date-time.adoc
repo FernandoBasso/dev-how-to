@@ -1,0 +1,82 @@
+= Date and Gime
+:page-subtitle: Go
+:page-tags: go time date
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Intro
+
+Go features the link:https://pkg.go.dev/time[time] package that provides functionality to measuring, parsing and formatting time.
+
+TODO: Write about how Go uses a different approach than other languages for parsing and formatting dates (as Go does NOT use the MM-DD-YYYY style srtftime style common in many other languages).
+
+== Parse a date
+
+Given the input date string `"Friday, September 2024"`, how to parse it into a `time.Time`?
+
+Let's try:
+
+[source,go]
+----
+layout := "Monday, January 2006"
+date := "Friday, September 2024"
+t, _ := time.Parse(layout, date)
+
+fmt.Println(t)
+//=> 2024-09-01 00:00:00 +0000 UTC
+
+fmt.Println(t.Format("Monday, January 2, 2006"))
+//=> Sunday, September 1, 2024
+----
+
+But according to the calendar, it should return a Friday, September 6.
+
+[source,text]
+$ cal 9 2024
+   September 2024
+Su Mo Tu We Th Fr Sa
+ 1  2  3  4  5  6  7
+                ^
+ 8  9 10 11 12 13 14
+15 16 17 18 19 20 21
+22 23 24 25 26 27 28
+29 30
+----
+
+image::go-parse-date-calendar-september-6-friday-2024.png[]
+
+The problem is that our input date to be parsed cannot really be parsed.
+We have “Friday, September 2024”, but which Friday?
+There are four Fridays on September 2024.
+
+In this case, it is parsing the month and year, and leaving the day alone, which defaults to the first day of that month.
+
+So I guess that is the first lesson: dates to be parsed _must_ be in a format tthat allows them to be correctly parsed.
+
+[source,go]
+----
+layout := "2, January 2006"
+date := "6, September 2024"
+t, _ := time.Parse(layout, date)
+
+fmt.Println(t)
+//=> 2024-09-06 00:00:00 +0000 UTC
+
+fmt.Println(t.Format("Monday, January 2, 2006"))
+//=> Friday, September 6, 2024
+----
+
