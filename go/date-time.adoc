@@ -65,7 +65,7 @@ There are four Fridays on September 2024.
 
 In this case, it is parsing the month and year, and leaving the day alone, which defaults to the first day of that month.
 
-So I guess that is the first lesson: dates to be parsed _must_ be in a format tthat allows them to be correctly parsed.
+So I guess that is the first lesson: dates to be parsed _must_ be in a format that allows them to be correctly parsed.
 
 [source,go]
 ----
