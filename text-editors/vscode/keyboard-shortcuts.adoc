@@ -1,0 +1,24 @@
+= Keyboard Shortcuts | VS Code
+:page-tags: vscode editor shortcut keyboard
+:imagesdir: ../__assets
+:toc: left
+:experimental:
+
+== Left and Right Editor Groups
+
+No matter if I'm using vim, emacs or vscode, depending on what I am working on or studying, I sometimes like to have the editor text on the left, and a terminal on the right.
+This layout allows me edit the text and run commands (tests, compilation, whatever) on the right and have both views visible all th time, which helps certain occasions.
+
+On VSCode, one can open the terminal on the right with from the command pallet (kbd:[Ctrl+Shift+p] or kbd:[Cmd+Shift+p]) and then typing “Terminal: Create New Terminal in Editor Area to the Side”.
+
+To switch between the editor text on the left and the terminal on the right, one can set shortcuts like:
+
+* kbd:[Cmd+Ctrl+Shift+l]: View: Focus Right Editor Group
+* kbd:[Cmd+Ctrl+Shift+h]: View: Focus Left Editor Group
+
+In vim, kbd:[h] goes to the left and kbd:[l] goes to the right, as kbd:[h] _is_ to the left and kbd:[l] _is_ to the right considering the _home keys_ on most keyboard layouts.
+
+== Next and Previous Error, Warning
+
+* kbd:[Option+Ctrl+Shift+\]]: Go to Next Problem (Error, Warning, Info)
+* kbd:[Option+Ctrl+Shift+[]: Go to Previous Problem (Error, Warning, Info)

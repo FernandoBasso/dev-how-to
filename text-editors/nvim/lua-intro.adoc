@@ -1,0 +1,51 @@
+= Intro to Lua
+:page-subtitle: nvim
+:page-tags: nvim editor lua config script
+
+== Reload init.lua
+
+One approach:
+
+[source,lua]
+----
+vim.keymap.set('n', '<leader>rc', function ()
+    print('nvim configuration reloaded!')
+    vim.cmd.source("fullpath")
+end)
+----
+
+Or
+
+[source,lua]
+----
+vim.keymap.set(
+  'n',
+  '<Leader>cr',
+  '<CMD>source $MYVIMRC | echo "Reloaded nvim config!"<CR>'
+)
+----
+
+Or even
+
+[source,lua]
+-----
+----
+-- Reload $MYVIMRC.
+--
+vim.keymap.set(
+  'n',
+  '<Leader>cr',
+  function ()
+    vim.api.nvim_cmd(
+      {
+        cmd = 'source',
+        args = {
+          vim.fn.expand '$MYVIMRC'
+        },
+      },
+      {}
+    )
+    print('Reloaded nvim config!')
+  end
+)
+-----

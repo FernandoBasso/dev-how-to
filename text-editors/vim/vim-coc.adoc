@@ -1,0 +1,70 @@
+= Vim and CoC (Conquer of Completion)
+:icons: font
+:toclevel: 6
+:toc: left
+:stem: latexmath
+
+== AsciiDoc
+
+[NOTE]
+====
+Gitlab has much superior support for Asciidoc (through the Asciidoctor implementation), including Science, Technology, Engineering and Mathematical (STEM) notation (see link:https://docs.gitlab.com/ee/user/asciidoc.html#equations-and-formulas-stem[Gitlab Docs on Asciidoc STEM]).
+
+It also supports PlantUML, which is a truly amazing _Diagrams as Code_ tool).
+====
+
+[stem]
+++++
+x = a_0 + \frac{1}{\displaystyle a_1
+        + \frac{1}{\displaystyle a_2
+        + \frac{1}{\displaystyle a_3 + a_4}}}
+++++
+
+latexmath:[C = \alpha + \beta Y^{\gamma} + \epsilon]
+
+A matrix can be written as stem:[[[a,b\],[c,d\]\]((n),(k))].
+
+[stem]
+++++
+\begin{bmatrix}
+        1 & x & 0 \\
+        0 & 1 & -1
+\end{bmatrix}\begin{bmatrix}
+        1  \\
+        y  \\
+        1
+\end{bmatrix}
+=\begin{bmatrix}
+        1+xy  \\
+        y-1
+\end{bmatrix}.
+++++
+
+
+== clangd
+
+By default, `inlayHints` are enabled.
+
+In vim:
+
+----
+:CocLocalConfig
+
+{
+  "suggest.autoTrigger": "none",
+  "clangd.disableDiagnostics": false,
+  "inlayHint.enable": false
+}
+----
+
+There is a setting for this in VSCode too.
+And and it has an option to enable it only when holding `ctrl+alt`, which is awesome.
+
+* link:https://github.com/clangd/coc-clangd[coc-clangd extension repository].
+* link:https://github.com/clangd/coc-clangd/issues/514[No longer respecting inlayHints config options :: CoC clangd issue].
+* link:https://clangd.llvm.org/config#inlayhints[clangd docs on inlayHints].
+
+[NOTE]
+====
+Behold! Vim is awesome!
+====

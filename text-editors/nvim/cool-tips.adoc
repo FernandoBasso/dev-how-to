@@ -1,0 +1,84 @@
+= Cool Tips
+:page-subtitle: nvim
+:page-tags: nvim vim editor
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Format current buffer
+
+=== Format Go buffers with gofmt
+
+Go provides the link:https://pkg.go.dev/cmd/gofmt[gofmt^] tool for formatting files:
+
+.gofmt help
+[source,text]
+----
+$ gofmt --help
+usage: gofmt [flags] [path ...]
+  -cpuprofile string
+    	write cpu profile to this file
+  -d	display diffs instead of rewriting files
+  -e	report all errors (not just the first 10 on different lines)
+  -l	list files whose formatting differs from gofmt's
+  -r string
+    	rewrite rule (e.g., 'a[b:len(a)] -> a[b:]')
+  -s	simplify code
+  -w	write result to (source) file instead of stdout
+----
+
+From vim or nvim, we can format the contents of the current buffer with this:
+
+.vim cmdline
+[source,text]
+----
+:!gofmt -w %
+----
+
+=== Format JS/TS files buffers with prettier
+
+JavaScript, TypeScript and .jsx/.tsx buffers can be formatted with link:https://prettier.io/docs/en/editors[prettier^].
+
+Assuming we have node and npm available, we can format the current buffer with something like this:
+
+.vim cmdline
+[source,text]
+----
+:%!npx prettier --stdin-filepath %
+----
+
+Note the use of `%` at the beginning.
+It causes all lines in the buffer to be captured for formatting.
+The `%` at the end means something else.
+In this case, it expands the relative path of the current buffer, similar as if we do `:echo expand('%')`.
+
+Comparing with the `gofmt` example above, it does not require the `%` at the beginning because `gofmt` behaves differently than `prettier`.
+
+In any case, we can use specify a keymap for easily formatting a buffer at a whim:
+
+.set vim keymap
+[source,text]
+----
+nnoremap gpp :silent %!npx prettier --stdin-filepath %<CR>
+----
+
+.set nvim keymap from a .lua config file
+[source,text]
+----
+vim.cmd [[
+  nnoremap gpp :silent %!npx prettier --stdin-filepath %<CR>
+]]
+----
