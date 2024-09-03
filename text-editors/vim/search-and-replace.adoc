@@ -1,0 +1,66 @@
+= Search and Replace
+:page-subtitle: vim
+:page-tags: vim nvim search replace regex
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Replace only on lines that match some pattern
+
+Sometimes we need to perform some search and replace but not on an etire group of lines or the entire buffer, but instead, on lines that match a specific pattern.
+
+Imagine this example text:
+
+[source,lua]
+----
+vim.keymap.set(
+  'n',
+  '<leader>S',
+  '<cmd>lua require("some-plugin").toggle()<CR>',
+  { desc = "Toggle Some Plugin" }
+)
+
+vim.keymap.set(
+  'n',
+  '<leader>o',
+  '<cmd>lua require("some-plugin").someOtherThing()<CR>',
+  { desc = "Do Some Other Thing" }
+)
+----
+
+Note we use single quotes _and_ double quotes.
+Let's suppose we want to stick with single quotes, but if we simply replace all double quotes, then the `<'cmd> ... require("some-plugin") ...'` would be a syntax error as the quotes would be wrong (like if we were trying to have single quotes inside single quotes).
+We don't want to replace `"some-plugin"` with `'some-plugin'`.
+
+What we can do is to use `:global` to target all lines that match the text  “_desc_” and replace the double quotes with single quotes only on those lines:
+
+.vim cmdline
+[source,text]
+----
+:global :desc: s /"/'/g
+----
+
+Or, if there are other lines besides the ones matching “__desc__” which we want to replace, but avoid touching lines containing `"some-plugin"`, then negate the global match:
+
+.vim cmdline
+[source,text]
+----
+:global! :some-plugin: s /"/'/g
+----
+
+I'm sure you can find similar search & replace situations where this approach is helpful.
+
+Read `:help :global` and `:help :substitute` for more details.
