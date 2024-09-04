@@ -1,0 +1,39 @@
+= VirtualBox
+:page-tags: virtualbox vbox vboxmanage cli command-line
+:toc: left
+:icons: font
+
+== VBoxManage
+
+[source,shell-session]
+----
+$ VBoxManage list vms
+"DebC" {e35b7157-8169-449e-a75c-53acdd8449b8}
+"nbsdC" {662e43a7-192f-4278-a284-34733598c278}
+----
+
+Start a VM in headless:
+
+[source,shell-session]
+----
+$ VBoxManage startvm nbsdC --type headless
+Waiting for VM "nbsdC" to power on...
+VM "nbsdC" has been successfully started.
+----
+
+SSH into it to see it is really running:
+
+[source,shell-session]
+----
+$ ssh deveng@127.0.0.1 -p 2222
+(deveng@127.0.0.1) Password for deveng@nbsdc:
+Last login: Sat Sep 30 10:34:05 2023 from 10.0.2.2
+NetBSD 9.3 (GENERIC) #0: Thu Aug  4 15:30:37 UTC 2022
+
+Welcome to NetBSD!
+----
+
+[NOTE]
+====
+`-p 2222` because port 2222 on the host i being forwarded to 22 in the VM.
+====

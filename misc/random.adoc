@@ -1,0 +1,27 @@
+= Generate Random Strings and Passwords
+:page-tags: random password string
+
+== Random password with openssl
+
+[source,shell-session]
+----
+$ openssl rand -base64 32 | tr -d /=+ | cut -c -24
+----
+
+Or a bash script:
+
+[source,bash]
+----
+pw-owasp is a function
+pw-owasp ()
+{
+  cat /dev/urandom | tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' | head -c "$1" | tr -d '\n'
+}
+----
+
+Use `pw-owasp` like this:
+
+[source,shell-session]
+----
+$ pw-owasp 15
+----

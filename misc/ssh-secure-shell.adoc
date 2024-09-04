@@ -1,0 +1,163 @@
+= SSH
+:page-subtitle: Secure Shell
+:page-tags: ssh openssh shell unix network
+:toc: left
+:icons: font
+
+== Generate Private/Public Pair
+
+`ssh-keygen` generates files in `$PWD`, and creates two files:
+`id_<keytype>` and `id_<keytype>.pub`.
+`-f` can be used to specify the output filename:
+
+[source,example]
+----
+$ ssh-keygen -t rsa -b 4096 -f id_myproject-rsa-4096bits
+----
+
+Generates:
+
+* `$HOME/.ssh/id_myproject-rsa-4096bits` (the private key, never
+upload this file to server, never publish it), and,
+* `$HOME/.ssh/id_myproject-rsa-4096bits.pub` (the public key that
+should be uploaded to servers).
+
+Also, keys must have correct permissions (these are correct):
+
+[source,example]
+----
+$ ls -l $HOME/.ssh
+total 36
+-rw-r--r-- 1 deveng deveng    65 Aug  8  2017 config
+-r-------- 1 deveng deveng  1675 Mar 28  2017 id_rsa
+-rw-r--r-- 1 deveng deveng   408 Mar 28  2017 id_rsa.pub
+-rw------- 1 deveng deveng  3243 Apr  6 12:41 id_myproject-rsa-4096bits
+-rw-r--r-- 1 deveng deveng   743 Apr  6 12:41 id_myproject-rsa-4096bits.pub
+-rw-r--r-- 1 deveng deveng 13662 Apr  5 15:41 known_hosts
+----
+
+== upload public key
+
+You will have to provide the ssh password at least this once:
+
+[source,example]
+----
+$ ssh-copy-id -i ~/·ssh/id_mykey.pub user@host
+----
+
+The above command will add your pub key contents to the end of `/home/youruser/.ssh/authorized_keys` on the server.
+
+If `~/.ssh/authorized_keys` does not exist on the server, create it (empty file) and set the correct permissions:
+
+[source,example]
+----
+chmod 744 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+----
+
+If permissions are two permissive, ssh won't work (neither if it is all 000).
+
+== rsync with key auth
+
+After you have your pub key on the server:
+
+[source,example]
+----
+rsync -e 'ssh -i ~/.ssh/id_myproject-rsa-4096bits' \
+    --include-from=./upload-patterns-site.txt \
+    ./ \
+    myuser@mycompany.myserver.net:~/public_html/
+----
+
+== rsync with key auth and ~/.ssh/config
+
+If you have your server set in `~/.ssh/config`, like
+
+[source,example]
+----
+Host myproject
+  IdentityFile ~/.ssh/id_workservers-rsa-4096bits
+  Port 22
+  User myuser
+  HostName mycompany.myserver.net
+----
+
+Then you can use `myproject` as the host argument for rsync:
+
+[source,example]
+----
+rsync -e 'ssh -i ~/.ssh/id_myproject-rsa-4096bits' \
+    --include-from=./upload-patterns-site.txt \
+    ./ \
+    myproject:~/public_html/
+----
+
+== Git repo with specific SSH key
+
+Basically, we want to map a URL of something like:
+
+[source,example]
+----
+git@gitlab.com:deveng/memoapp.git
+----
+
+to:
+
+[source,example]
+----
+git@myproj:deveng/memoapp.git
+----
+
+And _myproj_ is an entry config in `~/.ssh/config` which points to Gitlab.
+It works with any server, not only Gitlab, because it is actually an SSH thing.
+
+[source,example]
+----
+$ ssh-keygen \
+-t rsa \
+    -b 4096 \
+    -C 'some-user@some-company.com' \
+    -f ~/.ssh/id_some-user-some-company
+----
+
+Copy the contents of the public key:
+
+[source,example]
+----
+$ xclip -sel clip < ~/.ssh/id_some-user-some-company.pub
+----
+
+Search for “SSH Keys” or something similar on your Gitlab profile settings and add the PUBLIC (never the private) key.
+
+Suppose this is the repo:
+
+[source,example]
+----
+git@gitlab.myproj.com:mycompany/memoapp.git
+----
+
+Replace `gitlab.myproj.com` with the name of your entry (the string after `Host`) on `~/.ssh/config`.
+
+[source,example]
+----
+$ cat ~/.ssh/config
+Host gitlab-awesome-project
+  Hostname gitlab.myproj.com
+  User git
+  IdentityFile ~/.ssh/id_some-user-some-company
+----
+
+See:
+
+[source,example]
+----
+$ git clone \
+    git@gitlab-awesome-project:mycompany/myproj.git \
+    --origin=gl
+
+$ cd myproj
+
+$ git remote -v
+gl    git@gitlab-awesome-project:mycompany/myproj.git (fetch)
+gl    git@gitlab-awesome-project:mycompany/myproj.git (push)
+----

@@ -1,0 +1,35 @@
+= NetBSD
+:page-tags: unix bsd netbsd posix
+:toc: left
+:icons: font
+
+== Useful commands
+
+Shutdown:
+
+[source,shell-session]
+----
+$ su root -c 'shutdown -p now'
+----
+
+Reboot:
+
+[source,shell-session]
+----
+$ su root -c 'shutdown -r now'
+----
+
+== Search and Install Packages
+
+Search, for example:
+
+[source,shell-session]
+----
+$ pkgin search nerd-fonts
+----
+
+[source,shell-session]
+----
+$ su root -c 'pkgin install tree vim nerd-fonts-AnonymousPro'
+----
+

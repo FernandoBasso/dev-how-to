@@ -1,0 +1,176 @@
+= GPG, GnuPG :: Encryption
+:page-tags: gpg gnupg encryption command-line
+:toc: left
+:icons: font
+:imagesdir: ../__assets
+
+* link:https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages[How To Use GPG to Encrypt and Sign Messages (Digital Ocean)^]
+* link:https://wiki.archlinux.org/index.php/GnuPG[GnuPG (Arch Wiki)^]
+
+== Personal Use
+
+[source,shell-session]
+----
+$ gpg --full-gen-key
+$ gpg --output ~/Documents/GPG/revocation.crt --gen-revoke your@email.com
+$ chmod 600 ~/revocation.crt
+----
+
+Encrypt a file using password:
+
+[source,shell-session]
+----
+gpg -c classified.txt
+----
+
+and it creates the file classified.txt.gpg.
+
+Now you can open it in emacs and in vim (with the plugin gnupg.vim) and when you save the file it will ask you for the password.
+At this point you can remove the original .txt file.
+
+[WARNING]
+====
+If you forget your password, your will not be able to recover its contents.
+====
+
+== Import secret key to another computer (method 1)
+
+* link:https://askubuntu.com/questions/32438/how-to-share-one-pgp-key-on-multiple-machines
+* link:https://unix.stackexchange.com/questions/407062/
+* link:gpg-list-keys-command-outputs-uid-unknown-after-importing-private-key-onto
+
+In machine 1 (will ask password):
+
+[source,shell-session]
+----
+$ gpg --export-secret-key -a > classified.asc
+----
+
+In machine 2 (will ask password):
+
+----
+[source,shell-session]
+$ gpg --import classified.asc
+----
+
+Do this in both machines:
+
+[source,shell-session]
+----
+$ shred --remove classified.asc
+----
+
+Then, the key on the new machine shows as "[unknown]" trust level with `--list-secret-keys`.
+Do this:
+
+[source,shell-session]
+----
+gpg --edit-key user@email.xz
+----
+
+and now, from gpg prompt:
+
+[source,text]
+----
+gpg> trust
+choose option 5 (five) here
+gpg> save
+----
+
+== import secret key to another computer (method 2)
+
+[source,shell-session]
+----
+$ gpg --export-secret-keys --armor --output privkey.asc user-id
+----
+
+Example on machine 1, where the key was created:
+
+[source,shell-session]
+----
+$ gpg --export-secret-keys --armor --output \
+    user@example.dev.privkey.asc \
+    user@example.dev
+----
+
+Then, on machine 2, 3, etc:
+
+[source,shell-session]
+----
+$ gpg --import user@example.dev.privkey.asc
+----
+
+* link:https://wiki.archlinux.org/index.php/GnuPG#Key_maintenance
+
+== Run encrypted shell script
+
+[WARNING]
+====
+Be careful not to accidentally lose access to your script or accidentally destroy it when following these steps.
+You have been warned.
+====
+
+Basically:
+
+* Encrypt a file using a symmetric key (instead of public and private keys, even though that would be possible too).
+* Optionally securely destroy the original, non encrypted script (if you encrypted it in the first place, it means the file contains sensitive information you might not want to be hanging around).
+* Use a redirection to pass the decrypted script to bash to run the original contents of the script.
+* Done!
+
+[source,shell-session]
+----
+$ tree -C ./
+./
+└── script.sh
+
+1 directory, 1 file
+
+$ bash ./script.sh
+hello
+
+$ gpg \
+> --no-symkey-cache \
+> --symmetric \
+> --output ./script.sh.gpg \
+> ./script.sh
+
+$ tree -C ./
+./
+├── script.sh
+└── script.sh.gpg
+
+1 directory, 2 files
+
+$ cat ./script.sh.gpg
+(output is a bunch of inscrutable stuff, as expected)
+
+$ bash < <(2> /dev/null gpg --decrypt --quiet ./script.sh.gpg)
+hello
+----
+
+Then we can use `shred` from coreutils to securely destroy the original file:
+
+[source,shell-session]
+----
+shred -vzun5 ./script.sh
+----
+
+If the script needs to be updated, first save it back to an unencrypted, plain text format:
+
+[source,shell-session]
+----
+$ gpg \
+  --decrypt \
+  --quiet \
+  --no-symkey-cache \
+  --output ./tmpscript.sh \
+  ./script.sh.gpg
+----
+
+Edit the file, save it and encrypt it again (like shown earlier above).
+
+image::tree-script-sh-1-2023-09-05T13-46-08-832Z.png[tree -C ./ example]
+
+== References
+
+* link:https://wiki.archlinux.org/title/GnuPG[GnuPG :: Arch Wiki^]

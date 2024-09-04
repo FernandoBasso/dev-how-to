@@ -1,0 +1,166 @@
+= Unicode and UTF-8
+:page-subtitle: Character Encoding
+:page-tags: unicode UTF-8 ASCII plain-text special-character symbol
+:icons: font
+:toc: left
+:sectlinks:
+:sectlevels: 6
+:experimental:
+
+== Page Break
+
+`0x0c` is the _page break_ character.
+
+Those page break markers display something like "^L" in both vim and emacs.
+
+=== Emacs
+
+In emacs, we can insert them with kbd:[C-q C-l] and navigate between them with kbd:[C-x [] and kbd:[C-x].
+
+From emacs, kbd:[C-h i m Emacs RET] kbd:[m Pages RET].
+
+* link:https://www.gnu.org/software/emacs/manual/html_node/emacs/Pages.html[Pages :: Emacs Manual].
+
+==== Further tips
+
+TODO
+
+=== Vim
+
+In vim, the digraph is `FF`, or with which means we can insert them with kbd:[CTRL-K FF]
+Or, insert the char with kbd:[CTRL-V CTRL-L]
+Then one can search for those page breaks with something like kbd:[CTRL-V CTRL-L] or kbd:[?CTRL-V CTRL-L] followed by kbd:[n] or kbd:[N] to search forwards and backwards.
+
+[TIP]
+====
+If kbd:[CTRL-V] is mapped to some other thing (e.g. paste text), kbd:[CTRL-Q] can also be used.
+====
+
+One example where I used this is for my The Little Schemer solutions, where code for each chapter is preceded by a page break character so I can easily navigate between the chapters.
+
+See:
+
+.in vim help
+----
+:help insert.txt
+:help i_CTRL-V
+:help i_CTRL-Q
+----
+
+If we don't want kbd:[C-s] to lock and terminal (which is unlocked with kbd:[C-q]):
+
+.bashrc
+----
+stty -ixon
+----
+
+* link:https://www.emacswiki.org/emacs/PageBreaks[Page Breaks :: EmacsWiki]
+
+== Insert Special Characters
+
+* link:https://twitter.com/ed1conf/status/1697720405442584581[Insert Special Chars :: ed(1) Conference on Twitter]
+
+[source,shell-session]
+----
+$ setxkbmap -option compose:caps
+----
+
+Then type kbd:[CapsLock] followed by:
+
+* kbd:[.=] → •
+* kbd:[<>] → ⋄
+* kbd:[L-] → £
+* kbd:[E=] → €
+* kbd:[--.] → en-dash
+* kbd:[---] → em-dash
+
+In vim/nvim, we can set digraphs like these (besides the ones that come pre-configured by default):
+
+[source,vim]
+----
+$ 0< ~/work/src/dotfiles/digraphs.vim sed ''
+""
+" Some extra digraphs I use frequently.
+"
+
+""
+" • Bullet.
+"
+" Insert a bullet to make lists in plain plain text files and code
+" comments. I am crazy about well-written, well-formatted textual
+" content. Example:
+"
+" Some of my favorite games:
+" • Super Mario World ---------: 1990;
+" • Tomb Raider ---------------: 1996;
+" • Heavy Metal: F.A.K.K. 2 ---: 2000;
+" • Hitman Codename 47 --------: 2000;
+" • Aliens versus Predator 2 --: 2001;
+" ... many others...
+"
+digraphs oo 8226 " •
+
+""
+" ◦ White Bullet.
+"
+digraphs OO 9702
+
+""
+" · Middle Dot.
+"
+digraphs oO 183
+
+""
+" ‽ Interrobang.
+"
+digraphs ?! 8253
+----
+
+So if one types kbd:[Ctrl+k] followed by the char sequence, the special unicode character is inserted instead.
+
+On VSCode, in the user `settings.json`, because I use the vim extensions, I have something like this which also works with kbd:[Ctrl+k] followed by char sequence:
+
+.Excerpt of ~/.config/Code/User/settings.json
+[source,text]
+----
+{
+  "vim.digraphs": {
+    "oo": ["•", "0x2022"], // Bullet.
+    "OO": ["◦", "0x25e6"], // White bullet.
+    "oO": ["·", "0x00b7"], // Middle dot.
+    "m-": ["—", "0x2014"], // Em dash.
+    "?!": ["‽", "0x203d"], // Interrobang.
+  },
+}
+----
+
+== Some Useful Unicode Chars and Symbols
+
+INFINITY ∞:: 0x221e ++&infin;++
+LAMBDA λ:: 0x03bb
+BOTTOM ⊥:: 0x22a5
+Symbol For Horizontal Tabulation ␉:: 0x2409
+Empty Set ∅:: 0x2205
+
+
+I sometimes use the Empty Set ∅ (0x2205) on `psql` to more clearly visualize NULL values:
+
+.psql session
+[source,text]
+----
+SQL> \pset null ∅
+Null display is "∅".
+
+SQL> SELECT col_a, col_b
+FROM tbl_a RIGHT OUTER JOIN tbl_b
+ON col_a = col_b;
+
+ col_a | col_b
+-------+-------
+     ∅ |   101
+   102 |   102
+   104 |   104
+   106 |   106
+     ∅ |   108
+(5 rows)
+----

@@ -1,0 +1,52 @@
+= Arch Linux
+:page-tags: archlinux linux
+:toc:
+:icons: font
+
+== Date and Time
+
+Had to reset BIOS CMOS.
+Date time on the running system got wrong.
+Got all sorts of problems with invalid certificates with browsers accessing webpages.
+
+Make sure to have `openntpd` package installed.
+Better to do it when setting up a new machine or on a fresh install so it is kept up to date with the rest of the system.
+
+[source,shell-session]
+----
+$ pacman --sync --refresh --needed openntpd
+----
+
+Then start the service:
+
+[source,shell-session]
+----
+$ sudo systemctl start openntpd.service
+----
+
+It will set the system clock with some server on the internet.
+Then, set the hardware clock based according to the system clock:
+
+[source,shell-session]
+----
+$ sudo hwclock --show
+2023-04-10 04:30:02.733780-03:00
+           ---------------------
+                \
+                 \
+             Wrong time 😭
+
+$ sudo hwclock --systohc
+
+$ sudo hwclock --show
+2023-10-04 07:30:21.390049-03:00
+           ---------------------
+                \
+                 \
+             Correct time 😎
+----
+
+Also see:
+
+* link:https://wiki.archlinux.org/title/OpenNTPD[OpenNTPD (Arch Linux Wiki)^]
+* link:https://wiki.archlinux.org/title/System_time[System Time (Arch Linux Wiki)^].

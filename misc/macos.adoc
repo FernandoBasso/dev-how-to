@@ -1,0 +1,41 @@
+= macOS
+:page-tags: macos tips keyboard shortcut software
+:imagesdir: ../__assets
+:toc: left
+:experimental:
+
+== Keyboard Shortcuts
+
+Show hidden files: kbd:[Cmd+Shift+.].
+The kbd:[.] makes sense as in unix parlance hidden files are also known as _dot files_.
+I even have my own link:https://gitlab.com/fernandobasso/dotfiles[dotfiles^] repository to store my personal system configuration.
+
+image:macos-hidden-files-2023-09-08T10-51-42-518Z.png[macOS hidden files]
+
+kbd:[Cmd+m] minimizes a window and then kbd:[Cmd+Tab] does not open it.
+But if you hide (instead of minimize) with kbd:[Cmd+h] then you can bring it back with kbd:[Cmd+Tab].
+
+kbd:[Cmd+Opt+h] hides all other windows except the one currently in focus.
+
+kbd:[Cmd+w] closes one instance of a program or tab of a window.
+kbd:[Cmd+q] closes all the application instances.
+
+kbd:[Cmd+Spc] opens Spotlight.
+Navigate item by item with up/down and by section (submenus) with kbd:[Cmd+Up] :kbd:[Cmd+Down].
+Left-click or press kbd:[Enter] to preview.
+kbd:[Cmd+r] opens in Finder.
+
+== Upgrade macOS
+
+[source,shell-session]
+----
+$ softwareupdate --list
+----
+
+System info:
+
+[source,shell-session]
+----
+$ sw_vers
+$ system_profiler
+----

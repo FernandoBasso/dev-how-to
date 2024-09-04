@@ -1,0 +1,131 @@
+# Debian on Virtual Box
+:page-subtitle: Installing Debian on Virtual Box in an Arch Linux Host
+:page-tags: debian server virtual-box linux
+:imagesdir: ./__assets
+:toc: left
+:icons: font
+
+== Install
+
+[source,shell-session]
+----
+$ sudo pacman \
+    --sync \
+    --needed \
+    virtualbox \
+    virtualbox-host-modules-arch \
+    virtualbox-guest-iso
+----
+
+Then load the modules:
+
+[source,shell-session]
+----
+$ sudo modprobe vboxdrv
+$ sudo modprobe vboxnetadp
+----
+
+Add two network interfaces.
+A NAT one, and a Host-Only one.
+
+For Host-Only, in Virtual Box, go to File -> Tools -> Network Manager and create a Host-Only network.
+It will likely be named “vboxnet0”.
+On VM settings, add a NAT network and a Host-Only networking using the one just created.
+
+Install Debian and let the installer configure the NAT interface.
+
+Maybe also install `sudo` and `gpasswd -a <youruser> sudo` (may need to log out or restart for this to take effect).
+
+Then, from a Debian shell:
+
+[source,shell-session]
+----
+$ sudo vim /etc/network/interfaces
+----
+
+Add something like this:
+
+[source,shell-session]
+----
+allow-hotplug enp0s8
+iface enp0s8 inet dhcp
+----
+
+Then restart the networking:
+
+[source,shell-session]
+----
+$ sudo systemctl restart networking.service
+----
+
+From the host machine, it should now be possible to SSH into the Debian on VBox:
+
+[source,shell-session]
+----
+$ ssh deveng@192.168.56.101
+----
+
+== Shared Folders
+
+[source,shell-session]
+----
+$ sudo apt install build-essential module-assistant
+$ sudo m-a prepare
+----
+
+On VBox GUI, go to Devices -> Insert Guest ISO CD Image (installed earlier on the Arch Linux host).
+Mount it and install the guest additions:
+
+[source,shell-session]
+----
+$ sudo mount /media/cdrom0
+
+$ ls -1 /media/cdrom0
+AUTORUN.INF
+autorun.sh
+cert
+NT3x
+OS2
+runasroot.sh
+TRANS.TBL
+VBoxDarwinAdditions.pkg
+VBoxDarwinAdditionsUninstall.tool
+VBoxLinuxAdditions.run
+VBoxSolarisAdditions.pkg
+VBoxWindowsAdditions-amd64.exe
+VBoxWindowsAdditions.exe
+VBoxWindowsAdditions-x86.exe
+windows11-bypass.regom0
+
+$ sudo bash /media/cdrom0/VBoxLinuxAdditions.run
+----
+
+You may need to restart.
+
+On VBox GUI, add this as a shared folder:
+
+image::arch-host-shared-folder-2023-09-29T10-14-48-321Z.png[vbox arch host debian guest shared folder]
+
+I'm sharing my entire `$HOME` directory in this example 😲.
+
+Then, on the VM, add the share mount options to `/etc/fstab`
+
+.Debian VM /etc/fstab
+[source,text]
+----
+share	/home/deveng/hostdir	vboxsf	auto,rw,uid=1000,gid=1000
+----
+
+On my case, both `id` and `gid` are 1000 on the host and the guest, which makes it easier to read and write to files and directories.
+
+Finhally, run:
+
+[source,shell-session]
+----
+$ sudo systemctl daemon-reload
+$ sudo mount shared
+$ ls -1 ~/hostdir
+----
+
+Maybe test you can create a file into the shared directory from the guest, edit and write more from the host, and vice-versa.
+

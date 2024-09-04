@@ -1,0 +1,29 @@
+= Filename, Path
+:page-tags: filename path pathname basename unix linux operating-system
+:toc: left
+:icons: font
+
+Intro
+
+[quote, Greg Wooledge, help-bash mailing list]
+____
+A file name, rather than a path name?
+That means no slashes and no NUL bytes.
+Slashes are used as directory component separators (with a special exception for a double slash vs. a single slash at the beginning of an absolute path name), so they are not allowed inside file names.
+
+Literally any other byte is allowed.
+
+Note that a file name is defined as an array of *bytes*, and not characters.
+Thus, character encodings are irrelevant.
+Interpretation of a filename as a string of characters is up to applications to do, or not to do, as they see fit.
+
+A *path* name is a set of zero or more directory components, plus a file name, separated by slashes.
+An *absolute* path name begins with a slash.
+A *relative* path name does not, and is resolved with respect to the current working directory.
+If an absolute path name begins with two slash characters, the operating system is allowed to treat it differently from one beginning with a single slash.
+The exact meaning of that is up to the OS to decide.
+
+The total byte length of a path name may not exceed PATH_MAX, which is
+usually defined as 4096 on Linux systems.
+____
+

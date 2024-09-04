@@ -1,0 +1,79 @@
+= Weechat
+:page-subtitle: IRC
+:page-tags: irc community chat
+:toc: left
+:icons: font
+
+== Setting up a server
+
+Works for weechat >= 4:
+
+[source,text]
+----
+/server add libera irc.libera.chat/6697 -tls
+----
+
+For  weechat < 4:
+
+[source,text]
+----
+/server add libera irc.libera.chat/6697 -ssl
+----
+
+Then:
+
+[source,text]
+----
+/set irc.server.libera.username "atano"
+/set irc.server.libera.realname "Ahsoka Tano"
+----
+
+Auth:
+
+[source,text]
+----
+/set irc.server.libera.sasl_username "atano"
+/set irc.server.libera.sasl_password "******"
+----
+
+== Autojoin channels
+
+[source,text]
+----
+/set irc.server.libera.autojoin "#c,#lisp,#scheme,#haskell"
+/set irc.server_default.autojoin_dynamic on
+----
+
+== Hide join/part messages
+
+[source,text]
+----
+/set irc.look.smart_filter on
+/filter add irc_smart * irc_smart_filter *
+----
+
+See link:https://weechat.org/files/doc/stable/weechat_user.en.html#irc_smart_filter[FAQ on filters^].
+
+== UI and colors
+
+Try different color numbers, like 0, 3, 11, etc.
+
+Buflist bg color:
+
+[source,text]
+----
+/set buflist.format.buffer_current "${color:,3}${format_buffer}"
+----
+
+Title/topic bar:
+
+[source,text]
+----
+/set weechat.bar.title.color_bg 0
+/set weechat.bar.title.color_bg 3
+----
+
+== References
+
+* link:https://weechat.org/files/doc/stable/weechat_quickstart.en.html[Weechat Quick Start^]
+* link:https://libera.chat/guides/weechat[Libera Weechat Guide^]

@@ -1,0 +1,15 @@
+= brew
+
+== Install Python
+
+Looks like we can install specific versions of python.
+For example, `brew install python` was installing python 3.11 as of Nov 17th, 2023.
+I needed 3.9.6, and this command installed the version I needed:
+
+[source,shell-session]
+----
+$ brew install python3@3.9.6
+----
+
+On a coworker's machine, `python3 --version` would show some errors and fail.
+Running `xcode-select --install` fixed the problem.
