@@ -34,22 +34,30 @@ func AddItem(bill, units map[string]int, item, unit string) bool {
 
 // RemoveItem removes an item from customer bill.
 func RemoveItem(bill, units map[string]int, item, unit string) bool {
+	_, item_exists := bill[item]
 	_, unit_exists := units[unit]
 
-	if !unit_exists {
+	if !item_exists || !unit_exists || bill[item]-units[unit] < 0 {
 		return false
 	}
 
-	_, item_exists := bill[item]
-
-	if !item_exists {
-		return false
+	if bill[item]-units[unit] == 0 {
+		delete(bill, item)
+		return true
 	}
 
-	// WIP
+	bill[item] -= units[unit]
+
+	return true
 }
 
-// GetItem returns the quantity of an item that the customer has in his/her bill.
+// GetItem returns the quantity of an item that the customer has in
+// his/her bill.
 func GetItem(bill map[string]int, item string) (int, bool) {
-	panic("Please implement the GetItem() function")
+	// `qty` will be the zero value in case the item is not found.
+	// `found` will be either `true` or `false`.
+	// Therefore, we don't nee to use any conitionals at all. We
+	// can simply return those two values.
+	qty, found := bill[item]
+	return qty, found
 }
