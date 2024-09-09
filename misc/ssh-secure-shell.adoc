@@ -1,8 +1,22 @@
 = SSH
 :page-subtitle: Secure Shell
 :page-tags: ssh openssh shell unix network
-:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
 :icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 == Generate Private/Public Pair
 
@@ -12,14 +26,14 @@
 
 [source,example]
 ----
-$ ssh-keygen -t rsa -b 4096 -f id_myproject-rsa-4096bits
+$ ssh-keygen -t rsa -b 4096 -f id_my-project-rsa-4096bits
 ----
 
 Generates:
 
-* `$HOME/.ssh/id_myproject-rsa-4096bits` (the private key, never
+* `$HOME/.ssh/id_my-project-rsa-4096bits` (the private key, never
 upload this file to server, never publish it), and,
-* `$HOME/.ssh/id_myproject-rsa-4096bits.pub` (the public key that
+* `$HOME/.ssh/id_my-project-rsa-4096bits.pub` (the public key that
 should be uploaded to servers).
 
 Also, keys must have correct permissions (these are correct):
@@ -31,8 +45,8 @@ total 36
 -rw-r--r-- 1 deveng deveng    65 Aug  8  2017 config
 -r-------- 1 deveng deveng  1675 Mar 28  2017 id_rsa
 -rw-r--r-- 1 deveng deveng   408 Mar 28  2017 id_rsa.pub
--rw------- 1 deveng deveng  3243 Apr  6 12:41 id_myproject-rsa-4096bits
--rw-r--r-- 1 deveng deveng   743 Apr  6 12:41 id_myproject-rsa-4096bits.pub
+-rw------- 1 deveng deveng  3243 Apr  6 12:41 id_my-project-rsa-4096bits
+-rw-r--r-- 1 deveng deveng   743 Apr  6 12:41 id_my-project-rsa-4096bits.pub
 -rw-r--r-- 1 deveng deveng 13662 Apr  5 15:41 known_hosts
 ----
 
@@ -63,7 +77,7 @@ After you have your pub key on the server:
 
 [source,example]
 ----
-rsync -e 'ssh -i ~/.ssh/id_myproject-rsa-4096bits' \
+rsync -e 'ssh -i ~/.ssh/id_my-project-rsa-4096bits' \
     --include-from=./upload-patterns-site.txt \
     ./ \
     myuser@mycompany.myserver.net:~/public_html/
@@ -75,21 +89,21 @@ If you have your server set in `~/.ssh/config`, like
 
 [source,example]
 ----
-Host myproject
+Host my-project
   IdentityFile ~/.ssh/id_workservers-rsa-4096bits
   Port 22
   User myuser
   HostName mycompany.myserver.net
 ----
 
-Then you can use `myproject` as the host argument for rsync:
+Then you can use `my-project` as the host argument for rsync:
 
 [source,example]
 ----
-rsync -e 'ssh -i ~/.ssh/id_myproject-rsa-4096bits' \
+rsync -e 'ssh -i ~/.ssh/id_my-project-rsa-4096bits' \
     --include-from=./upload-patterns-site.txt \
     ./ \
-    myproject:~/public_html/
+    my-project:~/public_html/
 ----
 
 == Git repo with specific SSH key
