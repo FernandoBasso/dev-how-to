@@ -26,7 +26,7 @@ endif::[]
 
 [source,example]
 ----
-$ ssh-keygen -t rsa -b 4096 -f id_my-project-rsa-4096bits
+$ ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_my-project-rsa-4096bits
 ----
 
 Generates:
