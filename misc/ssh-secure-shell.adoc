@@ -54,12 +54,11 @@ $ ssh-keygen \
     -C 'email@example.dev'
 ----
 
-Generates:
-
-* `$HOME/.ssh/id_my-project-rsa-4096bits` (the private key, never
-upload this file to server, never publish it), and,
-* `$HOME/.ssh/id_my-project-rsa-4096bits.pub` (the public key that
-should be uploaded to servers).
+* The public key is generated with the `.pub` filename extension.
+  This one is the one you add to Gitlab, Github, or any server you want to log into with your local, private key.
+* The private key has no extension.
+  Never upload this file to server, never publish it anywhere.
+  Store it safely.
 
 Also, keys must have correct permissions (these are correct):
 
@@ -107,7 +106,7 @@ After you have your pub key on the server:
 
 [source,example]
 ----
-rsync -e 'ssh -i ~/.ssh/id_my-project-rsa-4096bits' \
+rsync -e 'ssh -i ~/.ssh/id_my-project' \
     --include-from=./upload-patterns-site.txt \
     ./ \
     myuser@mycompany.myserver.net:~/public_html/
@@ -120,7 +119,7 @@ If you have your server set in `~/.ssh/config`, like
 [source,example]
 ----
 Host my-project
-  IdentityFile ~/.ssh/id_workservers-rsa-4096bits
+  IdentityFile ~/.ssh/id_workservers
   Port 22
   User myuser
   HostName mycompany.myserver.net
@@ -130,7 +129,7 @@ Then you can use `my-project` as the host argument for rsync:
 
 [source,example]
 ----
-rsync -e 'ssh -i ~/.ssh/id_my-project-rsa-4096bits' \
+rsync -e 'ssh -i ~/.ssh/id_my-project' \
     --include-from=./upload-patterns-site.txt \
     ./ \
     my-project:~/public_html/
