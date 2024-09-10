@@ -24,9 +24,34 @@ endif::[]
 `id_<keytype>` and `id_<keytype>.pub`.
 `-f` can be used to specify the output filename:
 
+Nowadays (2024 as of this writing), ed25519 is the recommended type.
+
+[quote, gitlab docs]
+____
+The book link:https://leanpub.com/gocrypto/read#leanpub-auto-chapter-5-digital-signatures[Practical Cryptography With Go^] suggests that link:https://ed25519.cr.yp.to/[ED25519^] keys are more secure and performant than RSA keys.
+
+OpenSSH 6.5 introduced ED25519 SSH keys in 2014, and they should be available on most operating systems.
+
+— https://docs.gitlab.com/ee/user/ssh.html#ed25519-ssh-keys
+____
+
+[source,bash]
+----
+$ ssh-keygen \
+    -t ed25519 \
+    -f ~/.ssh/id_my-project \
+    -C 'email@example.dev'
+----
+
+Or if you need some older algorithm, like RSA, then something like this should also work:
+
 [source,example]
 ----
-$ ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_my-project-rsa-4096bits
+$ ssh-keygen \
+    -t rsa \
+    -b 4096 \
+    -f ~/.ssh/id_my-project
+    -C 'email@example.dev'
 ----
 
 Generates:
@@ -49,6 +74,11 @@ total 36
 -rw-r--r-- 1 deveng deveng   743 Apr  6 12:41 id_my-project-rsa-4096bits.pub
 -rw-r--r-- 1 deveng deveng 13662 Apr  5 15:41 known_hosts
 ----
+
+=== References
+
+* link:https://docs.gitlab.com/ee/user/ssh.html[SSH Docs on Gitlab^].
+* link:https://docs.github.com/en/authentication/connecting-to-github-with-ssh[SSH Docs on Github^].
 
 == upload public key
 
