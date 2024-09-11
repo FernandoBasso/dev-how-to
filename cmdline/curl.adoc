@@ -1,0 +1,9 @@
+= cURL
+
+[data-tags="curl download directory"]
+== Download a file to a directory
+
+----
+$ curl --output ./downloads/file.txt http://example.dev/file.txt
+----
+

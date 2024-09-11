@@ -1,0 +1,38 @@
+= Bash History
+:page-tags: bash cmdline shell
+:toc: right
+
+== Last Two Arguments of Previous Command
+
+[source,shell-session]
+----
+$ git add --patch packages client
+client/src/foo.ts: needs merge
+packages/mypkg/src/bar.ts: needs merge
+----
+
+Then we want to simply run the same command without the patch:
+
+[source,shell-session]
+----
+$ git add !!:3-4
+git add packages client
+----
+
+Note:
+
+.word splitting
+----
+     git add --patch packages client
+     /    |     \       \       \
+    /     |      \       \       \
+   v      v       v       v       v
+ cmd    1º arg  2º arg  3º arg  4º arg
+----
+
+In shell jargon, those arguments are _words_.
+We can reuse the the 3rd and 4th words of the last command with `!!:3-4`.
+
+== References and Resources
+
+* link:https://www.gnu.org/software/bash/manual/bash.html#Using-History-Interactively[Using History Interactively on the Bash Manual]

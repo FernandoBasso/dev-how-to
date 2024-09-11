@@ -1,0 +1,79 @@
+= Conditionals :: Bash
+:page-tags: bash cmdline
+:toc: left
+:icons: font
+
+== Numeric Comparisons
+
+[source,shell-session]
+----
+$ x=0
+$ y=1
+$ ((x >= 1)) && echo YEP || echo NOPE
+NOPE
+$ ((y >= 1)) && echo YEP || echo NOPE
+YEP
+----
+
+== Check If Executable
+
+Does not work:
+
+[source,shell-session]
+----
+$ [[ -x cp ]] && echo YES || echo NO
+NO
+----
+
+One must specify the full path:
+
+[source,shell-session]
+----
+$ [[ -x /bin/cp ]] && echo YES || echo NO
+YES
+----
+
+Or using `which` if path is not known:
+
+.GNU coreutils on a macOS system
+[source,shell-session]
+----
+$ which ls
+/usr/local/opt/coreutils/libexec/gnubin/ls
+
+$ [[ -x $(which ls) ]] && echo YES || echo NO
+YES
+----
+
+Or using bash's `type` buil-in:
+
+[source,shell-session]
+----
+$ if [[ -x "$(type -fP curl)" ]] && echo YES || echo NO
+----
+
+But it fails as `curl` takes at least an URL parameter.
+The most recommended way is using bash's `command` built-in:
+
+[source,shell-session]
+----
+$ [[ command -v curl ]] && echo YES || echo NO
+-bash: conditional binary operator expected
+----
+
+But we can't use it inside `[[  ]]` or `if test ...` or `if [ ... ]`.
+It has to be something like this:
+
+[source,shell-session]
+----
+if command -v curl 1> /dev/null
+then
+  echo YES
+else
+  echo NO
+fi
+----
+
+=== References
+
+* link:https://mywiki.wooledge.org/BashFAQ/081[How can I determine whether a command exists anywhere in my PATH? :: Bash FAQ 081]

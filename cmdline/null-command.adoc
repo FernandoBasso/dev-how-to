@@ -1,0 +1,20 @@
+= null ‘:’ command :: Bash
+:page-tags: bash null command shell cmdline
+:imagesdir: ../__assets
+
+== Intro
+
+image:bash-null-built-in-command-2023-09-06T11-50-04-415Z.png[help on bash : null built-in command]
+
+.help on ‘:’ null bash built-in command
+[source,text]
+----
+$ help :
+:: :
+    Null command.
+
+    No effect; the command does nothing.
+
+    Exit Status:
+    Always succeeds.
+----

@@ -1,0 +1,56 @@
+= Performance and Benchmarking
+:toc: right
+:font: icon
+:stem: latextmath
+
+== bash time built-in
+
+On a bash shell session:
+
+.help time
+----
+$ help time
+time: time [-p] pipeline
+    Report time consumed by pipeline's execution.
+
+    Execute PIPELINE and print a summary of the real time, user CPU time,
+    and system CPU time spent executing PIPELINE when it terminates.
+
+    Options:
+      -p	print the timing summary in the portable Posix format
+
+    The value of the TIMEFORMAT variable is used as the output format.
+
+    Exit Status:
+    The return status is the return status of PIPELINE.
+----
+
+So, to have an idea how long a command takes we simply do `time <cmd> <opts>`.
+Some examples:
+
+[source,shell-session]
+----
+
+$ time sleep 5 ; echo done
+
+real	0m5.061s
+user	0m0.001s
+sys	0m0.004s
+done
+
+$ time wget -q -O /dev/null https://fernandobasso.dev
+
+real	0m0.978s
+user	0m0.018s
+sys	0m0.016s
+
+$ time npm ci
+$ time npm cache verify
+$ time nvm install < .nvmrc
+----
+
+== References and Resources
+
+- link:https://unix.stackexchange.com/questions/86632/how-do-you-time-how-long-a-command-took-to-run[How do you time how long a command took to run? :: Unix & Linux StackExchange].
+- link:https://unix.stackexchange.com/questions/10745/how-do-i-time-a-specific-command[How do I time a specific command? Unix & Linux StackExchange]
+- link:https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1[What do 'real', 'user' and 'sys' mean in the output of time(1)? :: StackOverflow].

@@ -1,0 +1,48 @@
+= Pandoc :: Command Line
+
+== Convert Markdown to Asciidoctor
+
+Convert all `.md` files in a directory
+
+[source,bash]
+----
+for file in *.md
+do
+  pandoc \
+    --from markdown \
+    --to asciidoc "$file" \
+    --output "${file%.md}.adoc"
+done
+----
+
+Technically, we can drop the “.” from the command above and it should work too.
+
+== Convert Asciidoctor to Markdown
+
+Pandoc can't convert directly from Asciidoc to Markdown.
+So, first convert Asciidoc[tor] files to Docbook and then convert Docbook files to Markdown (gfm here):
+
+[source,bash]
+----
+for file in *.adoc
+do
+  asciidoctor -b docbook "$file"
+done
+
+for file in *.xml
+do
+	pandoc \
+    -s "$file" \
+    -f docbook "$file" \
+    -t gfm \
+    --wrap=none \
+    -o "${file%.*}.md"
+done
+----
+
+Remove the .xml files
+
+[source,shell-session]
+----
+rm -v *.xml
+----

@@ -1,0 +1,53 @@
+= du :: Command Line
+:page-tags: du shell cmdline
+:icons: font
+:toc: left
+
+[data-tags="du bash shell cmdline hard-link expansion"]
+== Hard Links and Shell Expansion
+
+[source,shell-session]
+----
+$ printf %s\\n {/usr,}/bin/{[,test}
+/usr/bin/[
+/usr/bin/test
+/bin/[
+/bin/test
+----
+
+Why isn’t the following command line expanding to the four arguments as above?
+
+[source,shell-session]
+----
+$ du -b {/usr,}/bin/{[,test}
+55264	/usr/bin/[
+51168	/usr/bin/test
+----
+
+It *is* expanding to four arguments.
+Hard link are into play here.
+It so happens that it is how `du` works by default for hard links.
+
+Let’s use `ls -i` to inspect inode numbers:
+
+[source,shell-session]
+----
+$ \ls -lhi {/usr,}/bin/{[,test}
+2634460 -rwxr-xr-x 1 root root 54K Nov  1 09:44 '/bin/['
+2634545 -rwxr-xr-x 1 root root 50K Nov  1 09:44  /bin/test
+2634460 -rwxr-xr-x 1 root root 54K Nov  1 09:44 '/usr/bin/['
+2634545 -rwxr-xr-x 1 root root 50K Nov  1 09:44  /usr/bin/test
+----
+
+Note `/bin/[` and `/usr/bin/[` share the same *inode* number, as do `/bin/test` and `/usr/bin/test`.
+
+But we can provide `-l` (short for `--count-links`), which is known to be available at least on GNU `du`:
+
+[source,shell-session]
+----
+$ du -lb {/usr,}/bin/{[,test}
+55264	/usr/bin/[
+51168	/usr/bin/test
+55264	/bin/[
+51168	/bin/test
+----

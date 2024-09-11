@@ -1,0 +1,23 @@
+= Filter Lines From a File
+:page-tags: bash shell command-line line match regexp filter
+
+[data-dags="grep sed
+== Filter double-slash comments
+Date: 2022-10-26, Wed
+
+Using sed:
+
+[source,shell-session]
+----
+$ sed -n '\@ tags:@p' ./files/alg1.js
+// tags: algorithm recursion javascript
+----
+
+Using grep:
+
+[source,shell-session]
+----
+$ grep '^// tags:' files/alg1.js
+// tags: algorithm recursion javascript
+----
+

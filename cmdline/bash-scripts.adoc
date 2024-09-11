@@ -1,0 +1,91 @@
+= Bash Scripts
+:page-tags: bash shell script shell-script parameter stdin
+:toc: left
+:icons: font
+
+== Run Script from STDIN
+
+=== Introductory Example
+
+You have this script:
+
+[source,shell-session]
+----
+$ cat ./script.sh
+printf '%s\n' "$1"
+----
+
+Note it takes one parameter which is passed to printf.
+It can be called like this:
+
+[source,shell-session]
+----
+$ bash ./script.sh hello
+hello
+----
+
+But there are situations which require the script to be run from STDIN.
+Then, to pass the parameter, these are possible:
+
+[source,shell-session]
+----
+$ cat ./script.sh | bash -s - hello
+hello
+
+$ bash -s - hello < <(cat ./script.sh)
+hello
+----
+
+=== GPG-Encrypted Script
+
+For example, it may be necessary to run a script from STDIN when we want to decrypt and run it “on the fly”, without first saving it to a plain, unencrypted file:
+
+First, say we encrypt our script with `gpg`:
+
+[source,shell-session]
+----
+gpg \
+  --no-symkey-cache \
+  --symmetric \
+  --output ./script.sh.gpg \
+  ./script.sh
+----
+
+And then, we need to run it from the encrypted file.
+Again, both of these approaches work:
+
+[source,shell-session]
+----
+$ bash -s - 'It works!' < <(gpg -dq ./script.sh.gpg)
+It works!
+
+$ gpg -dq ./script.sh.gpg | bash -s - 'Once again!'
+Once again!
+----
+
+[NOTE]
+====
+Depending on how GnuPG and/or `gpg-agent` is set up on your computer, you may or may not be prompted for passwords at any given time.
+====
+
+[TIP]
+====
+It may be necessary to prevent errors or warning messages to be sent to STDOUT, which would make the script text invalid.
+Maybe, something like this:
+
+[source,shell-session]
+----
+$ 2> /dev/null gpg -dq ./script.sh.gpg | bash -s - 'Once again!'
+Once again!
+----
+====
+
+== Other Cases
+
+This is also quite useful over ssh.
+Send your script to remote, read back its output
+
+[source,shell-session]
+----
+gpg -dq ./script.gpg 2>/dev/null | bash -s -- <args...>
+----

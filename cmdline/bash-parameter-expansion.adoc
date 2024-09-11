@@ -1,0 +1,95 @@
+= Bash Parameter Expansion
+:page-tags: bash cmdline parameter expansion
+:toc: right
+:source-highlighter: highlight.js
+:imagesdir: ../assets
+
+== Filename or current running script
+
+Somtimes it is useful to get the filename (basename) of the current running script.
+Example:
+
+[source,bash]
+----
+#!/usr/bin/env bash
+
+usage () {
+	cat <<EOF
+
+Usage:
+
+  ${0##*/} OPTIONS
+
+EOF
+}
+----
+
+`$0` expands to the full path of the current script.
+Using bash's parameter expansion, it is possible to drop the path part and leav only the filename:
+
+[source,shell-session]
+----
+$ val=./src/lib/math.h
+
+$ echo "$val"
+./src/lib/math.h
+
+$ echo "${val##*/}"
+math.h
+----
+
+== Use contents of file as part of string
+
+Imagine this commit:
+
+----
+$ git commit -m 'Update .nvmrc with version ???'
+----
+
+Damn it! Forgot the version.
+Maybe I open another shell and `cat` the contents of the file, or stop this command line to do that in “this” shell session?
+
+Or maybe we learn to use the features of the tools at our disposal‽
+
+Test like this:
+
+[source,shell-session]
+----
+$ echo "Test: $(sed '' .nvmrc') end"
+Test: v18.12.1 end
+----
+
+Added “end” just to see if the result would be on a single line.
+It is!
+We are ready to commit our changes.
+
+[source,shell-session]
+----
+$ git commit -m "Update .nvmrc with node $(sed '' .nvmrc)"
+----
+
+The result will be something like:
+
+----
+$ git add .nvmrc
+
+$ git commit -m "Update .nvmrc with node $(sed '' .nvmrc)"
+[devel f7144a7] Update .nvmrc with node v18.12.1
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+$ git log -1
+commit f7144a77830ec39d186a72e5629c143adf9c8f2b (HEAD -> devel)
+Author: Aayla Secura <aaylasecura@example.dev>
+Date:   Sun Nov 6 07:16:17 2022 -0300
+
+    Update .nvmrc with node v18.12.1
+----
+
+== remove newline
+
+Similar to `tr -d '\n`, we can also do in pure bash:
+
+[source,bash]
+----
+"${var//[$'\t\r\n']}"
+----

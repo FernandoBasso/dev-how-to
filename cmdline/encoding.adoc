@@ -1,0 +1,26 @@
+= Encoding, UTF-8, Unicode
+:page-tags: encoding utf-8 unicode charset codepage
+:toc:
+
+== vim ISO-8859-1 to UTF-8 problem
+
+Convert a ISO-8859-1 file to UTF-8, some chars that looked like tabulations becomes these `<88>` things.
+
+image::./encoding.assets/vim-iso-88591-to-utf-8.png[vim ISO-8859-1 to UTF-8]
+
+.0x0088 Character Tabulation Set
+----
+
+----
+
+The char above may show up as "^" or "<88>", depending on the editor or some other rendering factors, like having or missing proper fonts or OS support/config for it.
+
+Can substitute those for normal tabs (or whatever other char) with:
+
+----
+:s/[\x88]/TAB/
+----
+
+Note the character class.
+If we simply do `s/\x88/` it will look for each individual char `\`, `x`, `8` and `8`, and not the code point they represent when combined together.
+

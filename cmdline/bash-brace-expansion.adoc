@@ -1,0 +1,34 @@
+= Bash Brace Expansion
+:page-tags: bash cmdline shell brace-expansion
+:icons: font
+:toc: left
+
+Bash brace expansion is useful in a lot of different situations.
+One of them is to do surgery on text and make more shorter and elegant command lines.
+
+[data-tags="bash mv brace-expansion"]
+== Moving (renaming) files
+
+[source,]
+----
+$ mv -v foo-{bar,tux}.txt
+renamed 'foo-bar.txt' -> 'foo-tux.txt'
+
+$ mv -v {foo-,}tux.txt
+renamed 'foo-tux.txt' -> 'tux.txt'
+
+$ mv -v {,jedi-}tux.txt
+renamed 'tux.txt' -> 'jedi-tux.txt'
+----
+
+[data-tags="bash ls brace-expansion"]
+== Listing Files
+
+[source,shell-session]
+----
+$ \ls -1i {/usr,}/bin/{test,[}
+2634460 '/bin/['
+2634545 /bin/test
+2634460 '/usr/bin/['
+2634545 /usr/bin/test
+----

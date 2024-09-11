@@ -1,0 +1,12 @@
+= Subshell and Child Process :: Bash
+:page-tags: bash shell subshell child process
+:icons: font
+:toc: left
+
+== Intro
+
+A subshell is a fork without an exec.
+It sees ALL the variables of the original shell, exported or not.
+A non-subshell child process (e.g. `bash -c`) only sees exported stuff.
+ANY child process sees exported stuff.
+perl, python, bash, dash, awk, grep, sed, cut, anything.

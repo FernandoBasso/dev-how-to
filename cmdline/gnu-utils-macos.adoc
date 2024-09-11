@@ -1,0 +1,58 @@
+= GNU Utils on MacOS
+:icons: font
+:toc: left
+
+== Install newer bash on MacOS
+
+[source,shell-session]
+----
+$ brew install bash
+$ which -a bash
+/usr/local/bin/bash
+/bin/bash
+----
+
+Append this line to `/etc/shells`:
+
+./etc/shells
+----
+...
+/usr/local/bin/bash
+----
+
+Change default shell to new installed bash, for your user and the root user:
+
+[source,shell-session]
+----
+$ chsh -s /usr/local/bin/bash
+$ sudo chsh -s /usr/local/bin/bash
+----
+
+At this point, we have:
+
+* `/bin/bash`
+* `/usr/local/bin/bash`
+
+That is, the old bash is still there.
+If you start shell scripts with this shebang line, you'll be using the old bash:
+
+.old bash shebang
+[source,bash]
+----
+#!/bin/bash
+
+echo "$BASH_VERSION"
+----
+
+But don't use the shebang of `#!/usr/local/bin/bash`, as this would fail on other unix machines (Linux, BSD, etc.)
+Instead, use this:
+
+.recommended shebang
+[source,bash]
+----
+#!/usr/bin/env bash
+----
+
+See:
+
+* link:https://www.shell-tips.com/mac/upgrade-bash/[Upgrad Bash on MacOS :: Shell Tips]

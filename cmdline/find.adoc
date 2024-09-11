@@ -1,0 +1,25 @@
+= Useful find examples
+
+== Find file, exclude directory
+
+Inside the directory `packages`, find `tsconfig.json` files except if they are inside `node_modules` directory.
+Excludes `node_modules` in _any_ level:
+
+[source,shell-session]
+----
+$ find ./packages -name tsconfig.json -not -path '*/node_modules/*'
+./packages/tsconfig.json
+----
+
+== Find files and store in array
+
+Find files whose extension is `.md` and store them in a bash array:
+
+[source,shell-session]
+----
+$ mapfile -d $'\0' mds < <(find . -iname '*.md' -print0)
+----
+
+We make use of the `mapfile` shell builtin with the shell-quoting `$''`
+syntax to specify NUL byte as delimiter (produced by `-print0`),
+redirection and process substitution `<(...)`.

@@ -1,0 +1,86 @@
+= sed insert line(s)
+:page-tags: cmdline sed
+:icons: font
+:toc: left
+
+== insert into empty file
+
+sed operates on lines.
+If a file contains no lines, sed cannot insert a line into the file.
+
+That means if we create a really empty file and try to insert some content into line 1, it won't work and no lines are inserted:
+
+.sed insert into no-lines file
+[source,shell-session]
+----
+$ : > ./file.txt
+
+$ du ./file.txt
+0    ./file.txt
+
+$ sed -f - ./file.txt <<EOF > ./new.txt
+1 i\\
+foo\\
+bar\\
+EOF
+
+$ du  ./new.txt
+0	    ./new.txt
+----
+
+As we see, `new.txt` is empty.
+It happens because there is no line 1 (the file has no lines at all), so the “line 1 address” cannot possibly match line 1.
+
+One approach would be to create a one-empty-line file instead:
+
+=== Empty Files
+
+Here are some ways to create empty files (really zero bytes and zero lines).
+Note that the first `echo` example creates a file with one empty line (and that is not really an empty file):
+
+[source,text]
+----
+$ echo > ./1line-echo.txt
+
+$ echo -n > ./0line-echo.txt
+$ : > ./0line-null.txt
+$ touch ./0line-touch.txt
+
+$ ls -1 ./*line*.txt
+./0line-echo.txt
+./0line-null.txt
+./0line-touch.txt
+./1line-echo.txt
+
+$ du -h ./*line*.txt
+0	./0line-echo.txt
+0	./0line-null.txt
+0	./0line-touch.txt
+4.0K	./1line-echo.txt
+
+$ wc -l ./*line*.txt
+0 ./0line-echo.txt
+0 ./0line-null.txt
+0 ./0line-touch.txt
+1 ./1line-echo.txt
+1 total
+----
+
+`echo` appends a newline to the output.
+Use `-n` to prevent that.
+
+.single empty line file
+[source,shell-session]
+----
+$ printf '\n' > ./file.txt
+
+$ sed -f - ./file.txt <<EOF > ./new.txt
+1 i\\
+foo\\
+bar\\
+EOF
+
+$ cat ./new.txt
+foo
+bar
+----

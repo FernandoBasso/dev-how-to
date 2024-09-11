@@ -1,0 +1,55 @@
+= Real SED tasks people ask on IRC
+:page-tags: sed example
+
+[data-date="2022-11-02",data-tags="sed line swap"]
+== Swap two lines
+
+----
+$ printf '%s\n' one three two
+one
+three
+two
+
+$ printf '%s\n' one three two | \
+    sed -e '2{h;d};3G'
+one
+two
+three
+----
+
+[data-tags="sed uuid",data-date="2022-11-01"]
+== Print uuid from string
+
+----
+$ sed -n "s/^Share '\([^']*\)'.*/\1/p" \
+    cmdline/sed/testfiles/uuid-1.txt
+
+6079aab6-e5b9-401b-820c-e1ad0e334c65
+----
+
+[data-tags="sed mysql replace in-place",data-date="2022-10-31"]
+== Replace "/var/run" in mysql.sock
+
+We want to replace "/var/run" with "/var/www/".
+
+.file contents
+----
+This is a config related to mysql/mariadb.
+
+#socket=/var/run/mysql/mysql.sock
+
+End of the file.
+----
+
+Approach 1:
+
+----
+$ sed -e 's:/var/run:/var/www:' var-run-mysql-sock.txt
+
+This is a config related to mysql/mariadb.
+
+#socket=/var/www/mysql/mysql.sock
+
+End of the file.
+----
+

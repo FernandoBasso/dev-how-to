@@ -1,0 +1,21 @@
+= od
+:page-subtitle: Command Line :: Coreutils
+:page-tags: od cmdline shell coreutils
+:imagesdir: ../__assets
+:toc: left
+:source-highlighter: highlight.js
+
+== See aA\n in ascii, decimal and hexadecimal
+
+[source,shell-session]
+----
+$ echo aA | od -t auCx1
+0000000   a   A  nl
+         97  65  10
+         61  41  0a
+0000003
+----
+
+* `a` outputs the named chars, like '\n' for newline.
+* `uC` outputs the decimal equivalent, for example, 'a' is 97.
+* `x1` outputs hex in two byte portions

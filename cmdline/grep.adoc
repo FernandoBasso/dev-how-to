@@ -1,0 +1,40 @@
+= grep
+:page-subtitle: Command Line and Shell Scripting
+:page-tags: gnu coreutils grep regexp
+:toc: left
+:icons: font
+
+
+== Intro
+
+`grep` stands Global Regular Expression Print.
+
+[NOTE]
+====
+These notes assume we are using GNU coreutils tools.
+====
+
+== Basic Examples
+
+Find for matches in dist or node_modules, etc:
+
+[source,shell-session]
+----
+$ grep --color -r -C 2 <pattern> ./dist
+$ grep --color -r -C 2 <pattern> ./node_modules
+----
+
+== Pipe to less
+
+The option `--color` implies `--color=auto` by default.
+To pipe to `less` and have colors, use `--color=always` and the `-R` option to `less`:
+
+[source,shell-session]
+----
+$ grep --color=always -rC2 <pattern> <directory> | less -R
+----
+
+[TIP]
+====
+`-R` is short for `--RAW-CONTROL-CHARS`
+====

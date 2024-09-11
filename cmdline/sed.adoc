@@ -1,0 +1,35 @@
+= Sed — Stream Editor
+:page-tags: sed cmdline
+
+* https://catonmat.net/sed-one-liners-explained-part-one
+
+
+[data-tags="sed print"]
+== Print Lines From a File
+
+Print entire file:
+
+----
+$ cat file.txt # <1>
+$ sed '' file.tx # <2>
+$ sed -n p file.txt # <3>
+$ sed -n '1,$ p' file.txt # <3>
+----
+
+1. Yeah, we could use `cat`.
+
+2. Or use an empty command, which by default (without `-n`) just outputs the content of the pattern space.
+
+3. Or using `-n` to avoid auto-printing of the pattern space and explicitly using `p` command to print, which prints all the lines if no address is used.
+
+4. Doing everything explicitly.
+
+== GNU sed -i option
+
+----
+$ sed -i 's/^  /\t/' < Makefile
+sed: no input files
+----
+
+Of course, the `-i` option takes a file, not STDIN.
+We got STDIN instead of the `Makefile` because we used redirection.
