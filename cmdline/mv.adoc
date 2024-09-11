@@ -1,0 +1,102 @@
+= mv
+:page-subtitle: Command Line
+:page-tags: cmdline bash shell unix
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Move hidden files with glob
+
+When `mv` is used with the glob `*` to “move all files”, the all files usually do not include hidden files due to bash default settings on most systems.
+
+Consider this directory structure:
+
+[source,bash]
+----
+$ tree -CFa
+./
+├── .env
+├── .git/
+├── .gitignore
+├── main.c
+├── parse.c
+└── parse.h
+----
+
+Note the two hidden files `.env` and `.gitignore`, and the hidden directory `.git`.
+
+If we now try to move those files to a backup directory using the shell glob thing, the hidden files and directories will not be moved:
+
+[source,bash]
+----
+$ mkdir -pv ~/Documents/Backups
+mkdir: created directory '/home/deveng/Documents/Backups'
+
+$ mv -v ./* ~/Documents/Backups
+renamed './main.c' -> '/home/deveng/Documents/Backups/main.c'
+renamed './parse.c' -> '/home/deveng/Documents/Backups/parse.c'
+renamed './parse.h' -> '/home/deveng/Documents/Backups/parse.h'
+
+$ tree -CFa .
+./
+├── .env
+├── .git/
+└── .gitignore
+----
+
+And the three hidden files and directories are still in the original directory.
+What can be done is to enable bash's _dotglob_ option:
+Inspecting the value of that option should show ‘off’:
+
+[source,bash]
+----
+$ shopt dotglob 
+dotglob        off
+----
+
+But we can enable it and then move the files with the glob and it should work:
+
+[source,bash]
+----
+$ shopt -s dotglob
+
+$ shopt dotglob
+dotglob         on
+
+$ mv -v ./* ~/Documents/Backups
+renamed './.env' -> '/home/deveng/Documents/Backups/.env'
+renamed './.git' -> '/home/deveng/Documents/Backups/.git'
+renamed './.gitignore' -> '/home/deveng/Documents/Backups/.gitignore'
+
+$ tree -CFa .
+./
+
+0 directories, 0 files
+----
+
+Now the glob `*` was able to also expand and match the hidden files as well.
+
+To unset that option, run:
+
+[source,bash]
+----
+$ shopt -u dotglob
+
+$ shopt dotglob 
+dotglob        	off
+----
+
+And if we prefer to have it always enable, we can simply add that same command to enable it on our `~/.bashrc`.
