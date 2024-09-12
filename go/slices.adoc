@@ -220,6 +220,8 @@ fmt.Printf("%#v\n", twoD)
 * https://go.dev/blog/slices-intro
 * https://gobyexample.com/slices
 * https://pkg.go.dev/slices
+* https://go.dev/wiki/SliceTricks
+* https://go.dev/tour/moretypes/6
 
 ++++
 <style type="text/css" rel="stylesheet">
