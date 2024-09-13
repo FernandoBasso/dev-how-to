@@ -18,7 +18,11 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-== Intro
+== Introduction
+
+Let's being our journey learning Docker with a basic example which uses a Debian image and simply prints a message to the console and then exits.
+
+== Initial setup
 
 Create a directory and a `Dockerfile` inside it.
 Something like this should do:

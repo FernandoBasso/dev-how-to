@@ -19,7 +19,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-== Intro
+== Introduction
 
 In the hello-v1 example we just echoed a message.
 The container printed the message and exited.
