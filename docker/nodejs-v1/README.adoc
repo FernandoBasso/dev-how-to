@@ -115,13 +115,11 @@ ENTRYPOINT ["node", "./src/app.js"]
 This time, instead of the `CMD` instruction, we used `ENTRYPOINT` instruction.
 This is necessary to allow us to run the container as an executable, which in turn allows it to correctly take command line arguments (which we'll need to pass the user name).
 
-Then let's build and list the images:
+Build the image:
 
 [source,shell-session]
 ----
 $ docker build --tag nodejs-v1:latest .
-
-$ docker image ls
 
 λ docker image ls
 REPOSITORY       TAG       IMAGE ID       CREATED              SIZE
@@ -134,8 +132,8 @@ We are finally able to run the image as a container, including providing the use
 
 [source,shell-session]
 ----
-$ docker run --rm node-v1:latest 'Aayla Secura'
-Hello, Aayla Secura!
+$ docker run --rm node-v1:latest Yoda
+Hello, Yoda!
 
 $ docker run --rm node-v1:latest "Aayla Secura"
 Hello, Aayla Secura!
