@@ -1,0 +1,11 @@
+{
+  "name": "nodejs-v2",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "nodemon --quiet ./src/app.js"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "*"
+  }
+}
