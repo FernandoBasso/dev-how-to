@@ -116,3 +116,28 @@ Because Docker runs Linux, and my local desktop was Arch Linux, that was not exp
 PostgreSQL inside the container should be using standard Linux newlines (`\n`, or linefeed, or 0x0a) for line terminators, not `\r\n` Windows line terminators.
 ====
 
+To import from the local system into PostgreSQL running inside docker, first mount a volume mapping the local DB dumps into the container:
+
+[source,yaml]
+----
+services:
+  db:
+    image: postgres:16
+    container_name: postgresql-playground
+    restart: always
+    env_file: .env
+    volumes:
+      - "pg_db_data:/var/lib/postgresql/data"
+      - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+      - "./dbdumps/:/dbdumps"
+----
+
+Then run a command like this:
+
+[source,bash]
+----
+$ docker exec postgresql-playground \
+    psql -U \
+    dev -d \
+    dev -f /dbdumps/mydbdump.sql
+----
