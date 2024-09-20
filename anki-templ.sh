@@ -18,7 +18,7 @@ then
   exit $err_no_templ_param
 fi
 
-templ="./anki/templates/${1}.html"
+templ="./anki/card-templates/${1}.html"
 
 if [[ ! -r $templ ]]
 then
@@ -29,4 +29,6 @@ else
   # Copy the contents of the template into the clipboard.
   #
   0< "$templ" xclip -in -selection clipboard
+
+  printf '\nTemplate ‘%s’ successfully copied to the clipboard.\n' "$templ"
 fi
