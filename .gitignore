@@ -4,6 +4,11 @@
 *.adoc.conv.html
 *.html
 
+##
+# We want to add .html Anki card templates, so un-ignore those.
+#
+!anki/card-templates/*.html
+
 #
 # My playground directories.
 #
