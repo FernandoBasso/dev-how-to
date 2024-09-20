@@ -1,0 +1,76 @@
+= Anki HTML Cards
+:page-subtitle: Anki Spaced Repetition
+:page-tags: anki srs memory learn
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== HTML markup and CSS classes
+
+All types of notes should have a wrapper `div` element with a few specific classes.
+One such class is always `anki`, followed by other classes depending on the note type.
+
+Look at `./anki-templ.sh` to understand how to use the helper shell script to quickly copy templates to the clipboard (which can then be pasted into Anki card editor and thus follow some conventions for creating card using HTML markup).
+
+[source,html]
+----
+<div class="anki ...">
+  ...
+</div>
+----
+
+=== Basic front and back
+
+For the basic question & answer type of card.
+Use `anki front` and `anki back` classes.
+
+.Front
+[source,html]
+----
+<div class="anki front">
+  <p>The question.</p>
+</div>
+----
+
+.Back
+[source,html]
+----
+<div class="anki back">
+  <p>The answer.</p>
+</div>
+----
+
+=== Cloze deletion
+
+Use the `anki cloze` classes`.
+
+[source,html]
+----
+<div class="anki cloze">
+  <p>Cloze deletion text.</p>
+</div>
+----
+
+=== Extra field
+
+For note types that contain the “extra” field, use the `anki extra` classes:
+
+[source,html]
+----
+<div class="anki extra">
+  <p>Extra information.</p>
+</div>
+----
