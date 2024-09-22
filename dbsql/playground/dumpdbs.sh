@@ -30,6 +30,7 @@
 # as well.
 #
 dbs=(
+  blog_dev
 	simplysql_cms_devel
 	simplysql_teamsgames_devel
 	simplysql_jointypes_devel

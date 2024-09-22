@@ -17,15 +17,15 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: simplysql_cms_devel; Type: DATABASE; Schema: -; Owner: devel
+-- Name: simplysql_cms_dev; Type: DATABASE; Schema: -; Owner: dev
 --
 
-CREATE DATABASE simplysql_cms_devel WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'en_US.UTF-8';
+CREATE DATABASE simplysql_cms_dev WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'en_US.UTF-8';
 
 
-ALTER DATABASE simplysql_cms_devel OWNER TO devel;
+ALTER DATABASE simplysql_cms_dev OWNER TO dev;
 
-\connect simplysql_cms_devel
+\connect simplysql_cms_dev
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -39,13 +39,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: simplysql_cms_devel; Type: DATABASE PROPERTIES; Schema: -; Owner: devel
+-- Name: simplysql_cms_dev; Type: DATABASE PROPERTIES; Schema: -; Owner: dev
 --
 
-ALTER DATABASE simplysql_cms_devel CONNECTION LIMIT = 3;
+ALTER DATABASE simplysql_cms_dev CONNECTION LIMIT = 3;
 
 
-\connect simplysql_cms_devel
+\connect simplysql_cms_dev
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -63,7 +63,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: categories; Type: TABLE; Schema: public; Owner: devel
+-- Name: categories; Type: TABLE; Schema: public; Owner: dev
 --
 
 CREATE TABLE public.categories (
@@ -72,10 +72,10 @@ CREATE TABLE public.categories (
 );
 
 
-ALTER TABLE public.categories OWNER TO devel;
+ALTER TABLE public.categories OWNER TO dev;
 
 --
--- Name: entries; Type: TABLE; Schema: public; Owner: devel
+-- Name: entries; Type: TABLE; Schema: public; Owner: dev
 --
 
 CREATE TABLE public.entries (
@@ -88,10 +88,10 @@ CREATE TABLE public.entries (
 );
 
 
-ALTER TABLE public.entries OWNER TO devel;
+ALTER TABLE public.entries OWNER TO dev;
 
 --
--- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: devel
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: dev
 --
 
 COPY public.categories (category, name) FROM stdin;
@@ -104,7 +104,7 @@ science	Our Spectacular Universe
 
 
 --
--- Data for Name: entries; Type: TABLE DATA; Schema: public; Owner: devel
+-- Data for Name: entries; Type: TABLE DATA; Schema: public; Owner: dev
 --
 
 COPY public.entries (id, title, created, updated, category, content) FROM stdin;
@@ -118,7 +118,7 @@ COPY public.entries (id, title, created, updated, category, content) FROM stdin;
 
 
 --
--- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: devel
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: dev
 --
 
 ALTER TABLE ONLY public.categories
@@ -126,7 +126,7 @@ ALTER TABLE ONLY public.categories
 
 
 --
--- Name: entries entries_pkey; Type: CONSTRAINT; Schema: public; Owner: devel
+-- Name: entries entries_pkey; Type: CONSTRAINT; Schema: public; Owner: dev
 --
 
 ALTER TABLE ONLY public.entries

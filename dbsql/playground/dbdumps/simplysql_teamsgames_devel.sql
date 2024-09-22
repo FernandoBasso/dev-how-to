@@ -17,15 +17,15 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: simplysql_teamsgames_devel; Type: DATABASE; Schema: -; Owner: devel
+-- Name: simplysql_teamsgames_dev; Type: DATABASE; Schema: -; Owner: dev
 --
 
-CREATE DATABASE simplysql_teamsgames_devel WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'en_US.UTF-8';
+CREATE DATABASE simplysql_teamsgames_dev WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'en_US.UTF-8';
 
 
-ALTER DATABASE simplysql_teamsgames_devel OWNER TO devel;
+ALTER DATABASE simplysql_teamsgames_dev OWNER TO dev;
 
-\connect simplysql_teamsgames_devel
+\connect simplysql_teamsgames_dev
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -39,13 +39,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: simplysql_teamsgames_devel; Type: DATABASE PROPERTIES; Schema: -; Owner: devel
+-- Name: simplysql_teamsgames_dev; Type: DATABASE PROPERTIES; Schema: -; Owner: dev
 --
 
-ALTER DATABASE simplysql_teamsgames_devel CONNECTION LIMIT = 3;
+ALTER DATABASE simplysql_teamsgames_dev CONNECTION LIMIT = 3;
 
 
-\connect simplysql_teamsgames_devel
+\connect simplysql_teamsgames_dev
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -63,7 +63,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: teams; Type: TABLE; Schema: public; Owner: devel
+-- Name: teams; Type: TABLE; Schema: public; Owner: dev
 --
 
 CREATE TABLE public.teams (
@@ -73,10 +73,10 @@ CREATE TABLE public.teams (
 );
 
 
-ALTER TABLE public.teams OWNER TO devel;
+ALTER TABLE public.teams OWNER TO dev;
 
 --
--- Data for Name: teams; Type: TABLE DATA; Schema: public; Owner: devel
+-- Data for Name: teams; Type: TABLE DATA; Schema: public; Owner: dev
 --
 
 COPY public.teams (id, name, conference) FROM stdin;
@@ -87,7 +87,7 @@ COPY public.teams (id, name, conference) FROM stdin;
 
 
 --
--- Name: teams teams_pkey; Type: CONSTRAINT; Schema: public; Owner: devel
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: public; Owner: dev
 --
 
 ALTER TABLE ONLY public.teams
