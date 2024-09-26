@@ -1,0 +1,55 @@
+= ZSH
+:page-subtitle: shell cmdline unix
+:page-tags: exercism go boolean
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Completion
+
+=== Autocomplete
+
+The one that shows the completion “bellow”:
+
+[source,text]
+----
+$ brew install zsh-autocomplete
+Installation
+1. Add at or near the top of your .zshrc file (before any calls to compdef):
+  source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+2. Remove any calls to compinit from your .zshrc file.
+3. If you're using Ubuntu, add to your .zshenv file:
+  skip_global_compinit=1
+Then restart your shell.
+For more details, see:
+  https://github.com/marlonrichert/zsh-autocomplete
+==> Summary
+🍺  /opt/homebrew/Cellar/zsh-autocomplete/24.09.04: 29 files, 71.6KB
+----
+
+=== Autosuggest
+
+The one that shows the “phantom” text ahead in the command line:
+
+[source,text]
+----
+$ brew install zsh-autosuggestions
+
+==> Caveats
+To activate the autosuggestions, add the following at the end of your .zshrc:
+
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+----
