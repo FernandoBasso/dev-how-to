@@ -1,0 +1,29 @@
+= Hints
+
+* API documentation: https://pkg.go.dev/regexp[package regexp]
+* Regular expression syntax: https://pkg.go.dev/regexp/syntax[regexp/syntax]
+* Website https://regex101.com/[regex101.com] has an online regular expression tester.
+* It is recommended to write regular expressions as https://yourbasic.org/golang/regexp-cheat-sheet/#raw-strings[raw string literals] enclosed by backticks.
+
+== 1. Identify garbled log lines
+
+* Function [regexp.MatchString][fun-match-string] or method https://pkg.go.dev/regexp#Regexp.MatchString[MatchString] could be useful here.
+* In a regular expression, the character `^` matches the beginning of a line/string.
+
+== 2. Split the log line
+
+* Method https://pkg.go.dev/regexp#Regexp.Split[Split] could be useful here.
+
+== 3. Count the number of lines containing `password` in quoted text
+
+* You can make expression matching case sensitive by prefixing the regular expression with `(?i)`.
+This will set the `i` flag.
+See https://yourbasic.org/golang/regexp-cheat-sheet/#case-insensitive-and-multiline-matches[this tutorial].
+
+== 4. Remove artifacts from log
+
+* Method https://pkg.go.dev/regexp#Regexp.ReplaceAllString[ReplaceAllString] could be useful here.
+
+== 5. Tag lines with user names
+
+* Method https://pkg.go.dev/regexp#Regexp.FindStringSubmatch[FindStringSubmatch] could be useful here.
