@@ -356,3 +356,27 @@ func TagWithUserName(lines []string) []string {
 	return out
 }
 ----
+
+=== TagWithUserName() v2 with fmt.Sprintf
+
+With this approach we use `fmt.Sprintf` instead of string concatenation. 
+
+[source,go]
+----
+func TagWithUserName(lines []string) []string {
+	re := regexp.MustCompile(`User\s+(\w+)`)
+	out := []string{}
+
+	for _, line := range lines {
+		match := re.FindStringSubmatch(line)
+
+		if match != nil {
+			line = fmt.Sprintf("[USR] %s %s", match[1], line)
+		}
+
+		out = append(out, line)
+	}
+
+	return out
+}
+----
