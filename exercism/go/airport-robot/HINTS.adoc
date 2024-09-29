@@ -1,0 +1,24 @@
+= Hints
+
+== General
+
+* Maybe have a look at https://go.dev/tour/methods/9[Interfaces in the Tour of Go] to see more examples if you struggle with the exercise.
+
+== 1. Create the abstract greeting functionality
+
+* Look back at `Counter` example the introduction to find out how to define an interface.
+* Revisit the link:/tracks/go/concepts/functions[functions concepts] to recap how to write function signatures in Go.
+* The abstract `Greeter` type can be used in a function signature the same way as a normal concrete type like `string`.
+* To implement `SayHello`, call the methods on the argument of type `Greeter`.
+Then use string formatting or string concatenation to construct the final result.
+
+== 2. Implement Italian
+
+* Revisit the link:/tracks/go/concepts/structs[structs concept] to see how to define a struct type.
+* To solve the task, the struct does not need any fields at all.
+* Once you defined the struct, you want to add the methods `LanguageName` and `Greet` to it.
+Revisit the link:/tracks/go/concepts/methods[methods concept] to find out how to add a method for a type.
+
+== 3. Implement Portuguese
+
+* See hints for task 2.
