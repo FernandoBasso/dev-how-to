@@ -3,8 +3,8 @@
 #
 # Dumps databases including their DDL code.
 #
-# NOTE: This is a simple script to dump my study databases. All the DBs
-# must belong to the same user and with the the same password.
+# NOTE: This is a simple script to dump my local study databases. All
+# the DBs must belong to the same user and with the the same password.
 #
 # Usage:
 #

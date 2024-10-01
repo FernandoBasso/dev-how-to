@@ -137,7 +137,8 @@ Then run a command like this:
 [source,bash]
 ----
 $ docker exec postgresql-playground \
-    psql -U \
-    dev -d \
-    dev -f /dbdumps/mydbdump.sql
+    psql \
+      -U dev \
+      -d dev \
+      -f /dbdumps/mydbdump.sql
 ----
