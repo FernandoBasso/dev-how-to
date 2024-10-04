@@ -1,0 +1,47 @@
+                           __________________
+
+                            MAYBE :: HASKELL
+                           __________________
+
+
+Table of Contents
+_________________
+
+1. Maybe
+2. Pattern Matching on Maybe
+
+
+
+
+
+1 Maybe
+=======
+
+  The `Maybe' data type can either take an argument, or not. Some
+  languages call this type `Either' for this reason. “Either we have a
+  valid/useful value, or we don't.” “Maybe we have a valid/useful value,
+  but maybe not.” That is the idea behind it.
+
+
+2 Pattern Matching on Maybe
+===========================
+
+  Given `False', `f' returns `Just 0', otherwise it returns
+  `Nothing'. Then, `g' displays an example of patter matching on `Maybe'
+  data constructors.
+
+  ,----
+  | f :: Bool -> Maybe Int
+  | f False = Just 0
+  | f _     = Nothing
+  | 
+  | g :: Maybe Int -> String
+  | g (Just n) = "Value: " ++ (show n)
+  | g Nothing  = "Hmm..."
+  | -- λ> g Nothing
+  | -- "Hmm..."
+  | -- λ> g (Just (1 :: Int))
+  | -- "Value: 1"
+  | -- λ> g $ Just (1 :: Int)
+  | -- "Value: 1"
+  `----

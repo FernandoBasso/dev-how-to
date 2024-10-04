@@ -1,0 +1,19 @@
+:PROPERTIES:
+:ID:       A53C9ACC-CB0A-49D6-895E-A1E8A94489D9
+:END:
+#+title: C-Functions
+
+* flip
+
+- [[https://discord.com/channels/280033776820813825/505367988166197268/1098103014260219955][Haskell flip question on Discord]].
+
+#+ATTR_ORG: :width 720
+#+DOWNLOADED: screenshot @ 2023-04-19 18:48:24
+[[file:assets/org_20230419-184824_screenshot.png]]
+
+#+begin_src c
+int flip(int (*f)(char, float), float x, char y) {
+  return f(y, x);
+}
+#+end_src
+

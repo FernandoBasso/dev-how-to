@@ -1,0 +1,35 @@
+:PROPERTIES:
+:ID:       2a477b10-e77c-4ae5-8442-8b48e904ca02
+:END:
+#+CREATED_AT: <2023-05-05 Fri 08:33>
+#+UPDATED_AT:
+#+title: Maybe :: Haskell
+#+STARTUP: content
+
+* Maybe
+
+The ~Maybe~ data type can either take an argument, or not. Some
+languages call this type ~Either~ for this reason. “Either we have a
+valid/useful value, or we don't.” “Maybe we have a valid/useful value,
+but maybe not.” That is the idea behind it.
+
+* Pattern Matching on Maybe
+
+Given ~False~, ~f~ returns ~Just 0~, otherwise it returns ~Nothing~. Then, ~g~
+displays an example of patter matching on ~Maybe~ data constructors.
+
+#+begin_src haskell
+f :: Bool -> Maybe Int
+f False = Just 0
+f _     = Nothing
+
+g :: Maybe Int -> String
+g (Just n) = "Value: " ++ (show n)
+g Nothing  = "Hmm..."
+-- λ> g Nothing
+-- "Hmm..."
+-- λ> g (Just (1 :: Int))
+-- "Value: 1"
+-- λ> g $ Just (1 :: Int)
+-- "Value: 1"
+#+end_src

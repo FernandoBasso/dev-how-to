@@ -1,0 +1,46 @@
+:PROPERTIES:
+:ID:       ec191a7a-983a-4fed-a657-cbb4b29ae1ec
+:END:
+#+title: Pandoc
+
+* Find then md to org
+
+#+begin_example
+$ find . -name '*.md' \
+    -exec pandoc \
+    --from=markdown {} \
+    --to=org --output {}.org \;
+#+end_example
+
+Now we have some =.md.org= files. Let's rename to drop the =.md=
+portion. What about we use =perl-rename=? Let's do a dry-run first to
+make sure we are renaming only what we want to rename:
+
+#+begin_example
+hffp [haskell %|u=]
+$ perl-rename --dry-run 's/\.md//' **/*.md.org
+ch02-hello/README.md.org -> ch02-hello/README.org
+ch03-strings/README.md.org -> ch03-strings/README.org
+ch04-datatypes/README.md.org -> ch04-datatypes/README.org
+ch05-types/README.md.org -> ch05-types/README.org
+ch06-type-classes/README.md.org -> ch06-type-classes/README.org
+ch07-functional-patterns/README.md.org -> ch07-functional-patterns/README.org
+ch08-recursion/README.md.org -> ch08-recursion/README.org
+ch09-lists/README.md.org -> ch09-lists/README.org
+ch10-fold-lists/fold-const.md.org -> ch10-fold-lists/fold-const.org
+ch10-fold-lists/README.md.org -> ch10-fold-lists/README.org
+ch10-fold-lists/standard-functions.md.org -> ch10-fold-lists/standard-functions.org
+#+end_example
+
+If we are satisfied, drop the =--dry-run= (and maybe add =--verbose= in
+its place) and we should be done!
+
+* Other
+
+#+begin_example
+$ find ./ \
+    -iname "*.org" \
+    -type f \
+    -exec sh -c 'pandoc "${0}" -o "${0%}.md"' {} \;
+#+end_example
+

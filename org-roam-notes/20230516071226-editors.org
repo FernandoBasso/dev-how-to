@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       9f794b51-8467-4b9d-9ece-04a6abdef106
+:END:
+#+title: Editors
+
+- vim/nvim
+- emacs
+- https://github.com/lem-project/lem
+- https://github.com/emacs-eaf/emacs-application-framework
+

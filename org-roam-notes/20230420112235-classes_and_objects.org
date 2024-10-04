@@ -1,0 +1,69 @@
+:PROPERTIES:
+:ID:       0B3D5EB4-9AB3-4E30-85B2-9C3AFC5095E4
+:END:
+#+title: Classes and Objects :: Ruby
+#+startup: content
+
+* Object IDs
+
+#+begin_src ruby
+class C; end
+p C.new
+#=> #<C:0x00000001055b9810>
+#+end_src
+
+That hex number is an internal representation id which is related (but
+not identical to ~o.object_id~. In older versions of ruby it was the
+memory address of an object but that is no longer true.
+
+#+begin_example
+$ irb --simple-prompt
+
+>> obj = Object.new
+=> #<Object:0x00007f7c0b04fe78>
+
+>> sprintf('0x%016x', obj.__id__)
+=> "0x0000000000000118"
+
+>> obj.__id__
+=> 280
+
+>> obj.object_id
+=> 280
+#+end_example
+
+* Private Methods
+
+- [[https://discord.com/channels/518658712081268738/650031651845308419/1098346617544916992][attr_writer Ruby Dicord server discussion]]
+
+** Example 1
+
+#+begin_src ruby
+class Wombat
+  def initialize(age:)
+    @age = age
+  end
+end
+
+p Wombat.new(age: 42)
+#=> #<Wombat:0x00007f43fed06b70 @age=42>
+#+end_src
+
+~age~ is private. The class doesn't provide a way for it to be read by
+any means (no reader methods defined for ~age~. It is a standard (and
+simple) way of keeping a variable private.
+
+#+begin_src ruby
+class Wombat
+  def initialize(age:)
+    self.age = age
+  end
+
+  private
+
+  attr_writer :age
+end
+
+p Wombat.new(age: 42)
+#=> #<Wombat:0x00007f94eb62e1c0 @age=42>
+#+end_src

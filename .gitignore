@@ -20,6 +20,7 @@
 #
 \#*\.org\#
 \.#*\.org
+org-roam-notes/ltximg
 
 #
 # Exclude these Asciidoctor generated files in any subdirectory

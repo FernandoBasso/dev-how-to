@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       4afc76db-9f5a-40c1-84b9-62da262e7f77
+:END:
+#+title: Strings :: Haskell
+
+- https://free.cofree.io/2020/05/06/string-types/

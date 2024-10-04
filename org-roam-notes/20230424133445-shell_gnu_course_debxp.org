@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       8f2208b7-e840-4030-8345-04c50a6fb417
+:END:
+#+title: Shell GNU Course :: debxp
+
+- [[https://www.youtube.com/playlist?list=PLXoSGejyuQGqJEEyo2fY3SA-QCKlF2rxO][Shell GNU Course :: debxp]].
+
+

@@ -1,0 +1,52 @@
+:PROPERTIES:
+:ID:       ec473ac3-b5d1-41bf-ad07-d54b5a5687c5
+:END:
+#+title: Emacs
+#+STARTUP: content
+
+“Eight Megs And Constantly Swapping” (EMACS).
+
+* Stuff to check and read
+
+- [[http://alhassy.com/org-special-block-extras/][Org Special Block Extars]]
+
+
+* Recompile .el files
+- [[https://stackoverflow.com/questions/1217180/how-do-i-byte-compile-everything-in-my-emacs-d-directory][How do I byte-compile everything in my .emacs.d directory?]]
+
+#+begin_example
+C-u 0 M-x byte-recompile-directory
+; or
+(byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
+#+end_example
+
+Or from the command line:
+
+#+begin_example
+emacs --batch --eval '(byte-recompile-directory "~/.emacs.d")'
+#+end_example
+
+* Line Numbers
+
+Type =C-u C-h C-n= to display Emacs news, and chose 26.1. Then search
+for =display-line-numbers=. In short, it is similar to =linum-mode= but
+more performant.
+
+[[file:assets/org_20230430-080034_screenshot.png]]
+
+
+* Keybindings, readline library
+DATETIME: <2023-05-06 Sat 08:44>
+
+[[https://matrix.to/#/!KuaCUVGoCiunYyKEpm:libera.chat/$3dEcmvZxAe_ovs24tr0C_QJ5mGYRdaKRGRAMrgkLEMU?via=libera.chat&via=matrix.org&via=mozilla.org][Chat on #emacs IRC on Libera]] on Mastering Emacs meetup call on
+keyslike ~M-l~, ~M-u~, ~M-c~, etc. Some of those work on bash/readline
+stuff.
+
+Not all tools behave exactly the same, though.
+
+- https://github.com/hanslub42/rlwrap
+
+* Chats, Links and Posts
+
+- [[https://matrix.to/#/!YyhlMcwKSYIrvOHCNJ:libera.chat/$n2kAyeaYHMLs6RzZfwcPX59fo9v2ocQ7fKXR3IDqpw8?via=libera.chat&via=matrix.org][lisp.br Mario about Emacs history]]
+

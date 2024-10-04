@@ -1,0 +1,25 @@
+:PROPERTIES:
+:ID:       fe4344f8-1c41-4ccf-a99a-168f264a6f8d
+:END:
+#+title: Webpack
+#+startup: content
+
+* Config
+
+When ~webpack.config.js~ returns an array of config objects (rather than a
+single config object), it can run each of those at once, like if there
+is a mobile and desktop config, or client and server configs, then
+those can run at the same time and not one after the other.
+
+#+begin_example
+const client = { ... };
+const server = { ... };
+const modFedLib = { ... };
+
+module.exports = [
+  client,
+  server,
+  modfedlib,
+];
+#+end_example
+

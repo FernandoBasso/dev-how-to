@@ -1,0 +1,59 @@
+% Created 2024-10-03 Thu 10:09
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{\today}
+\title{Maybe :: Haskell}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={Maybe :: Haskell},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 29.4 (Org mode 9.6.15)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Maybe}
+\label{sec:orga9dcb7a}
+
+The \texttt{Maybe} data type can either take an argument, or not. Some
+languages call this type \texttt{Either} for this reason. “Either we have a
+valid/useful value, or we don't.” “Maybe we have a valid/useful value,
+but maybe not.” That is the idea behind it.
+
+\section{Pattern Matching on Maybe}
+\label{sec:orgd853d7a}
+
+Given \texttt{False}, \texttt{f} returns \texttt{Just 0}, otherwise it returns \texttt{Nothing}. Then, \texttt{g}
+displays an example of patter matching on \texttt{Maybe} data constructors.
+
+\begin{verbatim}
+f :: Bool -> Maybe Int
+f False = Just 0
+f _     = Nothing
+
+g :: Maybe Int -> String
+g (Just n) = "Value: " ++ (show n)
+g Nothing  = "Hmm..."
+-- λ> g Nothing
+-- "Hmm..."
+-- λ> g (Just (1 :: Int))
+-- "Value: 1"
+-- λ> g $ Just (1 :: Int)
+-- "Value: 1"
+\end{verbatim}
+\end{document}

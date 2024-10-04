@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       1C698554-A397-4233-96BF-10C841500A2E
+:END:
+#+title: Jenkins
+
+- [[id:C27F9914-11F5-4A54-9A36-75382249288A][Jenkins-Credentials-Plugin]]

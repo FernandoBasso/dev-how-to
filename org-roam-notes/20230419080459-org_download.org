@@ -1,0 +1,17 @@
+:PROPERTIES:
+:ID:       4dcb83ff-b71b-4e50-96dc-2d54f9230a9b
+:END:
+#+title: Org-Download
+
+
+- https://github.com/abo-abo/org-download/issues/131
+- https://stackoverflow.com/questions/11670654/how-to-resize-images-in-org-mode
+
+
+#+DOWNLOADED: screenshot @ 2023-04-19 08:10:45
+#+ATTR_ORG: :width 800
+[[file:assets/org_20230419-081045_screenshot.png]]
+
+
+** Other
+

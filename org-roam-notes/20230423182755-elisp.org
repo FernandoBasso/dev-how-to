@@ -1,0 +1,29 @@
+:PROPERTIES:
+:ID:       e4d250ac-3016-4ad2-94c0-da1507626db7
+:END:
+#+title: elisp
+
+* Learning Emacs Lisp :: System Crafters Video Series
+
+- [[https://github.com/daviwil/emacs-from-scratch][emacs-from-scratch]] Rep.
+
+** Intro :: video 01
+
+Lisp variables don't have types, only the values themselves have
+types.
+
+#+ATTR_ORG: :width 720
+[[file:assets/org_20230423-182822_screenshot.png]]
+
+
+#+begin_src emacs-lisp
+(+ 1 1)
+#+end_src
+
+** Types, Conditionals and Loops
+
+*** Boolean
+
+elisp has ~t~ for true, and ~nil~ for false.
+
+p

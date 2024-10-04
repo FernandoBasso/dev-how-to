@@ -1,0 +1,16 @@
+:PROPERTIES:
+:ID:       5d1b08d3-e279-459c-9288-10551303749b
+:END:
+#+title: Functional Programming
+#+STARTUP: content
+
+NOTE: These were mentioned in a thread in the company's chat.
+
+Book The Joy of Abstraction by Eugenia Cheng.
+
+Then they mentioned Category Theory for Programmers by Bartosz Milewski:
+- [[https://www.blurb.com/b/9621951-category-theory-for-programmers-new-edition-hardco][Category Theory for Programmers (New Edition, Hardcover)]]
+- [[https://www.youtube.com/@DrBartosz/playlists][Bartosz videos on the topic]]
+
+The book and videos are probably based on the [[https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/][original blog series on
+category theory]].

@@ -1,0 +1,42 @@
+:PROPERTIES:
+:ID:       9c756b4f-a16b-4081-b321-834893282f66
+:END:
+#+title: Bash Redirection
+#+STARTUP: content
+
+* Redirect both STDOUT and STDERR
+
+Trying to =ls= the file/directory called =miss=, which doesn't exist:
+
+#+begin_example
+$ ls ./miss
+ls: cannot access './miss': No such file or directory
+#+end_example
+
+To redirect STDERR (to =/dev/null= in this case), redirect STDOUT to
+=/dev/null= and then redirect STDERR to STDOUT, having the effect of
+suppressing all output:
+
+#+begin_example
+$ ls ./miss 1> /dev/null 2>&1
+(no output)
+#+end_example
+
+Since Bash 4, we can simplify =1>= and =2>&1= to simply =&>=:
+
+#+begin_example
+$ ls ./miss &> /dev/null
+(no output)
+#+end_example
+
+Or something like this:
+
+#+begin_example
+$ (ls ./miss 2>&1) 1> /dev/null
+$ (ls ./miss 2>&1) 1> ./out.txt
+$ cat ./out.txt
+ls: cannot access './miss': No such file or directory
+#+end_example
+* References and Resources
+
+- [[https://stackoverflow.com/questions/876239/how-to-redirect-and-append-both-standard-output-and-standard-error-to-a-file-wit][Redirect STDOUT and STDERR and append in Bash :: StackOverflow]]

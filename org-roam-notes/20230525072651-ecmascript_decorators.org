@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       9272704f-65fd-4cec-9180-edc5af971a31
+:END:
+#+title: ECMAScript Decorators
+
+* Intro
+
+- [[https://github.com/tc39/proposal-decorators][TC39 Proposal Decorators]]
+

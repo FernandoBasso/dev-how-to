@@ -1,0 +1,86 @@
+:PROPERTIES:
+:ID:       c987cc1c-8eca-4821-94b3-aa90f6ca140b
+:END:
+#+title: Git
+#+STARTUP: content
+
+* Amend with current date
+
+#+begin_example
+$ git commit --amend --date="$(date)"
+#+end_example
+
+* Specify which SSH Key to use
+
+#+begin_example
+$ GIT_SSH_COMMAND='ssh -i ~/.ssh/id_workproj_rsa' git clone ...
+
+$ GIT_SSH_COMMAND='ssh -i ~/.ssh/id_workproj_rsa' git push origin HEAD
+#+end_example
+
+- https://git-scm.com/docs/git#Documentation/git.txt-codeGITSSHCOMMANDcode
+- https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables
+
+For git >= 2.10, we can also set =config.sshCommnd=:
+
+#+begin_example
+$ git config --local core.sshCommand 'ssh -i ~/.ssh/id_rsa_priv_key -F /dev/null'
+#+end_example
+
+Or even in =~/.ssh/config=:
+
+#+begin_example
+ost proj.gitlab.com
+  User git
+  Hostname proj.gitlab.com
+  IdentityFile ~/.ssh/id_rsa_proj_priv_key
+#+end_example
+
+
+* Checkout to branch with same name as existing file
+
+- [[https://stackoverflow.com/questions/25322335/git-change-branch-when-file-of-same-name-is-present][Change branch when file of same name is present :: Stack]]
+
+#+begin_example
+$ ls
+first.txt  parser.c  pkgs  second.txt
+
+gitproj [devel *%]
+$ git branch
+​* devel
+  main
+  pkgs
+#+end_example
+
+Note we have both a file and branch both named =pkgs=. At least on git
+2.40 we can simply do this:
+
+#+begin_example
+$ git checkout pkgs
+Switched to branch 'pkgs'
+#+end_example
+
+But older versions would just show no output, and no branch would have
+been checked out as it is possible to checkout files (including
+directories) too, not only branches. Git would not guess correctly
+what you want to do and do nothing. For those cases:
+
+#+begin_example
+$ git checkout pkgs --
+#+end_example
+
+Note the use of the trailing ~--~. Seems to work similarly to POSIX “[[https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html][end
+of options]]” delimiter.
+
+Why ~--~ after ~pkgs~, not before it? Because ~pkgs~ is not a path or file,
+but the name of a branch. The branch is /like an option/ for this
+command. It is some crazy thing, but that is what it is 😅.
+
+Another way:
+
+#+begin_example
+(cd .git && git -C .. checkout pkgs)
+#+end_example
+
+After the group command ends, we are back at the original directory we
+were before running the command group. It is a clever approach too!

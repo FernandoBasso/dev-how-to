@@ -1,0 +1,12 @@
+:PROPERTIES:
+:ID:       ff00494a-3661-4772-8224-a6c3b43abe62
+:END:
+#+title: Emacs Completion
+#+STARTUP: content
+
+* Company
+
+Company mode works for in-buffer suggestions and completions. It does
+not work on minibuffer. For minibuffer, one could chose something like
+‘orderless’.
+

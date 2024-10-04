@@ -1,0 +1,17 @@
+:PROPERTIES:
+:ID:       38192412-1843-4FB2-97C6-5F643CC5EA01
+:END:
+#+title: Org mode Tips
+
+By default, ~C-c C-o~ is bound to ~org-open-at-point~. If the link on the
+split on the left, it opens the file on the right split, and
+vice-versa.
+
+To customize this behavior, let's look at the variable
+~org-link-frame-setup~:
+
+#+begin_example
+
+#+end_example
+
+

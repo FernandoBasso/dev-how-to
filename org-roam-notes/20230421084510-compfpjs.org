@@ -1,0 +1,2852 @@
+:PROPERTIES:
+:ID:       b0881d42-addc-46d9-8616-76718a0e3bed
+:ROAM_ALIASES: compfpjs
+:END:
+#+title: Composable Functional JavaScript
+#+startup: content
+
+** Intro
+
+Free course by Brian Lonsdorf (DrBoolean, also the author of Mostly
+Adequate Guide to Functional Programming).
+
+- [[https://egghead.io/courses/professor-frisby-introduces-composable-functional-javascript][Professor Frisby Introduces Composable Functional JavaScript]]
+- [[https://replit.com/@FernandoBasso/Composable-Functional-JavaScript][Composable Functional JavaScript]]
+
+My source for the videos:
+
+- [[https://gitlab.com/devhowto/devnotes/-/tree/main/src/compfpjs]]
+
+** Definitions
+:PROPERTIES:
+:CUSTOM_ID: definitions
+:END:
+- /concat/ :: Short for concatenate, as programming languages use this
+  short name we'll use it as a verb as well 😅.
+- /concatable/ :: A made up word based on /concat/ meaning that
+  something can be concatenated or combined together.
+- /concating/ :: A made up word based on /concat/, added by the gerund
+  /ing/. I means "concatenating".
+- /containery/ :: A made up word meaning "container-like" or "like a
+  container", or a wrapper of sorts. E.g.: "a containery type", meaning
+  a type which is like a container, or wrapper for a value.
+
+** 01 Create linear data flows with container style types (Box)
+:PROPERTIES:
+:CUSTOM_ID: create-linear-data-flows-with-container-style-types-box
+:END:
+*** Procedural Style
+:PROPERTIES:
+:CUSTOM_ID: procedural-style
+:END:
+#+BEGIN_SRC javascript
+/**
+ * Takes a digit-like string and returns the next char based on
+ * that digit.
+ *
+ * For example, 65 is ‘A’ in ASCII/UTF-8. 64 + 1 is 65, which is ‘A’,
+ * and 122 is ‘z’, so, 121 + 1 is 122, which is ‘a’. See `man ascii`.
+ */
+function nextCharFromNumStr(s) {
+  const trimmed = s.trim();
+  const num = Number.parseInt(trimmed, 10);
+  const nextNum = num + 1;
+
+  return String.fromCharCode(nextNum);
+}
+
+log(nextCharFromNumStr('      64 '));
+//=> 'A'
+
+log(nextCharFromNumStr('    121   '));
+//=> 'z'
+#+END_SRC
+
+*** Nesting invocations
+:PROPERTIES:
+:CUSTOM_ID: nesting-invocations
+:END:
+Those assignments are too much non-FPish. Let's try this:
+
+#+BEGIN_SRC javascript
+/**
+ * Takes a digit-like string and returns the next char based on
+ * that digit.
+ *
+ * For example, 65 is ‘A’ in ASCII/UTF-8. 64 + 1 is 65, which is ‘A’,
+ * and 122 is ‘z’, so, 121 + 1 is 122, which is ‘a’. See `man ascii`.
+ */
+function nextCharFromNumStr(s) {
+  // Note nested stuff. A bit unwieldy.
+  return String.fromCharCode(Number.parseInt(s.trim()) + 1);
+}
+#+END_SRC
+
+*** More FPish
+:PROPERTIES:
+:CUSTOM_ID: more-fpish
+:END:
+All those nested calls are a bit unwieldy. We can add the value into a
+/box/ and /map/ functions over it:
+
+#+BEGIN_SRC javascript
+/**
+ * Takes a digit-like string and returns the next char based on
+ * that digit.
+ *
+ * For example, 65 is ‘A’ in ASCII/UTF-8. 64 + 1 is 65, which is ‘A’,
+ * and 122 is ‘z’, so, 121 + 1 is 122, which is ‘a’. See `man ascii`.
+ */
+function nextCharFromNumStr(str) {
+  return [str]
+    .map(s => s.trim())
+    .map(d => Number.parseInt(d, 10))
+    .map(n => n + 1)
+    .map(n => String.fromCharCode(n));
+}
+
+log(nextCharFromNumStr("      64 "));
+//=> ['A']
+
+log(nextCharFromNumStr("    121   "));
+//=> ['z']
+#+END_SRC
+
+Instead of assigning each intermediate step value to a variable, we
+capture each assignment into a very minimal context. Each of the
+variables =s=, =d= or =n= are not used outside those little function
+scopes.
+
+=map()= is composition!
+
+And with some extra helper functions, we can make it more idiomatic and
+elegant:
+
+#+begin_example
+const {
+  add1,
+  chr,
+  log,
+  toInt,
+  trim,
+} = require('../lib');
+
+/**
+ * Takes a digit-like string and returns the next char based on
+ * that digit.
+ *
+ * For example, 65 is ‘A’ in ASCII/UTF-8. 64 + 1 is 65, which is ‘A’,
+ * and 122 is ‘z’, so, 121 + 1 is 122, which is ‘a’. See `man ascii`.
+ */
+function nextCharFromNumStr(str) {
+  return [str]
+    .map(trim)
+    .map(toInt)
+    .map(add1)
+    .map(chr);
+}
+
+log(nextCharFromNumStr("      64 "));
+//=> ['A']
+
+log(nextCharFromNumStr("    121   "));
+//=> ['z']
+#+end_example
+
+*** Box
+:PROPERTIES:
+:CUSTOM_ID: box
+:END:
+Let's create a =Box= type to more formally define the /map/ concept:
+
+#+begin_example
+/**
+ * A value wrapper that allows applying functions to a value in a
+ * composable style.
+ *
+ * Our box is officially called the Identity Functor.
+ */
+function Box(x) {
+  return {
+    // Applies a function to x and puts it back into the box.
+    map: f => Box(f(x)),
+
+    // Returns the value without the wrapping box. It is just like map,
+    // except it doesn't put it back in the box.
+    fold: f => f(x),
+
+    // Stringifies the box with its containing value.
+    inspect: () => `Box(${x})`,
+  };
+}
+
+/**
+ * Takes a digit-like string and returns the next char based on
+ * that digit.
+ *
+ * For example, 65 is ‘A’ in ASCII/UTF-8. 64 + 1 is 65, which is ‘A’,
+ * and 122 is ‘z’, so, 121 + 1 is 122, which is ‘a’. See `man ascii`.
+ */
+function nextCharFromNumStr(str) {
+  return Box(str)
+    .map(trim)
+    .map(toInt)
+    .map(add1)
+    .fold(chr);
+}
+
+log(nextCharFromNumStr("      64 "));
+//=> 'A'
+
+log(nextCharFromNumStr("    121   "));
+//=> 'z'
+#+end_example
+
+We learn /map/ as a sort of loop or iteration, but in reality, the map
+concept has more to do with composition within a context, and in this
+case, =Box= is our context.
+
+We'll use these "containery" types to capture different behaviors as we
+compose.
+
+** Refactor imperative code to a single composed expression using Box
+:PROPERTIES:
+:CUSTOM_ID: refactor-imperative-code-to-a-single-composed-expression-using-box
+:END:
+*** Imperative
+:PROPERTIES:
+:CUSTOM_ID: imperative
+:END:
+#+begin_example
+/**
+ * Converts a dollar money string to a float.
+ *
+ * @example
+ * moneyToFloat('$ 1.99');
+ * //=> 1.99
+ */
+function moneyToFloat(str) {
+  return Number.parseFloat(str.replace(/\\$/g, ''));
+}
+
+/**
+ * Turns a percentage into its decimal float equivalent.
+ *
+ * NOTE: Multiplying by 0.01 is the same as dividing by 100, similar
+ * to multiplying by 0.5 is actually the same as dividing by 2.
+ *
+ * @param {string} str
+ * @returns {number}
+ *
+ * @example
+ * percentToFloat('43%');
+ * //=> 0.43
+ *
+ * percentToFloat('100%');
+ * //=> 1
+ *
+ * percentToFloat('1%');
+ * //=> 0.01
+ */
+function percentToFloat(str) {
+  const replaced = str.replace(/\\%/g, '');
+  const num = Number.parseFloat(replaced);
+  return num * 0.01;
+}
+
+/**
+ * Applies a discount on a price.
+ *
+ * @param {string} price A price like '$ 4.99'.
+ * @param {string} discount A percent discount like '20%'.
+ * @returns {number} The total after the discount has been applied
+ *   to the price.
+ *
+ * @example
+ * applyDiscount('$ 80', '20%');
+ * //=> 64
+ */
+function applyDiscount(price, discount) {
+  const cost = moneyToFloat(price);
+  const savings = percentToFloat(discount);
+
+  return cost - cost * savings;
+}
+
+// log(['$1', '$12.01', '$73.49'].map(moneyToFloat));
+//=> [1, 12.01, 73.49]
+
+// log(['100%', '73%', '1%'].map(percentToFloat));
+//=> [1, 0.73, 1]
+
+log(percentToFloat('77.3%'));
+//=> 0.773
+#+end_example
+
+*** Composable, FPish style
+:PROPERTIES:
+:CUSTOM_ID: composable-fpish-style
+:END:
+#+begin_example
+const { log } = require('../lib');
+
+/**
+ * A value wrapper that allows a composable style.
+ */
+function Box(v) {
+  return {
+    // Applies a function to `v` and puts it back into the box.
+    map: f => Box(f(v)),
+
+    // Returns the value without the wrapping box.
+    // It is just like map, except it doesn't put it back in the box.
+    fold: f => f(v),
+
+    // Stringifies the box with its containing value.
+    str: () => `Box(${v})`,
+  };
+}
+
+/**
+ * Converts a dollar money string to a float.
+ *
+ * Compare with the previous implementation of this function. This
+ * approach allows unnesting the expressions.
+ *
+ * @example
+ * moneyToFloat('$ 1.99');
+ * //=> 1.99
+ */
+function moneyToFloat(str) {
+  return Box(str)
+    .map(s => s.replace(/\\$/g, ''))
+    .map(r => Number.parseFloat(r));
+}
+
+/**
+ * Turns a percentage into its decimal float equivalent.
+ *
+ * NOTE: Multiplying by 0.01 is the same as dividing by 100,
+ * similar to the fact that multiplying by 0.5 is actually
+ * the same as dividing by 2.
+ *
+ * @example
+ * percentToFloat('43%');
+ * //=> 0.43
+ *
+ * percentToFloat('100%');
+ * //=> 1
+ *
+ * percentToFloat('1%');
+ * //=> 0.01
+ */
+function percentToFloat(str) {
+  return Box(str)
+    .map(s => s.replace(/\\%/g, ''))
+    .map(r => Number.parseFloat(r))
+    .map(n => n * 0.01);
+}
+
+/**
+ * Applies a discount on a price.
+ *
+ * @example
+ * applyDiscount('$ 80', '20%');
+ * //=> 64
+ */
+function applyDiscount(price, discount) {
+  return moneyToFloat(price)
+    .fold(cost =>
+      percentToFloat(discount)
+      .fold(savings => cost - cost * savings));
+}
+log(applyDiscount('$5.00', '20%'));
+//=> 4
+#+end_example
+
+As both =moneyToFloat= and =percentToFloat= return a Box, we use fold
+instead of map here so we unwrap the value.
+
+=cost= is the unwrapped result of =moneyToFloat(price)=, and =savings=
+is the unwrapped result of =percentToFloat(discount)=.
+
+`cost`` is available inside the last arrow function due to the closure.
+
+We used =Box= to unnest some expressions and eliminate the need for
+creating variables to store of each the intermediate steps of
+computation.
+
+As a side note, we don't need to start the box with the raw, unprocessed
+value. We can initialize it with the result of some previous processing,
+if we so desire.
+
+#+begin_example
+function f(s) {
+  return Box(g(s))
+    .map(...)
+    .fold(...);
+}
+#+end_example
+
+That is, we don't need to start the Box with the vanilla value we
+receive on the function param. Here, we start Box with applying =g= to
+=s=, not the vanilla =s=.
+
+Also, sometimes a function will =fold= to unwrap the value and sometimes
+not.
+
+Box alone doesn't do much. It basically captures something in a context.
+We can keep mapping, and folding, and composing in different ways around
+it.
+
+As we'll see, there are stronger things in `Box``. They will give us
+behaviors associated with composition and new ways to compose. This is
+good practice to work on something as simple as a structure as box that
+has no added behaviors, and we can practice composing with it.
+
+** 03 Enforce a null check with composable code branching using Either
+:PROPERTIES:
+:CUSTOM_ID: enforce-a-null-check-with-composable-code-branching-using-either
+:END:
+*** Left, Right
+:PROPERTIES:
+:CUSTOM_ID: left-right
+:END:
+=Either= is a type which is either =Left= or =Right=. It is a type that
+may or may not have a value. A =Left= means no value, and a =Right=
+means we do have a value.
+
+We don't define =Either= itself as a function or class or anything like
+that, but rather, it is just the name of a type. It is implementation
+(if we can say it is "implemented") is actually the implementation of
+=Left= and =Right=. If we have a =Left= and a =Right=, then we have an
+=Either=.
+
+#+begin_example
+const { log, idty } = require('../lib');
+
+function Right(v) {
+  return {
+    map: f => Right(f(v)),
+    fold: (f, g) => g(v),
+    inspect: () => `Right(${v})`,
+  };
+}
+
+function Left(v) {
+  return {
+    map: f => Left(v),
+    fold: (f, g) => f(v),
+    inspect: () => `Left(${v})`,
+  };
+}
+
+log(
+  Right(3)
+  .map(n => n + 1)
+  .map(n => n / 2)
+  .fold(e => 'error', idty)
+);
+//=> 2
+
+log(
+  Left(3)
+  .map(n => n + 1)
+  .map(n => n / 0)
+  .fold(e => 'error', idty)
+);
+//=> 'error'
+#+end_example
+
+=Left= is a stubborn little bugger which will refuse to run the
+function. It is responsible for handling the case where we don't have a
+value.
+
+=fold()= is different in =Right= and =Left= than in =Box=, because it
+now takes two functions for handling left and right (error and valid
+value conditions). In =Left=, it applies =f= which is the function
+responsible for handling the error case where don't don't have a valid
+value. In =Right=, it applies =g= which is the function responsible for
+handling the success case where we have some expected, valid value.
+
+If we are to =fold()= to unwrap a value, but we don't have a value, then
+we need two functions so we can handle both =Left= and =Right=.
+
+The left function (first fn arg to =fold()=) handles errors (where we
+don't have a value), and the right function (second/last fn arg to
+=fold()=) handles success cases (where we do have a value to work with).
+
+The =Either= type captures the concept of disjunction, which is an "or"
+situation.
+
+*** findColor() unsafe
+:PROPERTIES:
+:CUSTOM_ID: findcolor-unsafe
+:END:
+#+begin_example
+/**
+ * @sig String -> String | undefined
+ */
+function findColor(name) {
+  return {
+    red: '#ff4444',
+    blue: '#3b5998',
+    yellow: '#fff68f',
+  }[name];
+}
+
+log(findColor('red'));
+//=> #ff4444'
+
+log(findColor('red').slice(1).toUpperCase());
+//=> 'FF4444'
+
+log(findColor('green').slice(1).toUpperCase());
+// TypeError: Cannot read properties of undefined (reading 'slice')
+#+end_example
+
+If we try to find a color that doesn't exist, we end up with
+=undefined=, which causes =slice()= to throw an exception.
+
+*** findColor() with Either
+:PROPERTIES:
+:CUSTOM_ID: findcolor-with-either
+:END:
+To prevent the exception with =slice()=, we can return an =Either= and
+then =mpa()= and =fold()= our way through the desired result.
+
+#+begin_example
+/**
+ * @sig String -> Either
+ */
+function findColor(name) {
+  const color = {
+    red: '#ff4444',
+    blue: '#3b5998',
+    yellow: '#fff68f',
+  }[name];
+
+  return color ? Right(color) : Left(null);
+}
+
+log(
+  findColor('red')
+  .map(s => s.slice(1))
+  .fold(e => 'no color', toUpper)
+);
+//=> #FF4444
+
+log(
+  findColor('pink')
+  .map(s => s.slice(1))
+  .fold(e => 'no color', toUpper)
+);
+//=> no color
+#+end_example
+
+Now =findColor()= returns an =Either=. If it is a =Left=, =map()= will
+not run the function of current =Left= value, which will cause =fold()=
+to handle the =Left= (error) case.
+
+Sadly, we introduced an assignment, and we are striving to handle things
+in a way that data flows from on function to the next, like chaining or
+piping. We want some sort of data flow, not step by step assignment of
+intermediate values of computation😭.
+
+*** findColor() and fromNullable()
+:PROPERTIES:
+:CUSTOM_ID: findcolor-and-fromnullable
+:END:
+Here's a new helper that allows for data flow style instead of
+reassignments of intermediate steps of computation.
+
+#+BEGIN_SRC javascript
+/**
+ * @sig a -> Either a
+ */
+function fromNullable(v) {
+  return isNil(v) ? Left(null) : Right(v);
+}
+
+/**
+ * @sig String -> Either
+ */
+function findColor(name) {
+  return fromNullable({
+    red: '#ff4444',
+    blue: '#3b5998',
+    yellow: '#fff68f',
+  }[name]);
+}
+#+END_SRC
+
+** 04 Use chain for composable error handling with nested Either's
+:PROPERTIES:
+:CUSTOM_ID: use-chain-for-composable-error-handling-with-nested-eithers
+:END:
+*** Try catch, traditional, imperative style
+:PROPERTIES:
+:CUSTOM_ID: try-catch-traditional-imperative-style
+:END:
+A JSON file contains something like this:
+
+#+begin_example
+{ "port": 8888 }
+#+end_example
+
+And the initial, traditional imperative implementation to extract the
+=port= property from that json:
+
+#+begin_example
+const { readFileSync } = require('node:fs');
+const { log } = require('../lib');
+
+function getPort() {
+  try {
+    const str = readFileSync(`${__dirname}/e04a.cfg.json`);
+    const cfg = JSON.parse(str);
+    return cfg.port;
+  } catch (e) {
+    log('getPort():\\n', e);
+    return 3000;
+  }
+}
+
+log(getPort());
+//=> 8888
+#+end_example
+
+*** Composable tryCatch()
+:PROPERTIES:
+:CUSTOM_ID: composable-trycatch
+:END:
+We can create a =tryCatch()= function that wraps a try/catch, runs a
+function for us and returns an =Either=.
+
+#+begin_example
+/**
+ * @sig function -> Either
+ */
+function tryCatch(f) {
+  try {
+    return Right(f());
+  } catch (e) {
+    return Left(e);
+  }
+}
+#+end_example
+
+And then use it in =getPort()=:
+
+#+begin_example
+function getPort() {
+  return tryCatch(() => readFileSync('./src/e04b.cfgjson'))
+    .map(JSON.parse)
+    .fold(e => 3000, c => c.port);
+}
+
+log(getPort());
+//=> 8888
+#+end_example
+
+We can read the file inside our =tryCatch()=. If it returns a =Left=,
+=map()= will NOT run the function. However, if the file is read
+successfully, but the JSON itself is invalid, then =JSON.parse(c)= will
+throw 😭.
+
+If we do another =tryCatch()= for parsing the JSON, then we end up with
+nested =Either='s. What we'll do is to add a =chain()= method to
+=Either= that does not wrap the value in a box.
+
+*** Add chain() to Either
+:PROPERTIES:
+:CUSTOM_ID: add-chain-to-either
+:END:
+#+begin_example
+function Right(v) {
+  return {
+    chain: f => f(v),
+    map: f => Right(f(v)),
+    fold: (_, g) => g(v),
+    inspect: () => `Right(${v})`,
+  };
+}
+
+function Left(v) {
+  return {
+    chain: f => Left(v),
+    map: f => Left(v),
+    fold: (f, _) => f(v),
+    inspect: () => `Left(${v})`,
+  };
+}
+#+end_example
+
+In =Right=, note how =chain()= applies =f= to the value without wrapping
+it back into =Right=. Then, for =Left=, =f= is simply ignored (not
+applied to the value) and the value (untouched) is just returned back
+inside =Left= itself.
+
+** 05 Use chain for composable error handling with nested Either's
+:PROPERTIES:
+:CUSTOM_ID: use-chain-for-composable-error-handling-with-nested-eithers-1
+:END:
+Some examples of imperative vs composable style compared.
+
+*** openSite()
+:PROPERTIES:
+:CUSTOM_ID: opensite
+:END:
+*imperative*
+
+#+begin_example
+function openSite() {
+  if (user) return renderPage(user);
+  return showLogin();
+}
+#+end_example
+
+*composable*
+
+#+begin_example
+function openSite() {
+  fromNullable(user)
+    .fold(showLogin, renderPage);
+}
+#+end_example
+
+*** getPrefs()
+:PROPERTIES:
+:CUSTOM_ID: getprefs
+:END:
+*imperative*
+
+#+begin_example
+function getPrefs(user) {
+  if (user.premium) return loadPrefs(user.prefs);
+  return loadPrefs(defaultPrefs);
+}
+#+end_example
+
+*composable*
+
+#+begin_example
+function getPrefs(user) {
+  return (user.premium ? Right(user) : Left('not premium'))
+    .map(u => u.prefs)
+    .fold(() => defaultPrefs, loadPrefs(user.prefs));
+}
+#+end_example
+
+*** streetName()
+:PROPERTIES:
+:CUSTOM_ID: streetname
+:END:
+*imperative*
+
+#+begin_example
+function streetName(user) {
+  const { addr } = user;
+  return addr?.street?.name || 'no street';
+}
+#+end_example
+
+*composable*
+
+#+begin_example
+function streetName(user) {
+  return fromNullable(user.addr)
+    .chain(a => fromNullable(a.street))
+    .map(s => s.name)
+    .fold(_ => 'no street', n => n);
+}
+#+end_example
+
+*** concatUniq()
+:PROPERTIES:
+:CUSTOM_ID: concatuniq
+:END:
+*imperative*
+
+#+begin_example
+function concatUniq(x, ys) {
+  const found = ys.filter(y => y ##= x)[0];
+  return found ? ys : ys.concat(x);
+}
+#+end_example
+
+*composable*
+
+#+begin_example
+function concatUniq(x, ys) {
+  return fromNullable(ys.filter(y => y ##= x)[0])
+    .fold(() => ys.concat(x), _ => ys);
+}
+#+end_example
+
+*** wrapExample()
+:PROPERTIES:
+:CUSTOM_ID: wrapexample
+:END:
+*imperative*
+
+#+begin_example
+function wrapExample(example) => {
+  if (example.previewPath) {
+    try {
+      example.preview = fs.readFileSync(example.previewPath);
+    } catch (_e) {}
+  }
+
+  return example;
+}
+#+end_example
+
+*composable*
+
+#+begin_example
+function readFile(path) {
+  return tryCatch(() => readFileSync(path));
+}
+
+function wrapExample(example) {
+  return fromNullable(example.previewPath)
+    .chain(readFile)
+    .fold(
+      () => example,
+      preview => Object.assign({ preview }, example),
+    );
+}
+#+end_example
+
+*** parseDbUrl()
+:PROPERTIES:
+:CUSTOM_ID: parsedburl
+:END:
+*imperative*
+
+#+begin_example
+const rePg = /postgres:\\\\/\\\\/([^:]+):([^@]+)@([^:]+):(\\\\d+)\\\\/(.+)/;
+
+function parseDbUrl(cfg) {
+  try {
+    const { url } = JSON.parse(cfg);
+    if (url) return url.match(rePg);
+  } catch (_) {
+    return null;
+  }
+}
+#+end_example
+
+*composable*
+
+#+begin_example
+const rePg = /postgres:\\\\/\\\\/([^:]+):([^@]+)@([^:]+):(\\\\d+)\\\\/(.+)/;
+
+function parseDbUrl(cfg) {
+  return tryCatch(() => JSON.parse(cfg))
+    .chain(c => fromNullable(c.url))
+    .fold(_ => null, u => u.match(rePg));
+}
+#+end_example
+
+** 06 Create types with Semigroups
+:PROPERTIES:
+:CUSTOM_ID: create-types-with-semigroups
+:END:
+An introduction to concatenating items via the formal Semigroup
+interface. Semigroup is simply a type with a =concat()= method that is
+associative. We'll define three Semigroup instances and see them in
+action.
+
+Semigroup comes from abstract algebra. Since we are encoding the math
+idea in programming code, we keep the original name. We understand the
+name, laws and properties that comes with this mathematical structure,
+rather than making something up on our own.
+
+String is a Semigroup because it has a =concat()= method. If you concat
+a string with a string, you get a string, which is a Semigroup to which
+you can keep concatenating.
+
+#+begin_example
+const str = 'a'.concat('b').concat('c');
+log(str);
+//=> 'abc'
+#+end_example
+
+The array is a Semigroup since it has a =concat()= method and concating
+an array with an array, results in yet another array array, which is a
+Semigroup and therefore we can keep concating.
+
+#+BEGIN_SRC javascript
+const nums = [1, 2].concat([3, 4]).concat([5, 6]);
+log(nums);
+//=> [ 1, 2, 3, 4, 5, 6 ]
+#+END_SRC
+
+Because of algebra associativity, we can concatenate the right side
+first, and the result is the same:
+
+#+BEGIN_SRC javascript
+const xs = [1, 2].concat([3, 4].concat([5, 6]))
+//                      ^---------------------^
+//                                 /
+//                                /
+//                               v
+//                     Concating these first!
+//
+log(xs);
+//=> [ 1, 2, 3, 4, 5, 6 ]
+#+END_SRC
+
+Same as in math addition or multiplication. Because of associativity, no
+matter how we group the operations, the result will always be the same.
+That is a great property!
+
+*** Sum Semigroup
+:PROPERTIES:
+:CUSTOM_ID: sum-semigroup
+:END:
+#+BEGIN_SRC javascript
+/**
+ * Sum Semigroup type that knows how concat (add) numbers.
+ *
+ * @sig Number -> Sum
+ */
+const Sum = x => ({
+  x,
+  concat: ({ x: y }) => Sum(x + y),
+  str: () => `Sum(${x})`,
+});
+
+const res = Sum(1).concat(Sum(2));
+
+log(res);
+//=> { val: 3, ... }
+
+log(res.str());
+//=> Sum(3)
+#+END_SRC
+
+*** All Semigroup
+:PROPERTIES:
+:CUSTOM_ID: all-semigroup
+:END:
+- =true && false= is =false=.
+- =true && true= is =true=.
+
+It "feels like" =&&= is a concat of sorts. It combines two things into
+one. Two bools into one.
+
+#+BEGIN_SRC javascript
+/**
+ * All must be true.
+ *
+ * A Semigroup All type that knows how to concat (AND) booleans.
+ *
+ * @sig Bool -> All
+ */
+const All = x => ({
+  x,
+  concat: ({ x: y }) => All(x && y),
+  str: () => `All(${x})`,
+});
+
+log(All(true).concat(All(false)).str());
+//=> All(false)
+
+log(All(true).concat(All(true)).str());
+//=> All(true)
+#+END_SRC
+
+We could define =Any=, where we would use =||= instead of =&&=.
+
+*** First Semigroup
+:PROPERTIES:
+:CUSTOM_ID: first-semigroup
+:END:
+#+BEGIN_SRC javascript
+/**
+ * Only keep the first one.
+ *
+ * A Semigroup First type that knows how to concat (keep) the first
+ * value ever.
+ *
+ * @sig Unknown -> First
+ */
+const First = x => ({
+  x,
+  concat: (_) => First(x),
+  str: () => `First(${x})`,
+});
+
+log(First('hello').concat(First('world')).str());
+//=> First('hello')
+#+END_SRC
+
+** 07 Semigroup Combine Account Example
+:PROPERTIES:
+:CUSTOM_ID: semigroup-combine-account-example
+:END:
+Someone accidentally created two accounts. They want to combine them.
+When thinking of combining things, think Semigroups, because that is a
+way of combining/concating things together.
+
+#+BEGIN_SRC javascript
+const acct1 = {
+  name: 'Ahsoka',
+  isPaid: true,
+  points: 10,
+  friends: ['Aayla'],
+};
+
+const acct2 = {
+  name: 'Ahsoka',
+  isPaid: false,
+  points: 2,
+  friends: ['Leia'],
+};
+#+END_SRC
+
+If a data structure is entirely made of Semigroups, it will be a
+Semigroup itself. Concating two strings still results in a string.
+Concating two arrays still results in yet another array. Concating two
+Semigroups results in a Semigroup.
+
+Semigroups are a combining/concating idea. Concating/combining
+Semigroups gives you back a Semigroup.
+
+If we can concat all the individual pieces of a data structure, that
+data structure is therefore /concatable/, and we can do something like
+this:
+
+#+BEGIN_SRC javascript
+const { Map } = require('immutable-ext');
+const {
+  log,
+  Sum,
+  All,
+  First,
+} = require('../libt');
+
+const acct1 = Map({
+  name: First('Ahsoka'),
+  isPaid: All(true),
+  points: Sum(10),
+  friends: ['Aayla'],
+});
+
+const acct2 = Map({
+  name: First('Ahsoka'),
+  isPaid: All(false),
+  points: Sum(2),
+  friends: ['Leia'],
+});
+
+const res = acct1.concat(acct2);
+log(res.toJS());
+#+END_SRC
+
+Note we made wrapped the values of =name=, =isPaid= and =points= in
+Semigroup instances so they are all concatable. =friends=, being an
+array, is already a Semigroup.
+
+=name=, bing a string, is already a Semigroup, but we wan't to be an
+instance of =First= so when we concat we keep only the first occurrence,
+instead of concating the two names.
+
+As for =points=, we want to add them (=Sum=) together.
+
+** 08 Ensure fail-safe combination using Monoids
+:PROPERTIES:
+:CUSTOM_ID: ensure-fail-safe-combination-using-monoids
+:END:
+Consider addition:
+
+- 1 + 0 = 1
+- 2 + 0 = 2, in fact
+- /x/ + 0 = /x/, that is, `\`any thing + 0 is that thing.''
+
+Remember that a Semigroup is a type with a =concat()= method. If
+addition is our concatenation, we have a neutral element that acts an
+identity of sorts.
+
+If we have this especial element 0 under addition, we have what is
+called a Monoid, that is, a Semigroup with a special element (0,
+identity for =+= in this case).
+
+If we endow a Semigroup with an =empty= method/interface, it becomes a
+Monoid. In other words, a Monoid is a Semigroup with a fail-safe,
+identity/empty/default value.
+
+We'll get our *Semigroup* =Sum= and =All= (but not =First= for now) and
+add an =empty()= method to them to promote them to Monoid. In other
+words they'll be promoted from Semigroup to Monoid by endowing them with
+this especial neutral/identity value/method.
+
+*** Sum promoted to Monoid
+:PROPERTIES:
+:CUSTOM_ID: sum-promoted-to-monoid
+:END:
+Add an =empty()= method that returns 0 as 0 is the neutral element, or
+identity of addition.
+
+#+begin_example
+/**
+ * @sig Number -> Sum
+ */
+const Sum = x => ({
+  x,
+  concat: ({ x: y }) => Sum(x + y),
+  str: () => `Sum(${x})`,
+});
+
+/**
+ * Zero is the identity property (neutral element) for addition.
+ */
+Sum.empty = () => Sum(0);
+
+log(Sum.empty().inspect());
+//=> Sum(0)
+
+log(Sum.empty().concat(Sum(42)).inspect());
+//=> Sum(42)
+#+end_example
+
+We are programming to an interface here (remember design patterns?),
+with =empty()= and =concat()=, not with zeroes and pluses (=0= and =+=)
+directly.
+
+*** All promoted to Monoid
+:PROPERTIES:
+:CUSTOM_ID: all-promoted-to-monoid
+:END:
+Add an =empty()= method which returns =true=, as =true= is the
+default/neutral/identity value for this case.
+
+#+begin_example
+/**
+ * All must be true.
+ *
+ * @sig Bool -> All
+ */
+const All = x => ({
+  x,
+  concat: ({ x: y }) => All(x && y),
+  str: () => `All(${x})`,
+});
+
+/**
+ * The neutral/identity element for `All` is `true`.
+ */
+All.empty = () => All(true);
+
+log(All.empty().str());
+//=> All(true)
+
+log(All.empty().concat(All(true)).concat(All(true)).str());
+//=> All(true)
+
+log(All.empty().concat(All(false)).concat(All(true)).str());
+//=> All(false)
+#+end_example
+
+*** First shall remain a Semigroup for now
+:PROPERTIES:
+:CUSTOM_ID: first-shall-remain-a-semigroup-for-now
+:END:
+First Semigroup shall remain a Semigroup (we cannot make it a Monoid
+without some special tricks).
+
+What is =First('hey').concat(‽)=? OK, it is =First('hey')=. But what is
+=First(‽).concat(First('hey'))=? It will throw away the `hey' and use
+'‽', which is not neutral/identity in this case.
+
+#+begin_example
+/**
+ * Only keep the first one.
+ *
+ * Not promoted to a Monoid because we cannot find a neutral/identity
+ * element for this case (not without some tricks we don't know yet).
+ *
+ * @sig Unknown -> First
+ */
+const First = x => ({
+  x,
+  concat: (_) => First(x),
+  str: () => `First(${x})`,
+});
+
+log(First('hello').concat(First('world')).str());
+//=> First('hello')
+
+log(First('world').concat(First('hello')).str());
+//=> First('world')
+#+end_example
+
+We'll not promote =First= to a Monoid because we have no way of defining
+a neutral (identity) element for this case.
+
+*** Some helper functions
+:PROPERTIES:
+:CUSTOM_ID: some-helper-functions
+:END:
+Some helper functions:
+
+#+begin_example
+/**
+ * Initial, default value is 0 as it is the
+ * neutral/identity for `+`.
+ */
+function sum(xs) {
+  return xs.reduce((acc, x) => acc + x, 0);
+}
+log(sum([]));
+//=> 0
+
+/**
+ * Initial, default value is true as it is the
+ * neutral/identity for `&&`.
+ */
+function all(xs) {
+  xs.reduce((acc, x) => acc && x, true);
+}
+log(all([]));
+//=> true
+
+/**
+ * No initial, default value. Blows up with empty array.
+ */
+function first(xs) {
+  xs.reduce((acc, _) => acc);
+}
+log(first([]));
+//=> TypeError: Reduce of empty array with no initial value.
+#+end_example
+
+*** Semigroups are not safe, Monoids are
+:PROPERTIES:
+:CUSTOM_ID: semigroups-are-not-safe-monoids-are
+:END:
+#+begin_example
+/**
+ * No initial, default value. Blows up with empty array.
+ */
+function first(xs) {
+  xs.reduce((acc, _) => acc);
+}
+log(first([]));
+//=> TypeError: Reduce of empty array with no initial value.
+#+end_example
+
+Because =first()= (which is a Semigroup) blows up with an empty array,
+we conclude that Semigroups are NOT safe operations, while Monoids, like
+=sum()= and =all()=, are safe operations. With Monoids, even passing an
+empty value (empty meaning 0, empty array, empty string, depending on
+the type in question), still returns something, some value, without
+blowing up.
+
+** 09 A curated collection of Monoids and their uses
+:PROPERTIES:
+:CUSTOM_ID: a-curated-collection-of-monoids-and-their-uses
+:END:
+- [[https://egghead.io/lessons/javascript-a-curated-collection-of-monoids-and-their-uses]]
+
+*** Either
+:PROPERTIES:
+:CUSTOM_ID: either
+:END:
+#+caption: Untitled
+[[file:Composable%20Functional%20JavaScript%201ee4fba8823c46c38ec0fff40815cb00/Untitled.png]]
+
+
+#+ATTR_ORG: :width 720
+[[file:assets/org_20230421-084949_screenshot.png]]
+
+Code from DrBoolean's comment EggHead.io:
+
+#+BEGIN_SRC javascript
+const Right = (x) => ({
+  chain: (f) => f(x),
+  ap: (other) => other.map(x),
+  traverse: (of, f) => f(x).map(Right),
+  map: (f) => Right(f(x)),
+  fold: (f, g) => g(x),
+  concat: (o) =>
+    o.fold(
+      (_) => Right(x),
+      (y) => Right(x.concat(y))
+    ),
+  inspect: () => `Right(${x})`,
+});
+
+const Left = (x) => ({
+  chain: (f) => Left(x),
+  ap: (other) => Left(x),
+  traverse: (of, f) => of(Left(x)),
+  map: (f) => Left(x),
+  fold: (f, g) => f(x),
+  concat: (o) =>
+    o.fold(
+      (_) => Left(x),
+      (y) => o
+    ),
+  inspect: () => `Left(${x})`,
+});
+
+const fromNullable = (x) => (x != null ? Right(x) : Left(null));
+
+const tryCatch = (f) => {
+  try {
+    return Right(f());
+  } catch (e) {
+    return Left(e);
+  }
+};
+
+module.exports = {
+  Right,
+  Left,
+  fromNullable,
+  tryCatch,
+  of: Right,
+};
+#+END_SRC
+
+*** Sum
+:PROPERTIES:
+:CUSTOM_ID: sum
+:END:
+#+BEGIN_SRC javascript
+const Sum = x => ({
+  x,
+  concat: ({ x: y }) => Sum(x + y),
+  str: () => ...
+});
+
+const x = Sum(1);
+const y = Sum(1);
+log(x.concat(y).str());
+//=> Sum(2)
+
+log(
+  Sum(-1)
+  .concat(Sum(1))
+  .concat(Sum(-13))
+  .str()
+);
+//=> Sum(-13)
+#+END_SRC
+
+*** Product
+:PROPERTIES:
+:CUSTOM_ID: product
+:END:
+#+BEGIN_SRC javascript
+const Product = x => ({
+  x,
+  concat: ({ x: y }) => Product(x * y),
+  str: () => `Product(${x})`,
+});
+
+/**
+ * 1 is neutral/empty/identity of multiplication.
+ */
+Product.empty = () => Product(1);
+
+log(
+  Product(2)
+  .concat(Product(7))
+  .str()
+);
+//=> Product(14)
+
+log(
+  Product(2)
+  .concat(Product(7))
+  .concat(Product(-1))
+  .str()
+);
+// Product(-14)
+#+END_SRC
+
+*** Any
+:PROPERTIES:
+:CUSTOM_ID: any
+:END:
+#+BEGIN_SRC javascript
+const Any = x => ({
+  x,
+  concat: ({ x: y }) => Any(x || y),
+  str: () => `Any(${x})`,
+});
+
+/**
+ * `false` is the empty/neutral/identity element for `Any`.
+ */
+Any.empty = () => Any(false);
+
+log(Any.empty().str());
+//=> Any(false)
+
+log(
+  Any.empty()
+  .concat(Any(false))
+  .concat(Any(true))
+  .concat(Any(false))
+  .str()
+);
+//=> Any(true)
+#+END_SRC
+
+*** All
+:PROPERTIES:
+:CUSTOM_ID: all
+:END:
+#+BEGIN_SRC javascript
+const All = x => ({
+  x,
+  concat: ({ x: y }) => All(x && y),
+});
+All.empty = () => All(true);
+
+log(All.empty().str());
+//=> All(true)
+
+log(
+  All.empty()
+  .concat(All(true))
+  .concat(All(true))
+  .str()
+);
+//=> All(true)
+#+END_SRC
+
+*** Min
+:PROPERTIES:
+:CUSTOM_ID: min
+:END:
+#+BEGIN_SRC javascript
+const Min = x => ({
+  x,
+  concat: ({ x: y }) => Min(x < y ? x : y),
+  str: () => `Min(${x})`,
+});
+
+Min.empty = () => Min(Infinity);
+
+log(Min.empty().str());
+//=> Min(Infinity)
+
+log(
+  Min.empty()
+  .concat(Min(-Infinity))
+  .concat(Min(1e99))
+  .str()
+);
+//=> Min(-Infinity)
+#+END_SRC
+
+=Infinity= is the neutral element because we want =Min= to be set up in
+such a way that any other number we may =concat()= is less than this
+neutral element. Any number except =Infinity= itself or =NaN= are
+neither less than, nor greater than, and not equal to =Infinity=. Note
+that something like =1e999= is treated as =Infinity= because it goes
+beyond the valid range of positive integers.
+
+node REPL:
+
+#+BEGIN_SRC javascript
+> NaN < Infinity
+false
+> Infinity < Infinity
+false
+
+> 1e999
+Infinity
+> 1e999 < Infinity
+false
+
+> Number.MAX_VALUE
+1.7976931348623157e+308
+> Number.MAX_SAFE_INTEGER < Infinity
+true
+
+> Number.MAX_SAFE_INTEGER
+9007199254740991
+> Number.MAX_VALUE < Infinity
+true
+#+END_SRC
+
+*** Max
+:PROPERTIES:
+:CUSTOM_ID: max
+:END:
+#+BEGIN_SRC javascript
+const Max = x => ({
+  x,
+  concat: ({ x: y }) => Max(x > y ? x : y),
+  str: () => `Max(${x})`,
+});
+
+Max.empty = () => Max(-Infinity)
+
+log(Max.empty().str());
+//=> Max(-Infinity)
+
+log(
+  Max.empty()
+  .concat(Max(-1e99))
+  .concat(Max(0))
+  .concat(Max(Infinity))
+  .str()
+);
+//=> Max(Infinity)
+#+END_SRC
+
+Similar to the explanation with =Min=, in this case, =-Infinity= is the
+neutral element as we any other (valid) number to be greater than this
+neutral element, except for the exceptions with =-Infinity= itself,
+=NaN=, or numbers so small that fall out of the range of valid negative
+numbers, which become =-Infinity=.
+
+*** Left, Right
+:PROPERTIES:
+:CUSTOM_ID: left-right-1
+:END:
+#+BEGIN_SRC javascript
+const { List } = require('immutable-ext');
+const { log, fromNullable, idty } = require('../lib');
+const { Sum } = require('../libt');
+
+const Left = x => ({
+  fold: (f, _g) => f(x),
+  map: _f => Left(x),
+  concat: o => Left(x),
+});
+
+const Right = x => ({
+  fold: (_f, g) => g(x),
+  map: f => Right(f(x)),
+  concat: o =>
+    o.fold(e => Left(e),
+           r => Right(x.concat(r))),
+});
+
+const stats = List.of(
+  { page: 'Home', views: 40 },
+  { page: 'About', views: 10 },
+  { page: 'Blog', views: 4 },
+);
+
+log(
+  stats.foldMap(x =>
+    fromNullable(x.views)
+    .map(Sum),
+    Right(Sum(0)))
+  .fold(() => 'error', idty)
+  .str()
+);
+//=> (Sum(54))
+#+END_SRC
+
+*** First
+:PROPERTIES:
+:CUSTOM_ID: first
+:END:
+#+BEGIN_SRC javascript
+const { List } = require('immutable-ext');
+const { log } = require('../lib');
+const { Left, Right } = require('../libt');
+
+const First = either => ({
+  fold: f => f(either),
+  concat: o => (either.isLeft ? o : First(either)),
+});
+
+First.empty = () => First(Left());
+
+const find = (xs, f) =>
+  List(xs)
+    .foldMap(x => First(f(x) ? Right(x) : Left()), First.empty())
+    .fold(x => x);
+
+log(
+  find([3, 4, 5, 6, 7], x => x > 4)
+);
+//=> Right(5)
+//
+// NOTE: Displays an object but not Right(5) as mentioned
+// in the video.
+////
+#+END_SRC
+
+*** Fn
+:PROPERTIES:
+:CUSTOM_ID: fn
+:END:
+#+BEGIN_SRC javascript
+const { log, compose } = require('../lib');
+const { All } = require('../libt');
+
+const Fn = f => ({
+  fold: f,
+  concat: o => Fn(x => f(x).concat(o.fold(x))),
+});
+
+const hasVowels = s => /[aeiou]/i.test(s);
+const longWord = s => s.length >= 5;
+
+const both = Fn(compose(All, hasVowels))
+               .concat(Fn(compose(All, longWord)));
+
+log(
+  ['gym', 'bird', 'lilac']
+  .filter(v => both.fold(v).x)
+);
+//=> ['lilac']
+]
+#+END_SRC
+
+*** Pair
+:PROPERTIES:
+:CUSTOM_ID: pair
+:END:
+#+BEGIN_SRC javascript
+const Pair = (x, y) => ({
+  x,
+  y,
+  concat: ({ x: x1, y: y1 }) =>
+    Pair(x.concat(x1), y.concat(y1)),
+  str: () => `Pair({ x: ${x.str()}, y: ${y.str()} })`,
+});
+
+log(
+  Pair(Sum(1), Sum(2))
+  .concat(Pair(Sum(1), Sum(2)))
+  .str()
+);
+//=> Pair({ x: Sum(2), y: Sum(4) })
+#+END_SRC
+
+** 10 Unbox types with foldMap()
+:PROPERTIES:
+:CUSTOM_ID: unbox-types-with-foldmap
+:END:
+#+BEGIN_SRC javascript
+const { Sum } = require('../libt');
+const { log } = require('../lib');
+
+const res = [Sum(1), Sum(2), Sum(3)]
+  .reduce((acc, x) => acc.concat(x), Sum.empty());
+
+log(res.str());
+//=> Sum(6)
+#+END_SRC
+
+Reduce the array of =Sum=.
+
+Want to use =fold()=. Arrays do not have a =fold()= method, but we can
+use =List= from immutable-ext:
+
+#+BEGIN_SRC javascript
+const { List } = require('immutable-ext');
+const { Sum } = require('../libt');
+const { log } = require('../lib');
+
+const res = List.of([Sum(1), Sum(2), Sum(3)])
+  fold(Sum.empty());
+
+log(res.str());
+//=> Sum(6)
+#+END_SRC
+
+"Fold" is a very overloaded term, but it holds on to the same intuition.
+we fold to extract a the value from some type:
+
+#+BEGIN_SRC javascript
+Box(3).fold(x => x);
+//=> 3
+#+END_SRC
+
+With a list, we want to be able to "summarize" the list; extract only
+one thing from it. We rely on the Monoid (=Sum= in this case) to be
+inside the collection so that we can extract one value, in this case,
+=Sum(6)=. Whenever we see =fold()=, we should think "removal from a
+type", be it a collection which relies on a Monoid or just a single
+value from a type.
+
+We can do the same thing with =Map=:
+
+#+BEGIN_SRC javascript
+const { Map } = require('immutable-ext');
+const { Sum } = require('../libt');
+const { log } = require('../lib');
+
+const res = Map({ ahsoka: Sum(97), aayla: Sum(83) })
+  .fold(Sum.empty());
+
+log(res.str());
+//=> Sum(180)
+#+END_SRC
+
+But we don't usually walk around with Monoids as our values... Let's
+=map()= over the values to turn them into =Sum= Monoid:
+
+#+BEGIN_SRC javascript
+const res = Map({ ahsoka: 90, aayla: 80 })
+  .map(Sum)
+  .fold(Sum.empty());
+
+log(res.str());
+//=> Sum(180)
+#+END_SRC
+
+The above makes the values to be =Sum= Monoids.
+
+And we can also =map()= if we have a list of vanilla numbers and we want
+to make them a =Sum= Monoid:
+
+#+BEGIN_SRC javascript
+const res = List.of(1, 2, 3)
+  .map(Sum)
+  .fold(Sum.empty());
+
+log(res.str());
+//=> Sum(6)
+#+END_SRC
+
+This idea of transforming our vanilla values into Monoids (map then
+fold) is so common that we have =foldMap()=. It takes the Monoid
+function and the default/neutral/initial value for the given Monoid:
+
+#+BEGIN_SRC javascript
+const res = List.of(1, 2, 3)
+  .foldMap(Sum, Sum.empty());
+
+log(res.str());
+//=> Sum(6)
+#+END_SRC
+
+** 11 Delay Evaluation with LazyBox
+:PROPERTIES:
+:CUSTOM_ID: delay-evaluation-with-lazybox
+:END:
+Consider our original =Box= from lesson 1:
+
+#+BEGIN_SRC javascript
+const {
+  log,
+  trim,
+  toInt,
+  add1,
+  chr,
+} = require('../lib');
+
+const Box = x => ({
+  map: f => Box(f(x)),
+  fold: f => f(x),
+  str: () => `Box(${x})`,
+});
+
+const res = Box('   64 ')
+  .map(trim)
+  .map(toInt)
+  .map(add1)
+  .fold(chr);
+
+log(res);
+//=> 64
+#+END_SRC
+
+Let's turn it into a "lazy box":
+
+#+BEGIN_SRC javascript
+/**
+ * Takes a function now instead of a data value.
+ */
+const LazyBox = g => ({
+  fold: f => f(g()),
+  map: f => LazyBox(() => f(g())),
+});
+
+const res = LazyBox(() => '   64 ')
+  .map(trim)
+  .map(toInt)
+  .map(add1)
+  .fold(chr);
+
+log(res);
+//=> 64
+#+END_SRC
+
+Only when =fold()= is used, then we are not /lazy/ any longer and we
+finally get the result. We make it pure, causing no side effects until
+the very end.
+
+#+begin_quote
+This gives us purity by virtue of laziness. Basically, nothing happens,
+so we don't have any impure side effects, until the very end, when we
+call fold. We're pushing it all the way down to the bottom. This is how
+a variety of types define map, where they have a function inside them
+instead of a concrete value, such as promises, observables, or streams,
+things like this.
+
+#+end_quote
+
+How do we make =LazyBox=? By accepting a function instead of "an x", and
+always mapping by calling that function in yet another function.
+Compare:
+
+#+begin_example
+map: f => Box(f(x))
+map: f => LazyBox(() => f(g()))
+#+end_example
+
+=Box= takes an =x= value, while =LazyBox= takes a =g= function.
+
+** 12 Capture Side Effects in a Task
+:PROPERTIES:
+:CUSTOM_ID: capture-side-effects-in-a-task
+:END:
+=Data.Task= from folktale (or other library).
+
+*NOTE*: Folktale considerably changed its API since the videos were
+recorded. We are adding screenshots from the video, but our own code
+blocks have code that should work with Folktale 2 (2023).
+
+
+#+ATTR_ORG: :width 720
+[[file:assets/org_20230421-085139_screenshot.png]]
+
+
+=of()= for success, =rejec()= for failure:
+
+#+BEGIN_SRC javascript
+const { of, rejected } = require('folktale/concurrency/task');
+const { log } = require('../lib');
+
+of(1)
+  .run()
+  .listen({
+    onRejected: e => log('err', e),
+    onResolved: v => log('ok', v),
+  });
+//=> ok 1
+
+rejected(-1)
+  .run()
+  .listen({
+    onRejected: e => log('err', e),
+    onResolved: v => log('ok', v),
+  });
+//=> err -1
+#+END_SRC
+
+If we map =map()= and have a left/failure, it ignores the mapping
+altogether, exactly as in our previous examples with =Box= and some
+other similar container types:
+
+#+BEGIN_SRC javascript
+const { of, rejected } = require('folktale/concurrency/task');
+const { log, add1 } = require('../lib');
+
+of(1)
+  .map(add1) // runs
+  .run()
+  .listen({
+    onRejected: e => log('err', e),
+    onResolved: v => log('ok', v),
+  });
+//=> ok 2
+
+rejected(-1)
+  .map(add1) // ignored
+  .run()
+  .listen({
+    onRejected: e => log('err', e),
+    onResolved: v => log('ok', v),
+  });
+//=> err -1
+// Because map was ignored, we do NOT add 1 to
+// -1 and the result is still the original -1.
+////
+#+END_SRC
+
+And we can also =chain()= if we have other tasks so we don't have boxes
+inside boxes:
+
+#+BEGIN_SRC javascript
+const { of, rejected } = require('folktale/concurrency/task');
+const { log, add1 } = require('../lib');
+
+of(1)
+  .map(add1) // runs
+  .chain(x => of(x + 100))
+  .run()
+  .listen({
+    onRejected: e => log('err', e),
+    onResolved: v => log('ok', v),
+  });
+//=> ok 102
+
+rejected(-1)
+  .map(add1) // ignored
+  .chain(x => of(x + 2)) // ignored
+  .run()
+  .listen({
+    onRejected: e => log('err', e),
+    onResolved: v => log('ok', v),
+  });
+//=> err -1
+#+END_SRC
+
+Note the =of(...)= inside =chain()= callback.
+
+#+BEGIN_SRC javascript
+const { of, rejected, task } = require('folktale/concurrency/task');
+const { log } = require('../lib');
+
+const launchRocket = () => {
+  return task(res => {
+    log('Launching Rocket 🚀');
+    res.resolve('Rocket');
+  });
+};
+
+const ctrl = launchRocket().map(s => s + '!');
+
+ctrl
+  .map(s => s + '!')
+  .run()
+  .listen({
+    onRejected: e => log('err', e),
+    onResolved: v => log('ok', v),
+  });
+//=> Launching Rocket 🚀
+//=> Rocket!!
+#+END_SRC
+
+In this case, we have an application "launch rocket" which even though
+has side effects (log), it won't cause those side effects just by
+calling =launchRocket()=. No, it will just prepare some task to be run,
+and only when we want we can then finally execute the task and let it
+perform its things, including any side effects. This way, we have a way
+to decide when and where we want to run side effects.
+
+Also note that =ctrl= can be further extended and composed, like we did
+with =map()=.
+
+** 13 Use Task for Asynchronous Actions
+:PROPERTIES:
+:CUSTOM_ID: use-task-for-asynchronous-actions
+:END:
+We refactor a standard node callback style workflow into a composed
+task-based workflow.
+
+*** Imperative style
+:PROPERTIES:
+:CUSTOM_ID: imperative-style
+:END:
+Consider this very standard Node code with callbacks:
+
+#+BEGIN_SRC javascript
+const { readFile, writeFile } = require('node:fs');
+const { log } = require('../lib');
+
+const app = function app() {
+  const pathOrig = __dirname + '/config-ok.json';
+  const pathNew = __dirname + '/config-new.json';
+
+  return readFile(pathOrig, 'utf-8', (err, data) => {
+    if (err) throw err;
+
+    const newContents = data.replace(/8/g, '6');
+    log(newContents);
+
+    writeFile(pathNew, newContents, (err, _) => {
+      if (err) throw err;
+
+      log(`New config at ‘${pathNew}’.`);
+    });
+  });
+};
+
+app();
+#+END_SRC
+
+We read a JSON file which contains ={ "port": 8888 }= and write it to a
+new file as ={ "port": 6666 }=. Note the callbacks and the way we handle
+errors.
+
+*** Functional, composable style
+:PROPERTIES:
+:CUSTOM_ID: functional-composable-style
+:END:
+Let's rewrite those file read and write bits in a more composable way:
+
+#+BEGIN_SRC javascript
+const { task } = require('folktale/concurrency/task');
+const { readFile, writeFile } = require('node:fs');
+
+const read = (filename, encoding) =>
+  task((rej, res) =>
+    readFile(filename, encoding, (err, data)) =>
+      err ? rej(err) : res(data));
+
+const write = (filename, data) =>
+  task((rej, res) =>
+    writeFile(filename, data, (err, ok) =>
+      err ? rej(err) : res(ok)));
+#+END_SRC
+
+We could do the same for HTTP requests, logging, and all sorts of side
+effecty things that don't really compose well by default.
+
+Full example:
+
+#+BEGIN_SRC javascript
+const { task } = require('folktale/concurrency/task');
+const { readFile, writeFile } = require('node:fs');
+const { log } = require('../lib');
+
+/**
+ * @sig String String -> Task
+ */
+const read = (filename, encoding) =>
+  task(({ reject, resolve }) =>
+    readFile(filename, encoding, (err, data) =>
+      err ? rej(err) : resolve(data)));
+
+/**
+ * @sig String String -> Task
+ */
+const write = (filename, data) =>
+  task(({ reject, resolve }) =>
+    writeFile(filename, data, (err, ok) =>
+      err ? rej(err) : resolve(ok)));
+
+const app = function app() {
+  const pathOrig = __dirname + '/config-ok.json';
+  const pathNew = __dirname + '/config-new.json';
+
+  return read(pathOrig, 'utf-8')
+    .map(data => data.replace(/8/g, '6'))
+    .chain(dataNew => write(pathNew, dataNew));
+}
+
+app()
+  .run()
+  .listen({
+    onRejected: e => log('err', e),
+    onResolved: () => log('ok'),
+  });
+#+END_SRC
+
+Instead of =map()=, because we are returning another task, we =chain()=
+so we don't end up with nested tasks.
+
+** 14 You've been using Functors
+:PROPERTIES:
+:CUSTOM_ID: youve-been-using-functors
+:END:
+A Functor is any type with a =map()= method.
+
+Some functor f holding x, if we map over it, this should be true:
+
+#+begin_example
+fx.map(f).map(g) === fx.map(f => g(f(x)))
+#+end_example
+
+This is a law that preserves function composition while mapping.
+
+#+BEGIN_SRC javascript
+const r1 = Box('squirrels')
+  .map(s => s.substring(5))
+  .map(s => s.toUpperCase());
+
+const r2 = Box('squirrels')
+  .map(s => s.substring(5).toUpperCase());
+
+log(r1.str());
+//=> RELS
+
+log(r2.str());
+//=> RELS
+
+log(r2.str() === r2.str());
+//=> true
+#+END_SRC
+
+Box is preserving this function composition, just like this:
+
+#+BEGIN_SRC javascript
+'squirrels'.substring(5).toUpperCase()
+#+END_SRC
+
+And it works for any type which is a Functor, like =Right=, =Right=,
+
+#+BEGIN_SRC javascript
+const { log } = require('../lib');
+const { Right, Left } = require('../libt');
+
+const r1 = Right('squirrels')
+  .map(s => s.substring(5))
+  .map(s => s.toUpperCase());
+
+const r2 = Right('squirrels')
+  .map(s => s.substring(5).toUpperCase());
+
+log(r1.str());
+//=> RELS
+
+log(r2.str());
+//=> RELS
+
+log(r2.str() === r2.str());
+//=> true
+
+const r3 = Left('squirrels')
+  .map(s => s.substring(5))
+  .map(s => s.toUpperCase());
+
+const r4 = Left('squirrels')
+  .map(s => s.substring(5).toUpperCase());
+
+log(r3.str());
+//=> squirrels
+
+log(r4.str());
+//=> squirrels
+
+log(r3.str() === r4.str());
+//=> true
+#+END_SRC
+
+Even though with =Left= the "maps" don't run, the composability still
+holds.
+
+#+begin_example
+fx.map(id) === id(fx)
+#+end_example
+
+#+BEGIN_SRC javascript
+const { log } = require('../lib');
+const { Box } = require('../libt');
+
+const id = x => x;
+
+const r1 = Box('crayons').map(id);
+const r2 = id(Box('crayons'));
+
+log(r1.str());
+//=> Box(crayons)
+
+log(r2.str());
+//=> Box(crayons)
+
+log(r1.str() === r2.str());
+//=> true
+#+END_SRC
+
+#+BEGIN_SRC javascript
+const { log } = require('../lib');
+const { List } = require('immutable-ext');
+
+const id = x => x;
+
+const r1 = List.of('crayons').map(id);
+const r2 = id(List.of('crayons'));
+
+log(r1.toJS());
+//=> Box(crayons)
+
+log(r2.toJS());
+//=> Box(crayons)
+#+END_SRC
+
+** 15 Lift into a Pointed Functor with of
+:PROPERTIES:
+:CUSTOM_ID: lift-into-a-pointed-functor-with-of
+:END:
+The =of()= in =Type.of()= is a generic interface to allow us to place a
+value into a type. We call it "lifting a value to our type".
+
+NOTE: Some of these examples use APIs that have since changed.
+
+#+BEGIN_SRC javascript
+Task.of('hello')
+Either.of('world')
+Box.of(1);
+
+Either.of('hello').map(capitalize).map(s => s + '!');
+#+END_SRC
+
+#+begin_quote
+[00:49] Why did we choose right instead of left?
+
+[00:52] That's a terrific question. The reason for this is that one of
+the contracts or intuitions of of here, is that once I popup a value
+into my of, I want to be able to start mapping and chaining and using
+all of those generic interface functions on this value. If this was to
+return a left, we wouldn't be able to actually map over it.
+
+[01:11] It would just ignore maps and chains. That's kind of ignoring
+the contract of of, which would just lift a value into a type and start
+working with it as if it's a total success and things work the way they
+should.
+
+* 16 You've been using Monads
+:PROPERTIES:
+:CUSTOM_ID: youve-been-using-monads
+:END:
+Any type T that has an =of()= and a =chain()= methods are Monads because
+those methods define the monadic interface. =chain()= is sometimes also
+named =flatMa()=, =bind()= or =>>==. =of()= is also =pure()= sometimes.
+
+This would give us some nested tasks...
+
+#+begin_example
+httpGet('/user')
+.map(user =>
+  httpGet(`/comments/${user.id}`))
+// Task(Task([Comment]))
+#+end_example
+
+But =chain= flattens the types into one (which is why it is called
+=flatMap= sometimes).
+
+#+begin_example
+httpGet('/user')
+.chain(user =>
+  httpGet(`/comments/${user.id}`))
+// Task([Comment])
+#+end_example
+
+Monads allow us to nest computations!
+
+#+begin_example
+httpGet('/user')
+.chain(user =>
+  httpGet(`/comments/${user.id}`))
+  .chain(comments =>
+    updateDOM(user, comments))
+// Task([Comment])
+#+end_example
+
+Had we used =map()= instead of =chain()=, we would have a Task of a Task
+of a Task of DOM.
+
+#+BEGIN_SRC javascript
+const { Box, Right } = require('../libt');
+const { log, add1 } = require('../lib');
+
+/**
+ * Monad -> Monad
+ */
+const join = m => m.chain(x => x);
+
+const m = Box(Box(Box(3)));
+log(m);
+
+const r1 = join(m.map(join));
+const r2 = join(join(m));
+log(r1.str(), r2.str());
+//=> Box(3) Box(3)
+#+END_SRC
+
+=map()= applies the function and keeps the value in the box. =chain()=
+applies a function and returns the value unwrapped, outside the box.
+
+#+BEGIN_SRC javascript
+const { Box, Right } = require('../libt');
+const { log, add1 } = require('../lib');
+
+/**
+ * Monad -> Monad
+ */
+const join = m => m.chain(x => x);
+
+const m = Box.of(1);
+
+const r1 = join(Box.of(m));
+const r2 = join(m.map(Box.of));
+log(r1.str(), r2.str());
+//=> Box(1) Box(1)
+
+log(m.chain(add1));
+// 2
+
+// chain() takes it out of the box, but we can
+// put the value back in the box, so map()
+// is definable by chain().
+const r3 = m.chain(n => Box.of(add1(n)));
+log(r3.str());
+// Box(2)
+#+END_SRC
+
+But we can derive =map()= from =chain()= and =of()= because we can put
+the value back into the box. We can derive a =map()= method from a
+Monad. That tells use that a monad is a functor, and an applicative
+functor, and a pointed functor.
+
+=join()= is capturing associativity of how we join these computations.
+
+#+begin_quote
+We can derive a map method from any monad. That tells us that a monad is
+a functor. Also, it's an applicative functor and a pointed functor. All
+these things are rolled into one with monads. They are very powerful.
+They are able to define many other methods. Don't be confused though.
+Chain's main functionality is just to join two types together.
+
+#+end_quote
+
+* 17 Build curried functions
+Non curried:
+
+#+BEGIN_SRC javascript
+const add = (x, y) => x + y;
+const res1 = add(1, 2);
+log(res1);
+//=> 3
+
+const inc = y => add(1, y);
+const res2 = inc(2);
+log(res2);
+//=> 3
+#+END_SRC
+
+Manually curried:
+
+#+BEGIN_SRC javascript
+const add = x => y => x + y;
+const res1 = add(1)(2);
+log(res1);
+//=> 3
+
+const inc = add(1);
+const res2 = inc(2);
+log(res2);
+//=> 3
+#+END_SRC
+
+Some more curried examples:
+
+#+BEGIN_SRC javascript
+const { log } = require('../lib');
+
+const add = x => y => x + y;
+
+const mod = dvr => dvd => dvd % dvr;
+
+/**
+ * @sig Number -> Number
+ *
+ * The return number is 1 for odd numbers, 0 for even numbers.
+ */
+const isOdd = mod(2);
+
+log([isOdd(1), isOdd(2)]);
+//=> [1, 0]
+
+const filter = pred => xs => xs.filter(pred);
+
+const onlyOdds = filter(isOdd);
+const odds = onlyOdds([1, 2, 3, 4, 5]);
+log(odds);
+//=> [1, 3, 5]
+#+END_SRC
+
+This technique of preloading a function with arguments, or making it
+remember some arguments while it waits for the rest of the arguments,
+turns out to be pretty useful.
+
+
+*NOTE*: It is strongly recommended that functions take the data the
+function will handle as the last parameter. This is like Ramda does AND
+THEY ARE RIGHT!
+
+- [[https://www.youtube.com/watch?v=m3svKOdZijA][Hey Underscore, You're Doing It Wrong!]]
+
+#+begin_example
+function map(xs, f); // NOK
+function map(f, xs); // OK
+
+replace(str, regex, repl); // NOK
+replace(regex, repl, str); // OK
+#+end_example
+
+More examples:
+
+#+BEGIN_SRC javascript
+const { log } = require('../lib');
+
+const add = x => y => x + y;
+
+const mod = dvr => dvd => dvd % dvr;
+
+/**
+ * @sig Number -> Number
+ *
+ * The return number is 1 for odd numbers, 0 for even numbers.
+ */
+const isOdd = mod(2);
+
+log([isOdd(1), isOdd(2)]);
+//=> [1, 0]
+
+const filter = pred => xs => xs.filter(pred);
+const map = f => xs => xs.map(f);
+
+const onlyOdds = filter(isOdd);
+const odds = onlyOdds([1, 2, 3, 4, 5]);
+log(odds);
+//=> [1, 3, 5]
+
+const replace = regex => repl => str =>
+  str.replace(regex, repl);
+
+const censor = replace(/[aeiou]/ig)('*');
+const censorAll = map(censor);
+
+log(censor('Ada Lovelace'));
+//=> *d* L*v*l*c*
+
+log(
+  censorAll([
+    'Ada Lovelace',
+    'Ahsoka Tano',
+    'Master Yoda',
+  ])
+);
+//=> [ '*d* L*v*l*c*', '*hs*k* T*n*', 'M*st*r Y*d*'
+#+END_SRC
+
+* 18 Applicative Functors for multiple arguments
+
+We have a box of a function, not a box of a normal value, and we want
+to apply that function from the left box into the value of the other
+(second) box.
+
+#+BEGIN_SRC javascript
+const res = Box(x -> x + 1).ap(Box(2));
+#+END_SRC
+
+*NOTE*: Sure, In ECMAScript, Haskell and other languages, functions are
+values too, but we need to somehow, when speaking or writing,
+differentiate function values from other data values like strings,
+numbers, arrays, lists, dictionaries, etc.
+
+We'll endow =Box= with an =ap()= function. It takes some “other/second
+box”. =x= is the function (not a normal value in this case). Then we get
+that "box 2" and =map()= x (which is a function) over it. Pay attention
+to the =ap()= implementation:
+
+#+BEGIN_SRC javascript
+const Box = x => ({
+  /**
+   * Applies a function on the value of box 2.
+   *
+   * b2 is the box two, or “the other box”. x is a function in this
+   * case, not a nromal value.
+   *
+   * @param {function} b2
+   */
+  ap: b2 => b2.map(x),
+
+  map: f => Box(f(x)),
+  chain: f => f(x),
+  fold: f => f(x),
+  str: () => `Box(${x})`,
+});
+
+Box.of = x => Box(x),
+
+module.exports = { Box };
+#+END_SRC
+
+For =ap()=, we kinda "flipped map around".
+
+Why would we do this =ap()= and “flip map around”? Well, look at this
+case where we pass two functions as the value for the first box:
+
+#+BEGIN_SRC javascript
+const boxOf2 = Box(x => y => x + y).ap(Box(2));
+//=> Box(y => 2 + y)
+
+const boxOf5 = boxOf2.ap(Box(3));
+log(boxOf5.str());
+// => Box(5)
+#+END_SRC
+
+We have two boxes, and a function with two arguments. We unwrap the
+values from the boxes, apply the function, and put the result back into
+the box.
+
+#+BEGIN_SRC javascript
+const boxOf42 =
+  Box(x => y => x + y)
+  .ap(Box(40))
+  .ap(Box(2));
+
+log(boxOf42.str());
+//=> Box(42)
+#+END_SRC
+
+Note the function is in *curried* form. It takes one argument at a time,
+because it applies each box one at a time.
+
+#+BEGIN_SRC javascript
+// Curried!
+const add = x => y => x + y;
+
+const boxOf7 = Box(add).ap(Box(4)).ap(Box(3));
+log(boxOf7.str());
+//=> Box(7)
+#+END_SRC
+
+If a “Box” type has an =ap()= (apply) method, we call this an
+/applicative functor/.
+
+Laws:
+
+If I have any functor f holding an X, and I call map f, that is equal to
+a functor holding f applied to a functor holding X.
+
+#+begin_example
+F(x).map(f) === F(f).ap(F(x))
+                  |
+                   \
+                    +--> f is held by a functor
+#+end_example
+
+Note on the left, f is not held by a functor like it is on the right.
+That is, x is held by a functor on both cases, but only on the right
+side f is held by a functor.
+
+Let’s write a helper ~liftA2~ ("lift Applicative for two arguments"):
+
+#+BEGIN_SRC javascript
+// Curried!
+const add = x => y => x + y;
+
+/**
+ * A helper to lift Applicative for two args.
+ *
+ * Takes a function, some functor holding x, and some
+ * functor holding y.
+ */
+const liftA2 = (f, fx, fy) =>
+  fx.map(f).ap(fy)
+
+const res1 = Box(add).ap(Box(3)).ap(Box(4));
+log(res1.str());
+//=> Box(7)
+
+const res2 = liftA2(add, Box(3), Box(4));
+log(res2.str());
+//=> Box(7)
+#+END_SRC
+
+And we can create helpers that take 3, or 4 params, etc:
+
+#+BEGIN_SRC javascript
+/**
+ * A helper to lift Applicative for three args
+ *
+ * Takes a function, some functor holding x, and some
+ * functor holding y, and some functor holding z.
+ */
+const liftA3 = (f, fx, fy, fz) =>
+  fx.map(f).ap(fy).ap(fz);
+
+const b = liftA3(
+  x => y => z => x + y + z,
+  Box(3),
+  Box(4),
+  Box(100),
+);
+
+log(b.str());
+//=> Box(107)
+#+END_SRC
+
+* 19 *Apply multiple functors as arguments to a function (Applicatives)*
+
+** Approach 1
+
+Let's start with this example:
+
+#+BEGIN_SRC javascript
+const liftA2 = (f, fx, fy) =>
+  fx.map(f).ap(fy);
+
+// Fake element with height 10.
+const $ = selector =>
+  Either.of({ selector, height: 10 });
+
+const getScreenSize = (screen, head, foot) =>
+  screen - (head.height + foot.height);
+
+const res =
+  $('header').chain(header =>
+    $('footer').map(footer =>
+      getScreenSize(800, header, footer)));
+
+log(res.str());
+//=> Right(780)
+#+END_SRC
+
+We have to ~chain()~ once to avoid nested boxes. And we do those
+sequentially. If we get the header, then get the footer, and then if
+that is OK, finally compute the screen size!
+
+** Approach 2
+
+Or we can curry ~getScreenSize()~ and partially apply it and ~ap()~ header
+and footer:
+
+#+BEGIN_SRC javascript
+const liftA2 = (f, fx, fy) =>
+  fx.map(f).ap(fy);
+
+// Fake element with height 10.
+const $ = selector =>
+  Either.of({ selector, height: 10 });
+
+const getScreenSize = screen => head => foot =>
+  screen - (head.height + foot.height);
+
+const res = Either.of(getScreenSize(800))
+              .ap($('head'))
+              .ap($('footer'));
+
+log(res.str());
+//=> Right(780)
+#+END_SRC
+
+** Approach 3
+
+Or using the helper ~liftA2()~.
+
+#+BEGIN_SRC javascript
+// Lift applicative for two args.
+const liftA2 = (f, fx, fy) =>
+  fx.map(f).ap(fy);
+
+// Fake element with height 10.
+const $ = selector =>
+  Either.of({ selector, height: 10 });
+
+const getScreenSize = screen => head => foot =>
+  screen - (head.height + foot.height);
+
+const res = liftA2(getScreenSize(800), $('header'), $('footer'));
+
+log(res.str());
+//=> Right(780)
+#+END_SRC
+
+~getScreenSize()~ is curried, so when we apply it to only the first
+argument ~800~, it returns a function, which means
+~liftA2(getSreenSize(800))~ is a “functor holding f” (and /f/ is our
+~getScreensize()~). Then we pass the last two args to fully apply this
+“functor holding f”.
+
+* 20 List comprehensions with Applicative Functors
+
+#+begin_quote
+We annihilate the need for the ol' nested /for loop/ using
+Applicatives. -- DrBoolean
+#+end_quote
+
+Start with nested loops like this:
+
+#+BEGIN_SRC javascript
+for (const x in xs) {
+  for (const y in ys) {
+    for (const z in zs) {
+      // Do something with x, y and z.
+    }
+  }
+}
+#+END_SRC
+
+We can replace this very imperative code with an applicative
+functor. If we have a “functor holding f”, we can apply it to a list
+of values:
+
+#+BEGIN_SRC javascript
+const { log } = require('../lib');
+const { List } = require('immutable-ext');
+
+const res = List.of(x => x + 10).ap(List([1, 2, 3]));
+log(res.toJS());
+//=> [ 11, 12, 13 ]
+#+END_SRC
+
+But look at this example now:
+
+#+begin_src javascript
+const { log } = require('../lib');
+const { List } = require('immutable-ext');
+
+const res =
+  List.of(item => size => `${item}-${size}`)
+    .ap(List(['blouse', 'sweater']))
+    .ap(List(['small', 'medium', 'large']));
+
+log(res.toJS());
+//=> [
+//=>   'blouse-small',
+//=>   'blouse-medium',
+//=>   'blouse-large',
+//=>   'sweater-small',
+//=>   'sweater-medium',
+//=>   'sweater-large'
+//=> ]
+#+end_src
+
+Note how it does the same as a nested loop would do! But in this case,
+we have a “functor holding f”, and we apply it to the lists.
+
+Another example:
+
+#+begin_src javascript
+const { log } = require('../lib');
+const { List } = require('immutable-ext');
+
+const res =
+  List.of(item => size => color => `${item}-${size}-${color}`)
+    .ap(List(['blouse', 'sweater']))
+    .ap(List(['small', 'medium', 'large']))
+    .ap(List(['pink']));
+
+log(res.toJS());
+//=> [
+//=>   'blouse-small-pink',
+//=>   'blouse-medium-pink',
+//=>   'blouse-large-pink',
+//=>   'sweater-small-pink',
+//=>   'sweater-medium-pink',
+//=>   'sweater-large-pink'
+//=> ]
+#+end_src
+
+And we can change the order of the list applications and use of the
+parameters to make the resulting text more natural:
+
+#+begin_src javascript
+const { log } = require('../lib');
+const { List } = require('immutable-ext');
+
+const res =
+  List.of(color => size => item => `${color} ${size} ${item}`)
+    .ap(List(['pink']))
+    .ap(List(['small', 'medium', 'large']))
+    .ap(List(['blouse', 'sweater']));
+
+log(res.toJS());
+//=> [
+//=>   'pink small blouse',
+//=>   'pink small sweater',
+//=>   'pink medium blouse',
+//=>   'pink medium sweater',
+//=>   'pink large blouse',
+//=>   'pink large sweater'
+//=> ]
+#+end_src
+
+And this captures the pattern of a /list comprehension/!
+
+For comparison, here are a few list comprehension examples in Haskell:
+
+#+BEGIN_EXAMPLE
+ghci> [x | x <- map negate [1..3]]
+[-1,-2,-3]
+
+ghci> [x + y | x <- [1..3], y <- [10, 100, 1000]]
+[11,101,1001,12,102,1002,13,103,1003]
+
+ghci> [x ++ " " ++ y | x <- ["red", "pink"], y <- ["blouse", "sweater"]]
+["red blouse","red sweater","pink blouse","pink sweater"]
+#+END_EXAMPLE
+
+It is relatively easy, and useful, and declarative in nature. And it
+allows to do some neat stuff without cracking open loops within loops
+within loops (at least for some situations).
+
+
+* 21 Write applicatives for concurrent actions
+
+#+begin_src javascript
+const { log } = require('../lib');
+const { task } = require('folktale/concurrency/task');
+
+// Simulates some sort of DB find thingy.
+const DB = ({
+  find: id =>
+    task(({ reject, resolve }) =>
+      setTimeout(() =>
+        resolve({ id, title: `Project #${id}` }), 100))
+});
+
+const reportHeader = (p1, p2) =>
+  `Report ${p1.title} compared to ${p2.title}`;
+
+DB.find(1)
+  .chain(p1 =>
+    DB.find(42)
+      .map(p2 => reportHeader(p1, p2)))
+  .run()
+  .listen({
+    onResolved: d => log(d),
+    onRejected: e => log(e),
+  });
+//=> Report Project #1 compared to Project #42
+#+end_src
+
+Note we first ~chain()~ *then* ~map()~ so we don't end up with nested
+boxes.
+
+Most important, though, is that we do things sequentially, not
+concurrently! If we want p2 to depend on p2, than that is perfectly
+fine (even necessary).
+
+*NOTE*: Watch this [[https://www.youtube.com/watch?v=oV9rvDllKEg][Concurrency is not Parallelism by Rob Pike]] video.
+
+But we can make it concurrent!
+
+#+begin_src javascript
+const { log } = require('../lib');
+const { task, of } = require('folktale/concurrency/task');
+
+// Simulates some sort of DB find thingy.
+const DB = ({
+  find: id =>
+    task(({ reject, resolve }) =>
+      setTimeout(() =>
+        resolve({ id, title: `Project #${id}` }), 100))
+});
+
+const reportHeader = (p1, p2) =>
+  `Report ${p1.title} compared to ${p2.title}`;
+h
+of(p1 => p2 => reportHeader(p1, p2))
+  .ap(DB.find(1))
+  .ap(DB.find(42))
+  .run()
+  .listen({
+    onResolved: d => log(d),
+    onRejected: e => log(e),
+  });
+//=> Report Project #1 compared to Project #42
+#+end_src
+
+Both ~ap()~ lines are kicked off at time.
+
+* 22 Leapfrogging types with Traversable
+
+TODO: From this point on I got tired of trying to adapt examples of
+dead libraries to more recent JS libs and stuff...
+

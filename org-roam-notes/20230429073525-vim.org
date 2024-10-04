@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       181dd70f-d4fa-4d40-8f37-35b1f108c497
+:END:
+#+title: Vim
+
+* Resources
+
+- https://vimrcfu.com/

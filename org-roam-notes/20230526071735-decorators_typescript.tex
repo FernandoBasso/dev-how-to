@@ -1,0 +1,77 @@
+% Created 2023-05-26 Fri 07:21
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{\today}
+\title{Decorators :: TypeScript}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={Decorators :: TypeScript},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.5.5)},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Higher-order function decorators}
+\label{sec:org33dad4b}
+
+The decorators proposal is about decorating class-based code (methods,
+properties, constructors, etc.).  Still, we don't necessarily need any
+special syntax to decorate functions.  ECMAScript, supporting
+higher-order functions, allows functions to be decorated (enhanced,
+endowed with more features or super cow powers) using ECMAScript
+features that exist since its inception.
+
+\subsection{Log high-order function decorator}
+\label{sec:orgcf00fd0}
+
+\begin{verbatim}
+const log = console.log.bind(console);
+\end{verbatim}
+
+We can use it like this:
+
+\begin{verbatim}
+log(1);
+//=> 1
+\end{verbatim}
+
+And here's an “old school” (but not worse or wrong, just a
+battle-tested approach that works well) way to decorate our `log` and
+endow it with the ability of prepending date information date to the
+logged message:
+
+\begin{verbatim}
+function withDate(logFn) {
+  return function logWithDate(msg) {
+    logFn.call(null, new Date().toString());
+    logFn.call(null, msg);
+  };
+}
+\end{verbatim}
+
+And we decorate (enhance, endow with extra powers) our `log` function
+and use it like this:
+
+\begin{verbatim}
+const logger = withDate(log);
+
+logger('IT FUCKING WORKS!');
+//=> 5/25/2023, 8:57:53 AM: IT FUCKING WORKS!
+\end{verbatim}
+\end{document}

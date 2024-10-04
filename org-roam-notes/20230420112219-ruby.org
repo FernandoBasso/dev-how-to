@@ -1,0 +1,70 @@
+:PROPERTIES:
+:ID:       2D973937-521E-4769-A35E-C5FE8F1B6144
+:END:
+#+title: Ruby
+#+STARTUP: content
+
+* Resources
+
+Looking for beginner friendly resources? Check out the following!
+
+Intro Resources:
+- https://ruby-doc.com/docs/ProgrammingRuby/
+- https://learnrubythehardway.org/book/intro.html
+- https://www.theodinproject.com/paths
+
+General References:
+- https://rubyreferences.github.io/rubyref/
+- https://rubyreferences.github.io/rubychanges/
+
+Style Guides:
+- https://rubystyle.guide/#source-code-layout
+- https://ruby-style-guide.shopify.dev/
+- https://github.com/rubocop/ruby-style-guide
+
+* Topics
+
+- [[id:0B3D5EB4-9AB3-4E30-85B2-9C3AFC5095E4][Classes and Objects]]
+
+
+* special symbol variables and stuff
+
+- [[https://discord.com/channels/518658712081268738/650031651845308419/1100152623782428692][Question on Ruby Discord server]]
+
+** Ruby OO
+DATETIME: <2023-04-25 Tue 12:11>
+
+
+#+DOWNLOADED: screenshot @ 2023-04-25 12:11:37
+[[file:assets/org_20230425-121137_screenshot.png]]
+- [[https://discord.com/channels/518658712081268738/650031651845308419/1100370032288075868][Ruby OO discussion on Discord]]
+
+=$_= holds the string last read by =gets=.
+
+#+BEGIN_EXAMPLE
+$ irb --simple-prompt
+>> puts $_
+
+=> nil
+>> gets
+hey
+=> "hey\n"
+>> puts $_
+hey
+=> nil
+#+END_EXAMPLE
+
+From the command line, something similar:
+
+#+begin_example
+$ ruby -npe 'puts $_'
+May the force
+May the force
+May the force
+Be with you!
+Be with you!
+Be with you!
+(CTRL+D to signal END OF INPUT/TRANSMISSION)
+#+end_example
+
+

@@ -1,0 +1,52 @@
+:PROPERTIES:
+:ID:       d9a300a1-0281-4b68-923f-a0ac550858c2
+:END:
+#+title: Scratchpad
+#+STARTUP: content
+
+* Saving and committing
+DATETIME: <2023-04-24 Mon 13:38>
+
+Just noticed that simply using Org-mode with files sync'ed in pCloud
+or Dropbox is as nice as Notion in terms of “writing and forgetting.”
+
+Versioning notes seem to carry some burden, that sense of having to
+write everything perfectly before committing, settling on structure,
+etc., whereas just writing and sync'ing gives more sense of
+freedom. It encourages the approach of quick reviews, small
+corrections, addition of further examples, etc.
+
+* Org-mode vs Asciidoctor
+DATETIME: <2023-04-24 Mon 11:00>
+
+With org-mode, the syntax is more limited than Asciidoctor, but it can
+render images directly into the org buffer and I got org-download
+finally working OK on both Linux and MacOS. Asciidoctor still requires
+VSCode or other editor with preview support, or some complicated setup
+to refresh previews on external browsers.
+
+Even if I someday get around working on some Asciidoctor-based “clone”
+or org-mode, I can't be too wrong in sticking with org for now.
+
+True, Asciidoctor syntax is much more powerful. There is always a way
+to escape any character, while in org-mode, simple things like keeping
+an “*” in the text require hacks like adding NON-BREAKING SPACE or
+ZERO-WIDTH space characters around or in the middle of certain
+characters, like [​[ not a link ]​] to prevent org-mode from parsing
+them as special.
+
+Yet, org-mode's export capabilities and available plugins and
+configurations is a more or less safe bet.
+
+ZERO-WIDTH SPACE 0x200b: “​”
+NON-BREAKING SPACE 0xa0: “ ”
+
+* Why do we derive joy and motivation from tools?
+DATETIME: <2023-04-21 Fri 19:47>
+
+Why do I feel immeasurable pleasure from the tools we use, even to the
+point of motivating us to study more, take notes, write docs, etc?
+
+For example, I more or less became a programmer because of command
+line, Linux and vim.
+

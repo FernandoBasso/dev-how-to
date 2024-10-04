@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       25F40117-56CB-4503-BD87-3B7BE5174E77
+:END:
+#+title: Algorithms
+
+* Links and Resources
+
+- [[https://discord.com/channels/280033776820813825/505367988166197268/1112726983365886093][Discord Haskell thread on tail recursion and accumulators]]
+

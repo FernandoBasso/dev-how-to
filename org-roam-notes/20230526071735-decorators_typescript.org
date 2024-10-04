@@ -1,0 +1,165 @@
+:PROPERTIES:
+:ID:       7da6c6a2-3717-4f07-9a4f-12aa39fd60b6
+:END:
+#+title: Decorators :: TypeScript
+
+* Higher-order function decorators
+
+The decorators proposal is about decorating class-based code (methods,
+properties, constructors, etc.).  Still, we don't necessarily need any
+special syntax to decorate functions.  ECMAScript, supporting
+higher-order functions, allows functions to be decorated (enhanced,
+endowed with more features or super cow powers) using ECMAScript
+features that exist since its inception.
+
+** Log high-order function decorator
+
+#+begin_src javascript
+const log = console.log.bind(console);
+#+end_src
+
+We can use it like this:
+
+#+begin_src javascript
+log(1);
+//=> 1
+#+end_src
+
+And here's an “old school” (but not worse or wrong, just a
+battle-tested approach that works well) way to decorate our `log` and
+endow it with the ability of prepending date information date to the
+logged message:
+
+#+begin_src javascript
+function withDate(logFn) {
+  return function logWithDate(msg) {
+    logFn.call(null, new Date().toString());
+    logFn.call(null, msg);
+  };
+}
+#+end_src
+
+And we decorate (enhance, endow with extra powers) our `log` function
+and use it like this:
+
+#+begin_src javascript
+const logger = withDate(log);
+
+logger('IT FUCKING WORKS!');
+//=> 5/25/2023, 8:57:53 AM: IT FUCKING WORKS!
+#+end_src
+
+** Validate number function decorator
+
+Consider the ~product~ function below. We want to throw if any of the
+parameters are not numbers.
+
+#+begin_src javascript
+function sum(x, y) {
+  return x * y;
+}
+
+function product(...nums) {
+  return nums.reduce(sum, 1);
+}
+#+end_src
+
+We could create a ~withValidator()~ high-order function decorator:
+
+#+begin_src javascript
+function withValidator(fn) {
+  return function validatedFn (...args) {
+    if (!args.every(isInt))
+      throw TypeError('Arguments must be numbers.');
+
+    return fn(...args);
+  };
+}
+#+end_src
+
+Then create a /decorated/ ~multiply()~ function and use it like this:
+
+#+begin_src javascript
+const multiply = withValidator(product);
+
+log(multiply(1, 2, 3, 4));
+//=> 24
+
+log(multiply(1, NaN));
+//=> TypeError
+#+end_src
+
+** Custom validator for decorator function
+
+We can improve the ~withValidator()~ decorator by making it accept the
+validator function (instead of hard-coding one):
+
+#+begin_src javascript
+function withValidator(validatorFn, fn) {
+  return function validatedFn (...args) {
+    if (!args.every(validatorFn))
+      throw TypeError('Ivalid argument type.');
+
+    return fn(...args);
+  };
+}
+#+end_src
+
+Note how it takes ~validatorFn~ as the first argument.
+
+#+begin_src javascript
+import { log } from '../utils';
+
+function withValidator(validatorFn, fn) {
+  return function validatedFn (...args) {
+    if (!args.every(validatorFn))
+      throw TypeError('Ivalid argument type.');
+
+    return fn(...args);
+  };
+}
+
+function mult(x, y) {
+  return x * y;
+}
+
+function product(...nums) {
+  return nums.reduce(mult, 1);
+}
+
+function isInt(v) {
+  return Number.isInteger(v);
+}
+
+function isStr(v) {
+  return typeof v === 'string';
+}
+
+function join(...strs) {
+  return strs.reduce(function joiner(str, s) {
+    return str += ' ' + s;
+  }, '');
+}
+
+// Decorate product with isInt validator.
+const multiply = withValidator(isInt, product);
+
+log(multiply(1, 2, 3, 4));
+//=> 24
+
+log(multiply(1, NaN));
+// ~ TypeError: Arguments must be numbers.
+
+// Decorate join with isStr validator
+const joinStrs = withValidator(isStr, join);
+
+log(joinStrs('foo', 'bar', 'qux'));
+//=> 'foo bar qux'
+
+log(joinStrs('foo', 1, 'bar'));
+// ~ TypeError: Invalid argument type.
+#+end_src
+
+Now our ~withValidator()~ decorator can take be customized to apply a
+custom validator function to arguments before attempting to apply the
+main function.

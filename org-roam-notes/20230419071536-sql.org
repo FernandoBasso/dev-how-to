@@ -1,0 +1,12 @@
+:PROPERTIES:
+:ID:       9af6b499-e5f1-405e-88d2-c550f27c0dc5
+:END:
+#+title: SQL
+
+
+
+- [[id:86fde2a9-22f9-4da0-a87c-970cbda49976][SQL-JOIN]]
+
+* Links and Resources
+
+- [[https://www.codewars.com/post/would-you-pass-the-google-sql-interview-test-yourself-with-these-7-concepts][Would You Pass the Google SQL Interview?:: Codewars]]

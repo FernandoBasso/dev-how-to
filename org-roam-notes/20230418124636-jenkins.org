@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       DF94D9C8-1E8A-4429-A014-0470C1812501
+:END:
+#+title: Jenkins
+
+Used for CI/CD.
+
+- [[id:C27F9914-11F5-4A54-9A36-75382249288A][Jenkins-Credentials-Plugin]]
+

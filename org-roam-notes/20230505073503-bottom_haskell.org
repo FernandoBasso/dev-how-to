@@ -1,0 +1,42 @@
+:PROPERTIES:
+:ID:       d95ee5f0-4faa-4638-b369-b08ce69cde4d
+:CREATED_AT: <2023-05-05 Fri 07:39>
+:UPDATED_AT: <2023-05-05 Fri 08:32>
+:END:
+#+title: Bottom :: Haskell
+
+* bottom (⊥)
+
+In logic, ⊥ means /false/. In Haskell, it is called /bottom/ and is used
+to refer to computations that do not successfully result in a (useful)
+value. Examples include:
+
+- Non handled errors.
+- Computations that fail to terminate (infinite loop/recursion).
+
+For example, ~λ> let x = x in x~ would show “Exception <​<​<loop>​>​>” in
+older GHCi, but just hang the REPL from version 8.6.5 and above.
+
+#+begin_src haskell
+f :: Bool -> Int
+f False = 0
+#+end_src
+
+We wrote a partial function (instead of a /total/ function) that does not handle all possible
+inputs.
+
+#+begin_example
+dev.hs:6:1-11: warning: [-Wincomplete-patterns] …
+    Pattern match(es) are non-exhaustive
+    In an equation for ‘f’: Patterns not matched: True
+  |
+λ> f False
+0
+λ> f True
+*​*​* Exception:
+~/studies/haskell/dev.hs:6:1-11:
+Non-exhaustive patterns in function f
+#+end_example
+
+Because we didn't handle all possible cases, Haskell handles it for us
+by and the “error” value is there, implicit.

@@ -1,0 +1,39 @@
+:PROPERTIES:
+:ID:       86fde2a9-22f9-4da0-a87c-970cbda49976
+:END:
+#+title: SQL-JOIN
+
+* Join Products and Images
+
+** Select only products with images
+
+Select all products and images for all products that have images. For
+this, we use ~INNER JOIN~.
+
+#+begin_src sql
+SELECT
+    P.id
+  , P.name
+  , I.id
+FROM products AS P
+INNER JOIN images AS I
+ON P.id = I.product_id;
+#+end_src
+
+** Select products with or without images
+
+If a product has an image, select it. If it does not, still select the
+product even though the image will be missing:
+
+#+begin_src sql
+SELECT
+    P.id
+  , P.name
+  , I.id
+FROM products AS P
+LEFT JOIN images AS I
+ON P.id = I.product_id;
+#+end_src
+
+Note we used ~LEFT JOIN~ this time.
+

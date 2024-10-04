@@ -1,0 +1,272 @@
+:PROPERTIES:
+:ID:       56b4753d-73c5-4954-9d3b-0cc4fb86fe8a
+:END:
+#+title: Haskell
+
+* Random Notes
+
+- Expressions are *evaluated*.
+- Variables and functions are *defined*.
+- Types are *declared*.
+
+* Resources
+
+** My Notes
+
+- [[id:c06cc7ba-671f-4889-8b71-8649f3cfe8ef][Lists :: Haskell]]
+- [[id:4afc76db-9f5a-40c1-84b9-62da262e7f77][Strings :: Haskell]]
+- [[id:1b191425-a614-4374-89ca-a99dc41530ab][Type :: Haskell]]
+- [[id:d95ee5f0-4faa-4638-b369-b08ce69cde4d][Bottom :: Haskell]]
+- [[id:2a477b10-e77c-4ae5-8442-8b48e904ca02][Maybe :: Haskell]]
+
+** Wiki, Docs, Manual
+
+- https://wiki.haskell.org/Show_instance_for_functions
+
+** Blogs
+
+- [[https://free.cofree.io/][Ziyang Liu 🍯 Haskell Blog]]
+
+
+* List of Topics
+
+- Type-defaulting type classes
+- Ad-hoc polymorphism
+- Data type
+- Data constructor
+- Nullary data constructor (neither sum nor product type)
+- Unary data constructor (neither sum nor product type)
+- newtype
+- Type classes
+- Type class instance
+- Type-defaulting type classes
+- Polymorphism, polymorphic, monophormic
+- Maximally polimorphic type inferred
+- Type-class constrained polymorpism
+- Fully paramatric polymorphism
+- Parametricity
+- Type-defaulting type classes
+- Ad-hoc polymorphism
+- Type assignment operator =::=
+- More generic types getting more specialized types
+- Let expressions
+- Where clauses
+- Guards
+- Case expressions
+- Pattern Matching
+- Variable/param shadowing
+- Haskell is lexically (statically) scoped (meaning things have values
+  depending on where they have been defined in the source code)
+- Higher order functions (HOFs)
+
+* Indentation
+- [[https://discord.com/channels/280033776820813825/505367988166197268/1102946579389890590][Sad moment in my life]]
+
+#+begin_example
+f :: Integral a => a -> a
+f i = snd d
+  where tup = divMod i 10
+          d = divMod (fst tup) 10
+         \
+          \
+           +---> d is indented ahead of tup
+#+end_example
+
+With the above, the parser thinks ~d~ is a continuation of the ~tup~
+line and the result is a parse error.
+
+This is how we must indent it:
+
+#+begin_example
+f :: Integral a => a -> a
+f i = snd d
+  where tup = divMod i 10
+        d   = divMod (fst tup) 10
+           \
+            \
+             +--> This is where the spaces to align
+                  the = symbol should be.
+#+end_example
+
+* Lambda Expressions
+
+#+begin_example
+λ> (\x -> x + 1) 21
+2
+#+end_example
+
+And to type the whole expression and apply it:
+
+#+begin_example
+λ> ((\x -> x + 1) :: Int -> Int) 1
+2
+#+end_example
+
+Or save it to a variable:
+
+#+begin_example
+λ> f = (\x -> x + 1) :: Int -> Int
+λ> :type f
+f :: Int -> Int
+λ> f 1
+2
+#+end_example
+
+#+begin_example
+ghci> :{
+ghci| let trip :: Int -> Int
+ghci|     trip n = n * 3
+ghci| :}
+ghci> :type trip
+trip :: Int -> Int
+ghci> trip 4
+12
+#+end_example
+
+* Currying :: Type Level vs Value Level
+
+At type level, it is clear a function takes one argument at a time,
+but at value level, it appears a function takes all the arguments at
+once:
+
+#+begin_src haskell
+f :: Int -> Int -> Int -> Int
+f x y z = x + y + z
+#+end_src
+
+* Pattern Matching
+
+/Pattern matching/ is a way of matching patterns against values, and
+where appropriate, binding variables to successful matches. /Patterns/
+can include undefined variables, numeric literals, list syntax,
+etc. Pattern matching matches on any and all data constructors.
+
+Note to self: they are a way of doing elegant conditional logic, for
+example:
+
+#+begin_src haskell
+evenOrOdd :: Word -> String
+evenOrOdd 0 = "Even"
+evenOrOdd 1 = "Odd"
+evenOrOdd n = evenOrOdd $ rem n 2
+#+end_src
+
+Pattern matching allows us to decompose values from data constructors
+to expose their inner workings.
+
+Patterns are matched NOT against types, but against values or data
+constructors.
+
+** Nullary data constructor
+
+#+begin_src haskell
+data T = D
+#+end_src
+
+The ~T~ type has a single data constructor ~D~, which is a nullary data
+constructor because it doesn't take any arguments.
+
+* Case Expressions
+
+We can use any visible data constructors in case expressions (we
+cannot use type constructors in case expressions).
+
+When we case or pattern match on a sum type (like ~Bool~) we must handle
+each data constructor /or/ provide a default “match all” for them to
+*avoid unwittingly writing partial functions*.
+
+* Recursion
+
+** recursion, call stack
+
+- [[https://discord.com/channels/280033776820813825/505367988166197268/1102891973381202000][Discussion on Discord]]
+[[file:assets/org_20230502-074035_screenshot.png]]
+
+** Base case and identity value
+
+If we make our base case the identity for whatever function we are
+working with means that applying the function to that identity value
+does not change the result of previous applications.
+
+For example, ~1~ is the /identity value/ for multiplication, which is why
+~fact~ makes 1 the result of the base case:
+
+#+begin_src haskell
+fact :: Int -> Int
+fact 0 = 1
+fact n = n * fact (n - 1)
+#+end_src
+
+When we do something like ~f . g $ v~, we apply ~g~ to some value ~v~, and
+that result is then passed to ~f~. With recursion, a similar thing
+happens, as the result of applying a function to some input value is
+passed back to a “another” function, except in this case, this
+“other” function is the same function.
+
+
+** reverse
+- https://blog.poisson.chat/posts/2019-09-13-reverse.html
+
+#+begin_example
+rev :: [Char] -> [Char]
+rev []     = []
+rev (c:cs) = rev cs ++ [c]
+
+rev "hey"
+          = rev "ey" ++ "h"
+rev "ey"
+          = rev "y" ++ "e"
+rev "y"
+          = rev "" ++ "y"
+#+end_example
+
+Note how bottom to top, the last things are "y", "e", "h", which is
+the reversed "hey" -> "yeh".
+
+Another way of thinking about it:
+
+#+begin_example
+rev ('h' : 'e' : 'y' : [])
+rev       ('e' : 'y' : []) ++ "h"
+rev             ('y' : []) ++ "e" ++ "h"
+rev                   ([]) ++ "y" ++ "e" ++ "h"
+#+end_example
+
+** and, or with foldl and foldr
+
+- [[https://discord.com/channels/280033776820813825/505367988166197268/1102911626384003082][Question on Discord about implementing AND and OR with foldl and foldl]]
+
+
+* Rounding Numbers
+
+- [[https://discord.com/channels/280033776820813825/505367988166197268/1105611321791217805][Codewars challenge rounding not working as expected (Discord
+  discussion)]]
+- [[https://discord.com/channels/280033776820813825/505367988166197268/1105646360423833731][Books (Discord)]]
+
+* Interviews with Simon Peyton Jones
+
+- [[https://www.youtube.com/watch?v=fBFsxmJEk7M][Interview and AMA with Simon Peyton Jones, lead developer of Haskell
+  :: Exercism]]
+
+“GHC has undergone many heart transplants since we stared. We would
+never have been brave enough to change that code without static
+typing. That was code written by other people (our former selves).”
+
+Peyton believes Haskell has completely escaped from the lab, and it is
+not a not a niche, research lang for academics only. It is a
+practical, professional language for real life applications (see
+pandoc, for instance).
+
+Haskell is innovating furiously all the time.
+
+Types help you maintain code.
+
+Haskell does not require math wizardry. One can write impenetrable
+programs in Haskell as in any other language.
+
+Go, Java, Rust, F#, TypeScript (and JavaScript by its connection with
+JavaScript) etc. have a sponsor company behind them in one way or
+another. Haskell doesn't. Haskell is truly, really open source.
+
+Because Haskell takes away all of the variables, can it be considered
+an enemy of the state?

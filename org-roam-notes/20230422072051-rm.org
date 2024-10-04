@@ -1,0 +1,35 @@
+:PROPERTIES:
+:ID:       3d30f474-e8fc-48c6-ab22-fa07108a018a
+:END:
+#+title: rm
+
+* Check before running rm
+
+Unsure if your ~rm~ will remove only the expected things‽ After all,
+“Better a little caution than a great regret.”
+
+For example, you want to ~rm~ with a glob or expansion which could be
+matching too much and delete things one doesn’t want to delete‽ Try
+with ~echo~ or ~printf~ first:
+
+#+begin_example
+$ OrgRoamNotes
+$ printf '%s\n' ./*.{html,pdf,tex,log,fls,aux}
+./20230418124853-jenkins_credentials_plugin.html
+./20230419080459-org_download.html
+./20230421084510-compfpjs.html
+./20230418124853-jenkins_credentials_plugin.pdf
+./20230418124853-jenkins_credentials_plugin.tex
+./20230421084510-compfpjs.tex
+./20230421084510-compfpjs.log
+./20230421084510-compfpjs.fls
+./20230421084510-compfpjs.aux
+#+end_example
+
+Then if that seems OK, proceed with the command keeping the same glob
+and expansions:
+
+#+begin_example
+$ rm -v ./*.{html,pdf,tex,log,fls,aux}
+#+end_example
+

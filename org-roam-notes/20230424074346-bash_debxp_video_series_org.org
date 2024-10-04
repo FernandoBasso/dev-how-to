@@ -1,0 +1,1614 @@
+:PROPERTIES:
+:ID:       d13bfc00-d6dd-49e5-a056-80008e896634
+:END:
+#+title: Bash DEBXP video serie notes
+#+STARTUP: content
+
+* Intensivo de Programação em Bash
+:PROPERTIES:
+:CUSTOM_ID: intensivo-de-programação-em-bash
+:END:
+Shared by Eernestly on #bash.
+
+- [[http://shellhaters.org/]]
+
+There is another course by user debxp called Shell GNU:
+
+[[https://www.youtube.com/watch?v=Daasn9IjwMQ&list=PLXoSGejyuQGqJEEyo2fY3SA-QCKlF2rxO][Curso
+Shell GNU - Aula 01: Shell GNU?]]
+
+
+* Interpreted or Compiled?
+:PROPERTIES:
+:CUSTOM_ID: interpreted-or-compiled
+:END:
+[[https://www.youtube.com/watch?v=EOJTytXOdMM&list=PLXoSGejyuQGr53w4IzUzbPCqR4HPOHjAI&index=183]]
+
+SPACE is a very important meta character for the shell. Perhaps the most
+important of all. SPACE is the operator to do word splitting (together
+with TAB and newline).
+
+*** Steps:
+:PROPERTIES:
+:CUSTOM_ID: steps
+:END:
+- split words and operators
+- classify commands
+- expansions
+- redirections
+- exit status
+
+Example: =echo ~=:
+
+- separate =echo= from =~=
+- =echo= is the program to run, =~= is the param to =echo=
+- expand =~= to the home dir
+
+Expansion happens *before* executing the program. What is actually
+executed is =echo /home/<your-home-directory>=.
+
+#+begin_example
+$ echo ~
+/home/fernando
+#+end_example
+
+*** quoting rules
+:PROPERTIES:
+:CUSTOM_ID: quoting-rules
+:END:
+=echo hello world= is three /words/: =echo= is the program (first word),
+and the next two words, "hello" and "world" are the parameters to
+=echo=.
+
+"Quoting" does NOT mean only single or double quotes. There are other
+syntax things that /quote/ words.
+
+=echo hello\ world= quotes the space, so now we have only two words, the
+program echo and the single param 'hello world'.
+
+Inside single quotes, every character is literal.
+
+Inside double quotes, every character is literal, with two exceptions:
+
+- The =$= symbol to perform expansion.
+- The backticks to execute shell code, more precisely, command
+  substitution.
+
+#+begin_example
+$ echo "Home is: $HOME"
+Home is: /home/fernando
+
+$ echo "Date is `date`"
+Date is Mon Mar  6 05:01:25 PM -03 2023
+#+end_example
+
+=$HOME= will be substituted *before* =echo= runs. Same with =date=.
+
+#+begin_example
+$ echo "I am `whoami`."
+I am fernando.
+$ echo "I am `   whoami        `."
+I am fernando.
+#+end_example
+
+=*= expands file names.
+
+#+begin_example
+$ printf '%s\n' *.txt
+bar.txt
+foo.txt
+note.txt
+nums.txt
+out.txt
+#+end_example
+
+Escaping only works inside double quotes:
+
+#+begin_example
+$ echo '\$HOME'
+\$HOME
+$ echo "\$HOME"
+$HOME
+#+end_example
+
+The =!= is only a substitution when it happens before a /word/ to expand
+history of commands. On non-interactive shells, we have no shell
+history.
+
+=#!/bin/bash= on the shebang line of a script is OK, but ="#!/bin/bash"=
+(in double quotes) will try to run the =/bin/bash= history event, which
+will likely not be valid.
+
+#+begin_example
+$ "#!/bin/bash"
+bash: !/bin/bash: event not found
+#+end_example
+
+Do not pronounced it "eventchi notchi foundchi". It is “event not
+found'.
+
+The "” escape cannot escape “!". It can only escape =$= and ```. Test
+these:
+
+#+begin_example
+"#\!/bin/bash" > out.txt
+"#\!/bin/bash"
+#+end_example
+
+"cat" is not pronounced "catchi".
+
+*** alias expansion
+:PROPERTIES:
+:CUSTOM_ID: alias-expansion
+:END:
+#+begin_example
+$ type alias
+$ help alias
+#+end_example
+
+#+begin_example
+$ alias f='echo hello world'
+$ f
+hello world
+
+$ alias name='echo Yoda'
+$ name likes Bash
+Yoda likes Bash
+#+end_example
+
+"likes Bash" end up becoming arguments to =echo= too.
+
+On default bash, one can type =name likes Bash= followed by =Esc e= (or
+=Ctrl+[ e=) to show what will be expanded (this is a readline thing).
+
+*** other shells and sh
+:PROPERTIES:
+:CUSTOM_ID: other-shells-and-sh
+:END:
+dash, ash, posix only, portability, less bytes.
+
+bash is posix and a good deal more, like zsh, more bytes.
+
+Bash has a poisix operation mode like sh.
+
+One does not prounce "ezitchi", but "exit".
+
+When bash is initialized as a symbolic link to sh, it works in posix
+mode.
+
+#+begin_example
+$ ln -s ./usr/bin/bash ~/.bin/sh
+$ ~/bin/sh (posix mode)
+#+end_example
+
+On some systems, =sh= is a symblink to =/bin/dash=.
+
+*** control operators ; and &
+:PROPERTIES:
+:CUSTOM_ID: control-operators-and
+:END:
+=;= splits works, just like SPACE.
+
+#+begin_example
+$ echo hello;echo world
+hello
+world
+
+$ echo 'hello;echo world'
+hello;echo world
+#+end_example
+
+But =;= also separates commands.
+
+#+begin_example
+$ echo x; echo y; echo z
+x
+y
+z
+
+$ echo x y z
+x y z
+#+end_example
+
+*** & (ampersand) control operator
+:PROPERTIES:
+:CUSTOM_ID: ampersand-control-operator
+:END:
+- [[https://www.gnu.org/software/bash/manual/bash.html#Lists]]
+
+[[https://www.gnu.org/software/bash/manual/bash.html#Lists][Bash
+Reference Manual]]
+
+#+caption: Untitled
+[[file:Intensivo%20de%20Programac%CC%A7a%CC%83o%20em%20Bash%20ad2f5ebf39c64eb4b5fdf3b7f5b80570/Untitled.png]]
+
+#+begin_example
+$ sleep 3 & sleep 2 & sleep 1 & echo END
+[1] 259380
+[2] 259381
+[3] 259382
+END
+
+$
+[1]   Done                    sleep 3
+[2]-  Done                    sleep 2
+[3]+  Done                    sleep 1
+#+end_example
+
+- [[https://matrix.to/#/!qpJPAuKdeHWqCkvcbs:libera.chat/$LJnZ-dYyMM2NjNo2px9g2XEw5f8LYmo_iSEY7M-Kx7I?via=libera.chat&via=matrix.org&via=defenestrate.it][My
+  unanswered question in #bash]].
+
+#+caption: Untitled
+[[file:Intensivo%20de%20Programac%CC%A7a%CC%83o%20em%20Bash%20ad2f5ebf39c64eb4b5fdf3b7f5b80570/Untitled%201.png]]
+
+#+caption: Untitled
+[[file:Intensivo%20de%20Programac%CC%A7a%CC%83o%20em%20Bash%20ad2f5ebf39c64eb4b5fdf3b7f5b80570/Untitled%202.png]]
+
+=man jobs=:
+
+#+caption: Untitled
+[[file:Intensivo%20de%20Programac%CC%A7a%CC%83o%20em%20Bash%20ad2f5ebf39c64eb4b5fdf3b7f5b80570/Untitled%203.png]]
+
+#+begin_example
+$ ls nope
+ls: cannot access 'nope': No such file or directory
+
+$ echo $?
+2
+#+end_example
+
+#+begin_example
+$ ls nope
+ls: cannot access 'nope': No such file or directory
+
+#
+# last $? status is 2
+#
+
+$ sleep 3 & echo $?
+[1] 261317
+0
+#+end_example
+
+=sleep 3= is executed and put into the background for asynchronous
+execution (note the =&=). Then =echo $?= reports status 0 (success).
+This means that even before =sleep= finished waiting for the three
+seconds, the status was already set to =0= and was not =2= from the
+previous =ls= error any longer.
+
+#+begin_example
+$ ls nope && echo $?
+ls: cannot access 'nope': No such file or directory
+
+$ ls 1> /dev/null
+
+$ ls nope ; echo $?
+ls: cannot access 'nope': No such file or directory
+2
+#+end_example
+
+Because =ls nope= returns a failure exit status, the guard prevents the
+second command to execute. Then we just =ls= something so that the last
+exit status is set back to =0=. Finally, we run the last command and see
+that =;= works like a newline (end the current command line and execute
+it).
+
+*** conditional chaining operators
+:PROPERTIES:
+:CUSTOM_ID: conditional-chaining-operators
+:END:
+[[https://www.gnu.org/software/bash/manual/bash.html#Lists][Bash
+Reference Manual]]
+
+=&&= and =||= are not logical operators when chaining commands (they are
+logical operators in expressions, but not when chaining commands).
+
+We can call =&&= the "if success operator" and =||= the "if failure
+operator".
+
+- The =&&= "if success operator" allows the execution of the next
+  command if the status of the previous command is 0 (success).
+- The =||= "if failure operator" allows the execution of the next
+  command if the status of the previous command is anything but zero
+  (failure).
+
+#+begin_example
+$ ls nope && echo 'Not seen'
+ls: cannot access 'nope': No such file or directory
+
+$ ls nope || echo 'Not seen'
+ls: cannot access 'nope': No such file or directory
+Not seen
+#+end_example
+
+#+caption: Untitled
+[[file:Intensivo%20de%20Programac%CC%A7a%CC%83o%20em%20Bash%20ad2f5ebf39c64eb4b5fdf3b7f5b80570/Untitled%204.png]]
+
+*** : (null command), true, false
+:PROPERTIES:
+:CUSTOM_ID: null-command-true-false
+:END:
+#+begin_example
+$ type : true false
+: is a shell builtin
+true is a shell builtin
+false is a shell builtin
+
+$ help :
+:: :
+    Null command.
+
+    No effect; the command does nothing.
+
+    Exit Status:
+    Always succeeds.
+
+$ help false
+false: false
+    Return an unsuccessful result.
+
+    Exit Status:
+    Always fails.
+
+$ help true
+true: true
+    Return a successful result.
+
+    Exit Status:
+    Always succeeds.
+#+end_example
+
+=true= and =false= are commands, not values.
+
+Commands never return values. They return exit status (0 o non-zero).
+
+#+begin_example
+$ : && ls nope || echo 'did not ls correctly'
+ls: cannot access 'nope': No such file or directory
+did not ls correctly
+#+end_example
+
+Create a file:
+
+#+begin_example
+: 1> foo.txt
+true 1> bar.txt
+
+$ time touch ./foo.txt
+
+real    0m0.001s
+user    0m0.001s
+sys 0m0.000s
+
+$ time : 1> ./bar.txt
+
+real    0m0.000s
+user    0m0.000s
+sys 0m0.000s
+#+end_example
+
+#+begin_example
+./script.sh permission denied
+bash script.sh works
+#+end_example
+
+The hashbang/shebang is a command!
+
+#+begin_example
+#!/bin/bash
+
+echo hello world
+#+end_example
+
+* Paradigm
+:PROPERTIES:
+:CUSTOM_ID: paradigm
+:END:
+[[https://www.youtube.com/watch?v=5aSFZoORyHE&list=PLXoSGejyuQGr53w4IzUzbPCqR4HPOHjAI&index=10][Intensivo
+de programação em Bash #10: Comandos compostos (introdução)]]
+
+- Procedural, imperative and structured.
+- Reserved words.
+- Compound commands.
+
+Syntactically, Bash is governed by reserved words. Reserved words is not
+the same as keywords.
+
+#+caption: Untitled
+[[file:Intensivo%20de%20Programac%CC%A7a%CC%83o%20em%20Bash%20ad2f5ebf39c64eb4b5fdf3b7f5b80570/Untitled%205.png]]
+
+=()= and =(())= are also used to create compound commands. They are not
+reserved words. They are closer to operators.
+
+#+begin_example
+$ echo a & | sed 's/a/b/'
+bash: syntax error near unexpected token `|'
+#+end_example
+
+=&= is separating the previous command from whatever comes next. We
+cannot pipe /nothing/ to sed. This is OK:
+
+#+begin_example
+$ echo a & echo -e '\u61' | sed 's/a/b/'
+[1] 317895
+a
+b
+[1]+  Done                    echo a
+#+end_example
+
+*NOTE*: When we hit Enter or something happens in the shell, recent
+([cite/t:@today]) versions of Bash will invoke =jobs= quietly for us and
+show the jobs status.
+
+Piping with =|= sends STDOUT of previous command to the STDIN of the
+next command. If we use =|&=, then STDERR will also be piped to STDIN of
+the next command.
+
+* How is the shell executed
+:PROPERTIES:
+:CUSTOM_ID: how-is-the-shell-executed
+:END:
+- Terminal.
+- Scripts.
+- Shebang.
+- =PATH=.
+
+#+begin_example
+$ echo $-
+himBH
+
+$ echo $SHLVL
+1
+
+$ bash
+$ bash
+$ echo $SHLVL
+3
+
+$ exit
+$ echo $SHLVL
+2
+
+$ exit
+$ echo $SHLVL
+1
+
+$ exit # The terminal will close at this point.
+#+end_example
+
+[[https://www.gnu.org/software/bash/manual/bash.html#Special-Parameters]]
+
+Each shell execution creates a new shell process (a subshell).
+
+#+begin_example
+$ bash -c 'echo $SHLVL'
+2
+
+$ bash -c 'bash -c "echo $SHLVL"'
+2
+#+end_example
+
+Why 2 in the second command line? Because from the second subshell, the
+other subshell at level 2, even though, from the main shell, it would be
+subshell level 3.
+
+Running a script with =-c= or from a shell script cause the script code
+to run a subshell:
+
+#+begin_example
+$ bash -c 'echo $SHLVL'
+2
+
+$ echo 'echo $SHLVL' > script.sh
+
+$ bash ./script.sh
+2
+#+end_example
+
+*NOTE*: The shebang =#!/bin/bash= (or other variations of it) is only
+executed if running bash from =PATH=, like =./script.sh=, but not when
+running from the =bash= executable like =bash ./script.sh=.
+
+Note how even running the script from a shebang the =$SHLVL= still
+reports 2.
+
+#+begin_example
+$ sed '' < ./script.sh
+#!/bin/bash
+
+echo $SHLVL
+
+$ chmod -v u+x ./script.sh
+mode of './script.sh' changed from 0644 (rw-r--r--) to 0744 (rwxr--r--)
+
+$ ./script.sh
+2
+#+end_example
+
+*TIP*: It is said a shebang causes the =fork= and =exec= syscalls to be
+used to run the script.
+
+TODO: =bash -c= or =./[script.sh](http://script.sh)= cause a
+non-interactive subshell to run. What are the differences when running
+with =bash script.sh= and also =source ./script.sh=?
+
+Running a script with =source ./script.sh= runs in the current shell
+(not in a subshell). If it is like all the lines in the file are copied
+and pasted to the current terminal shell session.
+
+#+begin_example
+$ < ./script.sh sed ''
+#!/bin/bash
+
+echo $SHLVL
+
+$ source ./script.sh
+1
+#+end_example
+
+See? =SHLVL= is 1, not 2.
+
+* Data Types
+:PROPERTIES:
+:CUSTOM_ID: data-types
+:END:
+Indeterminate type. In principle, everything is a string.
+
+In expressions, though, data types come into play.
+
+#+begin_example
+$ n=1
+
+$ ((n += 1))
+
+$ echo $n
+2
+#+end_example
+
+Because everything is a string by default, adding quotes around integers
+makes no difference when evaluating them in arithmetic expressions:
+
+#+begin_example
+$ n='41'
+
+$ ((++n))
+
+$ echo $n
+42
+#+end_example
+
+As you see, =n= was still incremented just fine.
+
+Bash can only work with integers in arithmetic expressions.
+
+* Variables
+:PROPERTIES:
+:CUSTOM_ID: variables
+:END:
+No spaces around the assignment operator (remember, for the shell,
+whitespace is extremely important, probably the most important and
+underrated of all characters).
+
+#+begin_example
+x=10
+jedi=Ahsoka\ Tano
+
+$ printf '%d\n%s\n' $x "$jedi"
+10
+Ahsoka Tano
+#+end_example
+
+We use the bare identifier name to assign a variable, but use =$= to
+perform expansion.
+
+Careful with word splitting:
+
+#+begin_example
+$ printf '%d\n%s\n' $x $jedi
+10
+Ahsoka
+bash: printf: Tano: invalid number
+0
+#+end_example
+
+One almost always want to quote variable expansion.
+
+We must use =$(...)= to assign to a variable (and use no spaces around
+the ===. On the other hand, note how we can use spaces around assignment
+operator /inside/ =(( ))=:
+
+#+begin_example
+$ x=((2 + 3))
+bash: syntax error near unexpected token `('
+$ x=$((2 + 3))
+$ ((y = 2 + 3))
+$ echo $x $y
+5 5
+#+end_example
+
+Inside =(( ))=, other rules apply. We need to write valid arithmetic and
+logical expressions, not shell commands.
+
+And inside =(( ))=, it is possible to access the value of variables
+without using =$=.
+
+--------------
+
+"There are no expansions, but the value itself is represented." (TODO:
+check the man page for the veracity of this last quote).
+
+#+begin_quote
+Shell variables are allowed as operands; parameter expansion is
+performed before the expression is evaluated. *Within an expression,
+shell variables may also be referenced by name without using the
+parameter expansion syntax*.
+
+#+end_quote
+
+---
+[[https://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic][man
+bash]] >
+
+So, they are expanded, just not using the =$= symbol.
+
+--------------
+
+#+begin_example
+$ n=1
+$ ((n = n + 10))
+$ echo $n
+11
+$ echo $((n + 2))
+13
+#+end_example
+
+#+caption: Untitled
+[[file:Intensivo%20de%20Programac%CC%A7a%CC%83o%20em%20Bash%20ad2f5ebf39c64eb4b5fdf3b7f5b80570/Untitled%206.png]]
+
+Help for =(( ))= is under
+[[https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs][Conditional
+Constructs]].
+
+#+begin_example
+$ s=hello
+$ ((s))
+$ echo $?
+1
+$ (($s))
+$ echo $?
+1
+$ echo $((s))
+0
+$ echo $(($s))
+0
+#+end_example
+
+#+begin_quote
+The arithmetic expression...
+
+#+end_quote
+
+Inside =(( ))=, an arithmetic expression is expected. The string =hello=
+comes as 0 (zero) when converted to string.
+
+But see this:
+
+#+begin_example
+$ (( 2 - 2 ))
+$ echo $?
+1
+
+$ (( 0 ))
+$ echo $?
+1
+
+$ (( 7 ))
+$ echo $?
+0
+
+$ (( -1 ))
+$ echo $?
+0
+#+end_example
+
+So, any expression that evaluates to zero has an exit status 1
+(failure). If the expression results in a non-zero, then the result
+status is 0 (success). 😲 Let's quote the Bash manual again:
+
+#+begin_quote
+If the value of the expression is non-zero, the return status is 0;
+otherwise the return status is 1.
+
+#+end_quote
+
+#+begin_example
+$ (( 0 )) ; echo $?
+1
+$ (( 1 )) ; echo $?
+0
+#+end_example
+
+See =help declare= and then run this:
+
+#+begin_example
+$ n=42
+$ declare -p n
+declare -- n="42"
+
+$ x=42
+$ declare -i x
+$ declare -p x
+declare -i x="42"
+#+end_example
+
+=-p= to display the /attributes/properties/ of variable.
+
+*** Arrays
+:PROPERTIES:
+:CUSTOM_ID: arrays
+:END:
+[[https://www.gnu.org/software/bash/manual/bash.html#Arrays][Bash
+Reference Manual]]
+
+Array is a matrix with one dimension. Some people say "vector".
+
+An array is not a type, but a collection of elements of a certain type
+(in Bash).
+
+Certain variable attributes are inferred according to what is assigned
+to them. In this case, because we use array syntax, =xs= is said to have
+the attribute =-a=:
+
+#+begin_example
+$ xs=(10 20 30)
+$ declare -p xs
+declare -a xs=([0]="10" [1]="20" [2]="30")
+#+end_example
+
+Another example:
+
+#+begin_example
+$ names=(Yoda Luke Aayla Ahsoka)
+$ declare -p names
+declare -a names=([0]="Yoda" [1]="Luke" [2]="Aayla" [3]="Ahsoka")
+
+$ echo "${names[0]}"
+Yoda
+$ echo "${names[3]}"
+Ahsoka
+#+end_example
+
+*REMEMBER*: In the shell, we do not "access" values. We expand things.
+In this case, we are expanding variables.
+
+*** Associative Arrays
+:PROPERTIES:
+:CUSTOM_ID: associative-arrays
+:END:
+This is what some languages call dictionary, or hash tables.
+
+#+begin_example
+$ jedi[name]=Yoda
+$ jedi[skill]='The Force'
+$ jedi[level]=100
+$ declare -p jedi
+declare -a jedi=([0]="100")
+$ echo "${jedi[@]}"
+100
+#+end_example
+
+No, that didn't work... For associative arrays, we have to use
+=declare -A <identifier>= first:
+
+#+begin_example
+$ unset jedi
+$ declare -A jedi
+$ jedi[name]=Yoda
+$ jedi[skill]='The Force'
+$ jedi[level]=100
+$ declare -p jedi
+declare -A jedi=([level]="100" [skill]="The Force" [name]="Yoda" )
+$ echo "${jedi[@]}"
+100 The Force Yoda
+
+$ unset cars
+$ declare -A cars
+$ cars[wolksvagen]=Fusca
+$ cars[fiat]=147
+$ cars[ford]=Corcel
+
+for car in "${cars[@]}" ; do echo "$car"; done
+Corcel
+Fusca
+147
+#+end_example
+
+Scalar is a variable that points to a single primitive. Scalar variables
+can be expanded with or without braces:
+
+#+begin_example
+$ lang=Haskell
+$ echo ${lang}
+Haskell
+$ echo $lang
+Haskell
+#+end_example
+
+Braces must be used when transformations on the variable are to be
+applied. For example:
+
+#+begin_example
+$ lang=Haskell
+
+$ echo ${lang,,}
+haskell
+
+$ echo ${lang^^}
+HASKELL
+
+$ file='message.txt'
+
+$ echo ${file%.*}
+message
+
+$ echo ${file#*.}
+txt
+#+end_example
+
+Braces are also used to separate variable name from other characters:
+
+#+begin_example
+$ cat=meow
+$ echo "$cat"
+meow
+$ echo "$catia"
+
+$ echo "${cat}ia"
+meowia
+#+end_example
+
+*** set
+:PROPERTIES:
+:CUSTOM_ID: set
+:END:
+It is common to =set -exu= (see =help set= for the meaning of those
+options).
+
+=rm -rfv $dir/= expands to simply =/= if =dir= is not set/empty. =-u=
+helps to prevent this.
+
+#+begin_example
+$ unset dir; echo ${dir-DIR_IS_UNSET}
+DIR_IS_UNSET
+
+$ unset dir; declare dir; echo ${dir-DIR_IS_UNSET}
+DIR_IS_UNSET
+
+$ unset dir; dir=; echo ${dir-DIR_IS_UNSET}
+(no output)
+
+$ unset dir; declare dir=; echo ${dir-DIR_IS_UNSET}
+(no output)
+#+end_example
+
+Note that =-u/= does not have effect on =${v-DEFAULT}= expansion as the
+whole purpose of that expansion is to use a default value in case =v= is
+unset. That said, observe:
+
+#+begin_example
+$ set +u; unset dir; echo $dir
+
+$ set -u; unset dir; echo $dir
+bash: dir: unbound variable
+#+end_example
+
+--------------
+
+*DANGER*: Don't run the next commands. Just read and understand them.
+YOU HAVE BEEN WARNED.
+
+So, =rm -rfv $dir/= could destroy your entire data (even without
+root/admin privileges, your home directory would be =rwx= by your own
+user by default, and would be removed just fine).
+
+But if we do something like this, it would error out before attempting
+=rm= (DON'T RUN THE RM COMMAND BELOW):
+
+#+begin_example
+set -u
+rm -rvf $dir/
+#+end_example
+
+Still note that if =dir= is initialized with =dir== or =declare dir==
+(the NULL string) it is NOT unset, and even =set -u= will not prevent a
+catastrophe.
+
+THE LESSON: CAREFUL WITH =rm=. There is no Trash Bin on the command
+line. ****************************************YOU HAVE BEEN
+WARNED****************************************.
+
+--------------
+
+*** unbound vs unset
+:PROPERTIES:
+:CUSTOM_ID: unbound-vs-unset
+:END:
+*** unset
+:PROPERTIES:
+:CUSTOM_ID: unset
+:END:
+#+begin_example
+$ ban=ana
+$ echo "$banana"
+
+$ echo "${ban}ana"
+anaana
+$ unset ban
+$ echo "${ban}ana"
+ana
+$ declare -p ban
+bash: declare: ban: not found
+#+end_example
+
+#+begin_quote
+In bash, we don't "declare" variables (despite the fact that we have the
+=declare= builtin). We set and unset variables. TODO: not sure if this
+is true.
+
+#+end_quote
+
+#+begin_example
+$ help declare
+declare: declare [-aAfFgiIlnrtux] [-p] [name[=value] ...]
+    Set variable values and attributes.
+
+(rest of help omitted)
+#+end_example
+
+The help says "set variable values and attributes". Maybe it declares
+/and/ optionally sets a value:
+
+#+begin_example
+$ declare -p z
+bash: declare: z: not found
+$ declare z
+$ declare -p z
+declare -- z
+#+end_example
+
+First, we cannot inspect =z= because it does not exist. It is neither
+declared nor set. Then, we declare =z= but DO NOT initialize it. But it
+at least exists now (it has been declared), so we can inspect it (even
+though it is empty). So, =declare foo= without a value is similar to
+=foo== (no value after =foo=).
+
+#+begin_example
+$ unset x y
+$ declare x
+$ y=
+$ declare -p x y
+declare -- x
+declare -- y=""
+#+end_example
+
+Note empty (NULL) string for =y= and nothing at all for =x=. Still, =x=
+is declared (exists). But look what happens in some conditionals:
+
+#+begin_example
+$ unset z; z=; echo ${z-z is unset}
+(no output)
+
+$ unset z; declare z; echo ${z-z is unset}
+z is unset
+#+end_example
+
+=${z-default}= expands to =default= if =z= is unset but not if it's the
+null string. But there is more:
+
+#+begin_example
+$ declare x; [[ -v x ]]; echo $?
+1
+$ set -u; declare x; echo $x
+bash: x: unbound variable
+#+end_example
+
+=help set= says this for =-u=: "-u Treat unset variables as an error
+when substituting." 😲
+
+--------------
+
+bash IRC chat:
+
+declare x, if x does not already exist simply allocates a variable named
+x an puts it in the current scope without a value.
+
+function foo { x=42; }; function bar { declare x; foo; }; bar; declare
+-p x
+
+doing that in the global scope, doesn't do much. it only makes declare
+-p / declare -p x output it. and it makes unset x (without -v) delete
+that variable that is set to nothing and doesn't have any attribute,
+instead of a function named x even if it exists.
+
+function foo { x=42; }; function bar { declare x; foo; declare -p x; };
+bar; declare -p x
+
+#+caption: Untitled
+[[file:Intensivo%20de%20Programac%CC%A7a%CC%83o%20em%20Bash%20ad2f5ebf39c64eb4b5fdf3b7f5b80570/Untitled%207.png]]
+
+--------------
+
+We can =declare= too:
+
+#+begin_example
+
+$ help typeset
+typeset: typeset [-aAfFgiIlnrtux] [-p] name[=value] ...
+    Set variable values and attributes.
+
+    A synonym for `declare'.  See `help declare'.
+
+$ declare x=1
+$ typeset y=1
+
+$ declare -p x y
+declare -- x="1"
+declare -- y="1"
+
+$ ((x + y))
+$ echo $((x + y))
+2
+#+end_example
+
+By default, =declare= inside a function creates local variables. See
+=help declare=.
+
+* Positional Parameters
+:PROPERTIES:
+:CUSTOM_ID: positional-parameters
+:END:
+#+begin_example
+#!/bin/bash
+
+echo $1 $2
+echo $#
+#+end_example
+
+*** at =@=
+:PROPERTIES:
+:CUSTOM_ID: at
+:END:
+Compare not quoting =$@= an then quoting it:
+
+#+begin_example
+#!/bin/bash
+echo $#
+printf '%s\n' $@
+
+$ ./script.sh Aayla Secura Ahsoka Tano
+4
+Aayla
+Secura
+Ahsoka
+Tano
+$ ./script.sh 'Aayla Secura' 'Ahsoka Tano'
+2
+Aayla
+Secura
+Ahsoka
+Tano
+
+#!/bin/bash
+echo $#
+printf '%s\n' "$@"
+
+$ ./script.sh Aayla Secura Ahsoka Tano
+4
+Aayla
+Secura
+Ahsoka
+Tano
+$ ./script.sh 'Aayla Secura' 'Ahsoka Tano'
+2
+Aayla Secura
+Ahsoka Tano
+#+end_example
+
+One must almost always quote expansions. Even if something like 'Master
+Yoda' was quoted when provided as a parameter to the script,
+=printf '%s\n' $@= (unquoted) inside the script will cause it to undergo
+word splitting before =printf '%s\n'= sees the parameter.
+
+*** star =*=
+:PROPERTIES:
+:CUSTOM_ID: star
+:END:
+Using =printf '%s\n' "$*"=, all the arguments become a single word:
+
+#+begin_example
+$ cat ./script.sh
+#!/bin/bash
+echo $#
+printf '%s\n' "$*"
+
+$ ./script.sh Yoda Leia Luke Darth
+4
+Yoda Leia Luke Darth
+#+end_example
+
+We can set positional parameters for the current shell session or inside
+a script:
+
+#+begin_example
+$ set -- 10 20 30
+$ echo $#
+3
+$ echo $@
+10 20 30
+#+end_example
+
+#+begin_example
+$ cat ./script.sh
+#!/bin/bash
+set -- Yoda Leia Luke Vader
+echo $#
+printf '%s\n' "$@"
+$ ./script.sh
+4
+Yoda
+Leia
+Luke
+Vader
+#+end_example
+
+* Subshells and child sessions
+:PROPERTIES:
+:CUSTOM_ID: subshells-and-child-sessions
+:END:
+=exec bash= replaces the current bash session with a new bash session,
+with fresh settings from config files and forgetting settings and
+variables defined in the previous session.
+
+[[https://www.gnu.org/software/bash/manual/bash.html#Command-Execution-Environment]]
+
+#+begin_example
+$ echo $SHLVL
+1
+$ echo $$
+114502
+$ v=Yoda
+$ bash
+$ echo $SHLVL
+2
+$ echo $$
+137896
+$ echo $v
+(no output)
+$ exit
+exit
+$ echo $SHLVL $$ $v
+1 114502 Yoda
+#+end_example
+
+Start at the main shell process. PID is 114502 for main process (level
+1). Define a variable =v=Yoda=. Then start a subshell (which inherits
+some stuff from parent shell process, but not /everything/). We are in
+level 2, PID is 137896. Note we cannot expand =v=. It is global from the
+previous shell process, but not from this level 2 subshell. Finally, we
+exit the subshell, and we are back at shell level 1 and =v= is in scope.
+
+When a subshell is created by executing =bash= program, it reads RC init
+files (like =~/.bashrc=). But variables defined manually are not
+inherited. We can export variables so they are available in the current
+shell and also on subshells:
+
+#+begin_example
+$ export v=Yoda
+$ bash
+$ echo $SHLVL $$ $v
+2 139444 Yoda
+$ bash
+$ echo $SHLVL $$ $v
+3 139672 Yoda
+$ exit
+$ exit
+$ echo $SHLVL
+1
+#+end_example
+
+We go two more subshells, and =v= is always available. Finally, we exit
+the two subshells and go back to the initial, main shell. Should we exit
+again, we would end up quitting the terminal:
+
+*NOTE*: Most terminal configurations/default settings) cause the
+terminal to close when the shell exits. Terminal.app (macOS) does not
+quit when the shell exits.
+
+Doing =export v=Yoda= is the same as =declare -x v=Yoda=. See
+(=help declare=).
+
+#+begin_example
+$ exec bash
+$ declare -x v=Yoda
+$ declare -p v
+declare -x v="Yoda"
+$ bash
+$ echo $SHLVL $$ $v
+2 140424 Yoda
+$ declare -p v
+declare -x v="Yoda"
+#+end_example
+
+Even in the subshell, =v= is marked for export, which again means
+further subshells would have that variable in scope (copied from the
+parent scope).
+
+*** subshell in parenthesis
+:PROPERTIES:
+:CUSTOM_ID: subshell-in-parenthesis
+:END:
+A subshell is a child session but a little different. Parenthesis are
+not shell reserved words. Commands inside parenthesis create a subshell:
+
+#+begin_example
+$ echo $SHLVL $$; (echo $SHLVL $$)
+1 114502
+1 114502
+#+end_example
+
+How come then both output lines above contain the same level and PID?
+This new subshell went through a single step in the creation of a new
+process. The parent process was cloned!!! 🚀 😲
+
+It is a copy of the parent shell, but not a new =exec bash=. It is a
+=fork= system call. =BASHPID= can show it!
+
+#+begin_example
+$ echo $SHLVL $$ $BASHPID; (echo $SHLVL $$ $BASHPID)
+1 114502 114502
+1 114502 141731
+#+end_example
+
+BASHPID is indeed different.
+
+TODO: What is the difference between a child session and a subshell?
+
+- [[https://unix.stackexchange.com/questions/421020/what-is-the-exact-difference-between-a-subshell-and-a-child-process]]
+
+A variable defined in a subshell is not available --- nor does it
+override --- a variable in the parent shell:
+
+#+begin_example
+$ v=1; (v=2; echo $v); echo $v
+2
+1
+#+end_example
+
+Set =v=1= in the initial shell session. Then, in a subshell, set =v=2=
+and echo it. Back at the parent shell session we see =v= is 1.
+
+Note that curly braces ={ ... }= do not create subshells. They group
+commands in the same shell session. ={ }= are reserved words, and as
+such they need to be properly delimited from surrounding text.
+
+#+begin_example
+$ { echo 1 }
+>
+#+end_example
+
+The ">" is the default PS2 prompt character, which means the command
+still waiting for something to end echo 1. If we end with =}=, this is
+is finally ending the command because it was preceded by a newline.
+
+#+begin_example
+$ { echo 1 }
+> }
+1 }
+#+end_example
+
+And it prints "1 }", proving that the first "}" did not end the group
+because there was nothing after 1 denoting the end of the command. Could
+be semicolon, newline, or the =&= "async background operator".
+
+#+begin_example
+1 }
+$ { echo 1; }
+1
+$ { echo 1
+> }
+1
+$ { echo 1 & }
+[1] 150128
+1
+[1]+  Done                    echo 1
+#+end_example
+
+Here, only "foo" is sent to STDOUT, and "bar" is sent to ./out.txt.
+
+#+begin_example
+$ echo foo; echo bar 1> ./out.txt
+foo
+$ cat ./out.txt
+bar
+#+end_example
+
+To send the output of both commands to the ./out.txt (and nothing to
+STDOUT), we can group the commands:
+
+#+begin_example
+$ { echo foo; echo bar; } 1> ./out.txt
+$ cat ./out.txt
+foo
+bar
+#+end_example
+
+Now compare these:
+
+#+begin_example
+$ unset z; (z=hello); echo $z
+$ unset z; { z=hello; }; echo $z
+hello
+#+end_example
+
+Since =(...)= creates a subshell, =z= set inside that subshell is not
+available back in the parent shell (also not we don't need to delimit
+stuff inside parenthesis as they are not reserved words/especial words.
+
+But for a variable defined inside ={ ... }= (which does not create a
+subshell), that variable is defined in the current shell, and is in
+scope after the command group ends.
+
+* Conditionals
+:PROPERTIES:
+:CUSTOM_ID: conditionals
+:END:
+
+​=[​[ ... ]​]= = is not syntax. =[[= is actually a builtin command (and a
+reserved word). It is just that Bash syntax rules require that a =[​[=
+command end with a matching =]]=.
+
+That said, inside =[​[ ... ]]=, we write affirmations are tested and have
+their exit status of 0 or 1 (success or failure) returned to us.
+
+*NOTE*: Unless you are writing for POSIX or other shells compatibility,
+prefer Bash superior =[​[= instead of =test=.
+
+Take a look at =help [​[=, =help test=, and =help [=. Also check [[http://mywiki.wooledge.org/BashGuide/TestsAndConditionals][this]]. Note
+that for =[=, it *requires* its last argument to be =]=, but it is NOT a
+delimiter or special syntax like =if (foo)= in some other
+languages. They look like syntax, but it is a command that requires
+that special last parameter. This is defined by POSIX.
+
+Note that even though Bash help and man page mention true and false a
+lot, remember that =true= and =false= are actually builtin commands
+themselves with exit statuses of success or failure (0 and 1). So, these
+test commands don't return true or false, but rather exit status of 0
+or 1. We can think of 0 and 1 informally as true and false, as long as
+we remember that we are actually dealing with success and failure exit
+statuses.
+
+#+begin_example
+$ unset v w
+$ v=hello
+$ [[ $v ]]
+$ echo $?
+0
+$ [[ $w ]]
+$ echo $?
+1
+#+end_example
+
+The null string produces 1 (failure):
+
+#+begin_example
+$ unset v
+$ v=
+$ [[ $v ]]
+$ echo $?
+1
+#+end_example
+
+By default, asserting with =[[ $variable ]]= is the same as
+=[[ -n $variable ]]=.
+
+As a side note, we can work with non-variables inside =[[ ... ]]=:
+
+#+begin_example
+$ [[ -n foo ]] && echo not empty
+not empty
+$ [[ -n '' ]] && echo not empty
+#+end_example
+
+*** test -v
+:PROPERTIES:
+:CUSTOM_ID: test--v
+:END:
+For =test -v=, we cannot expand the variable. We must provide a name,
+not the expansion syntax:
+
+#+begin_example
+$ [[ -v $jedi ]] && echo jedi is set
+(no output)
+$ [[ -v jedi ]] && echo jedi is set
+jedi is set
+#+end_example
+
+*** test s1 = s2
+:PROPERTIES:
+:CUSTOM_ID: test-s1-s2
+:END:
+Note that inside test command, a single === does NOT mean assignment,
+but rather checks for equality:
+
+#+begin_example
+$ test xyz = xyz && echo SAME
+SAME
+$ test xyz = wxyz || echo DIFF
+DIFF
+
+$ [ xyz = xyz ] && echo SAME
+SAME
+$ [ xyz = wxyz ] || echo DIFF
+DIFF
+
+$ [[ xyz = xyz ]] && echo SAME
+SAME
+$ [[ xyz = wxyz ]] || echo DIFF
+DIFF
+#+end_example
+
+Inside =[[ ... ]]=, ==== and =!== are available too. In this case, the
+string on the right is used as a pattern and pattern matching is
+performed. Also, inside =[[ ... ]]=, ==~= is available and the string on
+the right is matched as a regex.
+
+#+begin_example
+$ file=photo.png
+$ [[ $file == *.png ]] && echo matches PNG
+matches PNG
+$ [[ $file == *.jpg ]] || echo does not match PNG
+does not match PNG
+
+$ [[ $file =~ png$ ]] && echo Ends with ‘png’.
+Ends with ‘png’.
+$ [[ pngfile =~ png$ ]] || echo Does not end with ‘png’.
+Does not end with ‘png’.
+
+$ [[ Yoda == [Yy]o* ]] && echo Match!
+Match!
+$ [[ yoda == [Yy]o* ]] && echo Match!
+Match!
+#+end_example
+
+*** test and [vs [[
+:PROPERTIES:
+:CUSTOM_ID: test-and-vs
+:END:
+=test= and =[= are the same program and [[https://pubs.opengroup.org/onlinepubs/9699919799/utilities/test.html][defined by POSIX]]. Most shells have
+an equivalent builtin. Even if your shell has a built in =test=, your
+system most likely has a program =test= and its twin counterpart =[=
+somewhere on the file system. The external program =test= and its twin
+(generally hard-linked) =[= are only used if the shell does not provide
+its own =test= builtin.
+
+#+begin_example
+$ type -a test
+test is a shell builtin
+test is /usr/bin/test
+test is /bin/test
+
+$ type -a [
+[ is a shell builtin
+[ is /usr/bin/[
+[ is /bin/[
+
+$ type -a [[
+[[ is a shell keyword
+#+end_example
+
+=[​[= is not defined by POSIX. It is a Bash-specific (and more powerful)
+command. Like =[=, =[​[= is not syntax (again, it is a command), but it
+requires a matching closing =]]=.
+
+** if command
+
+=if= is a command. It does not test/eval the expression, but the exit
+status of the command:
+
+#+begin_example
+$ if ls ./ 1> /dev/null 2>&1 ; then echo YES ; else echo NOPE ; fi
+YES
+
+$ if ls ./miss 1> /dev/null 2>&1 ; then echo YES ; else echo NOPE ; fi
+NOPE
+#+end_example
+
+The snippet =if [ -v my_var ]= does not mean the =[= is required syntax
+for the =if= command. No! =if= is a command, and so is =[= (alias for =test=
+built-in). Just that shells have long required a matching closing =]= so
+it looks like syntax, but it is actually a required argument for the =[=
+command.
+
+We can use the =[= command, to ask if a variable has been set:
+
+#+begin_example
+$ [ -v my_var ]
+$ echo $?
+1
+#+end_example
+
+No, in this shell session =my_var= has not been set.
+
+#+begin_example
+$ [ -v HOME ]
+$ echo $?
+0
+#+end_example
+
+Yes, =HOME= has been set!
+
+*REMEMBER*: In the shell, we don't test conditionals by evaluating
+expressions! We instead *check for the exit status of commands* (even
+though some commands do evaluate expressions).
+
+#+begin_example
+$ if [ -v my_var ] ; then echo YEP ; else echo NOPE ; fi
+NOPE
+
+$ if [ -v SHELL ] ; then echo YEP ; else echo NOPE ; fi
+YEP
+#+end_example
+
+
+*** elif
+
+#+begin_src bash
+#!/usr/bin/env bash
+
+if ls ./miss &> /dev/null
+then
+  echo IF OK
+elif ls ~/Public &> /dev/null
+then
+  echo ELIF OK
+else
+  echo NOPE...
+fi
+#+end_src
+
+*** Redirection
+
+A compound command shares I/O redirection resources:
+
+Considering a script like this:
+
+#+begin_src bash
+#!/usr/bin/env bash
+
+if ls ./miss &> /dev/null ; then
+  echo IF OK
+elif ls ~/Public &> /dev/null ; then
+  echo ELIF OK
+else
+  echo NOPE...
+fi 1> ./out.txt
+#+end_src
+
+Output:
+
+#+begin_example
+$ ./dev.sh
+$ cat ./out.txt
+ELIF OK
+#+end_example
+
+We don't need to redirect each individual command (if we don't want
+to), but instead, we can redirect the entire if/elif/else command as a
+whole.
+
+
+* Video 28 :: Compound Command `case'
+DATETIME: <2023-04-24 Mon 13:27>
+Stopped here!
+- [[https://www.youtube.com/watch?v=Qtz4JrmNuDg&list=PLXoSGejyuQGr53w4IzUzbPCqR4HPOHjAI&index=28][Intensivo de programação em Bash #28: O comando composto 'case']]
+

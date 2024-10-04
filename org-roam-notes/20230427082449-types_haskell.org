@@ -1,0 +1,165 @@
+:PROPERTIES:
+:ID:       1b191425-a614-4374-89ca-a99dc41530ab
+:END:
+#+title: Types :: Haskell
+#+STARTUP: content
+
+Haskell has three types of types:
+
+- Fully polimorphic, aka parametric polymorphic or unconstrained
+  polymorphic types.
+- Type class constrained types.
+- Concrete types.
+
+** Parametricity
+
+Parametricity is a property that says a function does not change
+behavior because of the parameters. For instance, the ~id~ and the ~const~
+work the same way no matter the type their parameters have:
+
+~id~ always return its argument unmodified, and ~const~ always return its
+/first/ argument unmodified.
+
+#+begin_example
+λ> :type id
+id :: a -> a
+λ> :type const
+const :: a -> b -> a
+
+λ> id 7
+7
+λ> id [1..3]
+[1,2,3]
+λ> id 'p'
+'p'
+
+λ> const 7 9
+7
+λ> const [1, 2, 3] [4, 5, 6]
+[1,2,3]
+λ> const 'p' 'q'
+'p'
+#+end_example
+
+* Intro to Type Classes
+
+Type classes are dispatched by type.
+
+Type classes are defined by the set of operations that all instances
+must provide.
+
+Type class /instances/ are unique pairings of a type class and a type
+(datatype).
+
+- A type class defines a set of functions and/or values.
+- Types have instances of that type class.
+- The instances specify the ways that type use functions of the type
+  class.
+
+* Ord
+
+Here's an excerpt of =:info Ord=:
+
+#+begin_example
+λ> :info Ord
+type Ord :: * -> Constraint
+class Eq a => Ord a where
+  compare :: a -> a -> Ordering
+  (<) :: a -> a -> Bool
+  (<=) :: a -> a -> Bool
+  (>) :: a -> a -> Bool
+  (>=) :: a -> a -> Bool
+  max :: a -> a -> a
+  min :: a -> a -> a
+#+end_example
+
+Note that =compare= returns =Ordering=, while the next four relational
+operators return =Bool=. For example:
+
+#+begin_example
+λ> 1 > 2
+False
+λ> compare 1 2
+LT
+
+λ> True > False
+True
+λ> compare True False
+GT
+#+end_example
+
+=True= is =GT= =False=. Proximally, this is due be to how =Bool= is defined:
+
+#+begin_example
+λ> :info Bool
+type Bool :: *
+data Bool = False | True
+#+end_example
+
+Because =True= comes /after/ =False= in the datatype definition, =True= is
+considered /greater than/ =False=.
+
+Philosophically, truthiness is better and greater than falseness.
+
+
+* Enum
+
+=Enum= are for things that are enumerable; their values have known and
+reasonable predecessors and successors.
+
+#+begin_example
+λ> :info Enum
+type Enum :: * -> Constraint
+class Enum a where
+  succ :: a -> a
+  pred :: a -> a
+  toEnum :: Int -> a
+  fromEnum :: a -> Int
+  enumFrom :: a -> [a]
+  enumFromThen :: a -> a -> [a]
+  enumFromTo :: a -> a -> [a]
+  enumFromThenTo :: a -> a -> a -> [a]
+  {-# MINIMAL toEnum, fromEnum #-}
+  	-- Defined in ‘GHC.Enum’
+instance Enum Word -- Defined in ‘GHC.Enum’
+instance Enum Ordering -- Defined in ‘GHC.Enum’
+instance Enum Integer -- Defined in ‘GHC.Enum’
+instance Enum Int -- Defined in ‘GHC.Enum’
+instance Enum Char -- Defined in ‘GHC.Enum’
+instance Enum Bool -- Defined in ‘GHC.Enum’
+instance Enum () -- Defined in ‘GHC.Enum’
+instance Enum Float -- Defined in ‘GHC.Float’
+instance Enum Double -- Defined in ‘GHC.Float’
+#+end_example
+
+* Show
+
+=Show= converts things to string to display on the terminal or some other
+device/file. It is NOT a serialization format, though.
+
+Many times in the REPL, =print= is called indirectly for us.
+
+#+begin_example
+λ> :type print
+print :: Show a => a -> IO ()
+λ> :info print
+print :: Show a => a -> IO () 	-- Defined in ‘System.IO’
+#+end_example
+
+The ~()~ type denotes an empty tuple, which we call /unit/. =Unit= is a value
+and also a type that has only one inhabitant, which represents /nothing/.
+
+Because printing does return a meaningful value, but Haskell is pure and
+functions have to return something, we return this ~()~ /unit/ empty tuple
+thing, which marks the end of execution and serves as a delimitation of
+side effects.
+
+NOTE: In Haskell, we use IO without the slash as in I/O.
+
+We invoke an IO action when we run ~main~ in our programs, but also when
+we print to the console/terminal.
+
+
+* Links and Resources
+
+- [[https://en.wikipedia.org/wiki/Parametric_polymorphism][Parametric Polymorphism :: Wikipedia]]

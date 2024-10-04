@@ -1,0 +1,220 @@
+:PROPERTIES:
+:ID:       c06cc7ba-671f-4889-8b71-8649f3cfe8ef
+:END:
+#+title: Lists :: Haskell
+#+STARTUP: content latexpreview
+
+* Intro
+Lists serve two main purposes in Haskell:
+
+- To express a collection/plurality of values.
+- As an infinite series of values, acting a stream type.
+
+* Type and Data Constructors for Lists
+
+#+begin_example
+ type constructor
+        ^
+       /
+      /
+     --
+data [] a = [] | a : [a]
+            --   -------
+            /       \
+           /         \
+          /           +--> cons cell data costructor
+         v
+nullary data constructor
+#+end_example
+
+The ~[] a~ before  is the type constructor. Then we have two data
+constructors. ~[]~ is the data constructor for the empty list, and ~a :
+[a]~ is data constructor to /cons/ (~:~) an element ~a~ into “more list of
+~a~​”.
+
+The type constructor is a sum type: either an empty list, *or* “an ~a~
+consed onto more list of ~a~.”
+
+The first data constructor ~[]~ for empty lists is a nullary data
+constructor and the second data constructor is a product type as we
+need an element ~a~ *and* and a list ~[a]~ to construct a value.
+
+The /cons cell/ is a conceptual space that values may inhabit.
+
+* Constructing a list
+
+To construct an empty list:
+
+#+begin_src haskell
+lst0 = []
+#+end_src
+
+To construct a non-empty list, we must /cons/ an element of some type
+$a$ onto “more list of that type $a$.”
+
+Some lists with one element:
+
+#+begin_example
+λ> l1a = 'z' : []
+λ> l1b = 1 : []
+λ> l1c = [] : []
+
+λ> :type l1a
+l1a :: [Char]
+λ> :type l1b
+l1b :: Num a => [a]
+λ> :type l1c
+l1c :: [[a]]
+
+λ> l1a
+"z"
+λ> l1b
+[1]
+λ> l1c
+[[]]
+#+end_example
+
+In all cases above, we /cons/ an element *into* the empty list using the
+cons operator (~:~).
+
+The last list is a list of lists. In this case, a list containing one
+empty list.
+
+Some lists with two or more elements:
+
+#+begin_example
+λ> 'A' : 'h' : 's' : 'o' : 'k' : 'a' : []
+"Ahsoka
+
+λ> 1 : 2 : 3 : []
+[1,2,3]
+#+end_example
+
+We MUST cons an element onto “more list”. These are not valid as we
+are not consing onto more list:
+
+#+begin_example
+λ> 1 : 2
+error
+
+λ> 'a' : 'b'
+error
+#+end_example
+
+We MUST cons onto more list, which means, we keep consing up to an
+existing list or the empty list.
+
+#+begin_example
+λ> ys = 3 : 4 : []
+λ> ys
+[3,4]
+λ> xs = 1 : 2 : ys
+λ> xs
+[1,2,3,4]
+#+end_example
+
+Note how ~ys~ is built by consing elements up to the empty list, and how
+~xs~ conses 1 and 2 onto ~ys~.
+
+
+* Ranges
+
+The basic syntax for creating ranges is by using the ~[x .. y]~ built-in
+syntax:
+
+#+begin_example
+λ> [1 .. 5]
+[1,2,3,4,5]
+λ> [5, 4 .. 1]
+[5,4,3,2,1]
+λ> ['a' .. 'f']
+"abcdef"
+λ> ['z', 'y' .. 'a']
+"zyxwvutsrqponmlkjihgfedcba"
+#+end_example
+
+The ~..~ syntax is built-in, but /desugars/ to methods from the ~Enum~ type
+class. See [[https://discord.com/channels/280033776820813825/505367988166197268/1108347301820379147][this Discord discussion]].
+
+On the 2010 Haskell Report, 6.3.4 The Enum Class also mentions 3.10
+Arithmetic Sequences, which defines the ~..~ syntax:
+
+#+ATTR_ORG: :width 680
+[[file:assets/org_20230517-080909_screenshot.png]]
+
+Ranges can be created only for types that have an instance of ~Enum~
+type class. The mandatory methods for ~Enum~ are precisely those which
+convert to/from an ~Int~. That is why we can range over ~Char~, since the
+underlying representation for chars is numeric:
+
+#+begin_example
+λ> fromEnum 'A'
+65
+#+end_example
+
+See sections [[https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1310006.3.4][6.3.4]] and [[https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-400003.10][3.10]] on the Haskell report.
+
+Ranges can potentially create an infinite set of values for types that
+do not have an upper and/or lower bound.
+
+TODO: minBound and maxBound for a type.
+
+* Basic standard list functions
+
+#+begin_example
+λ> :info head last init tail
+head :: [a] -> a      -- Defined in ‘GHC.List’
+last :: [a] -> a      -- Defined in ‘GHC.List’
+init :: [a] -> [a]    -- Defined in ‘GHC.List’
+tail :: [a] -> [a]    -- Defined in ‘GHC.List’
+λ> head []
+Exception: Prelude.head: empty list
+λ> last []
+Exception: Prelude.last: empty list
+λ> tail []
+Exception: Prelude.tail: empty list
+λ> init []
+Exception: Prelude.init: empty list
+#+end_example
+
+As we see, neither of ~head~, ~last~, ~init~ and ~tail~ are defined for empty
+lists. They are *not safe*.
+
+For a list of a single element, that element is both the first and the
+last element for the ~head~ and ~last~ functions:
+
+#+begin_example
+λ> head [1]
+1
+λ> last [1]
+1
+#+end_example
+
+But ~init~ and ~tail~ think of that element as being the head, or the
+last. So if in ~[1]~ that ~1~ is the head, or the last, there is nothing
+else in the list:
+
+#+begin_example
+λ> init [1]
+[]
+λ> tail [1]
+[]
+#+end_example
+
+With a string of one char:
+
+#+begin_example
+λ> s = "z"
+λ> head s
+'z'
+λ> last s
+'z'
+λ> init s
+""
+λ> tail s
+""
+#+end_example
+
+* References and Resources
+
+- [[https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1200006.1.3][Lists on Haskell 2010 Report]]
