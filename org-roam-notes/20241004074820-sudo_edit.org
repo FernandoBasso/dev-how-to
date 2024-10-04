@@ -1,0 +1,35 @@
+:PROPERTIES:
+:ID:       a6915133-0b5a-406b-aa89-9754a236eece
+:END:
+#+title: sudo edit
+#+STARTUP: content
+
+* sudo edit with vim and respect env vars
+
+We can edit a file with ~sudo~, but then vim, nvim, emacs, and other
+editors will not read the config files from the user. For example,
+this *will not* cause vim to open FILE with the user vim plugins,
+configs, colorschemes, etc.
+
+#+begin_src bash
+$ sudo vim FILE
+#+end_src
+
+But we can use the ~--preserve-env~ option (~-E~) for short.
+
+#+begin_src bash
+$ sudo -E vim FILE
+#+end_src
+
+This should preserve current shell environment so the editor
+configuration is respected when running with ~sudo~.
+
+It is also possible to use ~sudoedit~ (also part of the ~sudo~ package and
+man page, at least on Arch Linux), which will use the editor defined
+with one of the env vars ~VISUAL~, ~EDITOR~, or ~SUDO_EDITOR~.
+
+** References
+
+- ~man sudo~
+- [[https://man.archlinux.org/man/sudo.8][sudo man page]]
+
