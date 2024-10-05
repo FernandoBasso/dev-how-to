@@ -1,0 +1,24 @@
+:PROPERTIES:
+:ID:       411f7ac4-9376-4c0d-9cd5-910030c8aca6
+:END:
+#+title: Percentage :: Math
+#+startup: content latexpreview
+
+* Find percentage of a quantity
+
+** Example 1
+
+For example, “what is 25% of 60”?
+
+- Let \(n\) be the percent.
+- Let \(x\) be the base or quantity.
+- Let \(p\) be the percentage.
+
+Then, the formula is:
+
+- \(\frac{n}{100}\times{x} = \(p\)
+- \(\frac{25}{100}\times{60}=p\)
+- \(0.25\times{60}=p\)
+- \(15=p\)
+
+Therefore, 25% of 60 is 15, or 15 is 25% of 60.
