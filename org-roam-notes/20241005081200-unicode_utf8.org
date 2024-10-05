@@ -4,6 +4,65 @@
 #+title: Unicode and UTF-8
 #+startup: content
 
+* Useful Characters
+
+All characters are useful, of course, but here I list some that I find
+interesting and/or necessary to use in certain situations.
+
+| Symbol |        Hexadecimal | Unicode Symbol Name                        |
+|--------+--------------------+--------------------------------------------|
+| —      |               2014 | EM DASH                                    |
+| ␠      |               2420 | SYMBOL FOR SPACE                           |
+| ·      |                 b7 | MIDDLE DOT                                 |
+| ✓      |               2713 |                                            |
+| ✔     |               2714 |                                            |
+| ✖     |               2716 |                                            |
+| ✗      |               2717 |                                            |
+| 💩     |              1f4a9 |                                            |
+| 💩     |         0x0001f4a9 | pile of poo                                |
+| ‽      |               203d |                                            |
+| λ      |               03bb |                                            |
+| ←      |               2190 |                                            |
+| ↑      |               2191 |                                            |
+| →      |               2192 |                                            |
+| ↓      |               2193 |                                            |
+| ✔     |             0x2714 |                                            |
+| ✓      |             0x2713 |                                            |
+| ✗      |             0x2717 |                                            |
+| ‽      |             0x203d |                                            |
+| λ      |             0x03bb |                                            |
+|        |                    |                                            |
+| ‘      |             0x2018 |                                            |
+| ’      |             0x2019 |                                            |
+| “      |             0x201c |                                            |
+| ”      |             0x201d |                                            |
+| 🐧     | 0x0001f427 penguin |                                            |
+| •      |             0x2022 |                                            |
+| ☺     |               263a |                                            |
+| ☻      |               263b |                                            |
+| ♩      |               2669 | QUARTER NOTE                               |
+| ♪      |               266A | EIGHTH NOTE                                |
+| ♫      |               266B | BEAMED EIGHTH NOTES                        |
+| ♭      |               266D | MUSIC FLAT SIGN                            |
+| ♮      |               266E | MUSIC NATURAL SIGN                         |
+| ♯      |               266F | MUSIC SHARP SIGN                           |
+| «      |                 ab | LEFT-POINTING DOUBLE ANGLE QUOTATION MARK  |
+| »      |                 bb | RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK |
+| ¼      |                 bc | VULGAR FRACTION ONE QUARTER                |
+| ½      |                 bd | VULGAR FRACTION ONE HALF                   |
+| ¾      |                 be | VULGAR FRACTION THREE QUARTERS             |
+| ⍽      |               237d | shouldered open box, indicates NBSP.       |
+| ·      |                 b7 | interpunct &middot;                        |
+| ␠      |               2420 | SYMBOL FOR SPACE                           |
+
+** HTML Entities
+
+| Entity | Name                      |
+|--------+---------------------------|
+| &nbsp; | non-breaking space        |
+| &ensp; | two non-breaking spaces   |
+| &emsp; | three non-breaking spaces |
+
 * Songs
 
 Some pieces of lyrics from some songs that I sometimes would send on a
