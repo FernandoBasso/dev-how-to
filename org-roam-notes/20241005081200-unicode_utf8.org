@@ -1,0 +1,57 @@
+:PROPERTIES:
+:ID:       b02c3b7f-2bcc-4f67-a90f-a4b5ee6c5701
+:END:
+#+title: Unicode and UTF-8
+#+startup: content
+
+* Songs
+
+Some pieces of lyrics from some songs that I sometimes would send on a
+chat, and wanted to have the verse decorated with some music notation.
+
+Some I would send to my wife from time to time.
+
+** The Free Software Song by Richard Stallman
+
+- [[https://www.gnu.org/music/free-software-song.en.html][Free Software Song on www.gnu.org]].
+
+#+begin_quote
+♫ Join us and share the software, ♪
+♪ you'll be free hackers... ♩ ♬
+
+♫ ♩ Join us now and share the software; You'll be free, hackers, you'll be free. ♬ ♭ ♪
+#+end_quote
+
+** Linda
+
+By the group Roupa Nova.
+
+#+begin_quote
+♫ ♩ Linda, só você me fascina! ♬ ♪ ♭
+#+end_quote
+
+** Coração Pirata
+
+By the group Roupa Nova.
+
+#+begin_quote
+♫ ♩
+As pessoas se convencem, de que a sorte me ajudou
+Mas plantei cada semente, que o meu coração desejou
+♬ ♭ ♪
+#+end_quote
+
+** Te Amo Guria
+
+A song by “Grupo Minuano”, from a time where Brazil south music had
+not become a pile of crap and noise (like most “popular” music in the
+recent decades).
+
+#+begin_quote
+♫ ♩ ♬ ♭ ♪
+♫ ♩ Eu te amo, te amo demais
+Teu amor só me traz alegria
+O teu corpo é minha querência
+O meu céu minha estrela guia ♬ ♪
+#+end_quote
+
