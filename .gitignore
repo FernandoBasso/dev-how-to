@@ -21,6 +21,8 @@
 \#*\.org\#
 \.#*\.org
 org-roam-notes/ltximg
+org-roam-notes/*.pdf
+org-roam-notes/*.tex
 
 #
 # Exclude these Asciidoctor generated files in any subdirectory
