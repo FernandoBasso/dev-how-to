@@ -3,8 +3,7 @@
 :END:
 #+title: Org-mode
 
-- [[id:38192412-1843-4FB2-97C6-5F643CC5EA01][Org-mode-Tips]]
--
+- [[id:38192412-1843-4FB2-97C6-5F643CC5EA01][Org mode Tips]]
 
 ~org-roam-find-node~ is not doing case-insensitive search. Seems like it
 depends on how the backend is configured to operate, since org-roam
@@ -25,3 +24,6 @@ https://list.orgmode.org/orgmode/87ee7c9quk.fsf@localhost/
 [[file:assets/org_20230429-130426_screenshot.png]]
 
 
+* Resources on practical uses and ideas for using org-mode
+
+- [[https://github.com/fniessen/refcard-org-mode/blob/master/README.org][fniessen/refcard-org-mode on Github]].

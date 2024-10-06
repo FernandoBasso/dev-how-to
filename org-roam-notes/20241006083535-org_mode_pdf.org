@@ -1,0 +1,28 @@
+:PROPERTIES:
+:ID:       b571b82f-be7f-45b0-bf75-e9aa583af190
+:END:
+#+title: Org-mode PDF
+#+startup: content
+#+latex_header
+-*- mode: Org; org-download-image-dir: "./__assets"; -*-
+
+
+* Red borders around PDF ToC elements
+
+
+#+DOWNLOADED: screenshot @ 2024-10-06 08:42:42
+[[file:__assets/org_20241006-084242_org-pdf-uggly-red-borders-on-toc.png]]
+
+
+One solution is to do it on a per buffer basis:
+
+#+begin_example
+#+latex_header: \hypersetup{colorlinks=true,linkcolor=black}
+#+end_example
+
+** References
+
+- [[https://emacs.stackexchange.com/questions/29640/how-do-i-get-rid-of-the-red-boxes-around-the-links-in-the-toc][How do I get rid of the red boxes around the links in the TOC?
+  (Emacs on Stack Exchange)]].
+- [[https://emacs.stackexchange.com/questions/12878/how-to-change-style-of-hyperlinks-within-pdf-published-from-org-mode-document][How to change style of hyperlinks within PDF published from org-mode document? (Emacs on Stack Exchange)]].
+
