@@ -1,7 +1,7 @@
 :PROPERTIES:
 :ID:       411f7ac4-9376-4c0d-9cd5-910030c8aca6
 :END:
-#+title: Percentage :: Math
+#+title: Percentage | Math
 #+startup: content latexpreview
 #+latex_header: \hypersetup{colorlinks=true,linkcolor=black}
 
@@ -21,9 +21,8 @@ What is 25% of 60? We know the percentage \(p\) 25, 60 is the base
 \(b\), and we want to find the percentage \(n\).
 
 Then, the formula is:
-#+begin_center
-\(\frac{n}{100} \times {x} = p\)
-#+end_center
+
+\[\frac{n}{100} \times {x} = p\]
 
 Substituting and solving:
 
@@ -44,9 +43,7 @@ We know that the percentage \(n\) is 15, and that the base or quantity
 
 Then, the formula is:
 
-#+begin_center
-\(\frac{n}{b}\times{100} = p\)
-#+end_center
+\\frac{n}{b}\times{100} = p\]
 
 Substituting and solving:
 
@@ -65,9 +62,8 @@ is 25. We want to find the base (or quantity) \(b\).
 
 The formula is:
 
-#+begin_center
-\(\frac{n}{p}\times{100} = b\)
-#+end_center
+\[\frac{n}{p}\times{100} = b\]
+
 
 Substituting and solving:
 
