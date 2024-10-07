@@ -1,9 +1,7 @@
-:PROPERTIES:
-:ID:       ec191a7a-983a-4fed-a657-cbb4b29ae1ec
-:END:
 #+title: Pandoc
+#+startup: content
 
-* Find then md to org
+* Find .md and convert to .org               :find:markdown:org:mode:convert:
 
 #+begin_example
 $ find . -name '*.md' \

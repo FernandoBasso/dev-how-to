@@ -4,6 +4,7 @@
 #+CREATED_AT: <2023-05-05 Fri 08:33>
 #+UPDATED_AT:
 #+title: Maybe | Haskell
+#+keywords: haskell maybe option
 #+STARTUP: content
 
 * Maybe

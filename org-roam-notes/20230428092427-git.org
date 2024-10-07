@@ -3,6 +3,7 @@
 :END:
 #+title: Git
 #+STARTUP: content
+#+KEYWORDS: git tips tricks
 
 * Amend with current date
 

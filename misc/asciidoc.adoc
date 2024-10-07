@@ -10,11 +10,10 @@
 
 == Introduction
 
-AsciiDoc is the best markup language. It is simpler as Markdown for the simple things, while also offering way more useful, powerful and advanced features if when they are needed.
+AsciiDoc is the best markup language.
+It is simpler as Markdown for the simple things, while also offering way more useful, powerful and advanced features if when they are needed.
 
-== Preview
-
-== Markdown to Asciidoc
+== Convert Markdown to AsciiDoc
 
 Use kramdown, which is better suited than pandoc as it has more AsciiDoc-sensible options.
 

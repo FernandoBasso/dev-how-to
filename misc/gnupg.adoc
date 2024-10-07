@@ -30,7 +30,7 @@ At this point you can remove the original .txt file.
 
 [WARNING]
 ====
-If you forget your password, your will not be able to recover its contents.
+If you forget your password, your will NOT be able to recover its contents.
 ====
 
 == Import secret key to another computer (method 1)

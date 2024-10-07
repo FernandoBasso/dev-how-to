@@ -58,8 +58,3 @@ And a string literal compared with a string object with the same contents is als
 #+END_SRC
 
 Not that only ~new String()~ produces a real string object. ~num.toString()~ and ~String(num)~ both produce string literals.
-
-
-
-
-
