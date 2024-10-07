@@ -1,7 +1,7 @@
 :PROPERTIES:
 :ID:       1b191425-a614-4374-89ca-a99dc41530ab
 :END:
-#+title: Types :: Haskell
+#+title: Types | Haskell
 #+STARTUP: content
 
 Haskell has three types of types:

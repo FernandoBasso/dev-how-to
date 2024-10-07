@@ -13,11 +13,11 @@
 
 ** My Notes
 
-- [[id:c06cc7ba-671f-4889-8b71-8649f3cfe8ef][Lists :: Haskell]]
-- [[id:4afc76db-9f5a-40c1-84b9-62da262e7f77][Strings :: Haskell]]
-- [[id:1b191425-a614-4374-89ca-a99dc41530ab][Type :: Haskell]]
-- [[id:d95ee5f0-4faa-4638-b369-b08ce69cde4d][Bottom :: Haskell]]
-- [[id:2a477b10-e77c-4ae5-8442-8b48e904ca02][Maybe :: Haskell]]
+- [[id:c06cc7ba-671f-4889-8b71-8649f3cfe8ef][Lists | Haskell]]
+- [[id:4afc76db-9f5a-40c1-84b9-62da262e7f77][Strings | Haskell]]
+- [[id:1b191425-a614-4374-89ca-a99dc41530ab][Types | Haskell]]
+- [[id:d95ee5f0-4faa-4638-b369-b08ce69cde4d][Bottom | Haskell]]
+- [[id:2a477b10-e77c-4ae5-8442-8b48e904ca02][Maybe | Haskell]]
 
 ** Wiki, Docs, Manual
 

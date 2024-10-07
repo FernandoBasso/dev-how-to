@@ -4,15 +4,11 @@
 #+title: Org-mode PDF
 #+startup: content
 #+latex_header
--*- mode: Org; org-download-image-dir: "./__assets"; -*-
-
 
 * Red borders around PDF ToC elements
 
-
 #+DOWNLOADED: screenshot @ 2024-10-06 08:42:42
 [[file:__assets/org_20241006-084242_org-pdf-uggly-red-borders-on-toc.png]]
-
 
 One solution is to do it on a per buffer basis:
 

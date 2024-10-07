@@ -3,7 +3,7 @@
 :CREATED_AT: <2023-05-05 Fri 07:39>
 :UPDATED_AT: <2023-05-05 Fri 08:32>
 :END:
-#+title: Bottom :: Haskell
+#+title: Bottom | Haskell
 #+startup: content
 
 * bottom (⊥)

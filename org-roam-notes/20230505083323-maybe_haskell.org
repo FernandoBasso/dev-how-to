@@ -3,7 +3,7 @@
 :END:
 #+CREATED_AT: <2023-05-05 Fri 08:33>
 #+UPDATED_AT:
-#+title: Maybe :: Haskell
+#+title: Maybe | Haskell
 #+STARTUP: content
 
 * Maybe

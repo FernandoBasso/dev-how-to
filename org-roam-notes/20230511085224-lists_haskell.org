@@ -1,7 +1,7 @@
 :PROPERTIES:
 :ID:       c06cc7ba-671f-4889-8b71-8649f3cfe8ef
 :END:
-#+title: Lists :: Haskell
+#+title: Lists | Haskell
 #+STARTUP: content latexpreview
 
 * Intro
