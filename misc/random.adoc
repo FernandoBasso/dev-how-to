@@ -12,8 +12,9 @@ Or a bash script:
 
 [source,bash]
 ----
-pw-owasp is a function
-pw-owasp ()
+$ type pw-owasp
+$ pw-owasp is a function
+$ pw-owasp ()
 {
   cat /dev/urandom | tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' | head -c "$1" | tr -d '\n'
 }
