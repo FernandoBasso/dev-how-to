@@ -26,13 +26,22 @@ C-x b *Me TAB
 
 * Elpa and tar problems in macOS
 
-Some tar-related errors on macOS when setting up emacs on macos? Maybe
-simply installing ~gnu-tar~ helps (assuming it is then found in the
-path), which is a shell thing)j:
+Some tar-related errors on macOS when setting up Emacs? Maybe simply
+installing ~gnu-tar~ helps (assuming it is then found in the path),
+which is a shell thing):
 
-#+begin_src bash
-brew install gnu-tar
+#+begin_src shell
+$ brew install gnu-tar
 #+end_src
 
 See [[https://github.com/quelpa/quelpa/issues/206][passing nil to tar--check-descriptor (quelpa github issues)]] for
 more info.
+
+* adoc-mode
+
+To use Asciidoctor’s recommended “one sentence per line” style, we
+must disable automatic wrapping. It can be achieved by disabling
+~auto-fill-mode~.
+
+- [[https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line][Once sentence per line (Asciidoctor docs)]].
+

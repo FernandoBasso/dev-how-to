@@ -94,7 +94,7 @@ One can preview AsciiDoc rendered document in many ways, including editors, brow
 
 * link:https://addons.mozilla.org/en-US/firefox/addon/asciidoctorjs-live-preview/[Asciidoctor.js live preview addon for Firefox^].
 
-== Writing Best  Practices
+== Writing Best Practices
 
 Do follow the link:https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[one sentence per line^] approach.
 
@@ -124,3 +124,29 @@ image:__assets/reserved-words.png[OpenGroup POSIX Spec on Reserved Words].
 ----
 
 Then the image preview worked as expected.
+
+=== Ventilated Prose (aka “one sentence per line”)
+
+Don’t wrap text at a fixed column width.
+Instead, put each sentence on its own line, a technique called
+sentence per line.
+This technique is similar to how you write and organize source code.
+The result can be spectacular.
+
+Here are some of the advantages of using the sentence per line style:
+
+* It prevents reflows (meaning a change early in the paragraph won’t cause the remaining lines in the paragraph to reposition).
+* You can easily swap sentences.
+* You can easily separate or join paragraphs.
+* You can comment out sentences or add commentary to them.
+* You can spot sentences which are too long or sentences that vary widely in length.
+* You can spot redundant (and thus mundane) patterns in your writing.
+
+We picked up this idea from the writing guide in the Neo4j documentation.
+However, it seems like the idea dates back a discovery by Buckminster Fuller in the 1930s, who called it link:https://vanemden.wordpress.com/2009/01/01/ventilated-prose/[ventilated prose].
+ The technique was also recommended in 2009 by Brandon Rhodes in a blog post about link:https://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds^].
+
+It’s important to note that this technique works because AsciiDoc doesn’t treat wrapped lines in prose as hard line breaks.
+ At least, it doesn’t show up that way to the reader.
+ The line breaks between contiguous lines of prose will not be visible in the rendered document (i.e., as the reader sees it).
+While a single line break doesn’t appear in the output, two consecutive line breaks starts a new paragraph (or other block).
