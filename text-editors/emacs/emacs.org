@@ -24,4 +24,15 @@ M-x org-version RET
 C-x b *Me TAB
 #+end_src
 
+* Elpa and tar problems in macOS
 
+Some tar-related errors on macOS when setting up emacs on macos? Maybe
+simply installing ~gnu-tar~ helps (assuming it is then found in the
+path), which is a shell thing)j:
+
+#+begin_src bash
+brew install gnu-tar
+#+end_src
+
+See [[https://github.com/quelpa/quelpa/issues/206][passing nil to tar--check-descriptor (quelpa github issues)]] for
+more info.
