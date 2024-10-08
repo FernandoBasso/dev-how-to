@@ -1,10 +1,10 @@
 = Introduction to Unix Command Line
 :page-subtitle: Command Line
-:imagesdir: __assets
+//:imagesdir: __assets
 
 == Intro
 
-image::bash-help-1.png[Bash Help Command Line]
+image::__assets/bash-help-1.png[Bash Help Command Line]
 
 Command line tools have NOT faded out into the past. They have kept
 consistently evolving and being improved. They still do! A lot of GUI
@@ -30,17 +30,14 @@ tools and the Bash shell unless otherwise noted.
 
 == Single Unix Specification (SUS)
 
-* https://pubs.opengroup.org/onlinepubs/9699919799/idx/xbd.html[XBD:
-Base Definitions]
-* https://pubs.opengroup.org/onlinepubs/9699919799/idx/xsh.html[XSH:
-System Interfaces and XBD Headers]
-* https://pubs.opengroup.org/onlinepubs/9699919799/idx/xcu.html[XCU:
-Shell and Utilities (Commands and Utilities)]
+* https://pubs.opengroup.org/onlinepubs/9699919799/idx/xbd.html[XBD:Base Definitions]
+* https://pubs.opengroup.org/onlinepubs/9699919799/idx/xsh.html[XSH:System Interfaces and XBD Headers]
+* https://pubs.opengroup.org/onlinepubs/9699919799/idx/xcu.html[XCU:Shell and Utilities (Commands and Utilities)]
 
 More info on the link
 https://pubs.opengroup.org/onlinepubs/9699919799[The Open Group Base
-Specifications Issue 7&#44; 2018 edition]. There is also a question about
-the
+Specifications Issue 7&#44; 2018 edition]. There is also a question
+about the
 https://unix.stackexchange.com/questions/14368/difference-between-posix-single-unix-specification-and-open-group-base-specifi/14369[difference
 between SUS and Open Group].
 

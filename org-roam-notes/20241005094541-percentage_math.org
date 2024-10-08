@@ -2,8 +2,7 @@
 :ID:       411f7ac4-9376-4c0d-9cd5-910030c8aca6
 :END:
 #+title: Percentage | Math
-#+startup: content latexpreview
-#+latex_header: \hypersetup{colorlinks=true,linkcolor=black}
+#+startup: overview nolatexpreview
 
 * Introduction
 
@@ -73,3 +72,16 @@ Substituting and solving:
 
 Therefore, 15 is 25% of 60.
 
+#+begin_src haskell
+type Maybe a = Just a | None
+f :: Int -> Int -> Int
+f x y = (+) x y
+#+end_src
+
+* Other symbols
+
+Gamma is \Gamma and alpha is \alpha. We can also try Beta \Beta and beta \beta.
+
+** Even more symbols
+
+\otimes and \check, \oplus the \checkmark should be fine too! “\Dagger”

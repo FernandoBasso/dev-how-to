@@ -2,7 +2,7 @@
 :ID:       b571b82f-be7f-45b0-bf75-e9aa583af190
 :END:
 #+title: Org-mode PDF
-#+startup: content
+#+startup: overview latexcontent
 #+latex_header
 
 * Red borders around PDF ToC elements
