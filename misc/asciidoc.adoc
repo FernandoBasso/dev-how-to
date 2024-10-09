@@ -1,11 +1,10 @@
 = AsciiDoc
 :page-tags: asciidoc asciidoctor markup markdown
-:imagesdir: __assets
 :toc: right
 :icons: font
-:latexmath:
 :toc: left
 :icons: font
+:latexmath:
 :experimental:
 
 == Introduction
@@ -98,3 +97,30 @@ One can preview AsciiDoc rendered document in many ways, including editors, brow
 == Writing Best  Practices
 
 Do follow the link:https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[one sentence per line^] approach.
+
+== AsciiDoc on Emacs
+
+Check link:https://github.com/bbatsov/adoc-mode[adoc-mode^].
+
+=== adoc-mode image preview not working
+
+I had a problem where the image preview was not working.
+
+The reason was the characters ++&#44;++ inside the alt description of the image that causing some parsing issue or something.
+Removing some of those symbols caused the image preview to start working as expected.
+
+I ended up turning this:
+
+[source,text]
+----
+image:__assets/reserved-words.png[OpenGroup POSIX Spec&#44; on Reserved Words]
+----
+
+To this:
+
+[source,text]
+----
+image:__assets/reserved-words.png[OpenGroup POSIX Spec on Reserved Words].
+----
+
+Then the image preview worked as expected.

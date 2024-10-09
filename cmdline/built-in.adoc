@@ -20,7 +20,7 @@ Note, especially, this line:
 [quote, posix spec]
 If the command name matches the name of a utility listed in the following table, *the results are unspecified*."
 
-image:./__assets/posix-spec-reserved-words.png[OpenGroup POSIX Spec on Reserved Words].
+image:__assets/posix-spec-reserved-words.png[OpenGroup POSIX Spec on Reserved Words].
 
 * link:https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_09_01_01[OpenGroup POSIX spec on shell reserved words^].
 
