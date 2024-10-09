@@ -20,6 +20,8 @@
 #
 \#*\.org\#
 \.#*\.org
+\.#*\.adoc
+\#*\.adoc\#
 org-roam-notes/ltximg
 org-roam-notes/*.pdf
 org-roam-notes/*.tex
