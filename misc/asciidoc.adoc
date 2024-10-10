@@ -9,12 +9,13 @@
 
 == Introduction
 
-AsciiDoc is the best markup language.
+AsciiDoc is the best non-html-like markup language.
 It is simpler as Markdown for the simple things, while also offering way more useful, powerful and advanced features if when they are needed.
 
 == Convert Markdown to AsciiDoc
 
-Use kramdown, which is better suited than pandoc as it has more AsciiDoc-sensible options.
+To convert from Markdown to AsciiDoc, use kramdown.
+It is better suited than pandoc as it has more AsciiDoc-sensible options.
 
 [source,shell-session]
 ----
