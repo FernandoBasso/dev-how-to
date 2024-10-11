@@ -1,0 +1,154 @@
+= Newline
+:page-subtitle: Operating Systems
+:page-tags: newline operating-systems
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+:imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Introduction
+
+Different operating systems use different control characters to represent the so-called “newline” (aka “end of line” (EOL), line ending, etc).
+
+Peruse the link:https://en.wikipedia.org/wiki/Newline[Newline article on Wikipedia^] for history and further info on newline.
+
+[NOTE]
+====
+It seems no one currently alive knows how newlines are represented in the GLaDOS operating system.
+====
+
+== Visualizing newline control characters
+
+=== cat
+
+The `cat` utility features some useful options related to displaying control characters:
+
+.excerpt from man cat
+[source,text]
+----
+-A, --show-all
+      equivalent to -vET
+
+-e     equivalent to -vE
+
+-E, --show-ends
+      display $ at end of each line
+
+-t     equivalent to -vT
+
+-T, --show-tabs
+      display TAB characters as ^I
+
+-v, --show-nonprinting
+      use ^ and M- notation, except for LFD and TAB
+----
+
+Example:
+
+[source,shell-session]
+----
+$ ls -1
+poem.dos.txt
+poem.unix.txt
+
+$ cat -vE ./poem.dos.txt
+Roses a #ff0000^M$
+Violets are #0000ff^M$
+And if you can read this^M$
+You are a nerd too^M$
+
+$ cat -vE ./poem.unix.txt
+Roses a #ff0000^M$
+Violets are #0000ff^M$
+And if you can read this^M$
+You are a nerd too^M$
+----
+
+=== file
+
+[source,shell-session]
+----
+$ file *.txt
+poem.dos.txt:  ASCII text, with CRLF line terminators
+poem.unix.txt: ASCII text
+----
+
+== Converting files from CRLF to LF and vice-versa
+
+=== vim
+
+Suppose we have `quote.txt` with CRLF (DOS/Windows) line endings:
+
+[source,shell-session]
+----
+$ cat -e quote.txt
+He who makes a beast of himself gets^M$
+rid of the pain of being a man.^M$
+----
+
+Then, we open the file in vim:
+
+[source,text]
+----
+$ vim quote.txt
+----
+
+And save it under the ‘unix’ file format:
+
+[source,text]
+----
+:write ++fileformat=unix
+:quit
+----
+
+Inspecting the file again should show it is now contain the Unix LF (`\n`) line endings:
+
+[source,shell-session]
+----
+$ cat -e quote.txt
+He who makes a beast of himself gets$
+rid of the pain of being a man.$
+----
+
+And to convert line endings to CRLF (`\r\n`), open the file in vim and use the ‘dos’ file format to save it:
+
+[source,shell-session]
+----
+:write ++fileformat=dos
+:quit
+----
+
+References:
+
+* Vim `:help usr_23.txt` (DOS, Mac and Unix files).
+* link:https://vim.fandom.com/wiki/File_format[Vim wiki page on file format^].
+
+=== dos2unix
+
+It is also possible to use the `dos2unix` utility, which provides the `dos2unix` program, _but also_ the `unix2dos` program!
+
+[source,shell-session]
+----
+$ cat -e quote.txt
+He who makes a beast of himself gets^M$
+rid of the pain of being a man.^M$
+
+$ dos2unix quote.txt
+dos2unix: converting file quote.txt to Unix format
+
+$ unix2dos quote.txt
+unix2dos: converting file quote.txt to DOS format
+----
