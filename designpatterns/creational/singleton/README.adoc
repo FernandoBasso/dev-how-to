@@ -1,0 +1,25 @@
+= Singleton | Creational Patterns
+:page-subtitle: Design Patterns
+:page-tags: design-patterns singleton creational
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+:imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== The Singleton creational pattern
+
+The singleton pattern makes sure a single instance of an object is ever created.
+On the first use, the object is created, and on subsequent uses, the existing stance with its current state is returned.
