@@ -34,9 +34,9 @@ Example:
 .hello_test.go
 [source,go]
 ----
-package 'hello'
+package hello
 
-import 'testing'
+import "testing"
 
 func TestHelloWorld(t *testing.T) {
 	expected := "Hello, World!"
@@ -94,6 +94,9 @@ $ go test -v -cover -run 'Triangle'
 
 `golangci-lint` can be installed from link:https://aur.archlinux.org/packages?K=golangci[AUR on Arch Linux^], or from the command line as per the link:https://golangci-lint.run/welcome/install/#binaries[install docs^].
 
+== Bits of Go knowledge
+
+In Go, we can initialize a pointer to a struct as `nil`, but we cannot initialize a struct as `nil`.
 
 == End
 
