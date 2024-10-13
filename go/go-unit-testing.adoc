@@ -138,3 +138,9 @@ And the problem is that the previous subtest invokes `AddOne()` once, and value 
 This is not a problem with the singleton itself, which is supposed to be shared anyway (“Hey, that is what a singleton should do, right?”), but they way tests and subtests work in Go.
 The tests and subtests *do not* run like if they were individual programs (like in some other testing libraries in other languages).
 In the tests above, `counter`, `ref1` and `ref2` are all the same reference even though they are on their own blocks.
+So the `counter` we assigned in the first subtest creates an instance in memory which is shared with the other subtests.
+
+Initially, we could think each test and each subtest should behave like its own, individual program, with its own memory allocation.
+But that is not the case.
+In reality, all tests of a single package behave like a single, individual program.
+And that is so true we can even define a `TestMain` for every individual package.
