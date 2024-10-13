@@ -1,0 +1,62 @@
+= Search Text By Tags
+:page-tags: search text tags regex pattern string
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+:imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Introduction
+
+I annotate a lot of my notes and study code with a comment line that contains string “tags: TAG...”.
+
+In AsciiDoc it could be something like “page-tags: TAG...” or an attribute on a heading or some other element like “data-tags="TAG..."
+
+To search for files, examples and notes containing those tags, a few solutions are possible.
+
+Remember that in most regex engines, a “word” can be delimited with `\bWORD\b` to match words exactly (so that `\bcat\b` matches “cat” a string like “My cat is cute.”, but does not match “cat” in “A catpult was used.”)
+
+=== ripgrep
+
+So for example to search for ‘ruby’ _and_ ‘enum’ (in any order), either of these would work:
+
+[source,shell-session]
+----
+$ rg 'tags:.*ruby' | rg 'tags:.*enum'
+$ rg 'tags:.*enum' | rg 'tags:.*ruby'
+----
+
+== ugrep
+
+`upgrep` supports `--and` without requiring pipes.
+
+So for example to search for ‘ruby’ _and_ ‘enum’ (in any order), either of these would work:
+
+[source,shell-session]
+----
+$ ugrep -e 'tags.*' --and 'ruby' --and 'enum'
+$ ugrep -e 'tags.*' --and 'enum' --and 'ruby'
+----
+
+=== VS Code
+
+Enabling searches with regex, both of these examples search for ‘ruby’ _and_ ‘enum’ (in any order):
+
+.With VSCode regex text search
+[source,text]
+----
+tags.*(?=.*enum)(?=.*ruby)
+tags.*(?=.*ruby)(?=.*enum)
+----
