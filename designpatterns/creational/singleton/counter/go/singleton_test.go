@@ -3,26 +3,45 @@ package singleton
 import "testing"
 
 func TestGetInstance(t *testing.T) {
-	counterRef1 := GetInstance()
+	t.Run("create instance correctly", func(t *testing.T) {
+		counter := GetInstance()
 
-	if counterRef1 == nil {
-		t.Error("Expected Singleton instance, got nil")
-	}
+		if counter == nil {
+			t.Error("Expected Singleton instance, got nil")
+		}
+	})
 
-	currentCount := counterRef1.AddOne()
+	t.Run("always returns he same reference", func(t *testing.T) {
+		ref1 := GetInstance()
+		ref2 := GetInstance()
 
-	if currentCount != 1 {
-		t.Errorf("want %d for first call, got %d", 1, currentCount)
-	}
+		if ref1 != ref2 {
+			t.Error("Counters are not the same reference to the same instance")
+		}
+	})
 
-	counterRef2 := GetInstance()
-	if counterRef2 != counterRef1 {
-		t.Error("Counters are not the same instance")
-	}
+	t.Run("returns correct value on first call", func(t *testing.T) {
+		count := GetInstance().AddOne()
 
-	currentCount = counterRef2.AddOne()
+		if count != 1 {
+			t.Errorf("Want 1 for first call, got %d", count)
+		}
+	})
 
-	if currentCount != 2 {
-		t.Errorf("want %d for second call, got %d", 2, currentCount)
-	}
+	t.Run("returns correct value on each subsequent call", func(t *testing.T) {
+		counter := GetInstance()
+
+		/*
+		 * NOTE: Go seems to treat all tests and subtests as part of one
+		 * program.  Thus, the value of the counter has already been
+		 * incremented once from the previous subtest when we called
+		 * AddOne() for the first time.
+		 */
+		_ = counter.AddOne()
+		count := counter.AddOne()
+
+		if count != 3 {
+			t.Errorf("Want 3 for third call, got %d", count)
+		}
+	})
 }
