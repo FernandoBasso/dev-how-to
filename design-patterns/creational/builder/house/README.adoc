@@ -1,0 +1,39 @@
+= House Example for Builder creational pattern
+:page-subtitle: Design Patterns
+:page-tags: design-patterns builder creational
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+:imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Run
+
+[source,shell-session]
+----
+$ go run *.go
+----
+
+Or:
+
+[source,shell-session]
+----
+$ go run .
+----
+
+== References
+
+* https://refactoring.guru/design-patterns/builder
+* https://refactoring.guru/design-patterns/builder/go/example
