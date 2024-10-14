@@ -1,0 +1,27 @@
+= Builder | Creational Patterns
+:page-subtitle: Design Patterns
+:page-tags: design-patterns builder creational
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+:imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== The Builder creational pattern
+
+The builder patterns helps construct complex objects without having to explicitly instantiate its values or writing the entire logic they require.
+And we don't want to force consumers of those objects to have to do all that setup.
+
+Object creation can be really simple, with default values, or complex if an object needs results from network requests, state checks, create nested objects for certain fields, etc.
