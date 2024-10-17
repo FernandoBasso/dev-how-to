@@ -29,7 +29,7 @@ In these examples we will use:
 
 === Example 1
 
-What is 25% of 60? We know the percentage stem:[p] 25, 60 is the base stem:[b], and we want to find the percentage stem:[n].
+What is 25% of 60? We know 25 the percent stem:[p], 60 is the base stem:[b], and we want to find the percentage stem:[n].
 
 Then, the formula is:
 
@@ -52,7 +52,8 @@ Therefore, 25% of 60 is 15, or 15 is 25% of 60.
 
 15 is what percent of 60?
 
-We know that the percentage stem:[n] is 15, and that the base or quantity stem:[b] is 60. We want to find percent stem:[p].
+We know that the percentage stem:[n] is 15, and that the base or quantity stem:[b] is 60.
+We want to find percent stem:[p].
 
 Then, the formula is:
 
@@ -74,7 +75,8 @@ Therefore, 15 is 25% of 60.
 15 is 25% of what quantity?
 
 We know the percentage stem:[n] is 15, and that the percent stem:[p]
-is 25. We want to find the base (or quantity) stem:[b].
+is 25.
+We want to find the base (or quantity) stem:[b].
 
 The formula is:
 
