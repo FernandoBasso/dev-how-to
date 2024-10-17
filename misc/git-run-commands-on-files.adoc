@@ -129,7 +129,7 @@ We had better use `--porcelain` to get a more “easy-to-parce format for script
 See `git status --help` then search for `--porcelain`:
 
 .excerpt from git status --help
-[source,text
+[source,text]
 ----
 --porcelain[=<version>]
    Give the output in an easy-to-parse format for scripts. This is
@@ -159,7 +159,7 @@ $ git status --short --porcelain | grep '\.png$'
 ?? __assets/bash-help-null-command-2023-09-06T11-28-27-441Z.png
 ----
 
-And then we use `cut` to get the second field delimited on space:
+And then we use `cut` to get the second field delimited by a space:
 
 [source,shell-session]
 ----
