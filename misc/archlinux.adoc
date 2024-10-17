@@ -3,6 +3,13 @@
 :toc:
 :icons: font
 
+== Intro
+
+My Arch Linux machine on October 17, 2024.
+Here I am using Kitty with Source Code Pro Nerd font.
+
+image::__assets/archlinux-october-17-2024.png[My Arch Linux machine on October 17, 2024]
+
 == Date and Time
 
 Had to reset BIOS CMOS.
