@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+##
+# The script may work from any directory inside the project depending
+# on how it is run (bash, source, git hook run, etc.), but the more
+# sure way is to run from the root directory of the project.
+#
+./scripts/run_optipng_on_changed_images.sh
+
+#
+# vim: set filetype=sh:
+#
