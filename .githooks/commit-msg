@@ -82,6 +82,11 @@ commit_types=(
 	# ideas and further content. Except I write in TypeScript.
 	#
 	algdsts
+
+	##
+	# When committing stuff related to design patterns.
+	#
+	design-patterns
 )
 
 ##
