@@ -37,7 +37,7 @@ fmt.Println(xs)
 //=> [0 0]
 ----
 
-`xs` above was not initialized to any values, so it is _zero-valued_, which of `int` means ``0``s.
+`xs` above was not initialized to any values, so it is _zero-valued_, which for `int` means ``0``s.
 
 [NOTE]
 ====
@@ -123,7 +123,7 @@ Only values _in between_ get zero-valued.
 
 == Multi-dimensional
 
-By composing types, it is possible to nest arrays, thus achieveing _multi-dimensional_ arrays 😎!
+By composing types, it is possible to nest arrays, thus achieving _multi-dimensional_ arrays 😎!
 
 [source,go]
 ----
