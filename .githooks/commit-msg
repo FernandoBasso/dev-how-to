@@ -67,6 +67,11 @@ commit_types=(
 	ts
 
 	##
+	# Go stuff.
+	#
+	go
+
+	##
 	# For general PureScript stuff.
 	#
 	# For Functional Programming Made Easier book, use the prefix
