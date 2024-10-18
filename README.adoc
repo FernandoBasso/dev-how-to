@@ -1,8 +1,21 @@
 = Programming How To
-:toc: left
+:page-tags: dev howto tutorial post blog programming
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
 :sectlinks:
-:sectnums:
+:sectnums!:
 :toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 == Intro
 
@@ -53,12 +66,22 @@ vim(fzf): Add fzf text search key binding
 
 == Git Setup
 
-Make sure you properly set the githooks path:
+Make sure to properly `core.hooksPath` to `.githooks` directory:
 
 [source,shell-session]
 ----
 $ git config --local core.hooksPath .githooks
 ----
+
+You may want to read the shell scripts inside the `.githooks/` and `scripts/` directories.
+
+=== pre-commit hook
+
+The pre-commit hook runs a script to find new or changed `.png` images and runs `optipng` on them so they get optimized (reduced in file size) before being committed to the repository.
+
+=== commit-msg hook
+
+Runs a shell script that checks that our commit messages follows our standards.
 
 === Helper Script for Commit Types
 
@@ -104,3 +127,7 @@ It’s important to note that this technique works because AsciiDoc doesn’t tr
 At least, it doesn’t show up that way to the reader.
 The line breaks between contiguous lines of prose will not be visible in the rendered document (i.e., as the reader sees it).
 While a single line break doesn’t appear in the output, two consecutive line breaks starts a new paragraph (or other block).
+
+//
+// vim: set textwidth=0:
+//
