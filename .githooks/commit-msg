@@ -28,6 +28,13 @@ commit_types=(
 	docs
 
 	##
+	# For bash, shell and command line stuff.
+	#
+	bash
+	cmdline
+	shell
+
+	##
 	# Commits for stuff related to the awesome Emacs editor.
 	#
 	emacs
