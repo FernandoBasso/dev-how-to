@@ -86,9 +86,9 @@ But after we open it, the icon on the dock does not show up:
 
 image::__assets/firefox-developer-edition-icon-not-showing-on-the-gnome-dock.png[Firefox Developer Edition not showing on Gnome Shell Dock]
 
-I found link:https://askubuntu.com/questions/1251172/active-application-icon-not-shown-on-dock[this post on AskUbuntu.com^] that explains we have to find the `WM_CLASS` property.
+I found link:https://askubuntu.com/questions/1251172/active-application-icon-not-shown-on-dock[this post on AskUbuntu.com^] that explains we have to find the `WM_CLASS` property for the application in question.
 
-Basically, we run `xprop WM_CLASS` and click on Firefox Developer Edition window, and it will show something like this:
+Basically, we run `xprop WM_CLASS` and click on the Firefox Developer Edition window, and it will show something like this:
 
 [source,text]
 ----
@@ -118,6 +118,5 @@ StartupWMClass=firefox-aurora
 ----
 
 Then, (after closing and opening Firefox Developer Edition again), the icon on the dock should shoup up just fine.
-
 
 image::__assets/firefox-developer-edition-icon-showing-up-just-fine-on-the-dock.png[Firefox Developer Edition icon showping up just fine on the dock]
