@@ -117,6 +117,6 @@ Categories=GNOME;GTK;Network;WebBrowser;
 StartupWMClass=firefox-aurora
 ----
 
-Then, (after closing and opening Firefox Developer Edition again), the icon on the dock should shoup up just fine.
+Then, (after closing and opening Firefox Developer Edition again), the icon on the dock should shouw up just fine.
 
 image::__assets/firefox-developer-edition-icon-showing-up-just-fine-on-the-dock.png[Firefox Developer Edition icon showping up just fine on the dock]
