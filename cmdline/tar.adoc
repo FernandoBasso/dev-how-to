@@ -16,3 +16,25 @@ $ tar \
 $ du -h myapp-poc1.tar
 800K    myapp-poc1.tar
 ----
+
+== Unpack .zst archives
+
+Besides the usual `x` (e[x]tract), `v` ([v]erbose) and `f` ([f]ile) we also use `-a` (`--auto-compress`) as it uses the file extension (`.zst` in this case) to detect the program necessary to compress/decompress the arquive.
+
+[source,shell-session]
+----
+$ tar xvaf ./anki-24.06.3-linux-qt6.tar.zst 
+anki-24.06.3-linux-qt6/
+anki-24.06.3-linux-qt6/README.md
+anki-24.06.3-linux-qt6/anki.desktop
+anki-24.06.3-linux-qt6/anki
+anki-24.06.3-linux-qt6/anki.xpm
+anki-24.06.3-linux-qt6/lib/
+...
+anki-24.06.3-linux-qt6/lib/certifi/cacert.pem
+anki-24.06.3-linux-qt6/install.sh
+anki-24.06.3-linux-qt6/anki.xml
+anki-24.06.3-linux-qt6/anki.1
+anki-24.06.3-linux-qt6/anki.png
+anki-24.06.3-linux-qt6/uninstall.sh
+----
