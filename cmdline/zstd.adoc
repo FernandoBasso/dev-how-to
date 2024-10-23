@@ -1,0 +1,58 @@
+= Unpacking zstd archives
+:page-subtitle: Command Line
+:page-tags: zstd tar cmdline shell archive compress decompress
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Unpack a .zst archive with tar + zstd
+
+[NOTE]
+====
+It may be necessary to install zstd in order for these examples to work.
+====
+
+Besides the usual `x` (e[x]tract), `v` ([v]erbose) and `f` ([f]ile) we also use `-a` (`--auto-compress`) as it uses the file extension (`.zst` in this case) to detect the program necessary to compress/decompress the arquive.
+
+[source,shell-session]
+----
+$ tar -xvaf ./archive.tar.zst
+----
+
+To specify the compress/uncompress program, these other alternatives are possible:
+
+[source,shell-session]
+----
+$ tar --use-compress-program=unzstd -xvf ./archive.tar.zst
+$ tar -I zstd -xvf ./archive.tar.zst
+$ tar --zstd -xvf ./archive.tar.zst
+----
+
+== Unpack a .zst archive with zstd then tar
+
+If your `tar` version/implementation does not support `-I`, then it is possible to install `zstd` and run one of these to decompress a `.zst` archive:
+
+[source,shell-session]
+----
+$ unzstd ./archive.tar.zst
+$ zstd -d ./archive.tar.zst
+----
+
+It gives us the `.tar` archive, which we then unpack with:
+
+[source,shell-session]
+----
+$ tar -xvf ./archive.tar
+----
