@@ -1,4 +1,20 @@
 = tar | Command Line
+:page-tags: tar cmdline shell gzip zstd xz rar
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 == Pack Excluding Directories
 
@@ -19,22 +35,23 @@ $ du -h myapp-poc1.tar
 
 == Unpack .zst archives
 
+[NOTE]
+====
+It may be necessary to install zstd in order for these examples to work.
+====
+
 Besides the usual `x` (e[x]tract), `v` ([v]erbose) and `f` ([f]ile) we also use `-a` (`--auto-compress`) as it uses the file extension (`.zst` in this case) to detect the program necessary to compress/decompress the arquive.
 
 [source,shell-session]
 ----
-$ tar xvaf ./anki-24.06.3-linux-qt6.tar.zst 
-anki-24.06.3-linux-qt6/
-anki-24.06.3-linux-qt6/README.md
-anki-24.06.3-linux-qt6/anki.desktop
-anki-24.06.3-linux-qt6/anki
-anki-24.06.3-linux-qt6/anki.xpm
-anki-24.06.3-linux-qt6/lib/
-...
-anki-24.06.3-linux-qt6/lib/certifi/cacert.pem
-anki-24.06.3-linux-qt6/install.sh
-anki-24.06.3-linux-qt6/anki.xml
-anki-24.06.3-linux-qt6/anki.1
-anki-24.06.3-linux-qt6/anki.png
-anki-24.06.3-linux-qt6/uninstall.sh
+$ tar -xvaf ./archive.tar.zst
+----
+
+To specify the compress/uncompress program, these other alternatives are possible:
+
+[source,shell-session]
+----
+$ tar --use-compress-program=unzstd -xvf ./archive.tar.zst
+$ tar -I zstd -xvf ./archive.tar.zst
+$ tar --zstd -xvf ./archive.tar.zst
 ----
