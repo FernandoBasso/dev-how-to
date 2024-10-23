@@ -1,7 +1,7 @@
 package libhouse
 
 type Director struct {
-	builder Builder
+	builder IBuilder
 }
 
 type HouseInput struct {
@@ -10,7 +10,7 @@ type HouseInput struct {
 	floors     int
 }
 
-func newDirector(b Builder) *Director {
+func newDirector(b IBuilder) *Director {
 	return &Director{
 		builder: b,
 	}

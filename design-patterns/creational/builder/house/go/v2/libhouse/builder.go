@@ -1,6 +1,6 @@
 package libhouse
 
-type Builder interface {
+type IBuilder interface {
 	setWindowType(windowType string)
 	setDoorType(doorType string)
 	setFloors(floors int)
@@ -11,7 +11,7 @@ type Builder interface {
 // are "normal" and "igloo".
 
 // Returns nil if an unknown kind is passed.
-func getBuilder(kind string) Builder {
+func getBuilder(kind string) IBuilder {
 	switch kind {
 	case "normal":
 		return newNormalBuilder()
