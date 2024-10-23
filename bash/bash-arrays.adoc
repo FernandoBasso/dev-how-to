@@ -1,20 +1,21 @@
 = Bash Arrays
 :description: Examples and tips about using arrays in Bash.
-// :linkcss:
-// :stylesheet: myadoc.css
-// :stylesdir: http://localhost:8000
-// :stylesdir: {user-home}/Projects/proghowto
-// :stem: latexmath
-:webfonts!:
+:page-tags: bash arrays cmdline
+:favicon: https://fernandobasso.dev/cmdline.png
 :icons: font
-:source-highlighter: pygments
-:source-linenums-option!:
-:pygments-css: class
 :sectlinks:
 :sectnums!:
 :toclevels: 6
 :toc: left
-:favicon: https://fernandobasso.dev/cmdline.png
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 :asterisk: *
 
 == Introduction to Bash Arrays
