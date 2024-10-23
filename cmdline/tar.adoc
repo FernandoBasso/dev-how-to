@@ -55,3 +55,18 @@ $ tar --use-compress-program=unzstd -xvf ./archive.tar.zst
 $ tar -I zstd -xvf ./archive.tar.zst
 $ tar --zstd -xvf ./archive.tar.zst
 ----
+
+If your `tar` version/implementation does not support `-I`, then it is possible to install `zstd` and run one of these to decompress a `.zst` archive:
+
+[source,shell-session]
+----
+$ unzstd ./archive.tar.zst
+$ zstd -d ./archive.tar.zst
+----
+
+It gives us the `.tar` archive, which we then unpack with:
+
+[source,shell-session]
+----
+$ tar -xvf ./archive.tar
+----
