@@ -1,0 +1,43 @@
+= Fun With The Lambda Calculus
+:page-subtitle: Functional Programming
+:page-tags: lambda-calculus lambda functional-programming
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Notes from the video
+
+* link:https://www.youtube.com/watch?v=QPqoFCHpLF4[Fun with the Lambda Calculus • Corey Haines • GOTO 2015 on Youtube^]
+
+=== Peano Axioms about Natural Numbers:
+
+1. 0 is a natural number.
+
+Equality Axioms:
+
+[start=2]
+2. For every number `x`, `x = x` (reflexive).
+3. For all numbers `x` and `y`, if `x = y`, then `y = x` (symmetric).
+4. For all numbers `x`, `y` and `z`, if `x = y` and `y = z`, then `x = z` (transitive).
+5. For all `a` and `b`, if `b` is a natural number and `a = b`, then `a` is also a natural number (closed under equality).
+
+Axioms about the Successor function:
+
+[start=6]
+6. For every number `n`, `S(n)` is a number (closed under successor).
+7. For all numbers `m` and `n`, `m = n` if, and only if `S(m) = S(n)` (`S` is an injection).
+8. For every number `n`, `S(n) = 0` is false (0 is the starting point).
+
+There is a 9th axion about induction, that says that “it is true for 0, and it is true for one, so it is true for everything.”
