@@ -21,7 +21,50 @@ endif::[]
 
 == The Builder creational pattern
 
+[quote]
+____
+Separate the construction of a complex object from its representation so that
+the same construction process can create different representations.
+____
+
 The builder patterns helps construct complex objects without having to explicitly instantiate its values or writing the entire logic they require.
 And we don't want to force consumers of those objects to have to do all that setup.
 
 Object creation can be really simple, with default values, or complex if an object needs results from network requests, state checks, create nested objects for certain fields, etc.
+
+== Vehicle example
+
+.Vehicle example
+[mermaid]
+....
+classDiagram
+
+class Car {
+    - short numWheels
+    - short numDoors
+    + void addWheels(int qty)
+    + int getWheels()
+}
+
+class Builder {
+<<interface>>
++void addWheels(int numWheels)
++int getWheels()
+}
+
+class BuildCar {
+- Car car
++ void addWheels(int numWheels)
++ int getWheels()
+}
+
+class BuildTruck {
+- Car car
++ void addWheels(int numWheels)
++ int getWheels()
+}
+
+
+BuildCar <|.. Builder
+BuildTruck <|.. Builder
+....
