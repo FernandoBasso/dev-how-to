@@ -6,21 +6,20 @@ import (
 )
 
 func TestPerimeter(t *testing.T) {
-	t.Run("can calculate the perimeter", func(t *testing.T) {
-		got := shapes.Perimeter(10.0, 10.0)
-		want := 40.0
+	got := shapes.Perimeter(10.0, 10.0)
+	want := 40.0
 
-		if got != want {
-			t.Errorf("got %.2f, want %.2f", got, want)
-		}
-	})
+	if got != want {
+		t.Errorf("got %.2f, want %.2f", got, want)
+	}
+}
 
-	t.Run("can calculate the area", func(t *testing.T) {
-		got := shapes.Area(2.0, 3.0)
-		want := 6.0
+func TestArea(t *testing.T) {
 
-		if got != want {
-			t.Errorf("got %.2f, want %.2f", got, want)
-		}
-	})
+	got := shapes.Area(2.0, 3.0)
+	want := 6.0
+
+	if got != want {
+		t.Errorf("got %.2f, want %.2f", got, want)
+	}
 }
