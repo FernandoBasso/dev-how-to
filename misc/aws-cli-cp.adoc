@@ -1,0 +1,58 @@
+= AWS S3 CLI Command Tips
+:page-subtitle: AWS CLI
+:page-tags: aws cli cp cmdline
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Intro
+
+AWS CLI `cp` command can be used to download and upload objects from and to a bucket.
+
+
+== cp
+
+=== Download and make a local file
+
+[source,shell-session]
+----
+$ aws s3 cp s3://path/to/bucket/file.txt ./file.txt
+----
+
+=== Download and print to STDOUT
+
+In UNIX, `-` generally means STDOUT or STDIN, depending on the context where it is used.
+
+[source,shell-session]
+----
+$ aws s3 cp s3://path/to/bucket/file.txt -
+(file.txt content printed to STDOUT)
+----
+
+From there, all sorts of stuff is possible, like piping to `less` or `vim`, for example:
+
+[source,bash]
+----
+$ aws s3 cp s3://path/to/bucket/file.txt - | less
+
+$ aws s3 cp s3://path/to/bucket/file.txt - | vim -
+----
+
+[TIP]
+====
+In this vim example, we are making vim itself read from STDIN (instead of from a normal file on disk).
+Therefore, we output the file content to STDOUT, and then vim reads the STDOUT as its (vim) STDIN.
+====
