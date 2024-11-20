@@ -1,0 +1,44 @@
+= How to Read Go Source Code
+:page-subtitle: Go
+:page-tags: go tips
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Intro
+
+The “finger pointer” symbol “󰆽” indicates where the cursor is on the editor when issuing the navigation commands.
+
+Most editor and IDEs nowadas (as of 2024) use the Language Server Protocol to provide language and project intellisense.
+We'll use generic names for the actions that cause the editor/IDE to move to some other symbol.
+
+== Interfaces, structs and methods
+
+From an interface definition, we can “go to implementations”.
+
+[source,go]
+====
+type Player interface {
+//     󰆽
+}
+====
+
+This should take us to the struct receivers that implement the interface.
+
+Then from the struct, we can move to its references.
+
+Also, from an interface method, we can navigate from all the concrete implementation of that method.
+
