@@ -22,3 +22,8 @@ endif::[]
 
 https://www.youtube.com/watch?v=5NggL8yPQtI
 
+
+== Useful keymaps
+
+* kbd:[gd]: [G]o to [D]efinition.
+* kbd:[gi]: [G]o to [I]nterface.
