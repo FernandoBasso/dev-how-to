@@ -1,0 +1,43 @@
+= Go Countdown TDD Exercise
+:page-subtitle: go tdd
+:page-tags:
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+:imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Intro
+
+Write a countdown program that runs on the command line and prints a countdown from  3 to 1 and ends with "Go!", waiting N seconds in-between each printing.
+
+.Sample countdown session on the terminal
+[source,text]
+----
+$ go run main.go
+3
+(sleep 1 second)
+2
+(sleep another second)
+1
+(sleep yet another second)
+Go!
+----
+
+Make sure your tests prove that you print and sleep in the correct sequence.
+
+Also make sure to allow the countdown program to take some sort of config so users can configure how long to sleep after each print.
+
+There should be no sleep after printing "Go!".
