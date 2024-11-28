@@ -7,7 +7,6 @@
 :toclevels: 6
 :toc: left
 :source-highlighter: highlight.js
-:imagesdir: __assets
 :stem: latexmath
 :experimental:
 ifdef::env-github[]
@@ -20,6 +19,18 @@ endif::[]
 
 == Xfce Clipman Clipboard Manager
 
+* https://docs.xfce.org/panel-plugins/xfce4-clipman-plugin/start
+
 kbd:[Win+c] to open `xfce4-popup-clipan`.
 
+image::__assets/xfce-clipman-popup-2024-11-28.png[Xfce Clipman Popup]
+
 kbd:[Win+Shift+c] to open `xfce4-clipman-history`, which allows fuzzy searching the history and select with kbd:[Return].
+
+image::__assets/xfce-clipman-history-2024-11-28.png[Xfce Clipman History]
+
+
+[NOTE]
+====
+As of Clipman 1.6.6 (2024), the history popup does not show images copied to the clipboard (maybe because we cannot text-search them from the clipboard).
+====
