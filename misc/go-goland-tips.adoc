@@ -9,7 +9,6 @@
 :experimental:
 :stem: latexmath
 :toc: left
-:imagesdir: __assets
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
