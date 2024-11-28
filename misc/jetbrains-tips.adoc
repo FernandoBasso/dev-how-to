@@ -1,0 +1,24 @@
+= JetBrains tips
+:page-tags: jetbrains ide
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Clipboard
+
+Similar to vim registers, JetBrains IDEs provide a way to select one of multiple things that have been previously copied.
+
+Use kbd:[cmd+shift+v] to access the clipboard history.
