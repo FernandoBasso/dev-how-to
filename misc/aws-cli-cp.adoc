@@ -56,3 +56,19 @@ $ aws s3 cp s3://path/to/bucket/file.txt - | vim -
 In this vim example, we are making vim itself read from STDIN (instead of from a normal file on disk).
 Therefore, we output the file content to STDOUT, and then vim reads the STDOUT as its (vim) STDIN.
 ====
+
+== Upload a file
+
+[source,bash]
+----
+$ aws s3 cp ./hello.txt s3://pat/to/bucket/hello.txt
+upload: ./hello.txt to s3://path/to/bucket/hello.txt
+----
+
+== Remove a file
+
+[source,bash]
+----
+$ aws s3 rm s3://path/to/bucket/hello.txt
+delete s3://path/to/bucket/hello.txt
+----
