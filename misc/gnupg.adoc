@@ -171,6 +171,38 @@ Edit the file, save it and encrypt it again (like shown earlier above).
 
 image::tree-script-sh-1-2023-09-05T13-46-08-832Z.png[tree -C ./ example]
 
+== vim gpg: signing failed: Inappropriate ioctl for device
+
+I sign my commits with a gpg key.
+Using fugitive.vim and attempting to do a commit from inside vim's fugitive buffer would result in this error (even though it would work just fine if doing `git commit` from the command line):
+
+[source,text]
+----
+gpg: signing failed: Inappropriate ioctl for device
+----
+
+The problem is that gpg cannot show the prompt to ask for the passphrase.
+The solution involves adding a few lines to two config files in `~/.gnupg`:
+
+First, in `$HOME/.gnupg/gpg.conf`:
+
+.$HOME/.gnupg/gpg.conf
+[source,text]
+----
+use-agent
+pinentry-mode loopback
+----
+
+And then in `$HOME/.gnupg/gpg-agent.conf`:
+
+.$HOME/.gnupg/gpg-agent.conf
+[source,text]
+----
+allow-loopback-pinentry
+----
+
+Reopen vim and now doing commits from fugitive's buffer should cause the passphrase to be asked for in vim's command line.
+
 == References
 
 * link:https://wiki.archlinux.org/title/GnuPG[GnuPG :: Arch Wiki^]
