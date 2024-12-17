@@ -1,6 +1,7 @@
-package blogapi
+package users
 
 import (
+	"blogapi"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -16,11 +17,14 @@ type User struct {
 }
 
 type UsersClient struct {
-	config APIConfig
-	client HTTPClient
+	config blogapi.APIConfig
+	client blogapi.HTTPClient
 }
 
-func NewUsersClient(apiConfig APIConfig, apiClient HTTPClient) *UsersClient {
+func NewUsersClient(
+	apiConfig blogapi.APIConfig,
+	apiClient blogapi.HTTPClient,
+) *UsersClient {
 	return &UsersClient{
 		config: apiConfig,
 		client: apiClient,

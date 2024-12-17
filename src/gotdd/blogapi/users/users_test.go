@@ -1,6 +1,7 @@
-package blogapi
+package users
 
 import (
+	"blogapi"
 	"bytes"
 	_ "embed"
 	"errors"
@@ -15,7 +16,7 @@ import (
 var usersJSON []byte
 
 func TestUsers(t *testing.T) {
-	apiConfig := NewAPIConfig("https://example.org/api")
+	apiConfig := blogapi.NewAPIConfig("https://example.org/api")
 	t.Run("All()", func(t *testing.T) {
 		t.Run("makes a valid, correct request", func(t *testing.T) {
 			fakeResponse := http.Response{Body: toBody([]byte{})}
@@ -24,7 +25,7 @@ func TestUsers(t *testing.T) {
 
 			expectedRequest := &http.Request{
 				URL: apiConfig.URL.JoinPath("users"),
-				Header: map[HeaderName][]HeaderValue{
+				Header: map[blogapi.HeaderName][]blogapi.HeaderValue{
 					"Authorization": {"Bearer mock-token"},
 					"Content-Type":  {"application/json"},
 				},
