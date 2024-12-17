@@ -1,0 +1,23 @@
+= Go Strings
+:page-tags: go string type
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Resources
+
+* https://www.carette.xyz/posts/go_untyped_constants
+* https://go.dev/blog/strings
+* https://go.dev/blog/constants
