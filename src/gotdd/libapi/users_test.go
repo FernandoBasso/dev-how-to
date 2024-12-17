@@ -16,44 +16,45 @@ var usersJSON []byte
 
 func TestUsers(t *testing.T) {
 	apiConfig := NewAPIConfig("https://example.org/api")
+	t.Run("All()", func(t *testing.T) {
+		t.Run("makes a valid, correct request", func(t *testing.T) {
+			fakeResponse := http.Response{Body: toBody([]byte{})}
+			spyClient := newSpyUsersClient(&fakeResponse)
+			NewUsersClient(apiConfig, spyClient).All()
 
-	t.Run("makes a valid, correct request", func(t *testing.T) {
-		fakeResponse := http.Response{Body: toBody([]byte{})}
-		spyClient := newSpyUsersClient(&fakeResponse)
-		NewUsersClient(apiConfig, spyClient).All()
+			expectedRequest := &http.Request{
+				URL: apiConfig.URL.JoinPath("users"),
+				Header: map[HeaderName][]HeaderValue{
+					"Authorization": {"Bearer mock-token"},
+					"Content-Type":  {"application/json"},
+				},
+			}
 
-		expectedRequest := &http.Request{
-			URL: apiConfig.URL.JoinPath("users"),
-			Header: map[HeaderName][]HeaderValue{
-				"Authorization": {"Bearer mock-token"},
-				"Content-Type":  {"application/json"},
-			},
-		}
+			require.Equal(t, expectedRequest, spyClient.request)
+		})
 
-		require.Equal(t, expectedRequest, spyClient.request)
-	})
+		t.Run("returns error on non-200 OK response", func(t *testing.T) {
+			apiErr := errors.New("Users endpoint replied with a non-200 OK status")
+			spyClient := newBrokenUsersClient(apiErr)
+			_, err := NewUsersClient(apiConfig, spyClient).All()
 
-	t.Run("returns error on non-200 OK response", func(t *testing.T) {
-		apiErr := errors.New("Users endpoint replied with a non-200 OK status")
-		spyClient := newBrokenUsersClient(apiErr)
-		_, err := NewUsersClient(apiConfig, spyClient).All()
+			require.EqualError(t, err, err.Error())
+		})
 
-		require.EqualError(t, err, err.Error())
-	})
+		t.Run("can GET users", func(t *testing.T) {
+			fakeResponse := http.Response{Body: toBody(usersJSON)}
+			spyClient := newSpyUsersClient(&fakeResponse)
+			usersClient := NewUsersClient(apiConfig, spyClient)
+			users, err := usersClient.All()
 
-	t.Run("can GET users", func(t *testing.T) {
-		fakeResponse := http.Response{Body: toBody(usersJSON)}
-		spyClient := newSpyUsersClient(&fakeResponse)
-		usersClient := NewUsersClient(apiConfig, spyClient)
-		users, err := usersClient.All()
+			expectedUsers := []User{
+				{Id: 1, Name: "Aayla Secura"},
+				{Id: 2, Name: "Ahsoka Tano"},
+			}
 
-		expectedUsers := []User{
-			{Id: 1, Name: "Aayla Secura"},
-			{Id: 2, Name: "Ahsoka Tano"},
-		}
-
-		require.NoError(t, err)
-		require.Equal(t, expectedUsers, users)
+			require.NoError(t, err)
+			require.Equal(t, expectedUsers, users)
+		})
 	})
 }
 
