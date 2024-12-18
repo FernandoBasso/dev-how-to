@@ -35,7 +35,7 @@ func TestUsers(t *testing.T) {
 			require.Equal(t, expectedRequest, spyClient.request)
 		})
 
-		t.Run("when there is a network failure or some sort", func(t *testing.T) {
+		t.Run("there is a network failure of some sort", func(t *testing.T) {
 			apiErr := errors.New("network failure")
 			spyClient := newBrokenUsersClient(http.Response{}, apiErr)
 			_, err := NewUsersClient(apiConfig, spyClient).All()
@@ -43,7 +43,7 @@ func TestUsers(t *testing.T) {
 			require.EqualError(t, err, err.Error())
 		})
 
-		t.Run("when API returns a non-200 OK status", func(t *testing.T) {
+		t.Run("API endpoint returns a non-200 OK status", func(t *testing.T) {
 			spyClient := newBrokenUsersClient(http.Response{
 				Status:     http.StatusText(http.StatusForbidden),
 				StatusCode: http.StatusForbidden,
