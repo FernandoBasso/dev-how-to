@@ -1,13 +1,14 @@
 package users
 
 import (
-	"blogapi"
 	"bytes"
 	_ "embed"
 	"errors"
 	"io"
 	"net/http"
 	"testing"
+
+	"blogapi"
 
 	"github.com/stretchr/testify/require"
 )
@@ -34,16 +35,34 @@ func TestUsers(t *testing.T) {
 			require.Equal(t, expectedRequest, spyClient.request)
 		})
 
-		t.Run("returns error on non-200 OK response", func(t *testing.T) {
-			apiErr := errors.New("Users endpoint replied with a non-200 OK status")
-			spyClient := newBrokenUsersClient(apiErr)
+		t.Run("when there is a network failure or some sort", func(t *testing.T) {
+			apiErr := errors.New("network failure")
+			spyClient := newBrokenUsersClient(http.Response{}, apiErr)
 			_, err := NewUsersClient(apiConfig, spyClient).All()
 
 			require.EqualError(t, err, err.Error())
 		})
 
+		t.Run("when API returns a non-200 OK status", func(t *testing.T) {
+			spyClient := newBrokenUsersClient(http.Response{
+				Status:     http.StatusText(http.StatusForbidden),
+				StatusCode: http.StatusForbidden,
+			},
+				nil,
+			)
+
+			usersClient := NewUsersClient(apiConfig, spyClient)
+			_, err := usersClient.All()
+
+			require.Error(t, err, "Unexpected server response")
+		})
+
 		t.Run("can GET users", func(t *testing.T) {
-			fakeResponse := http.Response{Body: toBody(usersJSON)}
+			fakeResponse := http.Response{
+				Status:     http.StatusText(http.StatusOK),
+				StatusCode: http.StatusOK,
+				Body:       toBody(usersJSON),
+			}
 			spyClient := newSpyUsersClient(&fakeResponse)
 			usersClient := NewUsersClient(apiConfig, spyClient)
 			users, err := usersClient.All()
@@ -65,10 +84,10 @@ type spyUsersClient struct {
 	response *http.Response
 }
 
-func newBrokenUsersClient(err error) *spyUsersClient {
+func newBrokenUsersClient(res http.Response, err error) *spyUsersClient {
 	return &spyUsersClient{
 		err:      err,
-		response: &http.Response{},
+		response: &res,
 	}
 }
 

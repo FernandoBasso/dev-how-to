@@ -1,10 +1,12 @@
 package users
 
 import (
-	"blogapi"
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
+
+	"blogapi"
 )
 
 type IUser interface {
@@ -42,6 +44,10 @@ func (uc UsersClient) All() ([]User, error) {
 
 	if err != nil {
 		return []User{}, err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		return []User{}, errors.New("unexpected server API response")
 	}
 
 	var users []User
