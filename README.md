@@ -22,28 +22,19 @@ main/official one where all the action happens and people can collaborate. The
 
 ## Local Setup
 
-Arch Linux:
+**NOTE**: Some systems have `python` as Python 3, but some have `python` as Python 2, and we must explicitly use `python3` to refer to Python 3.
+Replace `python` or `python3` on your system as necessary.
 
-```
-$ sudo pacman --sync --needed python-sphinx python-pip
-```
-
-Xubuntu:
-
-```text
-$ sudo apt install python3-sphinx python3-pip
-```
-
-Then, with pip, install these:
-
-```text
-$ pip install sphinx-autobuild furo
-```
-
-It may be necessary to create a python venv in some current linux distributions:
+Create a python venv:
 
 ```bash
 $ python -m venv ./.venv
+```
+
+On each new shell, source the python virtual environment before issuing commands that require the venv:
+
+```bash
+$ source ./.venv/bin/activate
 ```
 
 Then install the pip dependencies from that python env:
@@ -53,12 +44,6 @@ $ pip install --requirement ./docs/requirements.txt
 ```
 
 ## Running Locally
-
-If using the `.venv` from the previous session, first activate it:
-
-```bash
-$ source ./.venv/bin/activate
-```
 
 From the root directory (not from the `docs/` directory) simply run this:
 
