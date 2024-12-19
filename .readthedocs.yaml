@@ -13,7 +13,12 @@ build:
   os: ubuntu-24.04
 
   tools:
-    python: "3.11"
+    ##
+    # • https://docs.readthedocs.io/en/stable/config-file/v2.html#build-tools-python
+    #
+    # "latest" is an alias for the latest Python version available on Read the Docs.
+    #
+    python: "latest"
 
   ##
   # We need this in combination with sphinxcontrib-plantuml (python/pip
