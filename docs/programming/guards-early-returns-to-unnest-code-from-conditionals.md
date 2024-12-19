@@ -1,10 +1,11 @@
 ---
-title: Guards and Early Returns | Programming
+title: Code Guards Early Returns to Unnest Code from Conditionals | Programming
 description: Notes, tips and examples of using the concept or early returns to avoid nesting the main logic of your functions and methods.
 ---
 
 # Unnest Logic From Inside Conditions
 
+## Introduction
 We can combine _code guards_ with _early returns_ to avoid nesting logic inside conditions, making use of the so called *early returns*.
 
 For example, instead of this:
