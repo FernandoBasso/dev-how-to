@@ -5,7 +5,7 @@ description: My notes, tips, insights, challenges and book solutions, and explan
 
 # Haskell
 
-![Ash from Alien 1979 movie talking about the perfect organism.](./ash-alien-haskell.png)
+![Ash from Alien 1979 movie talking about the perfect organism.](/__assets/ash-alien-haskell.png)
 
 ## Intro
 
@@ -21,7 +21,7 @@ That is a fact. Let's not try to hide it.
 Let's acknowledge it and deal with it.
 
 
-![Alien Xenomorph](./alien-xenomorph.png)
+![Alien Xenomorph](/__assets/alien-xenomorph.png)
 
 People say that Lisp is easy, that you learn the syntax in a few minutes.
 Still, it takes uncountable hours of study (years) and practice to actually get good at it (although the same is true of any language, one
