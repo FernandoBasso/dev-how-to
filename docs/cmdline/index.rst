@@ -125,6 +125,7 @@ project by MaiZure_.
    bash-aliases
    bash-arrays
    terminal/index
+   grep.md
    tar.md
    find.md
    du.md
