@@ -118,7 +118,7 @@ project by MaiZure_.
    help-info-man
    built-in
    argument-syntax
-   echo-printf
+   echo-printf.md
    redirections.md
    bash-brace-expansion
    bash-parameter-expansion
