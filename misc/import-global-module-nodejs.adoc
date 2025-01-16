@@ -1,4 +1,4 @@
-= Imporg Global Module in Node.js
+= Import Global Module in Node.js
 :page-tags: nodejs module global import
 :favicon: https://fernandobasso.dev/cmdline.png
 :icons: font

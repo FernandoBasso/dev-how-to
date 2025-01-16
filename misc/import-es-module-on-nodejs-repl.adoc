@@ -1,0 +1,57 @@
+= Import ECMAScript Module on Node.js REPL
+:page-tags: nodejs module global import esmodule
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+:imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Dynamic imports
+
+[source,text]
+----
+$ node --interactive
+Welcome to Node.js v16.17.0.
+Type ".help" for more information.
+
+> import { pivot } from './src/add.js';
+import { pivot } from './src/add.js';
+^^^^^^
+
+Uncaught:
+SyntaxError: Cannot use import statement inside the Node.js REPL, alternatively use dynamic import
+
+> var mod = await import('./src/add.js');
+
+> var { add } = mod;
+
+> add
+[Function: add]
+
+> add(1, 2);
+3
+----
+
+Note we are importing providing the file extension, and that we also need `package.json` to explicitly configure the module system to “module”, which means “ES Modules”:
+
+[source,json]
+----
+{
+  "name": "mylib",
+  "version": "0.0.1",
+  "type": "module",
+  "license": "LGPL-3.0-or-later"
+}
+----
