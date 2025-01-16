@@ -1,0 +1,124 @@
+= Imporg Global Module in Node.js
+:page-tags: nodejs module global import
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+:imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Example 1
+
+Suppose we want to install link:https://ramdajs.com/[ramda^] globally so we can import it on the Node.js REPL to play around with stuff.
+
+Install ramda globally:
+
+[source,bash]
+----
+$ npm install --global ramda
+$ node --interactive
+----
+
+Try to import it from a Node.js REPL session:
+
+[source,text]
+----
+Welcome to Node.js v20.18.0.
+Type ".help" for more information.
+> var R = await import('ramda')
+Uncaught:
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'ramda' imported from /home/deveng/source/dotfiles/repl
+  ...
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+> var R = require('ramda')
+Uncaught Error: Cannot find module 'ramda'
+Require stack:
+- <repl>
+  ...
+  code: 'MODULE_NOT_FOUND',
+}
+----
+
+It doesn't work with either a dynamic import _or_ with the good old original `require()` approach.
+
+The solution is to make the path where we install global node modules known to the Node.js REPL.
+One way to do it is with the shell's environment variable `NODE_PATH`.
+
+First, we get the path where global modules is installed, which can be done with:
+
+[source,bash]
+----
+$ npm root --help
+Display npm root
+
+Usage:
+npm root
+
+Options:
+[-g|--global]
+----
+
+So for example, if we manage our Node.js versions with link:https://github.com/nvm-sh/nvm[nvm^], we would get an output similar to this (on Linux):
+
+[source,bash]
+----
+$ npm root --global
+/home/<your-user>/.nvm/versions/node/v20.18.0/lib/node_modules
+----
+
+We then start the Node.js REPL while also making sure `NODE_PATH` points to that path were our global node modules are installed:
+
+[source,text]
+----
+$ NODE_PATH="$(node root --global") node --interactive
+Welcome to Node.js v20.18.0.
+Type ".help" for more information.
+
+> var R = require('R');
+> var { zipWith, add } = R;
+
+> zipWith(add)([1, 2, 3], [10, 11, 12]);
+[ 11, 13, 15 ]
+----
+
+[TIP]
+====
+One may prefer to export the env var so further invocations the Node.js REPL can be done without having to always specify the env var each time:
+
+[source,bash]
+----
+$ export NODE_PATH="$(npm root --global)"
+$ node --interactive
+----
+
+And it can be exported from a shell's config file like `$HOME/.bashrc` or `$HOME/.bash_profile`, among others.
+====
+
+
+[NOTE]
+====
+Requiring global modules with dynamic imports is not supported (at last as of 2025 versions of Node.js) as those types of imports are about ES Modules, and the REPL is not in module context.
+That means that even with the setup described above, the following *is NOT expected to work*:
+
+[source,javascript]
+----
+var R = await import('ramda')
+----
+
+It should error out with an `ERR_MODULE_NOT_FOUND`.
+
+See link:https://github.com/nodejs/node/issues/33369[this Node.js issue^] for more info.
+====
