@@ -1,0 +1,147 @@
+= Useful Examples of Using PSQL from Bash Scripts and Command Line
+:page-tags: bash psql postgresql shell shell-script cmdline sql database
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Using shell environment variables for authentication
+
+`psql` allows us to provide login information and credentials from command line options like these:
+
+[source,bash]
+----
+$ psql \
+    --host <host> \
+    --user <user> \
+    --dbname <dbname> \
+    --password
+----
+
+We can instead use shell environment variables for those:
+
+[source,bash]
+----
+PGHOST=my.db-hostname-or-ip.example.dev
+PGUSER=mydbuser \
+PGPASSWORD=s3cr37 \
+PGDATABASE=mydbname \
+psql
+----
+
+And of course, it is possible to export those env vars so we can invoke `psql` without having to provide those env vars each time:
+
+[source,bash]
+----
+$ export \
+    PGHOST=my.db-hostname-or-ip.example.dev
+    PGUSER=mydbuser \
+    PGPASSWORD=s3cr37 \
+    PGDATABASE=mydbname
+----
+
+And then from that point on, we can simply use `psql` and the auth details will be picked up correctly.
+
+[WARNING]
+====
+BE AWARE that when auth info is provided through env vars (exported or not), they may remain on your shell's history file (depending on configs and other things), which could imply a security risk.
+
+Some shells (again, depending on configs), will refrain from adding a command to the history file if it starts with an empty space, so that could be a way to mitigate security concerns.
+
+💣 *!!! YOU HAVE BEEN WARNED !!!* 😱 
+====
+
+== Run SQL from a file
+
+[source,bash]
+----
+PGHOST=my.db-hostname-or-ip.example.dev
+PGUSER=mydbuser \
+PGPASSWORD=s3cr37 \
+PGDATABASE=mydbname \
+psql --file ./query.sql
+----
+
+== Run SQL from a HERESTRING
+
+For this, we can use `--file` (`-f`) option:
+
+[source,bash]
+----
+PGHOST=my.db-hostname-or-ip.example.dev
+PGUSER=mydbuser \
+PGPASSWORD=s3cr37 \
+PGDATABASE=mydbname \
+psql <<<'
+SELECT
+    id
+  , title
+  , created_at
+FROM posts
+ORDER by created_at DESC;
+'
+----
+
+== Read part of SQL query data FROM file with HEREDOC
+
+In this example, we have a query which depends on IDs which are on a separate `.txt` file.
+Rather than hardcoding thos IDs into the SQL itself, we'll instead use bash's trickery to insert the IDs into the query by using heredocuments and `cat`.
+
+.Sample ids.txt file
+[source,text]
+----
+    11
+  , 71
+  , 99
+  , 1024
+  , 4096
+----
+
+And then we have this shell script.
+
+.sqlscript.sh
+[source,bash]
+----
+PGHOST=my.db-hostname-or-ip.example.dev
+PGUSER=mydbuser \
+PGPASSWORD=s3cr37 \
+PGDATABASE=mydbname \
+psql <<EOSQL
+SELECT
+    id,
+  , title
+  , created_at
+FROM posts
+WHERE id IN ($(cat ./ids.txt))
+ORDER BY created_at DESC;
+EOSQL
+----
+
+That will translate to this:
+
+[source,sql]
+----
+SELECT
+    id,
+  , title
+  , created_at
+FROM posts
+WHERE id IN (
+    11
+  , 71
+  , 99
+  , 1024
+  , 4096
+)
+----
