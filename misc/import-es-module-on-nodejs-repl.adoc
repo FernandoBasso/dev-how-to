@@ -55,3 +55,7 @@ Note we are importing providing the file extension, and that we also need `packa
   "license": "LGPL-3.0-or-later"
 }
 ----
+
+== References
+
+* https://v8.dev/features/dynamic-import
