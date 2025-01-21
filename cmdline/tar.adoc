@@ -33,3 +33,23 @@ $ du -h myapp-poc1.tar
 800K    myapp-poc1.tar
 ----
 
+== Download and extract to a specific directory
+
+[source,bash]
+----
+$ mkdir -pv ./ui/static
+mkdir: created directory './ui'
+mkdir: created directory './ui/static'
+
+$ curl https://example.org/downloads/sample-project.tar.gz \
+    | tar -xvz -C ./ui/static
+x css/
+x css/main.css
+x img/
+x img/favicon.ico
+x img/logo.png
+x js/
+x js/main.js
+----
+
+First we create the directory structure `ui/static`, then curl a `.gz` file, and pipe it to `tar`, which in turn uses the `-C` option to cause the extracted files to be placed under `ui/static` rather than on the current directory (which is the default behavior).
