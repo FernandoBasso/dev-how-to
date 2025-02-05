@@ -1,0 +1,53 @@
+= Go Install
+:page-tags: go install gopls tools
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+:imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Using goenv
+
+Install link:https://github.com/go-nv/goenv[goenv^] and add this to `~/.bash_profile`, `~/.bashrc` or any of your shell's config file:
+
+[source,bash]
+----
+##
+# https://github.com/go-nv/goenv
+#
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+----
+
+Then install one or more go versions:
+
+[source,bash]
+----
+$ goenv install 1.18.0
+$ goenv install 1.18
+$ goenv install 1.23.1
+----
+
+Switch the global go version available:
+
+[source,bash]
+----
+$ goenv global 1.18.10
+----
+
+Then restart the shell.
