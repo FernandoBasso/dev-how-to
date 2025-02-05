@@ -1,0 +1,96 @@
+= Go Generics
+:page-tags: go generics
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+:imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Intro
+
+Go 1.18 introduced generics support.
+From that version, functions can take generic (parametrically polymorphic) types, and interfaces got the ability to describe union types.
+
+== min(x, y) for go 1.18
+
+.go.md
+[source,go]
+----
+module main
+
+go 1.18
+
+require golang.org/x/exp v0.0.0-20250128182459-e0ece0dbea4c
+----
+
+.main.go
+[source,go]
+----
+package main
+
+import (
+	"golang.org/x/exp/constraints"
+	"fmt"
+)
+
+func min[T constraints.Ordered](x, y T) T {
+	if x < y {
+		return x
+	}
+
+	return y
+}
+
+func main() {
+	fmt.Println(min[int](3, 2))
+	// => 2
+
+	fmt.Println(min[string]("xyz", "klm"))
+	// => klm
+
+	// '_' is 95, '0' is 48 (like in C/ASCII)
+	fmt.Println(min[rune]('_', '0'))
+	// => 48
+}
+----
+
+Observe we pass the concrete type when calling `min`, like `min[int](...)`, `min[string](...)` and `min[rune](...)` in our example.
+Providing that concrete type while calling the function is called _instantiation_.
+
+Instantiation happens in two steps:
+
+* Substitute type argument for type parameters.
+* Check that type arguments implement their constraints.
+
+And if step two fails, instantiation itself fails.
+
+[NOTE]
+====
+Due to type inference, it is not always required to pass the concrete type while calling the function.
+Instantiation can infer types most of the time.
+It means this could would also work:
+
+[source,go]
+----
+fmt.Println(min(3, 2))
+// => 2
+
+fmt.Println(min("xyz", "klm"))
+// => klm
+
+// '_' is 95, '0' is 48 (like in C/ASCII)
+fmt.Println(min('_', '0'))
+----
+====
