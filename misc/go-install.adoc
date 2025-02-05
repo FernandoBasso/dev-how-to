@@ -51,3 +51,37 @@ $ goenv global 1.18.10
 ----
 
 Then restart the shell.
+
+=== gopls language server
+
+The link:https://pkg.go.dev/golang.org/x/tools/gopls#section-readme[gopls^] page has links to docs on how to setup gopls with multiple editors.
+
+Certain tools are not supported with older Go versions.
+
+=== goenv gopls command not found
+
+[NOTE]
+====
+Observed this problem when trying to using the oder 1.18.0 Go version.
+====
+
+This may happen with vim, vscode, etc.:
+
+[source,text]
+----
+goenv: 'gopls' command not found
+
+The 'gopls' command exists in these Go versions:
+  1.22.2
+  1.22.3
+  1.23.1
+
+[Info  - 10:40:52 AM]
+true
+[Error - 10:40:52 AM] gopls client: couldn't create connection to server.
+  Message: Pending response rejected since connection got disposed
+  Code: -32097
+goenv: 'gopls' command not found
+----
+
+TODO: find a solution
