@@ -111,3 +111,23 @@ func min[T cmp.Ordered](x, y T) T {
 	return y
 }
 ----
+
+The instantiation and usage is like the previous example with `constraints.Ordered`.
+
+== Instantiation examples
+
+It is possible to instantiate the generic function with a concrete type and store the result in another variable:
+
+[source,go]
+----
+var minInt8 = min[int8]
+var minStr = min[string]
+
+func main() {
+	fmt.Println(minInt8(7, 2))
+	// => 2
+
+	fmt.Println(minStr("abc", "KLM"))
+	// KLM
+}
+----
