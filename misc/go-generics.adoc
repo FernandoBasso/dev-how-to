@@ -66,7 +66,7 @@ func main() {
 }
 ----
 
-Observe we pass the concrete type when calling `min`, like `min[int](...)`, `min[string](...)` and `min[rune](...)` in our example.
+Observe that we pass the concrete type when calling `min`, like `min[int](...)`, `min[string](...)` and `min[rune](...)` in our example.
 Providing that concrete type while calling the function is called _instantiation_.
 
 Instantiation happens in two steps:
@@ -94,3 +94,20 @@ fmt.Println(min("xyz", "klm"))
 fmt.Println(min('_', '0'))
 ----
 ====
+
+== Go 1.21 cmp.Ordered
+
+From Go 1.21, `cmp.Ordered` is the type we should use:
+
+[source,go]
+----
+import "cmp"
+
+func min[T cmp.Ordered](x, y T) T {
+	if x < y {
+		return x
+	}
+
+	return y
+}
+----
