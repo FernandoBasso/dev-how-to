@@ -132,3 +132,20 @@ func main() {
 	// KLM
 }
 ----
+
+== Generic structs
+
+=== Example with a binary tree
+
+[source,go]
+----
+type Tree[T any] struct {
+	left, right *Tree[T]
+	data        T
+}
+----
+
+[NOTE]
+====
+Remember that `any` is short for `interface{}`.
+====
