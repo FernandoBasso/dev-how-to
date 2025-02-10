@@ -26,6 +26,11 @@ org-roam-notes/ltximg
 org-roam-notes/*.pdf
 org-roam-notes/*.tex
 
+##
+# JetBrains IDEs
+#
+.idea
+
 #
 # Exclude these Asciidoctor generated files in any subdirectory
 # frm this root directory.
