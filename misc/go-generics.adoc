@@ -25,7 +25,7 @@ From that version, functions can take generic (parametrically polymorphic) types
 
 == min(x, y) for go 1.18
 
-.go.md
+.go.mod
 [source,go]
 ----
 module main
@@ -112,11 +112,12 @@ func min[T cmp.Ordered](x, y T) T {
 }
 ----
 
-The instantiation and usage is like the previous example with `constraints.Ordered`.
+The instantiation and usage is the same as the previous example with `constraints.Ordered`.
 
 == Instantiation examples
 
-It is possible to instantiate the generic function with a concrete type and store the result in another variable:
+It is possible to instantiate the generic function with a concrete type (without actually calling it).
+The instantiation produces a non-generic function, which can be assigned to a variable for later use.
 
 [source,go]
 ----
