@@ -182,7 +182,7 @@ func min(x, y int64) int64 {
 
 In the `min()` function above, `int64` is the type for both `x` and `y`, it it means that both `x` and `y` can take any of the values that inhabit the `int64` type.
 
-Cmpare with this:
+Compare with this:
 
 [source,go]
 ----
@@ -200,7 +200,7 @@ It means integers, strings, floats satisfy `cmp.Ordered` and therefore are valid
 
 [NOTE]
 ====
-As of this writing (Feb 2024 and Go 1.23), the type `bool` does implement comparisson operators.
+As of this writing (Feb 2024 and Go 1.23), the type `bool` does implement comparison operators.
 That is, we cannot do things like this:
 
 [source,go]
@@ -219,6 +219,26 @@ x := min[bool](false, true)
 
 Therefore, `bool` is a type that does not satisfy `cmp.Ordered` constraint.
 ====
+
+== Type constraints are interfaces
+
+Operators like `<` or `>` are not methods.
+So how come type constraints are interfaces?
+
+[source,go]
+----
+type Ordered interface {
+	Integer | Float | ~string
+}
+
+----
+The vertical bar expresses an union of the types.
+`Integer` `Float` are interfaces themselves.
+
+The _tilde_ “~” is a new token from Go 1.18 which denotes that all types that have the underlying `string` type are valid.
+In short, it means `~T` the set of all types with underlying type `T`.
+
+Note that there are no methods in the `Ordered` interface.
 
 == References
 
