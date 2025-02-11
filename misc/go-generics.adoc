@@ -168,7 +168,7 @@ var iTree Tree[int64]
 Remember that `any` is short for `interface{}`.
 ====
 
-== Type sets
+== Type sets and type constraints
 
 An ordinary parameter list has a type for each parameter.
 This type defines a set of values that inhabit that type (all possible strings, or all possible integer numbers, etc.)
