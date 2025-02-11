@@ -145,7 +145,30 @@ type Tree[T any] struct {
 }
 ----
 
+Then we could implement methods on `Tree`:
+
+[source,go]
+----
+func (t *Tree[T]) Find(v T) *Tree[T] {
+	// Logic to find v.
+}
+----
+
+And create concrete-typed instances from the generic `Tree[T]`.
+That is, we can instanticate `T` to any concrete type that (in our example), satisfies the `cmp.Ordered` interface:
+
+[source,go]
+----
+var sTree Tree[string]
+var iTree Tree[int64]
+----
+
+
 [NOTE]
 ====
 Remember that `any` is short for `interface{}`.
 ====
+
+== References
+
+* link:https://www.youtube.com/watch?v=Pa_e9EeCdy8[ GopherCon 2021: Generics! - Robert Griesemer & Ian Lance Taylor (Youtube)^].
