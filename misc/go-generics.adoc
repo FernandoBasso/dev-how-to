@@ -163,10 +163,61 @@ var sTree Tree[string]
 var iTree Tree[int64]
 ----
 
-
 [NOTE]
 ====
 Remember that `any` is short for `interface{}`.
+====
+
+== Type sets
+
+An ordinary parameter list has a type for each parameter.
+This type defines a set of values that inhabit that type (all possible strings, or all possible integer numbers, etc.)
+
+[source,go]
+----
+func min(x, y int64) int64 {
+	// ...
+}
+----
+
+In the `min()` function above, `int64` is the type for both `x` and `y`, it it means that both `x` and `y` can take any of the values that inhabit the `int64` type.
+
+Cmpare with this:
+
+[source,go]
+----
+func min[T cmp.Ordered](x, y T) T {
+	// ...
+}
+----
+
+In this case, the type parameter list also has a type for each parameter.
+It is called a _type constraint_, and it defines a _set of types_.
+It is called _type constraint_ because it _constrains_ the types that it accepts.
+In this example, the `cmp.Ordered` (or `constraints.Ordered in Go 1.18 and 1.19) type constraint means that `T` can be any type that allows its values to be ordered in some way, and therefore, be compared in terms of which value domes first or after the other value in some sense.
+
+It means integers, strings, floats satisfy `cmp.Ordered` and therefore are valid values to be passed to `min()`, but types like booleans or struct do not satisfy `cmp.Ordered`, and therefore would not be valid input values to `min()`.
+
+[NOTE]
+====
+As of this writing (Feb 2024 and Go 1.23), the type `bool` does implement comparisson operators.
+That is, we cannot do things like this:
+
+[source,go]
+----
+if false < true 
+// ~ invalid operation: false < true (operator < not
+// ~ defined on untyped bool)
+
+// Or
+
+x := min[bool](false, true)
+// ~ bool does not satisfy cmp.Ordered (bool missing in ~int |
+// ~ ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 | ~uint16 |
+// ~ ~uint32 | ~uint64 | ~uintptr | ~float32 | ~float64 | ~string)
+----
+
+Therefore, `bool` is a type that does not satisfy `cmp.Ordered` constraint.
 ====
 
 == References
