@@ -1,0 +1,57 @@
+= Bash Shell Redirection
+:page-tags: bash shell cmdline redirection unix posix linux
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:source-highlighter: highlight.js
+:experimental:
+:stem: latexmath
+:toc: left
+:imagesdir: __assets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Go run error output and pipe to vim
+
+We are compiling a Go program and get this error message:
+
+[source,bash]
+----
+$ go run min.go 
+./min.go:21:11: bool does not satisfy cmp.Ordered
+(bool missing in ~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 | ~float64 | ~string)
+----
+
+For some reason, we want to open it in vim to edit the result whatever.
+We say, “OK, I can just pipe it to vim -”
+
+[NOTE]
+====
+See `:help vim-arguments` if in vim, or `:help cli-arguments` if in nvim, or simply `:help starting.txt` and search for “stdin”.
+====
+
+So we run the program and pipe the output to vim:
+
+[source,bash]
+----
+$ go run min.go | vim -
+----
+
+But vim opens with an empty buffer.
+
+The thing is that Go is printing an error message, and it correctly sends it to STDERR.
+Therefore, we should first redirect STDERR to STDIN, and STDIN to vim!
+
+[source,bash]
+----
+$ 2>&1 go run min.go | vim -
+----
+
+Then it works and we should see the contents of go run STDERR read into our vim buffer.
