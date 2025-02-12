@@ -260,6 +260,29 @@ A type constraint has two functions:
 * The type set of type constraint is the set of all valid type arguments.
 * If all types in a constraint support a certain operation, that operation may be used with the respective type parameter (even though there are exceptions or restrictions to this for a few special cases).
 
+== Constraint literals (inline constraints)
+
+Take this type constraint (with inline interfaces):
+
+[source,go]
+----
+[S interface{ ~[]E }, E interface{}]
+----
+
+Go 1.8 added some syntax sugar so `interface{ ~[]E }` can be shortened to simply `~[]E`, so the type constraint can be written as:
+
+[source,go]
+----
+[S ~[]E, E interface{}]
+----
+
+Also, the empty interface `interface{}` got an alias `any`, the type constraint can be even written like this:
+
+[source,go]
+----
+[S ~[]E, any]
+----
+
 == References
 
 * link:https://www.youtube.com/watch?v=Pa_e9EeCdy8[ GopherCon 2021: Generics! - Robert Griesemer & Ian Lance Taylor (Youtube)^].
