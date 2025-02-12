@@ -1,11 +1,21 @@
 = Unicode and UTF-8
-:linkcss!:
-:webfonts!:
-:icons!: font
-:source-highlighter: pygments
-:pygments-css: style
+:page-tags: unicode utf8 ascii
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
 :sectlinks:
+:sectnums!:
+:toclevels: 6
 :toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 == Useful Characters
 
@@ -43,6 +53,15 @@
 
 ♯ ♩ ♪ E laiá! ♫ ♭ ♮
 
+=== Subscripts
+
+In vim/nvim, we can insert subscripts for digits from 0 to 9 using digraphs.
+kbd:[Ctrl+k] followed by kbd:[<digit> s].
+For example, to write N₇, one would type kbd:[N] followed by kbd:[Ctrl+k 7s].
+
+If not using vim, or another subscript is needed, like in maths where we sometimes write sequences like `T1 | T2 | Tₙ` to indicate that the sequence continues, then the unicode code point can be used.
+In the case of ₙ, the code point is 0x2299 (hex).
+And can be typed in vim with kbd:[Ctrl+v] kbd:[u 2099].
 
 == Whitespace Character
 
