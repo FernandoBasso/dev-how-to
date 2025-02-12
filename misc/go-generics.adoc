@@ -205,7 +205,7 @@ That is, we cannot do things like this:
 
 [source,go]
 ----
-if false < true 
+if false < true
 // ~ invalid operation: false < true (operator < not
 // ~ defined on untyped bool)
 
@@ -222,6 +222,17 @@ Therefore, `bool` is a type that does not satisfy `cmp.Ordered` constraint.
 
 == Type constraints are interfaces
 
+An interface defines a set of methods.
+Any type that implements that set of methods implements that interface.
+
+Another way to look at it is that an interface defines a set of types, which is where the following syntax in Go comes from:
+
+[source,go]
+----
+type MyType interface {
+	T1 | T2 | Tₙ
+----
+
 Operators like `<` or `>` are not methods.
 So how come type constraints are interfaces?
 
@@ -230,15 +241,24 @@ So how come type constraints are interfaces?
 type Ordered interface {
 	Integer | Float | ~string
 }
-
 ----
+[NOTE]
+====
+Note that there are no methods in the `Ordered` interface.
+It is really just defining a set of types.
+====
+
 The vertical bar expresses an union of the types.
 `Integer` `Float` are interfaces themselves.
 
-The _tilde_ “~” is a new token from Go 1.18 which denotes that all types that have the underlying `string` type are valid.
+The _tilde_ “~” is a new token introduced in Go 1.18.
 In short, it means `~T` the set of all types with underlying type `T`.
+In our example, `~string` means all types that have the underlying `string` type.
 
-Note that there are no methods in the `Ordered` interface.
+A type constraint has two functions:
+
+* The type set of type constraint is the set of all valid type arguments.
+* If all types in a constraint support a certain operation, that operation may be used with the respective type parameter (even though there are exceptions or restrictions to this for a few special cases).
 
 == References
 
