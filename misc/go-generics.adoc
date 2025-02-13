@@ -365,6 +365,33 @@ Explicit type annotations make the expected type immediately visible, and we don
 It becomes visible and explicit even in a plain text file, cat, Gitlab, etc.
 ====
 
+=== Working implementation
+
+The fix is simple: we simply use more appropriate types and things work.
+
+[source,diff]
+----
+- func scale[E constraints.Integer](s []E, k E) []E {
++ func scale[S ~[]E, E constraints.Integer](s S, k E) S {
+-   scaled := make([]E, len(s))
++   scaled := make(S, len(s))
+
+  for i, v := range s {
+    scaled[i] = v * k
+  }
+
+  return scaled
+}
+----
+
+We introduced a new type constraint `S ~[]E`` (which is the type of the argument), so that the the underlying type of its argument must be a slice of some element of type `E`.
+
+With this change, the first argument of the function is of type `S`, rather than `[]E`.
+
+But now if we call `scale(p, k)``, and `p` is of type `Point`, then the return type will also be of type `Point`, and `Point does have a method `Str()`.
+
+And with those changes we have a proper, working implementation of `scale()` as the types now work as we actually need them to work.
+
 == References
 
 * link:https://www.youtube.com/watch?v=Pa_e9EeCdy8[ GopherCon 2021: Generics! - Robert Griesemer & Ian Lance Taylor (Youtube)^].
