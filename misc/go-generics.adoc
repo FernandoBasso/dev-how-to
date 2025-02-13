@@ -231,6 +231,7 @@ Another way to look at it is that an interface defines a set of types, which is 
 ----
 type MyType interface {
 	T1 | T2 | Tₙ
+}
 ----
 
 Operators like `<` or `>` are not methods.
@@ -242,6 +243,7 @@ type Ordered interface {
 	Integer | Float | ~string
 }
 ----
+
 [NOTE]
 ====
 Note that there are no methods in the `Ordered` interface.
@@ -282,6 +284,86 @@ Also, the empty interface `interface{}` got an alias `any`, the type constraint 
 ----
 [S ~[]E, any]
 ----
+
+== Scale() function example
+
+=== Non-working implementation
+
+Let’s consider this piece of code:
+
+[source,go]
+----
+package main
+
+import (
+	"fmt"
+	"golang.org/x/exp/constraints"
+)
+
+// scale takes a slice of Integer and returns a new slice with each
+// integer multiplied by k.
+func scale[E constraints.Integer](s []E, k E) []E {
+	scaled := make([]E, len(s))
+
+	for i, v := range s {
+		scaled[i] = v * k
+	}
+
+	return scaled
+}
+
+// Point represents the coordinates of a point.
+type Point []int32
+
+// Str returns a stringified version Point p.
+func (p Point) Str() string {
+	var s string
+
+	for _, v := range p {
+		s += string(v) + " "
+	}
+
+	return s
+}
+
+func main() {
+	xs := Point{2, 3, 4}
+
+	scaledXs := scale(xs, 2)
+
+	// ERROR: Doesn't compile.
+	fmt.Printf("%s\n", scaledXs.Str())
+	// ~ scaledXs.Str undefined (type []int32 has no field or method Str)
+}
+----
+
+The problem with this implementation is that `scale()` returns a `[]E`, where `E` is the element type of the argument slice.
+
+When we call `scale()` with a value of type `Point`, whose underlying type is `[]int32`, we get back a value of type `[]int32`, not a value of type `Point`.
+The problem here is that `Point` has the method `Str()`, but `[]int32`` does not, thus the error.
+
+[NOTE]
+====
+This is one more reason why I generally prefer explicit type annotations.
+So instead of:
+
+[source,text]
+----
+v := someFn(x)
+----
+
+We would do something like this:
+
+[source,text]
+----
+var v SomeType = someFn(x)
+----
+
+If `somFn()` does NOT return `SomeType``, we know immediately, either through the editor feedback or when testing or compiling the code.
+
+Explicit type annotations make the expected type immediately visible, and we don't need to be in an editor/IDE with LSP or some other tool to help with hovers or whatever to inspect the returned types.
+It becomes visible and explicit even in a plain text file, cat, Gitlab, etc.
+====
 
 == References
 
