@@ -1,0 +1,60 @@
+= Design Patterns
+:page-tags: design-pattern
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Introduction to design patterns
+
+[NOTE]
+====
+This document is a work in progress.
+====
+
+There are three main categories of design patterns:
+
+* Creational
+* Structural
+* Behavioral
+
+== List of creational design patterns
+
+* Factory
+* Abstract
+* Builder
+* Prototype
+* Singleton
+
+== List of structural design patterns
+
+* Adapter
+* Bridge
+* Composite
+* Decorator
+* Facade
+* Flyweight
+* Proxy
+
+== List of behavioral design patterns
+
+* Chain of responsibility
+* Command
+* Iterator
+* Mediator
+* Memento
+* Observer
+* State
+* Strategy
+* Visitor
