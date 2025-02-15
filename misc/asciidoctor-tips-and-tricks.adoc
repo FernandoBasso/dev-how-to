@@ -1,0 +1,61 @@
+= AsciiDoc(tor) Tips & Tricks
+:page-tags: asciidoc asciidoctor tutorial documentation markup
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Disable code-block italic fonts
+
+Asciidoctor can produce output documents with nice source code syntax highlighting using an external source highlighter (Pygments, Highlight.js, etc.).
+
+See:
+
+* link:https://docs.asciidoctor.org/asciidoc/latest/verbatim/source-blocks/[Source Code Blocks on the Asciidoctor documentation^].
+* link:https://docs.asciidoctor.org/asciidoc/latest/verbatim/source-highlighter/[Source Highlighting on the Asciidoctor documentation^].
+
+[NOTE]
+====
+The tips that follow assume we are generating HTML output from our Asdiidoctor documents.
+====
+
+Most source highlighter programs style certain tokens in the source listings as italic.
+Some people (like myself) prefers no italics in source code.
+
+To disable italics completely for comments, keywords, identifiers, etc., we have to know which CSS classes are applied and override them.
+
+Basically, create a passthrough block at the end of your `.adoc` file as in the examples below.
+
+[NOTE]
+====
+The approach below will work if you are previewing Asciidoctor documents locally on a browser (with the preview extension), or if you generate the HTML with `asciidoctor` command line locally.
+
+That said, it is unclear that Gitlab, Github or other platforms will apply our style overrides.
+====
+
+=== Disable italic for source code listings
+
+Below are some selectors to disable italics for at least some source code highlighting tools, like Pygments and Highlight.js.
+
+[source,text]
+----
+++++
+<style type="text/css" rel="stylesheet">
+.hljs-comment,
+pre.pygments .tok-c1 {
+  font-style: normal;
+}
+</style>
+++++
+----
