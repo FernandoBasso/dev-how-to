@@ -1,0 +1,22 @@
+= Adapter Structural Design Pattern
+:page-tags: design-pattern adapter structural
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== The Adapter structural pattern
+
+image::__assets/adapter-example-1.png[Adapter Example 1]
+
