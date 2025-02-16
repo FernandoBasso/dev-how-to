@@ -1,6 +1,5 @@
-= Maps
-:page-subtitle: Go
-:page-tags: go map dsa data-structure
+= Go Maps
+:page-tags: go map dsa data-structure algorithm
 :favicon: https://fernandobasso.dev/cmdline.png
 :icons: font
 :sectlinks:
