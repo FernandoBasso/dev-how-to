@@ -155,7 +155,7 @@ func (t *Tree[T]) Find(v T) *Tree[T] {
 ----
 
 And create concrete-typed instances from the generic `Tree[T]`.
-That is, we can instanticate `T` to any concrete type that (in our example), satisfies the `cmp.Ordered` interface:
+That is, we can instantiate `T` to any concrete type that (in our example), satisfies the `cmp.Ordered` interface:
 
 [source,go]
 ----
@@ -384,13 +384,47 @@ The fix is simple: we simply use more appropriate types and things work.
 }
 ----
 
-We introduced a new type constraint `S ~[]E`` (which is the type of the argument), so that the the underlying type of its argument must be a slice of some element of type `E`.
+We introduced a new type constraint `S ~[]E` (which is the type of the argument), so that the underlying type of its argument must be a slice of some element of type `E`.
 
 With this change, the first argument of the function is of type `S`, rather than `[]E`.
 
-But now if we call `scale(p, k)``, and `p` is of type `Point`, then the return type will also be of type `Point`, and `Point does have a method `Str()`.
+But now if we call `scale(p, k)`, and `p` is of type `Point`, then the return type will also be of type `Point`, and `Point does have a method `Str()`.
 
 And with those changes we have a proper, working implementation of `scale()` as the types now work as we actually need them to work.
+
+== Type inference
+
+This is how we can call `scale()`:
+
+[source,go]
+----
+xs := Point{2, 3, 4}
+
+scaledXs := scale[Point, int32](xs, 2)
+
+fmt.Printf("%s\n", scaledXs.Str())
+----
+
+We pass `Point` as the type constraint for `S` (`xs` parameter), and `int32` for the type constraint for `E` (`2` parameter).
+But we can also call it without providing the type constraints explicitly, and the type checker will be able to correctly infer the types _from the parameters_ passed.
+
+[source,go]
+----
+xs := Point{2, 3, 4}
+scale(xs, 2)
+----
+
+In this case, the type checker infers that the type constraint for `S` is `Point` (and ``Point``'s underlying type is `int32`).
+The type constraint for `2` is `int32`.
+
+All the type arguments are successfully inferred, so the function can be instantiated and called without explicit type arguments provided at the call site.
+
+[NOTE]
+====
+Depending on our setup, including linting, we may even get diagnostic messages saying we are providing _unnecessary_ type arguments, since in most situations type inference just works.
+
+Whether it is good practice to be implicit instead of explicit is a controversial topic (I tend to err on the side of being explicit most of the time, though).
+====
 
 == References
 
