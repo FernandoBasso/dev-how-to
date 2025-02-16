@@ -395,3 +395,11 @@ And with those changes we have a proper, working implementation of `scale()` as 
 == References
 
 * link:https://www.youtube.com/watch?v=Pa_e9EeCdy8[ GopherCon 2021: Generics! - Robert Griesemer & Ian Lance Taylor (Youtube)^].
+
+++++
+<style type="text/css" rel="stylesheet">
+.hljs-comment {
+  font-style: normal;
+}
+</style>
+++++
