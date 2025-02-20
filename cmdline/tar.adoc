@@ -16,6 +16,48 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+== GZip a directory
+
+In this example, we want to gzip the entire contents of the `./mygame/` directory into the `./mygame.zip` archive.
+
+Basically, we use these options:
+
+* `-c`, which means “create”.
+* `-z` to tell `tar` to use the _gzip_ compression algorithm.
+* `-v` is for verbose.
+* `-f` to specify the resulting compressed filename.
+
+[source,bash]
+----
+$ tar -zcv -f ./mygame.zip ./mygame
+a ./mygame
+a ./mygame/mylib.h
+a ./mygame/Makefile
+a ./mygame/mylib.c
+a ./mygame/main.c
+----
+
+[NOTE]
+====
+We have typed `-f` separately from the `-zcv` options to make it stand out.
+That said, we could also have writen it like this:
+
+[source,bash]
+----
+$ tar -zcvf ./mygame.zip ./mygame
+----
+
+The important thing is that the `-f` option comes last so the command takes the `./mygame.zip` argument and uses it for the `f` option.
+If we instead had written `-zcfv ./mygame.zip`, then it would not work:
+
+[source,text]
+----
+tar: ./mygame.zip: Cannot stat: No such file or directory
+----
+
+That is because `-v` takes no paramenter, but `-f` come before `-v`, messing up the orther of the options and parameter, causing the command to fail.
+====
+
 == Pack Excluding Directories
 
 Useful command to create an archive of a React/Vue.js where we want
