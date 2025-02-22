@@ -15,5 +15,13 @@ func New(handlers map[string]Handler) Router {
 }
 
 func (r *Router) Route(pageName string) error {
-	return fmt.Errorf("could not find handler for page %s", pageName)
+	handler, ok := r.handlers[pageName]
+
+	if !ok {
+		return fmt.Errorf("could not find handler for page %s", pageName)
+	}
+
+	handler(pageName)
+
+	return nil
 }
