@@ -22,6 +22,8 @@ func TestFnRouter(t *testing.T) {
 
 		err := router.Route("home")
 
+		require.Empty(t, spy)
+
 		require.EqualError(
 			t,
 			err,
