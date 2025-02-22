@@ -1,0 +1,41 @@
+= Unzip Examples and Tips
+:page-tags: cmdline unzip
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Unzip to a specific directory
+
+Unzip `~/Backups/myproj.zip` into `~/source/`:
+
+[source,bash]
+----
+$ unzip ~/Backups/myproj.zip -d ~/source
+----
+
+It should output something like this:
+
+[source,text]
+----
+  Archive: /home/you/Backups/myproj.zip
+ creating: /home/you/source/myproj/
+inflating: /home/you/source/myproj/Makefile
+ creating: /home/you/source/myproj/src/
+inflating: /home/you/source/myproj/src/main.c
+inflating: /home/you/source/myproj/src/libgame.h
+inflating: /home/you/source/myproj/src/libgame.c
+----
+
+An important thing to note is that the extracted files will not be put directly into `~/source/`, but into `~/source/myproj/` instead, such that the result is `~/source/myproje/<extracte dfiles here>`.
