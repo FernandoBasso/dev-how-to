@@ -1,0 +1,60 @@
+= Go Simple Router TDD Spy Exercise
+:page-tags: go tdd router spy
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Intro
+
+For this exercise we are writing a simple router that takes a map of router names to handler functions.
+Something like this:
+
+[source,go]
+----
+type Handler func(pageName string)
+
+type Router struct {
+  handlers map[string]Handler
+}
+----
+
+And the goal is to assert that if create a router instance like this:
+
+[source,go]
+----
+router := router.New(map[string]router.Handler{
+  // ...map of route names to handler functions here...
+})
+----
+
+Then we would be able to assert that the router returned an error when there is no handler that matches the given route:
+
+[source,go]
+----
+router.Route("non-existing-page")
+require.EqualError(
+  t,
+  err,
+  fmt.Sprintf("could not find handler for page %s", "non-existing-page"),
+)
+----
+
+And also assert that it correctly called the handler with the proper parameters.
+
+[source,go]
+----
+router.Route("home")
+require.Equal(t, []string{"home handled"}, spy)
+----
