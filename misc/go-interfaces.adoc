@@ -1,0 +1,31 @@
+= Go Interfaces
+:page-tags: go interface implementation struct method oop
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== io.Writer
+
+List of some useful types that satisfy the `io.Writer` interface:
+
+=== slog.NewTextHandler()
+
+`slog.NewTextHandler()` takes an `io.Writer` as its first parameter, and `os.Stdout` fits the bill:
+
+[source,go]
+----
+logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+----
+
