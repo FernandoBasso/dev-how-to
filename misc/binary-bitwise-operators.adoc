@@ -41,6 +41,19 @@ parseInt(3.14, 10);
 // true
 ----
 
+== Go DefaultMaxHeaderBytes 1MB using 1 << 20
+
+Found this on the link:https://pkg.go.dev/net/http[Go 1.24.0 docs on the http pacakge] on Feb 26, 2025:
+
+[source,go]
+----
+const DefaultMaxHeaderBytes = 1 << 20 // 1 MB
+----
+
+image::__assets/go-1.24.0-defaultmaxheaderbytes-1MB-2025-02-26.png[Go 1.24.0 DefaultMaxHeaderBytes using 1 << 20 bitiwse operation]
+
+Source code: https://cs.opensource.google/go/go/+/refs/tags/go1.24.0:src/net/http/server.go;l=916
+
 == Find int odd times
 
 - https://www.codewars.com/kata/54da5a58ea159efa38000836/train/javascript
