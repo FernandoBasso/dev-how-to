@@ -43,18 +43,119 @@ Then we would be able to assert that the router returned an error when there is 
 
 [source,go]
 ----
-router.Route("non-existing-page")
-require.EqualError(
-  t,
-  err,
-  fmt.Sprintf("could not find handler for page %s", "non-existing-page"),
-)
+router.Handle("non-existing-page")
+require.EqualError(t, err, "could not find handler for non-existing-page")
 ----
 
-And also assert that it correctly called the handler with the proper parameters.
+And also assert that it correctly calls the handler with the proper parameters.
 
 [source,go]
 ----
-router.Route("home")
-require.Equal(t, []string{"home handled"}, spy)
+router.Route("about")
+require.Equal(t, []string{"halding page about"}, spy)
+----
+
+== Solution 1
+
+.go.mod
+[source,text]
+----
+module librouter
+
+go 1.24.0
+
+require github.com/stretchr/testify v1.10.0
+
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
+)
+----
+
+.router_test.go
+[source,go]
+----
+package router_test
+
+import (
+	"testing"
+
+	librouter "librouter"
+
+	"github.com/stretchr/testify/require"
+)
+
+func TestRouter(t *testing.T) {
+	t.Run("returns an error when no handler matches", func(t *testing.T) {
+		r := librouter.New(map[string]librouter.Handler{
+			"home": func(name string) {},
+		})
+
+		err := r.Handle("about")
+
+		require.Errorf(t, err, "could not find a handler for about")
+	})
+
+	t.Run("handles a route when there is a matching handler", func(t *testing.T) {
+		spyCalls := []string{}
+
+		r := librouter.New(map[string]librouter.Handler{
+			"about": func(name string) {
+				spyCalls = append(spyCalls, "handling page "+name)
+			},
+		})
+
+		err := r.Handle("about")
+
+		require.NoError(t, err)
+		require.Equal(t, []string{"handling page about"}, spyCalls)
+	})
+}
+----
+
+The first test is the simple.
+We instantiate a router by passing a single route handler for "home".
+Then, we try to handle the route for "about", but as we don't have a handler for it, our test, we correctly get the error about the situation.
+
+Note that we could simply have instantiated the router with an empty map of handlers as well, and the result would be same.
+We just felt it would be more explicit to instantiate the router with one handler which is _not_ the one we handle to exercise the code.
+
+The second test case makes use of a spy, which is nothing more than a slice of strings.
+Then when we instanticate the router, we make sure our handler functions store the calls in the slice so it can later be used to assert that the correct handler was called.
+
+For this example, our handler simply concatenates the name of the route with some informational string.
+
+Of course, it is an overly simplified example, but the intention was to show how a spy could be implemented manually (without any external libraries).
+
+It is interesting to note that the spy is avaialable in the scope of the handler functions we create to instantiate the router.
+
+.router.go
+[source,go]
+----
+package router
+
+import "errors"
+
+type Handler = func(page string)
+
+type Router struct {
+	handlers map[string]Handler
+}
+
+func New(handlers map[string]Handler) Router {
+	return Router{handlers: handlers}
+}
+
+func (r Router) Handle(name string) error {
+	handler, found := r.handlers[name]
+
+	if !found {
+		return errors.New("could not find a hing handler for " + name)
+	}
+
+	handler(name)
+
+	return nil
+}
 ----
