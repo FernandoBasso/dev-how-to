@@ -67,9 +67,9 @@ go 1.24.0
 require github.com/stretchr/testify v1.10.0
 
 require (
-	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/pmezard/go-difflib v1.0.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
+  github.com/davecgh/go-spew v1.1.1 // indirect
+  github.com/pmezard/go-difflib v1.0.0 // indirect
+  gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 ----
 
@@ -79,38 +79,38 @@ require (
 package router_test
 
 import (
-	"testing"
+  "testing"
 
-	librouter "librouter"
+  librouter "librouter"
 
-	"github.com/stretchr/testify/require"
+  "github.com/stretchr/testify/require"
 )
 
 func TestRouter(t *testing.T) {
-	t.Run("returns an error when no handler matches", func(t *testing.T) {
-		r := librouter.New(map[string]librouter.Handler{
-			"home": func(name string) {},
-		})
+  t.Run("returns an error when no handler matches", func(t *testing.T) {
+    r := librouter.New(map[string]librouter.Handler{
+      "home": func(name string) {},
+    })
 
-		err := r.Handle("about")
+    err := r.Handle("about")
 
-		require.Errorf(t, err, "could not find a handler for about")
-	})
+    require.Errorf(t, err, "could not find a handler for about")
+  })
 
-	t.Run("handles a route when there is a matching handler", func(t *testing.T) {
-		spyCalls := []string{}
+  t.Run("handles a route when there is a matching handler", func(t *testing.T) {
+    spyCalls := []string{}
 
-		r := librouter.New(map[string]librouter.Handler{
-			"about": func(name string) {
-				spyCalls = append(spyCalls, "handling page "+name)
-			},
-		})
+    r := librouter.New(map[string]librouter.Handler{
+      "about": func(name string) {
+        spyCalls = append(spyCalls, "handling page "+name)
+      },
+    })
 
-		err := r.Handle("about")
+    err := r.Handle("about")
 
-		require.NoError(t, err)
-		require.Equal(t, []string{"handling page about"}, spyCalls)
-	})
+    require.NoError(t, err)
+    require.Equal(t, []string{"handling page about"}, spyCalls)
+  })
 }
 ----
 
@@ -140,22 +140,22 @@ import "errors"
 type Handler = func(page string)
 
 type Router struct {
-	handlers map[string]Handler
+  handlers map[string]Handler
 }
 
 func New(handlers map[string]Handler) Router {
-	return Router{handlers: handlers}
+  return Router{handlers: handlers}
 }
 
 func (r Router) Handle(name string) error {
-	handler, found := r.handlers[name]
+  handler, found := r.handlers[name]
 
-	if !found {
-		return errors.New("could not find a hing handler for " + name)
-	}
+  if !found {
+    return errors.New("could not find a hing handler for " + name)
+  }
 
-	handler(name)
+  handler(name)
 
-	return nil
+  return nil
 }
 ----
