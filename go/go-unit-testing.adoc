@@ -171,6 +171,35 @@ But that is not the case.
 In reality, all tests of a single package behave like a single, individual program.
 And that is so true we can even define a `TestMain` for every individual package.
 
+== stretchr/testify library
+
+https://github.com/stretchr/testify
+
+Install or update:
+
+[source,go]
+----
+$ go get github.com/stretchr/testify
+----
+
+From now on, we should have both `assert` and `require` available for importing in our test files:
+
+[source,go]
+----
+package mypkg
+
+import (
+  "testing"
+  "github.com/stretchr/testify/require"
+  "github.com/stretchr/testify/assert"
+)
+----
+
+[NOTE]
+====
+If we simply add the import (without manually installing the package with `go get` first), and then we run `go mod tidy`, the package will get installed and added to `go.mod`.
+====
+
 == References
 
 * https://pkg.go.dev/testing
