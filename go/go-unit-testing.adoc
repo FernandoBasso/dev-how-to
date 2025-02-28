@@ -171,7 +171,7 @@ But that is not the case.
 In reality, all tests of a single package behave like a single, individual program.
 And that is so true we can even define a `TestMain` for every individual package.
 
-== stretchr/testify library
+== stretchr/testify package
 
 https://github.com/stretchr/testify
 
