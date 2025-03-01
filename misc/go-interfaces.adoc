@@ -49,6 +49,125 @@ type Writer interface {
 
 Let's take a look at some useful types that satisfy the `io.Writer` interface.
 
+=== bytes.Buffer
+
+`bytes.Buffer` has a `Write()` method with a signature that satisfies `io.Writer`, therefore, whenever a function is expecting a parameter of type `io.Writer`, we can pass in an instance of `bytes.Buffer`.
+
+This shows how a `bytes.Buffer` does indeed have a `Write()` method:
+
+[source,go]
+----
+b := bytes.Buffer{}
+b.Write([]byte("Hello, World!"))
+fmt.Println(b.String())
+//=> Hello, World!
+----
+
+=== bytes.Buffer unit test spy example
+
+As simple example, let's consider a function that prints a message to some _destination_ place (STDOUT, file, etc.).
+
+.greet.go
+[source,go]
+----
+import (
+	"fmt"
+	"io"
+)
+
+// Greet writes a greeting message to dst.
+func Greet(dst io.Writer, name string) {
+	fmt.Fprintf(dst, "I bow before your might, master %s!", name)
+}
+----
+
+Note that our `Greet()` function takes a `dst` parameter of type `io.Writer` which is where the greeting message will be written to.
+
+Then when we call `fmt.Fprintf(dst, msg)`, it actually calls `Write()` behind the scenes to send the message string to `dst` (it essentially performs a `dst.Write(msg)` behind the scenes).
+
+Let's now turn our attention to how we could unit-test this and prove we are writing the expected string message to `dst`.
+
+.greet_test.go
+[source,go]
+----
+package ctd
+
+import (
+	"bytes"
+	"testing"
+)
+
+func TestBowTo(t *testing.T) {
+	t.Run("outputs the proper bow to message", func(t *testing.T) {
+		spyBuf := bytes.Buffer{}
+
+		Greet(&spyBuf, "Aayla Secura")
+
+		got := spyBuf.String()
+		want := "I bow before your might, master Aayla Secura!"
+
+		if got != want {
+			t.Errorf("got %v, want %v", got, want)
+		}
+	})
+}
+----
+
+We create a `spyBuf` which holds an instance of `bytes.Buffer{}`, which is passed (as a pointer) as the first parameter of the `Greet()` function.
+Because that first parameter is of type `io.Writer`, and `bytes.Buffer` satisfies the `io.Writer` interface, it type-checks.
+
+Because `fmt.Fprintf()` calls something like `dst.Write(msg)` behind the scenes, our `spyBuf` now contains the greeting message and we can get its string value and compare if it matches with what we expect.
+
+To actually use `Greet()` in production (non-testing) code, we can tell our `Greet` function to send the message to STDOUT (`os.Stdout` in Go):
+
+.main.go
+[source,go]
+----
+package main
+
+import "os"
+
+func main() {
+	ctd.Greet(os.Stdout, "Ahsoka Tano")
+}
+
+// $ go run ./main.go 
+// I bow before your might, master Ahsoka Tano!
+----
+
+What happens is that `os.Stdout` also satisfies the interface `io.Writer`, therefore, when our `Greet()` function calls `fmt.Fprintf(dst, msg)`, that `dst` is actually `os.Stdout`, which also calls `dst.Write(msg)` internally.
+
+We could also send that message to a file on disk:
+
+[source,go]
+----
+func main() {
+	Greet(os.Stdout, "Ahsoka Tano")
+
+	file, err := os.Create("./out.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	Greet(file, "Leia Organa")
+}
+----
+
+Then, if we run, we should get the Ahsoka greet on the STDOUT, and the Leia greeting on `./out.txt` file:
+
+[source,bash]
+----
+$ go run ./main.go 
+I bow before your might, master Ahsoka Tano!
+
+$ cat ./out.txt 
+I bow before your might, master Leia Organa!
+----
+
+In short, anything that has a proper `Write()` method that satisfies `io.Writer` can be passed as `dst` in our `Greet()` function.
+It could be some third-party cloud library to store the file in some sort of storage, an HTTP response, etc. 
+
 === slog.NewTextHandler()
 
 `slog.NewTextHandler()` takes an `io.Writer` as its first parameter, and `os.Stdout` fits the bill:
