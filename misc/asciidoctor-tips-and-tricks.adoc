@@ -59,3 +59,21 @@ pre.pygments .tok-c1 {
 </style>
 ++++
 ----
+
+=== My preferred AsciiDoc[tor] styles
+
+[source,text]
+----
+++++
+<style type="text/css" rel="stylesheet">
+body {
+  font-family: Ubuntu, 'Noto Sans', 'Open Sans', Helvetica, Arial;
+}
+
+.hljs-comment,
+pre.pygments .tok-c1 {
+  font-style: normal;
+}
+</style>
+++++
+----
