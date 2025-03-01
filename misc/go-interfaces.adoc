@@ -29,7 +29,25 @@ For example, instead of saying things like “given a function _or_ method that 
 
 == io.Writer
 
-List of some useful types that satisfy the `io.Writer` interface:
+This is the interface `io.Writer` as of Go 1.24.0 in 2025:
+
+[source,go]
+----
+// Writer is the interface that wraps the basic Write method.
+//
+// Write writes len(p) bytes from p to the underlying data stream.
+// It returns the number of bytes written from p (0 <= n <= len(p))
+// and any error encountered that caused the write to stop early.
+// Write must return a non-nil error if it returns n < len(p).
+// Write must not modify the slice data, even temporarily.
+//
+// Implementations must not retain p.
+type Writer interface {
+	Write(p []byte) (n int, err error)
+}
+----
+
+Let's take a look at some useful types that satisfy the `io.Writer` interface.
 
 === slog.NewTextHandler()
 
