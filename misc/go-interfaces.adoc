@@ -58,3 +58,16 @@ Let's take a look at some useful types that satisfy the `io.Writer` interface.
 logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 ----
 
+
+++++
+<style type="text/css" rel="stylesheet">
+body {
+  font-family: Ubuntu, 'Noto Sans', 'Open Sans', Helvetica, Arial;
+}
+
+.hljs-comment,
+pre.pygments .tok-c1 {
+  font-style: normal;
+}
+</style>
+++++
