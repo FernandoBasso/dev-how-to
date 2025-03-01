@@ -16,6 +16,17 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+== Intro
+
+The goal of this document is to capture some of the main, important ideas about Go interfaces, some use cases, examples and explanations.
+
+[NOTE]
+====
+We'll use the terms function and method interchangeably in the following text to avoid being repetitive or too verbose when explaining certain ideas.
+
+For example, instead of saying things like “given a function _or_ method that takes an ``io.Writer``...”, we'll simply say “given a function that takes an ``io.Writer``...”.
+====
+
 == io.Writer
 
 List of some useful types that satisfy the `io.Writer` interface:
