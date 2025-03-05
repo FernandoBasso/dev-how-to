@@ -33,3 +33,37 @@ sed: no input files
 
 Of course, the `-i` option takes a file, not STDIN.
 We got STDIN instead of the `Makefile` because we used redirection.
+
+== Sed scripts
+
+It is possible to run sed from commands stored in files a few different ways.
+
+=== Script file with sed -f
+
+A very simple script that substitutes empty spaces with underscores:
+
+[source,bash]
+----
+$ 1> ./script.sed cat <<EOF
+> s/ /_/g
+> EOF
+
+$ cat ./script.sed 
+s/ /_/g
+----
+
+To have the script read input from STDIN using a HERESTRGING:
+
+[source,bash]
+----
+$ sed -f ./script.sed <<<'a new hope'
+a_new_hope
+----
+
+Or printing the input then piping to sed:
+
+[source,bash]
+----
+$ printf '%s\n' 'a new hope' | sed -f ./script.sed
+a_new_hope
+----
