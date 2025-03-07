@@ -1,0 +1,82 @@
+= PostgreSQL Errors and Error Codes
+:page-tags: postgres postgresql psql error code
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Duplicate key constraint
+
+Considering a table and email constraint like show below:
+
+[source,sql]
+----
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY
+  , name VARCHAR(255) NOT NULL
+  , email VARCHAR(255) NOT NULL
+  , hashed_password CHAR(60) NOT NULL
+  , created TIMESTAMPTZ NOT NULL
+);
+
+ALTER TABLE users ADD CONSTRAINT users_unique_email UNIQUE (email);
+----
+
+If we attempt to insert the same email more than once, we should get an error like the one below if inserting directly from a psql cli prompt:
+
+[source,text]
+----
+ERROR:  duplicate key value violates unique constraint "users_unique_email"
+DETAIL:  Key (email)=(yoda@theforce.dev) already exists.
+----
+
+In go, with lib/pq I got something like this:
+
+[source,text]
+----
+&pq.Error{
+  Severity:"ERROR",
+  Code:"23505",
+  Message:"duplicate key value violates unique constraint \"users_unique_email\"",
+  Detail:"Key (email)=(yoda@theforce.dev) already exists.",
+  Hint:"", Position:"",
+  InternalPosition:"",
+  InternalQuery:"",
+  Where:"",
+  Schema:"public",
+  Table:"users",
+  Column:"",
+  DataTypeName:"",
+  Constraint:"users_unique_email",
+  File:"nbtinsert.c",
+  Line:"666",
+  Routine:"_bt_check_unique",
+}
+----
+
+The code is 23505, which related to `unique_violation` as per link:https://www.postgresql.org/docs/current/errcodes-appendix.html[PostgreSQL docs^].
+
+
+++++
+<style type="text/css" rel="stylesheet">
+body {
+  font-family: Ubuntu, 'Noto Sans', 'Open Sans', Helvetica, Arial;
+}
+
+.hljs-comment,
+pre.pygments .tok-c1 {
+  font-style: normal;
+}
+</style>
+++++
