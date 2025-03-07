@@ -60,7 +60,7 @@ pre.pygments .tok-c1 {
 ++++
 ----
 
-=== My preferred AsciiDoc[tor] styles
+== My preferred AsciiDoc[tor] styles
 
 [source,text]
 ----
