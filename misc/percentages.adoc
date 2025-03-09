@@ -92,3 +92,16 @@ Substituting and solving:
 * stem:[60 = b]
 
 Therefore, 15 is 25% of 60.
+
+++++
+<style type="text/css" rel="stylesheet">
+body {
+  font-family: Ubuntu, 'Noto Sans', 'Open Sans', Helvetica, Arial;
+}
+
+.hljs-comment,
+pre.pygments .tok-c1 {
+  font-style: normal;
+}
+</style>
+++++
