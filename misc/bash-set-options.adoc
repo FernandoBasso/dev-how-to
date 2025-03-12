@@ -34,7 +34,7 @@ And the script's exit status is 0 even though it contained an error sometime dur
 
 [source,text]
 ----
-$ ./script.sh 
+$ ./script.sh
 Aayla
 cat: ./does-not-exist.txt: No such file or directory
 Secura
@@ -60,7 +60,7 @@ printf '%s\n' Secura
 
 [source,text]
 ----
-$ ./script.sh 
+$ ./script.sh
 Aayla
 cat: ./does-not-exist.txt: No such file or directory
 $ echo $?
@@ -68,6 +68,28 @@ $ echo $?
 ----
 
 Now, the script stops executing on the first error, and the exit status of the script is no longer 0, but the exit status of the command that failed, which in this case is 1.
+
+Just as an example, a command that will fail with another exit status:
+
+[source,bash]
+----
+#!/usr/bin/env bash
+
+set -e
+
+printf '%s\n' Ahsoka
+ping -c 1 non-existing-host
+printf '%s\n' Tano
+----
+
+[source,text]
+----
+$ ./script.sh
+Ahsoka
+ping: cannot resolve non-existing-host: Unknown host
+$ echo $?
+68
+----
 
 ++++
 <style type="text/css" rel="stylesheet">
