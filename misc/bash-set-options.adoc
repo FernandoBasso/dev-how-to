@@ -1,0 +1,83 @@
+= Bash set options
+:page-tags: bash set option
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== set -e
+
+Consider the following script:
+
+[source,bash]
+----
+#!/usr/bin/env bash
+
+printf '%s\n' Aayla
+cat ./does-not-exist.txt
+printf '%s\n' Secura
+----
+
+If we run it, it does error out because of `cat`, but it still prints the next line.
+And the script's exit status is 0 even though it contained an error sometime during its exceution.
+
+[source,text]
+----
+$ ./script.sh 
+Aayla
+cat: ./does-not-exist.txt: No such file or directory
+Secura
+
+$ echo $?
+0
+----
+
+Let's use bash's `-e` option (link:https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#The-Set-Builtin[docs^]), which essentially causes bash to exit immediately if a command exits with a non-zero status.
+
+[source,bash]
+----
+#!/usr/bin/env bash
+
+set -e # <1>
+
+printf '%s\n' Aayla
+cat ./does-not-exist.txt
+printf '%s\n' Secura
+----
+
+<1> Add `set -e` on this line.
+
+[source,text]
+----
+$ ./script.sh 
+Aayla
+cat: ./does-not-exist.txt: No such file or directory
+$ echo $?
+1
+----
+
+Now, the script stops executing on the first error, and the exit status of the script is no longer 0, but the exit status of the command that failed, which in this case is 1.
+
+++++
+<style type="text/css" rel="stylesheet">
+body {
+  font-family: Ubuntu, 'Noto Sans', 'Open Sans', Helvetica, Arial;
+}
+
+.hljs-comment,
+pre.pygments .tok-c1 {
+  font-style: normal;
+}
+</style>
+++++
