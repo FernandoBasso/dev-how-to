@@ -91,6 +91,29 @@ $ echo $?
 68
 ----
 
+== Pipes and pipefail
+
+When pipes are used, the exit status is the one of the last command in the chain.
+
+Consider:
+
+[source,bash]
+----
+$ printf hello | grep hell
+hello
+$ echo $?
+0
+
+$ printf hello | grep world
+$ echo $?
+1
+----
+
+In this example, the `grep` after the pipe is the last command.
+In the first run, `grep` does match “hell”, and therefore its exit status is 0 (zero, which means success).
+However, on the second attempt, `grep` does not match “world” and therefore its exit status is 1 (indicating failure).
+
+
 ++++
 <style type="text/css" rel="stylesheet">
 body {
