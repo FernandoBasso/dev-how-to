@@ -19,3 +19,109 @@ endif::[]
 == Intro
 
 Some examples and tips on using “make files” and explanations on some tricky and/or nice make-file-related stuff.
+
+== Include .env vars
+
+Recently I found a `Makefile` containing (among other things) this:
+
+[source,makefile]
+----
+include .env
+export $(shell sed 's/=.*//' .env)
+----
+
+And the `.env` file contained something like this:
+
+[source,bash]
+----
+$ cat .env 
+JEDI=yoda
+SKILL=force
+----
+
+Then I though, “OK, that sed command will replace the = and everything after it, and export just the bare ENV var name, without any value.”
+E.g.:
+
+[source,bash]
+----
+$ cat .env
+JEDI=yoda
+SKILL=force
+
+$ 0< .env sed 's/=.*//'
+JEDI
+SKILL
+----
+
+“What is the point of exporting just `JEDI` and `SKILL` without the value”, I thought.
+Because if I just export a name without a value, it has not value:
+
+[source,bash]
+----
+$ export FOO
+echo $FOO
+(empty, nothing shows up)
+----
+
+But if we export with a proper value, then it works:
+
+[source,bash]
+----
+$ export FOO=bar
+$ echo $FOO
+bar
+----
+
+So again, why exporting stuff in the `Makefile` and removing the equal sign _and_ the value?
+
+It so happens that when we `include .env`, those variables become available in the current shell process and then all that is left is to `export` the variables, just like we can do with vanilla shell (outside of `make` stuff):
+
+[source,bash]
+----
+$ JEDI=yoda
+$ export JEDI
+$ echo $JEDI
+yoda
+----
+
+Note that _after_ we initialize `JEDI` to "yoda", it we simply export `JEDI`, not `JEDI=yoda`.
+That is what happens in that `Makefile` snippet.
+`include .env` will create the variables with their values, and then we simply export the _names_ (which already contain the values).
+Therefore, this piece of `Makefile` code:
+
+[source,text]
+----
+include .env
+export $(shell sed 's/=.*//' .env)
+----
+
+Can be thought of as something like:
+
+[source,bash]
+----
+JEDI=yoda
+SKILL=force
+export JEDI
+export SKILL
+----
+
+Or, in fewer lines:
+
+[source,bash]
+----
+JEDI=yoda SKILL=force
+export JEDI SKILL
+----
+
+++++
+<style type="text/css" rel="stylesheet">
+body {
+  font-family: Ubuntu, 'Noto Sans', 'Open Sans', Helvetica, Arial;
+}
+
+.hljs-comment,
+pre.pygments .tok-c1 {
+  font-style: normal;
+}
+</style>
+++++
