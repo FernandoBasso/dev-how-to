@@ -27,3 +27,22 @@ https://www.youtube.com/watch?v=5NggL8yPQtI
 
 * kbd:[gd]: [G]o to [D]efinition.
 * kbd:[gi]: [G]o to [I]nterface.
+
+== LSP and FZF-Lua
+
+Current list of goodies that show up with my LSP config and FZF-Lua:
+
+* `lsp_references`
+* `lsp_definitions`
+* `lsp_typedefs`
+* `lsp_document_symbols`
+* `lsp_live_workspace_symbols`
+* `lsp_workspace_symbols`
+* `lsp_incoming_calls`
+* `lsp_outgoing_calls`
+* `lsp_code_actions`
+* `lsp_document_diagnostics`
+* `lsp_implementations`
+* `lsp_workspace_diagnostics`
+* `lsp_declarations`
+* `lsp_finder`
