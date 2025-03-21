@@ -1,0 +1,111 @@
+# Programming How To
+
+## Intro
+
+My personal repository of tips, tutorials, ideas, code, solutions and whatever else I see fit to put in here 😅.
+
+The idea is to collect everything I research and study in a single place (the exception to this is my math studies which I store somewhere else) so that I can open an editor or perform searches from a single place, instead of trying to remember in which directory I did something.
+
+## Commit Messages
+
+As of May 2022, I’m starting to use [Conventional Commits](https://www.conventionalcommits.org), always making sure to use a proper commit **type**  and a **scope** (when a **scope** makes sense):
+
+For programming languages, I use the programming language extension as the commit **type**:
+
+* `c` for the C language;
+* `rb` for Ruby;
+* `js` for JavaScript;
+* `ts` for TypeScript;
+* `hs` for Haskell;
+* `purs` for PureScript;
+* `scm` for Scheme;
+* `rkt` for Racket Scheme;
+* ...and so on and so forth...
+
+For libraries or frameworks I may use a mix of things, or reasonable abbreviations:
+
+* `cmdline`: general shell-related stuff;
+* `vim`: guess!
+* `emacs`: guess!
+* `xfce`: Xfce Linux Window Manager;
+* `thunar`: Xfce file manager;
+
+For books or special “projects” I would have their initials or something minimally identifiable:
+
+* `hffp`: commits related to the book Haskell From First Principles;
+* `ckr`: for C K&R book;
+* `codewars`: Codewars challenges;
+* `hackerrank`: Hakcerrank challenges;
+
+Examples of commits:
+
+```text
+ts(ts50): Add l43 promisify example
+
+hffp: Add solution for chapter 10 exercises
+
+vim(fzf): Add fzf text search key binding
+```
+
+## Git Setup
+
+Make sure to properly `core.hooksPath` to `.githooks` directory:
+
+```shell-session
+$ git config --local core.hooksPath .githooks
+```
+
+You may want to read the shell scripts inside the `.githooks/` and `scripts/` directories.
+
+### pre-commit hook
+
+The pre-commit hook runs a script to find new or changed `.png` images and runs `optipng` on them so they get optimized (reduced in file size) before being committed to the repository.
+
+### commit-msg hook
+
+Runs a shell script that checks that our commit messages follows our standards.
+
+### Helper Script for Commit Types
+
+One idea is to create a script that collects all “tags” I have used so far in git commits and try to reuse them consistently instead of making a mess.
+Hard to avoid the mess, though.
+
+Here’s the script:
+
+```shell-session
+$ git log --format='%s' \
+    | grep '^[a-z]\+:' \
+    | sed 's/:.\+//' \
+    | sort \
+    | uniq
+add
+hffp
+repo
+wip
+```
+
+## One Sentence Per Line
+
+See [AsciiDoc Recommended Practices](https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line).
+
+Don’t wrap text at a fixed column width.
+Instead, put each sentence on its own line, a technique called **sentence per line**.
+This technique is similar to how you write and organize source code. The result can be spectacular.
+
+Here are some of the advantages of using the sentence per line style:
+
+* It prevents reflows (meaning a change early in the paragraph won’t cause the remaining lines in the paragraph to reposition).
+* You can easily swap sentences.
+* You can easily separate or join paragraphs.
+* You can comment out sentences or add commentary to them.
+* You can spot sentences which are too long or sentences that vary widely in length.
+* You can spot redundant (and thus mundane) patterns in your writing.
+
+We picked up this idea from the writing guide in the Neo4j documentation.
+However, it seems like the idea dates back a discovery by Buckminster Fuller in the 1930s, who called it [ventilated prose](https://vanemden.wordpress.com/2009/01/01/ventilated-prose/).
+The technique was also recommended in 2009 by Brandon Rhodes in a blog post about [Semantic Linefeeds](https://rhodesmill.org/brandon/2012/one-sentence-per-line/).
+
+It’s important to note that this technique works because AsciiDoc doesn’t treat wrapped lines in prose as hard line breaks.
+At least, it doesn’t show up that way to the reader.
+The line breaks between contiguous lines of prose will not be visible in the rendered document (i.e., as the reader sees it).
+While a single line break doesn’t appear in the output, two consecutive line breaks starts a new paragraph (or other block).
