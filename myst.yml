@@ -1,0 +1,20 @@
+version: 1
+
+project:
+  id: 013003ea-f227-4c70-8d0a-dfad40647b8d
+  title: Dev How To
+  subtitle: Dev
+  shorttitle: Other
+  description: My notes, tips, examples and insights on software development in general.
+  keywords: [unix, cmdline, shell, bash, programming, devops]
+  authors: [Fernando Basso]
+  github: https://github.com/jupyter-book/mystmd-quickstart
+  toc:
+    - file: README.md
+
+site:
+  template: book-theme
+  options:
+    favicon: images/favicon.webp
+    logo: images/site-logo.webp
+    logo_text: Dev How To

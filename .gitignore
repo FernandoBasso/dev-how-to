@@ -1,4 +1,10 @@
 #
+# mystmd stuff.
+#
+.ipynb_checkpoints
+_build
+
+#
 # Asciidoctor converted files. Se Guardfile
 #
 *.adoc.conv.html
