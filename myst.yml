@@ -11,6 +11,7 @@ project:
   github: https://github.com/jupyter-book/mystmd-quickstart
   toc:
     - file: README.md
+    - file: misc/bad-git-commit-messages.md
 
 site:
   template: book-theme
