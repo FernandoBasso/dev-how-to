@@ -2,11 +2,12 @@ name: MyST GitHub Pages Deploy
 on:
   push:
     ##
-    # Runs on pushes targeting the default branch
+    # Deploys the pages when pushes are made to main. The branches
+    # devel and drafts are reserved to other stuff that doesn't
+    # require or merit a deploy.
     #
     branches:
       - "main"
-      - "site-with-myst"
 env:
   ##
   # `BASE_URL` determines the website is served from, including CSS & JS assets

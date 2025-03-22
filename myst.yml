@@ -8,7 +8,7 @@ project:
   description: My notes, tips, examples and insights on software development in general.
   keywords: [unix, cmdline, shell, bash, programming, devops]
   authors: [Fernando Basso]
-  github: https://github.com/jupyter-book/mystmd-quickstart
+  github: https://github.com/FernandoBasso/dev-how-to
   exclude:
     - old-notes/**
     - old-notes-2/**
