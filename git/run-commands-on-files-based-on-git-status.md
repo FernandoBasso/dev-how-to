@@ -84,7 +84,8 @@ $ vim $(git log -5 --name-only --pretty='format:' | sed '/^$/d')
 
 ### Credits and references
 
-Got the gist of the idea form [this blog post by Luis Osa](https://logc.github.io/blog/2015/07/15/open-files-from-last-commit-in-vim/) and just added more details to the explanation.
+Got the gist of the idea from [this blog post by Luis Osa](https://logc.github.io/blog/2015/07/15/open-files-from-last-commit-in-vim/).
+I just added more details to the explanation as they made sense to me.
 
 ## Optimize images
 
@@ -103,9 +104,8 @@ We had better use `--porcelain` to get a more “easy-to-parce format for script
 
 See `git status --help` then search for `--porcelain`:
 
-**excerpt from git status --help**
-
-```text
+```{code} text
+:filename: excerpt from git status --help
 --porcelain[=<version>]
    Give the output in an easy-to-parse format for scripts. This is
    similar to the short output, but will remain stable across Git
