@@ -20,7 +20,8 @@ We had to keep stoping and starting the local server again for the new changes t
 
 Then I read Parcel docs, and sure enough, just chaning the script to this worked fine:
 
-```json
+```{code} json
+:filename: package.json
 {
   "dev": "NODE_ENV=development parcel serve -p 3000 src/index.html"
 }
@@ -38,8 +39,6 @@ Fix hash text colour, always run build when running dev
 ```
 
 And the diff:
-
-**patch diff**
 
 ```diff
 - "dev": "parcel serve -p 3000 src/index.html",
