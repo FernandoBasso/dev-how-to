@@ -1,9 +1,4 @@
-# Inspecting The Repository
-
-- [useful log commands](#useful-log-commands)
-- [useful branch commands](#useful-branch-commands)
-- [find commit containing a given pattern](#find-commits-containing-a-given-pattern)
-
+# Inspecting a Git Repository
 
 ## useful log commands
 

@@ -20,6 +20,7 @@ project:
       children:
         - file: git/commit-messages.md
         - file: git/bad-git-commit-messages.md
+        - file: git/inspecting-a-git-repository.md
         - file: git/run-commands-on-files-based-on-git-status.md
 
 site:
