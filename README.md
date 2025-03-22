@@ -6,6 +6,10 @@ My personal repository of tips, tutorials, ideas, code, solutions and whatever e
 
 The idea is to collect everything I research and study in a single place (the exception to this is my math studies which I store somewhere else) so that I can open an editor or perform searches from a single place, instead of trying to remember in which directory I did something.
 
+Access a live web site from these notes here:
+
+- https://fernandobasso.dev/dev-how-to/
+
 ## Commit Messages
 
 As of May 2022, I’m starting to use [Conventional Commits](https://www.conventionalcommits.org), always making sure to use a proper commit **type**  and a **scope** (when a **scope** makes sense):
