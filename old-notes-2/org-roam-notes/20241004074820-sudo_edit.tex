@@ -1,0 +1,62 @@
+% Created 2024-10-04 Fri 09:32
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{\today}
+\title{sudo edit}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={sudo edit},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 29.4 (Org mode 9.6.15)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{sudo edit with vim and respect env vars}
+\label{sec:orgfaf2663}
+
+We can edit a file with \texttt{sudo}, but then vim, nvim, emacs, and other
+editors will not read the config files from the user. For example,
+this \textbf{will not} cause vim to open FILE with the user vim plugins,
+configs, colorschemes, etc.
+
+\begin{verbatim}
+$ sudo vim FILE
+\end{verbatim}
+
+But we can use the \texttt{-{}-{}preserve-env} option (\texttt{-E}) for short.
+
+\begin{verbatim}
+$ sudo -E vim FILE
+\end{verbatim}
+
+This should preserve current shell environment so the editor
+configuration is respected when running with \texttt{sudo}.
+
+It is also possible to use \texttt{sudoedit} (also part of the \texttt{sudo} package and
+man page, at least on Arch Linux), which will use the editor defined
+with one of the env vars \texttt{VISUAL}, \texttt{EDITOR}, or \texttt{SUDO\_EDITOR}.
+
+\subsection{References}
+\label{sec:org7f5a70c}
+
+\begin{itemize}
+\item \texttt{man sudo}
+\item \href{https://man.archlinux.org/man/sudo.8}{sudo man page}
+\end{itemize}
+\end{document}
