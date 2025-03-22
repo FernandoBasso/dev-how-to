@@ -4,7 +4,9 @@ on:
     ##
     # Runs on pushes targeting the default branch
     #
-    branches: [main, site-with-myst]
+    branches:
+      - "main"
+      - "site-with-myst"
 env:
   ##
   # `BASE_URL` determines the website is served from, including CSS & JS assets
